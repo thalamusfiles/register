@@ -1,4 +1,5 @@
 import { Logger, Module, NestModule } from '@nestjs/common';
+import { EstablishmentController } from './controller/establishment.controller';
 
 import { PersonController } from './controller/person.controller';
 
@@ -8,6 +9,7 @@ import { PersonController } from './controller/person.controller';
   controllers: [
     //
     PersonController,
+    EstablishmentController,
   ],
 })
 export class AppApiModule implements NestModule {
