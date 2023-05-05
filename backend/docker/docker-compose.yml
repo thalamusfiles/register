@@ -1,7 +1,7 @@
 version: "3.2"
 services:
-  iam_db:
-    container_name: iam_postgres
+  register_db:
+    container_name: register_postgres
     image: postgres:15-alpine
     environment:
       - POSTGRES_DB=${DATABASE_NAME}
@@ -15,12 +15,12 @@ services:
         volume:
           nocopy: true
     networks:
-      - iam_backend-net
+      - register_backend-net
     ports:
       - ${DATABASE_PORT}:5432
 
-  iam_backend:
-    container_name: iam_backend_server
+  register_backend:
+    container_name: register_backend_server
     build:
       context: ../
       dockerfile: docker/Dockerfile
@@ -30,15 +30,13 @@ services:
       DATABASE_NAME: ${DATABASE_NAME}
       DATABASE_USER: ${DATABASE_USER}
       DATABASE_PASS: ${DATABASE_PASS}
-      JWT_SECRET: ${JWT_SECRET}
-      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
     volumes:
       - "../:/var/www/app"
       - "/var/www/app/node_modules"
     networks:
-      - iam_backend-net
+      - register_backend-net
     depends_on:
-      - iam_db
+      - register_db
     ports:
       - ${SYSTEM_PORT}:3000
       - 9229:9229

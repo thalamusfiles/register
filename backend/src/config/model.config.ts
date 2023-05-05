@@ -1,4 +1,5 @@
 import { MikroOrmModuleSyncOptions } from '@mikro-orm/nestjs';
+import { Person } from 'src/model/Person';
 // Carregar neste ordem para não gerar erro de dependência cíclica
 //import { User } from '../model/User';
 import registerConfig from './register.config';
@@ -20,7 +21,7 @@ const modelConfig: MikroOrmModuleSyncOptions = {
   },
   entities: [
     // Base
-    //User,
+    Person,
   ],
   entitiesTs: ['./src/model'],
   type: 'postgresql',
