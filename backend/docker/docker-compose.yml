@@ -44,5 +44,5 @@ services:
       ${COMMAND_START}
 
 networks:
-  iam_backend-net:
+  register_backend-net:
     driver: bridge

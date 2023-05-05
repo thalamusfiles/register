@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule } from './app/app.module';
 import createNestLogger from './app/logger/create-logger';
 import { NotFoundExceptionFilter } from './commons/catch.exception';
 import registerConfig from './config/register.config';
