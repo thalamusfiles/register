@@ -1,0 +1,20 @@
+{
+    "menu": {
+        "brand": "Register",
+        "home": "Início",
+        "language": "Idioma",
+        "portuguese": "Português (Brasil)",
+        "apis": "APIs",
+        "persons": "Empresas e pessoas",
+        "address": "Endereços",
+        "person_legal": "Pessoas Jurídicas",
+        "partners": "Sócios",
+        "help": "Ajuda"
+    },
+    "home": {
+        "by_adress": "Buscar por endereço"
+    },
+    "languages": {
+        "pt-BR": "Português (Brasil)"
+    }
+}
