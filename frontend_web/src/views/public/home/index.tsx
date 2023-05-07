@@ -30,6 +30,7 @@ const Person: React.FC = () => {
   return (
     <>
       <h1>{__('menu.persons')}</h1>
+      <p>{__('home.persons_description')}</p>
       <Row>
         <Col sm={4}>
           <ListTile
@@ -57,8 +58,9 @@ const Address: React.FC = () => {
   return (
     <>
       <h1>{__('menu.address')}</h1>
+      <p>{__('home.address_description')}</p>
       <Row>
-        <Col sm={6}>
+        <Col sm={4}>
           <ListTile
             variant={ColorsDef.addressVariant}
             faicon={IconsDef.cep}

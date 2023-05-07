@@ -1,4 +1,3 @@
-import { IconName } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
 import React from 'react';
@@ -15,15 +14,9 @@ import UserCtxInstance, { useUserStore } from '../../store/userContext';
 
 const { docUrl } = json as any;
 
-type HeaderProps = {
-  title?: string;
-  icon?: IconName | Array<IconName>;
-};
-
-const Header: React.FC<HeaderProps> = ({ icon, title }) => {
+const Header: React.FC = () => {
   const __ = useI18N();
   const context = useUserStore();
-  const isArray = Array.isArray(icon);
 
   return (
     <Navbar className="header" expand="lg" fixed="top">
@@ -40,20 +33,6 @@ const Header: React.FC<HeaderProps> = ({ icon, title }) => {
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto" style={{ minWidth: 150 }}>
             <Nav.Link href="/mgt/home">{__('menu.home')}</Nav.Link>
-            {title !== 'menu.home' && (
-              <Navbar.Text>
-                <strong>
-                  {icon &&
-                    (isArray ? (
-                      (icon as Array<IconName>).map((icon: IconName, idx: any) => <FontAwesomeIcon key={idx} size="sm" icon={icon} />)
-                    ) : (
-                      <FontAwesomeIcon icon={icon as IconName} />
-                    ))}
-                  &nbsp;
-                  {__(title || '')}
-                </strong>
-              </Navbar.Text>
-            )}
           </Nav>
 
           <Nav className="me-end">
@@ -64,17 +43,27 @@ const Header: React.FC<HeaderProps> = ({ icon, title }) => {
             <NotificationProvider value={NotificationValue}>
               <NotificationBell />
             </NotificationProvider>
-
             <div className="navbar-spacer" />
-            <NavDropdown title={<FontAwesomeIcon icon={'grid'} />} id="user-dd">
-              <NavDropdown.Item onClick={() => historyPush(thalamusLinks.IAM_ACCOUNT, { open: true })}>{context?.user.name}</NavDropdown.Item>
-              <NavDropdown.Item onClick={() => UserCtxInstance.logout()}>{__('menu.logout')}</NavDropdown.Item>
+
+            <NavDropdown title={<FontAwesomeIcon icon={'list'} />} id="user-dd">
+              {Object.values(thalamusLinks).map((link, idx) => (
+                <NavDropdown.Item onClick={() => historyPush(link.link, { open: true })} key={idx}>
+                  {link.name}
+                </NavDropdown.Item>
+              ))}
             </NavDropdown>
             <div className="navbar-spacer" />
 
             <NavDropdown title={<FontAwesomeIcon icon={'user-circle'} />} id="user-dd">
-              <NavDropdown.Item onClick={() => historyPush(thalamusLinks.IAM_ACCOUNT, { open: true })}>{context?.user.name}</NavDropdown.Item>
-              <NavDropdown.Item onClick={() => UserCtxInstance.logout()}>{__('menu.logout')}</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => historyPush('login', { open: true })}>{__('menu.login')}</NavDropdown.Item>
+              {context?.user?.uuid && (
+                <>
+                  <NavDropdown.Item onClick={() => historyPush(thalamusLinks.IAM_ACCOUNT.link, { open: true })}>
+                    {context?.user.name}
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => UserCtxInstance.logout()}>{__('menu.logout')}</NavDropdown.Item>
+                </>
+              )}
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

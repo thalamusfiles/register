@@ -16,8 +16,11 @@ export function getLinkTo(owner: RoutesName | string | number, options: { uuid: 
   let push;
   switch (owner as RoutesName) {
     // PUBLIC
+    case 'login':
+      push = '/public/home';
+      break;
     case 'home_public':
-      push = '/mgt/home';
+      push = '/public/home';
       break;
     default:
       push = owner as string;

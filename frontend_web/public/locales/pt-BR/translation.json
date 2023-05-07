@@ -2,6 +2,8 @@
     "menu": {
         "brand": "Register",
         "home": "Início",
+        "login": "Entrar",
+        "logout": "Sair",
         "language": "Idioma",
         "portuguese": "Português (Brasil)",
         "apis": "APIs",
@@ -12,7 +14,9 @@
         "help": "Ajuda"
     },
     "home": {
-        "by_adress": "Buscar por endereço"
+        "by_adress": "Buscar por endereço",
+        "persons_description": "Registros relacionados a pessoas físicas e jurídicas.",
+        "address_description": "Registros relacionados a estabelecimetos. "
     },
     "languages": {
         "pt-BR": "Português (Brasil)"

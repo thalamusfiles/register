@@ -44,20 +44,9 @@ $theme-colors: (
 @import "~bootstrap/scss/bootstrap";
 @import "scss/loader";
 @import "scss/fonts.scss";
-@import "scss/login.scss";
 
 .mainContainer {
   min-height: 350px;
-}
-
-.zi1 {
-  z-index: 1;
-}
-
-.fixed {
-  position: fixed;
-  width: 100%;
-  background-color: #FFF;
 }
 
 .pointer {
@@ -68,6 +57,12 @@ $theme-colors: (
   white-space: nowrap;
 }
 
+.navbar-spacer {
+  border-left: 1px solid $gray-600 ; 
+  margin: 8px 12px;
+  opacity: 0.5;
+}
+
 .navbar-brand img {
   width: 18px;
   height: 18px;
@@ -75,18 +70,12 @@ $theme-colors: (
   margin-top: -3px;
 }
 
-.navbar-spacer {
-  border-left: 1px solid $gray-600 ; 
-  margin: 8px 12px;
-  opacity: 0.5;
-}
-
 .topSpace {
   margin-top: $nav-link-height + $navbar-padding-x + 1;
 }
 
 .header {
-  border-bottom: 2px solid $gray-100;
+  border-bottom: 2px solid $gray-200;
 
   .fa-layers-counter {
     background-color: $secondary;
@@ -156,34 +145,6 @@ $theme-colors: (
   }
 }
 
-.sidebar.fixed {
-  position: fixed;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.table-resizable {
-  th {
-    overflow: hidden;
-  }
-
-  td {
-    overflow: hidden;
-  }
-}
-
-.table-resizer {
-  position: absolute;
-  margin-left: math.div($table-cell-padding-y-sm, 2);
-  width: $table-border-width * 4;
-  height: $line-height-sm * 1em;
-
-  &:hover {
-    background-color: $gray-700;
-    cursor: col-resize;
-  }
-}
-
 table {
   //Utilizado em tds com botões
   td.actions {
@@ -198,16 +159,7 @@ table {
   }
 }
 
-.bgImageCover {
-  background-size: cover;
-  min-height: 100vh;
-}
 /*FIXs*/
-
 div.react-datepicker {
   min-width: 328px;
-}
-
-.cdShadow {
-  box-shadow: 0 0 3em black;
 }
