@@ -11,12 +11,20 @@
         "address": "Endereços",
         "person_legal": "Pessoas Jurídicas",
         "partners": "Sócios",
-        "help": "Ajuda"
+        "help": "Ajuda",
+        "freemium": "Freemium",
+        "establishments": "Estabelecimentos"
+    },
+    "action": {
+        "access": "Acessar"
     },
     "home": {
         "by_adress": "Buscar por endereço",
         "persons_description": "Registros relacionados a pessoas físicas e jurídicas.",
-        "address_description": "Registros relacionados a estabelecimetos. "
+        "address_description": "Registros relacionados a estabelecimentos. ",
+        "person_legal_description": "Obtenha informações sobre a pessoa jurídica por meeio de seu documento de registro (CNPJ).",
+        "partner_description": "Obtenha informações sobre o sócio da empresa por meio seu documento de registro (CPF).",
+        "establishments_description": "Obtenha a lista de empresas localizadas em determinado endereço."
     },
     "languages": {
         "pt-BR": "Português (Brasil)"
