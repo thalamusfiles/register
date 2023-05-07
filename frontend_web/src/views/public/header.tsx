@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classnames from 'classnames';
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
@@ -37,7 +36,7 @@ const Header: React.FC = () => {
 
           <Nav className="me-end">
             <Nav.Link href={docUrl} target="_blanck">
-              <FontAwesomeIcon icon={'question-circle'} /> {__('menu.help')}
+              <FontAwesomeIcon className="text-warning" icon={'question-circle'} /> {__('menu.help')}
             </Nav.Link>
 
             <NotificationProvider value={NotificationValue}>
@@ -75,7 +74,7 @@ const Header: React.FC = () => {
 const NotificationBell: React.FC = () => {
   const notify = useNotificationStore();
   return (
-    <Nav.Link className={classnames({ 'text-info': !!notify?.amount })} onClick={() => notify!.showAll()}>
+    <Nav.Link className="text-info" onClick={() => notify!.showAll()}>
       <span className="fa-layers fa-fw">
         <FontAwesomeIcon icon={'bell'} />
         {notify?.amount && <span className="fa-layers-counter">{notify?.amount}</span>}

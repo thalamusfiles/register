@@ -1,12 +1,11 @@
-import { Button, Card, CardGroup, Stack } from 'react-bootstrap';
+import { Button, Card, Stack } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import { ColorsDef, IconsDef } from '../../../commons/consts';
+import { IconsDef } from '../../../commons/consts';
 import { useI18N } from '../../../commons/i18';
 import { historyPush } from '../../../commons/route';
 import TCard from '../../../components/card';
-import ListTile from '../../../components/listtile';
 import SideBarHome from './sidebarhome';
 
 const Home: React.FC = () => {
@@ -38,7 +37,7 @@ const Person: React.FC = () => {
         <TCard title={__('menu.person_legal')} subtitle={__('menu.freemium')} faicon={IconsDef.personLegal}>
           <Card.Body>
             <Card.Text>{__('home.person_legal_description')}</Card.Text>
-            <Button size="sm" onClick={() => historyPush('user_list')}>
+            <Button size="sm" onClick={() => historyPush('user_list')} variant="outline-primary">
               {__('action.access')}
             </Button>
           </Card.Body>
@@ -47,7 +46,7 @@ const Person: React.FC = () => {
         <TCard title={__('menu.partners')} subtitle={__('menu.freemium')} faicon={IconsDef.partner}>
           <Card.Body>
             <Card.Text>{__('home.partner_description')}</Card.Text>
-            <Button size="sm" onClick={() => historyPush('user_list')}>
+            <Button size="sm" onClick={() => historyPush('user_list')} variant="outline-primary">
               {__('action.access')}
             </Button>
           </Card.Body>
@@ -70,7 +69,7 @@ const Address: React.FC = () => {
         <TCard title={__('menu.establishments')} subtitle={__('menu.freemium')} faicon={IconsDef.cep}>
           <Card.Body>
             <Card.Text>{__('home.establishments_description')}</Card.Text>
-            <Button size="sm" onClick={() => historyPush('user_list')}>
+            <Button size="sm" onClick={() => historyPush('user_list')} variant="outline-primary">
               {__('action.access')}
             </Button>
           </Card.Body>
