@@ -1,4 +1,3 @@
-import { IconName } from '@fortawesome/fontawesome-svg-core';
 import type { Router as RemixRouter } from '@remix-run/router';
 import qs from 'qs';
 import { createBrowserRouter, Navigate, RouteObject } from 'react-router-dom';
@@ -6,13 +5,13 @@ import { localStorageDef } from './consts';
 import { RoutesName } from './routes-name';
 import Storage from './storage';
 
-export type RouteDefinition = { title: string; icon?: IconName | Array<IconName>; path: string; component: any; index?: boolean };
-export type RouteDefinitions = { [key: string]: RouteDefinition };
+export type RouteDefinition = { path: string; component: any; index?: boolean };
+export type RoutesDefinition = { [key: string]: RouteDefinition };
 
 let router: RemixRouter;
 export const createBaseRouter = (routes: RouteObject[]): RemixRouter => (router = createBrowserRouter(routes));
 
-export function getLinkTo(owner: RoutesName | string | number, options: { uuid: string } & any): string {
+export function getLinkTo(owner: RoutesName | string | number, options: { uuid: string } & any = {}): string {
   let push;
   switch (owner as RoutesName) {
     // PUBLIC
@@ -21,6 +20,12 @@ export function getLinkTo(owner: RoutesName | string | number, options: { uuid: 
       break;
     case 'home_public':
       push = '/public/home';
+      break;
+    case 'person_legal':
+      push = '/public/person/legal';
+      break;
+    case 'person_partner':
+      push = '/public/person/partner';
       break;
     default:
       push = owner as string;
@@ -98,28 +103,3 @@ export function historyOnPop(listener: any) {
 export const PrivateRoutes = ({ redirect, element }: { redirect: string; element: JSX.Element }): JSX.Element => {
   return Storage.getItem(localStorageDef.tokenKey) ? element : <Navigate to={redirect} />;
 };
-
-/**
- * Escuta as alterações de links realizadas no sistema.
- */
-// TODO: Ajustar
-/*
-history.listen((location, action) => {
-  //Verifica se tem uma hash/acontora de página e move a página até o elemento.
-  if (location.hash) {
-    const id = location.hash.replace('#', '');
-    const element = document.getElementById(id);
-    if (element) element.scrollIntoView();
-  }
-
-  //Dispara as ações ligadas ao history back;
-  if (action === 'POP') {
-    for (const callback of hPopsCallbacks) {
-      if (typeof callback === 'function') {
-        callback(location, action);
-      }
-    }
-  }
-  hPopsCallbacks.splice(0, hPopsCallbacks.length);
-});
-*/

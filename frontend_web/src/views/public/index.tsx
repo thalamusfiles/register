@@ -2,7 +2,7 @@ import React from 'react';
 import Footer from '../../components/Footer';
 import NotificationMenu from '../../components/Notification';
 import Header from './header';
-import MgtRoutes, { MgtModalRoutes } from './routes';
+import PublicRoutes, { PublicModalRoutes } from './routes';
 
 const Mgt: React.FC = () => {
   return (
@@ -11,9 +11,9 @@ const Mgt: React.FC = () => {
 
       <Header/>
 
-      <MgtModalRoutes />
+      <PublicModalRoutes />
       <div className="mainContainer topSpace">
-        <MgtRoutes />
+        <PublicRoutes />
       </div>
 
       <Footer />

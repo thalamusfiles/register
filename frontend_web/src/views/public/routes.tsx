@@ -1,32 +1,23 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { IconsDef } from '../../commons/consts';
-import { RouteDefinition, RouteDefinitions } from '../../commons/route';
+import { RoutesDefinition } from '../../commons/route';
 import { InModal } from '../../components/Modal';
 import Home from './home';
+import PersonPage from './person';
 
 /**
  * Definições das rotas.
  * Nome da propriedade é utilizado como identificador da rota
  */
-export const routes: RouteDefinitions = {
+export const routes: RoutesDefinition = {
   // Home
-  home: { title: 'menu.home', icon: IconsDef.user, path: '/home', component: Home, index: true },
-};
-
-/**
- * Localiza a rota pelo pathname e nome da rota
- * @param location react-route.location
- */
-export const findRouteByLocation = (location: any, parentMatch: any): RouteDefinition | null => {
-  const pathId = location.pathname.replace(parentMatch.path + '/', '').replace(/\//g, '_');
-
-  return routes[pathId];
+  home: { path: '/home', component: Home, index: true },
+  person: { path: '/person', component: PersonPage, index: true },
 };
 
 /**
  * Rotas
  */
-export default function MgtRoutes() {
+export default function PublicRoutes() {
   return (
     <Routes>
       {Object.values(routes).map((route, idx) => (
@@ -41,7 +32,7 @@ export default function MgtRoutes() {
  * Criar rotas para serem exibidas em modal.
  * @param props
  */
-export function MgtModalRoutes(props: any) {
+export function PublicModalRoutes(props: any) {
   //Component modal com as rotas
   const modalComponent = (
     <InModal>

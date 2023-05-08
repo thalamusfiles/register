@@ -37,7 +37,7 @@ const Person: React.FC = () => {
         <TCard title={__('menu.person_legal')} subtitle={__('menu.freemium')} faicon={IconsDef.personLegal}>
           <Card.Body>
             <Card.Text>{__('home.person_legal_description')}</Card.Text>
-            <Button size="sm" onClick={() => historyPush('user_list')} variant="outline-primary">
+            <Button size="sm" onClick={() => historyPush('person_legal')} variant="outline-primary">
               {__('action.access')}
             </Button>
           </Card.Body>
@@ -46,7 +46,7 @@ const Person: React.FC = () => {
         <TCard title={__('menu.partners')} subtitle={__('menu.freemium')} faicon={IconsDef.partner}>
           <Card.Body>
             <Card.Text>{__('home.partner_description')}</Card.Text>
-            <Button size="sm" onClick={() => historyPush('user_list')} variant="outline-primary">
+            <Button size="sm" onClick={() => historyPush('person_partner')} variant="outline-primary">
               {__('action.access')}
             </Button>
           </Card.Body>
