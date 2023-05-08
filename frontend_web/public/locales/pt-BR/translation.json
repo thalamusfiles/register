@@ -15,8 +15,14 @@
         "freemium": "Freemium",
         "establishments": "Estabelecimentos"
     },
+    "label": {
+        "country": "Pais",
+        "business_doc": "CNPJ",
+        "result": "Resultado"
+    },
     "action": {
-        "access": "Acessar"
+        "access": "Acessar",
+        "search": "Procurar"
     },
     "home": {
         "by_adress": "Buscar por endereço",
@@ -28,5 +34,8 @@
     },
     "languages": {
         "pt-BR": "Português (Brasil)"
+    },
+    "country": {
+        "brazil": "Brasil"
     }
 }

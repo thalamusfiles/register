@@ -21,6 +21,9 @@ export function getLinkTo(owner: RoutesName | string | number, options: { uuid: 
     case 'home_public':
       push = '/public/home';
       break;
+    case 'persons':
+      push = '/public/person';
+      break;
     case 'person_legal':
       push = '/public/person/legal';
       break;

@@ -20,7 +20,7 @@ const Header: React.FC = () => {
   return (
     <Navbar className="header" expand="lg" fixed="top">
       <Container fluid>
-        <Navbar.Brand href="/mgt/home">
+        <Navbar.Brand href="/">
           <>
             <img src="/logo.png" alt="logo" />
             {__('menu.brand')}
@@ -31,7 +31,7 @@ const Header: React.FC = () => {
 
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto" style={{ minWidth: 150 }}>
-            <Nav.Link href="/mgt/home">{__('menu.home')}</Nav.Link>
+            <Nav.Link href="/">{__('menu.home')}</Nav.Link>
           </Nav>
 
           <Nav className="me-end">

@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import { IconsDef } from '../../../commons/consts';
 import { useI18N } from '../../../commons/i18';
 import { historyPush } from '../../../commons/route';
-import TCard from '../../../components/card';
+import TCard from '../../../components/Card/card';
 import SideBarHome from './sidebarhome';
 
 const Home: React.FC = () => {
