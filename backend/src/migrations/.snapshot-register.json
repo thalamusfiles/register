@@ -1,0 +1,913 @@
+{
+  "namespaces": [
+    "public",
+    "address"
+  ],
+  "name": "public",
+  "tables": [
+    {
+      "columns": {
+        "uuid": {
+          "name": "uuid",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "uuid_generate_v4()",
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(512)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 512,
+          "mappedType": "string"
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(512)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 512,
+          "mappedType": "string"
+        }
+      },
+      "name": "resource",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "resource_pkey",
+          "columnNames": [
+            "uuid"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "resource_name_check",
+          "expression": "LENGTH(name) >= 4",
+          "definition": "check ((LENGTH(name) >= 4))",
+          "columnName": "name"
+        },
+        {
+          "name": "resource_description_check",
+          "expression": "LENGTH(description) >= 10",
+          "definition": "check ((LENGTH(description) >= 10))",
+          "columnName": "description"
+        }
+      ],
+      "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "acronym": {
+          "name": "acronym",
+          "type": "varchar(4)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 4,
+          "mappedType": "string"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        }
+      },
+      "name": "resource_country",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "resource_country_pkey",
+          "columnNames": [
+            "acronym"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "resource_country_name_check",
+          "expression": "LENGTH(name) >= 3",
+          "definition": "check ((LENGTH(name) >= 3))",
+          "columnName": "name"
+        }
+      ],
+      "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "uuid": {
+          "name": "uuid",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "uuid_generate_v4()",
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "resource_country_acronym": {
+          "name": "resource_country_acronym",
+          "type": "varchar(4)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 4,
+          "mappedType": "string"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(512)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 512,
+          "mappedType": "string"
+        },
+        "person_type": {
+          "name": "person_type",
+          "type": "varchar(16)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 16,
+          "mappedType": "string"
+        },
+        "document_type": {
+          "name": "document_type",
+          "type": "varchar(16)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 16,
+          "mappedType": "string"
+        },
+        "document": {
+          "name": "document",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        }
+      },
+      "name": "person",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "person_pkey",
+          "columnNames": [
+            "uuid"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "person_name_check",
+          "expression": "LENGTH(name) >= 4",
+          "definition": "check ((LENGTH(name) >= 4))",
+          "columnName": "name"
+        },
+        {
+          "name": "person_person_type_check",
+          "expression": "personType IN('legal', 'natural')",
+          "definition": "check ((personType IN('legal', 'natural')))",
+          "columnName": "person_type"
+        }
+      ],
+      "foreignKeys": {
+        "person_resource_country_acronym_foreign": {
+          "constraintName": "person_resource_country_acronym_foreign",
+          "columnNames": [
+            "resource_country_acronym"
+          ],
+          "localTableName": "public.person",
+          "referencedColumnNames": [
+            "acronym"
+          ],
+          "referencedTableName": "public.resource_country",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "uuid": {
+          "name": "uuid",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "uuid_generate_v4()",
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "resource_country_acronym": {
+          "name": "resource_country_acronym",
+          "type": "varchar(4)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 4,
+          "mappedType": "string"
+        },
+        "resource_uuid": {
+          "name": "resource_uuid",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "person_uuid": {
+          "name": "person_uuid",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "data": {
+          "name": "data",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "json"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        }
+      },
+      "name": "person_resource",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "person_resource_pkey",
+          "columnNames": [
+            "uuid"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "person_resource_resource_country_acronym_foreign": {
+          "constraintName": "person_resource_resource_country_acronym_foreign",
+          "columnNames": [
+            "resource_country_acronym"
+          ],
+          "localTableName": "public.person_resource",
+          "referencedColumnNames": [
+            "acronym"
+          ],
+          "referencedTableName": "public.resource_country",
+          "updateRule": "cascade"
+        },
+        "person_resource_resource_uuid_foreign": {
+          "constraintName": "person_resource_resource_uuid_foreign",
+          "columnNames": [
+            "resource_uuid"
+          ],
+          "localTableName": "public.person_resource",
+          "referencedColumnNames": [
+            "uuid"
+          ],
+          "referencedTableName": "public.resource",
+          "updateRule": "cascade"
+        },
+        "person_resource_person_uuid_foreign": {
+          "constraintName": "person_resource_person_uuid_foreign",
+          "columnNames": [
+            "person_uuid"
+          ],
+          "localTableName": "public.person_resource",
+          "referencedColumnNames": [
+            "uuid"
+          ],
+          "referencedTableName": "public.person",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "uuid": {
+          "name": "uuid",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "uuid_generate_v4()",
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "resource_country_acronym": {
+          "name": "resource_country_acronym",
+          "type": "varchar(4)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 4,
+          "mappedType": "string"
+        },
+        "resource_uuid": {
+          "name": "resource_uuid",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(512)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 512,
+          "mappedType": "string"
+        }
+      },
+      "name": "country",
+      "schema": "address",
+      "indexes": [
+        {
+          "keyName": "country_pkey",
+          "columnNames": [
+            "uuid"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "country_name_check",
+          "expression": "LENGTH(name) >= 3",
+          "definition": "check ((LENGTH(name) >= 3))",
+          "columnName": "name"
+        }
+      ],
+      "foreignKeys": {
+        "country_resource_country_acronym_foreign": {
+          "constraintName": "country_resource_country_acronym_foreign",
+          "columnNames": [
+            "resource_country_acronym"
+          ],
+          "localTableName": "address.country",
+          "referencedColumnNames": [
+            "acronym"
+          ],
+          "referencedTableName": "public.resource_country",
+          "updateRule": "cascade"
+        },
+        "country_resource_uuid_foreign": {
+          "constraintName": "country_resource_uuid_foreign",
+          "columnNames": [
+            "resource_uuid"
+          ],
+          "localTableName": "address.country",
+          "referencedColumnNames": [
+            "uuid"
+          ],
+          "referencedTableName": "public.resource",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "uuid": {
+          "name": "uuid",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "uuid_generate_v4()",
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "resource_country_acronym": {
+          "name": "resource_country_acronym",
+          "type": "varchar(4)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 4,
+          "mappedType": "string"
+        },
+        "resource_uuid": {
+          "name": "resource_uuid",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "person_uuid": {
+          "name": "person_uuid",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "data": {
+          "name": "data",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "json"
+        }
+      },
+      "name": "contact",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "contact_pkey",
+          "columnNames": [
+            "uuid"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "contact_resource_country_acronym_foreign": {
+          "constraintName": "contact_resource_country_acronym_foreign",
+          "columnNames": [
+            "resource_country_acronym"
+          ],
+          "localTableName": "public.contact",
+          "referencedColumnNames": [
+            "acronym"
+          ],
+          "referencedTableName": "public.resource_country",
+          "updateRule": "cascade"
+        },
+        "contact_resource_uuid_foreign": {
+          "constraintName": "contact_resource_uuid_foreign",
+          "columnNames": [
+            "resource_uuid"
+          ],
+          "localTableName": "public.contact",
+          "referencedColumnNames": [
+            "uuid"
+          ],
+          "referencedTableName": "public.resource",
+          "updateRule": "cascade"
+        },
+        "contact_person_uuid_foreign": {
+          "constraintName": "contact_person_uuid_foreign",
+          "columnNames": [
+            "person_uuid"
+          ],
+          "localTableName": "public.contact",
+          "referencedColumnNames": [
+            "uuid"
+          ],
+          "referencedTableName": "public.person",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "uuid": {
+          "name": "uuid",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "uuid_generate_v4()",
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "resource_country_acronym": {
+          "name": "resource_country_acronym",
+          "type": "varchar(4)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 4,
+          "mappedType": "string"
+        },
+        "resource_uuid": {
+          "name": "resource_uuid",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(512)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 512,
+          "mappedType": "string"
+        }
+      },
+      "name": "city",
+      "schema": "address",
+      "indexes": [
+        {
+          "keyName": "city_pkey",
+          "columnNames": [
+            "uuid"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "city_name_check",
+          "expression": "LENGTH(name) >= 3",
+          "definition": "check ((LENGTH(name) >= 3))",
+          "columnName": "name"
+        }
+      ],
+      "foreignKeys": {
+        "city_resource_country_acronym_foreign": {
+          "constraintName": "city_resource_country_acronym_foreign",
+          "columnNames": [
+            "resource_country_acronym"
+          ],
+          "localTableName": "address.city",
+          "referencedColumnNames": [
+            "acronym"
+          ],
+          "referencedTableName": "public.resource_country",
+          "updateRule": "cascade"
+        },
+        "city_resource_uuid_foreign": {
+          "constraintName": "city_resource_uuid_foreign",
+          "columnNames": [
+            "resource_uuid"
+          ],
+          "localTableName": "address.city",
+          "referencedColumnNames": [
+            "uuid"
+          ],
+          "referencedTableName": "public.resource",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "uuid": {
+          "name": "uuid",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "uuid_generate_v4()",
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "resource_country_acronym": {
+          "name": "resource_country_acronym",
+          "type": "varchar(4)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 4,
+          "mappedType": "string"
+        },
+        "resource_uuid": {
+          "name": "resource_uuid",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "person_uuid": {
+          "name": "person_uuid",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "country_uuid": {
+          "name": "country_uuid",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "city_uuid": {
+          "name": "city_uuid",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "data": {
+          "name": "data",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "json"
+        }
+      },
+      "name": "establishment",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "establishment_pkey",
+          "columnNames": [
+            "uuid"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "establishment_resource_country_acronym_foreign": {
+          "constraintName": "establishment_resource_country_acronym_foreign",
+          "columnNames": [
+            "resource_country_acronym"
+          ],
+          "localTableName": "public.establishment",
+          "referencedColumnNames": [
+            "acronym"
+          ],
+          "referencedTableName": "public.resource_country",
+          "updateRule": "cascade"
+        },
+        "establishment_resource_uuid_foreign": {
+          "constraintName": "establishment_resource_uuid_foreign",
+          "columnNames": [
+            "resource_uuid"
+          ],
+          "localTableName": "public.establishment",
+          "referencedColumnNames": [
+            "uuid"
+          ],
+          "referencedTableName": "public.resource",
+          "updateRule": "cascade"
+        },
+        "establishment_person_uuid_foreign": {
+          "constraintName": "establishment_person_uuid_foreign",
+          "columnNames": [
+            "person_uuid"
+          ],
+          "localTableName": "public.establishment",
+          "referencedColumnNames": [
+            "uuid"
+          ],
+          "referencedTableName": "public.person",
+          "updateRule": "cascade"
+        },
+        "establishment_country_uuid_foreign": {
+          "constraintName": "establishment_country_uuid_foreign",
+          "columnNames": [
+            "country_uuid"
+          ],
+          "localTableName": "public.establishment",
+          "referencedColumnNames": [
+            "uuid"
+          ],
+          "referencedTableName": "address.country",
+          "updateRule": "cascade"
+        },
+        "establishment_city_uuid_foreign": {
+          "constraintName": "establishment_city_uuid_foreign",
+          "columnNames": [
+            "city_uuid"
+          ],
+          "localTableName": "public.establishment",
+          "referencedColumnNames": [
+            "uuid"
+          ],
+          "referencedTableName": "address.city",
+          "updateRule": "cascade"
+        }
+      }
+    }
+  ]
+}
