@@ -20,6 +20,8 @@
         "country": "Pais",
         "business_doc": "CNPJ",
         "partner_doc": "CPF",
+        "zipcode": "Código postal",
+        "businesstype": "Tipo de empresa",
         "result": "Resultado"
     },
     "action": {

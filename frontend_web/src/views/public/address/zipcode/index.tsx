@@ -45,10 +45,10 @@ const ZipcodeForm: React.FC = () => {
         </Col>
         <Col xs="auto">
           <Form.Label htmlFor="document" visuallyHidden>
-            {__('label.business_doc')}
+            {__('label.zipcode')}
           </Form.Label>
           <InputGroup className="mb-2">
-            <InputGroup.Text>{__('label.business_doc')}</InputGroup.Text>
+            <InputGroup.Text>{__('label.zipcode')}</InputGroup.Text>
             <Form.Control id="document" />
           </InputGroup>
         </Col>

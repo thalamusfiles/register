@@ -45,10 +45,10 @@ const BusinessTypeForm: React.FC = () => {
         </Col>
         <Col xs="auto">
           <Form.Label htmlFor="document" visuallyHidden>
-            {__('label.partner_doc')}
+            {__('label.businesstype')}
           </Form.Label>
           <InputGroup className="mb-2">
-            <InputGroup.Text>{__('label.partner_doc')}</InputGroup.Text>
+            <InputGroup.Text>{__('label.businesstype')}</InputGroup.Text>
             <Form.Control id="document" />
           </InputGroup>
         </Col>
