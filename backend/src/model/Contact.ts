@@ -5,7 +5,7 @@ import { Resource } from './Resource';
 import { ResourceCountry } from './ResourceCountry';
 
 @Entity({ schema: 'public' })
-export class PersonResource extends RegisterBaseEntity {
+export class Contact extends RegisterBaseEntity {
   @ManyToOne(() => ResourceCountry, { nullable: false })
   resourceCountry?: ResourceCountry;
 
@@ -17,7 +17,4 @@ export class PersonResource extends RegisterBaseEntity {
 
   @Property({ type: 'json', nullable: false })
   data!: string;
-
-  @Property({ nullable: true })
-  deletedAt?: Date;
 }

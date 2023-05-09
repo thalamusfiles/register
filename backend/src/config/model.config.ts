@@ -1,5 +1,12 @@
 import { MikroOrmModuleSyncOptions } from '@mikro-orm/nestjs';
+import { City } from 'src/model/Address/City';
+import { Country } from 'src/model/Address/Country';
+import { Contact } from 'src/model/Contact';
+import { Establishment } from 'src/model/Establishment';
 import { Person } from 'src/model/Person';
+import { PersonResource } from 'src/model/PersonResource';
+import { Resource } from 'src/model/Resource';
+import { ResourceCountry } from 'src/model/ResourceCountry';
 // Carregar neste ordem para não gerar erro de dependência cíclica
 //import { User } from '../model/User';
 import registerConfig from './register.config';
@@ -20,8 +27,16 @@ const modelConfig: MikroOrmModuleSyncOptions = {
     pathTs: 'src/migrations',
   },
   entities: [
+    // Address
+    Country,
+    City,
     // Base
+    ResourceCountry,
+    Resource,
     Person,
+    PersonResource,
+    Establishment,
+    Contact,
   ],
   entitiesTs: ['./src/model'],
   type: 'postgresql',

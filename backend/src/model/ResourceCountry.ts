@@ -5,7 +5,7 @@ export class ResourceCountry {
   @PrimaryKey({ type: 'varchar', length: 4, nullable: false })
   acronym: string;
 
-  @Check({ expression: 'LENGTH(name) >= 4' })
+  @Check({ expression: 'LENGTH(name) >= 3' })
   @Property({ nullable: false, length: 255 })
   name!: string;
 }
