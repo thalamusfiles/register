@@ -1,12 +1,12 @@
 import { MikroOrmModuleSyncOptions } from '@mikro-orm/nestjs';
-import { City } from 'src/model/Address/City';
-import { Country } from 'src/model/Address/Country';
-import { Contact } from 'src/model/Contact';
-import { Establishment } from 'src/model/Establishment';
-import { Person } from 'src/model/Person';
-import { PersonResource } from 'src/model/PersonResource';
-import { Resource } from 'src/model/Resource';
-import { ResourceCountry } from 'src/model/ResourceCountry';
+import { City } from '../model/Address/City';
+import { Country } from '../model/Address/Country';
+import { Contact } from '../model/Contact';
+import { Establishment } from '../model/Establishment';
+import { Person } from '../model/Person';
+import { PersonResource } from '../model/PersonResource';
+import { Resource } from '../model/Resource';
+import { ResourceCountry } from '../model/ResourceCountry';
 // Carregar neste ordem para não gerar erro de dependência cíclica
 //import { User } from '../model/User';
 import registerConfig from './register.config';
