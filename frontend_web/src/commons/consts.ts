@@ -33,7 +33,7 @@ export const IconsDef = {
   personLegal: 'building' as IconName,
   personNatural: 'user' as IconName,
   partner: 'handshake' as IconName,
-  cep: 'map-location-dot' as IconName,
+  zipcode: 'map-location-dot' as IconName,
   // Atividades
   tokensActive: 'mobile-alt' as IconName,
   history: 'history' as IconName,

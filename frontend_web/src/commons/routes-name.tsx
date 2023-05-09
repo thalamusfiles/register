@@ -4,5 +4,8 @@ export type RoutesName =
   | 'home_public'
   | 'persons'
   | 'person_legal'
-  | 'person_partner';
+  | 'person_partner'
+  | 'addresses'
+  | 'addresses_zipcode'
+  | 'addresses_businesstype';
   

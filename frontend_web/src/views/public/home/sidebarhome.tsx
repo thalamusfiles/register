@@ -13,7 +13,7 @@ const SideBarHome: React.FC = () => {
     <div className="sidebar">
       <div className="title">{__('menu.apis')}</div>
       <SideBarAction faicon={IconsDef.user} title={__('menu.persons')} link={getLinkTo('persons')} />
-      <SideBarAction faicon={IconsDef.cep} title={__('menu.address')} link={getLinkTo('address')} />
+      <SideBarAction faicon={IconsDef.zipcode} title={__('menu.address')} link={getLinkTo('addresses')} />
     </div>
   );
 };

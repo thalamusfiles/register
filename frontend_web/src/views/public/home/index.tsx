@@ -66,10 +66,23 @@ const Address: React.FC = () => {
       <p>{__('home.address_description')}</p>
 
       <Stack direction="horizontal" gap={3}>
-        <TCard title={__('menu.establishments')} subtitle={__('menu.freemium')} faicon={IconsDef.cep}>
-          <Card.Body>
+        <TCard title={__('menu.establishments')} subtitle={__('menu.freemium')} faicon={IconsDef.zipcode}>
+          <Card.Body style={{ height: 80 }}>
             <Card.Text>{__('home.establishments_description')}</Card.Text>
-            <Button size="sm" onClick={() => historyPush('user_list')} variant="outline-primary">
+          </Card.Body>
+          <Card.Body>
+            <Button size="sm" onClick={() => historyPush('addresses_zipcode')} variant="outline-primary">
+              {__('action.access')}
+            </Button>
+          </Card.Body>
+        </TCard>
+
+        <TCard title={__('menu.business_type')} subtitle={__('menu.freemium')} faicon={IconsDef.zipcode}>
+          <Card.Body style={{ height: 80 }}>
+            <Card.Text>{__('home.business_type_description')}</Card.Text>
+          </Card.Body>
+          <Card.Body>
+            <Button size="sm" onClick={() => historyPush('addresses_businesstype')} variant="outline-primary">
               {__('action.access')}
             </Button>
           </Card.Body>

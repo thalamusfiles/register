@@ -5,17 +5,17 @@ import { useI18N } from '../../../commons/i18';
 import { historyPush } from '../../../commons/route';
 import TCardTile from '../../../components/Card/card-tile';
 import SideBarHome from '../home/sidebarhome';
-import PersonLegalPage, { PersonLegalBreadcrum } from './legal';
-import PartnerPage, { PartnerBreadcrum } from './partner';
+import ZipcodePage, { ZipcodeBreadcrum } from './zipcode';
+import BusinessTypePage, { BusinessTypeBreadcrum } from './businesstype';
 
-const PersonPage: React.FC = () => {
+const AddressPage: React.FC = () => {
   return (
     <>
       <Container fluid>
         <Routes>
-          <Route path="/legal" element={<PersonLegalBreadcrum />} />
-          <Route path="/partner" element={<PartnerBreadcrum />} />
-          <Route path="/" element={<PersonBreadcrum />} />
+          <Route path="/zipcode" element={<ZipcodeBreadcrum />} />
+          <Route path="/businesstype" element={<BusinessTypeBreadcrum />} />
+          <Route path="/" element={<AddressBreadcrum />} />
         </Routes>
 
         <Row>
@@ -23,12 +23,12 @@ const PersonPage: React.FC = () => {
             <SideBarHome />
           </Col>
           <Col>
-            <PersonHeader />
+            <AddressHeader />
             <br />
 
             <Routes>
-              <Route path="/legal" element={<PersonLegalPage />} />
-              <Route path="/partner" element={<PartnerPage />} />
+              <Route path="/zipcode" element={<ZipcodePage />} />
+              <Route path="/businesstype" element={<BusinessTypePage />} />
             </Routes>
           </Col>
         </Row>
@@ -37,38 +37,38 @@ const PersonPage: React.FC = () => {
   );
 };
 
-const PersonBreadcrum: React.FC = () => {
+const AddressBreadcrum: React.FC = () => {
   const __ = useI18N();
   return (
     <Breadcrumb>
       <Breadcrumb.Item href="/">{__('menu.home')}</Breadcrumb.Item>
-      <Breadcrumb.Item active>{__('menu.persons')}</Breadcrumb.Item>
+      <Breadcrumb.Item active>{__('menu.establishments')}</Breadcrumb.Item>
     </Breadcrumb>
   );
 };
 
-const PersonHeader: React.FC = () => {
+const AddressHeader: React.FC = () => {
   const __ = useI18N();
   return (
     <>
-      <h1>{__('menu.persons')}</h1>
-      <p>{__('home.persons_description')}</p>
+      <h1>{__('menu.address')}</h1>
+      <p>{__('home.address_description')}</p>
       <Stack direction="horizontal" gap={3}>
         <TCardTile
-          title={__('menu.person_legal')}
+          title={__('menu.establishments')}
           subtitle={__('menu.freemium')}
-          faicon={IconsDef.personLegal}
-          onClick={() => historyPush('person_legal')}
+          faicon={IconsDef.zipcode}
+          onClick={() => historyPush('addresses_zipcode')}
         />
         <TCardTile
-          title={__('menu.partners')}
+          title={__('menu.business_type')}
           subtitle={__('menu.freemium')}
-          faicon={IconsDef.partner}
-          onClick={() => historyPush('person_partner')}
+          faicon={IconsDef.zipcode}
+          onClick={() => historyPush('addresses_businesstype')}
         />
       </Stack>
     </>
   );
 };
 
-export default PersonPage;
+export default AddressPage;

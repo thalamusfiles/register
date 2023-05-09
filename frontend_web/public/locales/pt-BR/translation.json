@@ -13,11 +13,13 @@
         "partners": "Sócios",
         "help": "Ajuda",
         "freemium": "Freemium",
-        "establishments": "Estabelecimentos"
+        "establishments": "Estabelecimentos",
+        "business_type": "Tipo de empresa"
     },
     "label": {
         "country": "Pais",
         "business_doc": "CNPJ",
+        "partner_doc": "CPF",
         "result": "Resultado"
     },
     "action": {
@@ -28,9 +30,10 @@
         "by_adress": "Buscar por endereço",
         "persons_description": "Registros relacionados a pessoas físicas e jurídicas.",
         "address_description": "Registros relacionados a estabelecimentos. ",
-        "person_legal_description": "Obtenha informações sobre a pessoa jurídica por meeio de seu documento de registro (CNPJ).",
+        "person_legal_description": "Obtenha informações sobre a pessoa jurídica por meio de seu documento de registro (CNPJ).",
         "partner_description": "Obtenha informações sobre o sócio da empresa por meio seu documento de registro (CPF).",
-        "establishments_description": "Obtenha a lista de empresas localizadas em determinado endereço."
+        "establishments_description": "Obtenha a lista de empresas localizadas em determinado endereço.",
+        "business_type_description": "Obtenha a lista de empresas por meio do tipo de negócio (CNAES, Natureza...)."
     },
     "languages": {
         "pt-BR": "Português (Brasil)"
