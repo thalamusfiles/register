@@ -39,7 +39,6 @@ services:
       - register_db
     ports:
       - ${SYSTEM_PORT}:3000
-      - 9229:9229
     command: 
       ${COMMAND_START}
 

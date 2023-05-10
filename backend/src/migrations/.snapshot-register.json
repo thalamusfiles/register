@@ -248,8 +248,8 @@
         },
         {
           "name": "person_person_type_check",
-          "expression": "personType IN('legal', 'natural')",
-          "definition": "check ((personType IN('legal', 'natural')))",
+          "expression": "person_type IN('legal', 'natural')",
+          "definition": "check ((person_type IN('legal', 'natural')))",
           "columnName": "person_type"
         }
       ],

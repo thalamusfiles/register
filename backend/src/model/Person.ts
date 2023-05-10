@@ -11,7 +11,7 @@ export class Person extends RegisterBaseEntity {
   @Property({ nullable: false, length: 512 })
   name!: string;
 
-  @Check({ expression: "personType IN('legal', 'natural')" })
+  @Check({ expression: "person_type IN('legal', 'natural')" })
   @Property({ nullable: false, length: 16 })
   personType: string;
 
