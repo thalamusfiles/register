@@ -7,6 +7,52 @@
   "tables": [
     {
       "columns": {
+        "acronym": {
+          "name": "acronym",
+          "type": "varchar(4)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 4,
+          "mappedType": "string"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        }
+      },
+      "name": "resource_country",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "resource_country_pkey",
+          "columnNames": [
+            "acronym"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "resource_country_name_check",
+          "expression": "LENGTH(name) >= 3",
+          "definition": "check ((LENGTH(name) >= 3))",
+          "columnName": "name"
+        }
+      ],
+      "foreignKeys": {}
+    },
+    {
+      "columns": {
         "uuid": {
           "name": "uuid",
           "type": "uuid",
@@ -36,6 +82,16 @@
           "nullable": false,
           "length": 6,
           "mappedType": "datetime"
+        },
+        "resource_country_acronym": {
+          "name": "resource_country_acronym",
+          "type": "varchar(4)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 4,
+          "mappedType": "string"
         },
         "name": {
           "name": "name",
@@ -85,53 +141,20 @@
           "columnName": "description"
         }
       ],
-      "foreignKeys": {}
-    },
-    {
-      "columns": {
-        "acronym": {
-          "name": "acronym",
-          "type": "varchar(4)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 4,
-          "mappedType": "string"
-        },
-        "name": {
-          "name": "name",
-          "type": "varchar(255)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 255,
-          "mappedType": "string"
-        }
-      },
-      "name": "resource_country",
-      "schema": "public",
-      "indexes": [
-        {
-          "keyName": "resource_country_pkey",
+      "foreignKeys": {
+        "resource_resource_country_acronym_foreign": {
+          "constraintName": "resource_resource_country_acronym_foreign",
           "columnNames": [
+            "resource_country_acronym"
+          ],
+          "localTableName": "public.resource",
+          "referencedColumnNames": [
             "acronym"
           ],
-          "composite": false,
-          "primary": true,
-          "unique": true
+          "referencedTableName": "public.resource_country",
+          "updateRule": "cascade"
         }
-      ],
-      "checks": [
-        {
-          "name": "resource_country_name_check",
-          "expression": "LENGTH(name) >= 3",
-          "definition": "check ((LENGTH(name) >= 3))",
-          "columnName": "name"
-        }
-      ],
-      "foreignKeys": {}
+      }
     },
     {
       "columns": {
@@ -452,6 +475,15 @@
           "nullable": false,
           "mappedType": "uuid"
         },
+        "code": {
+          "name": "code",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
         "name": {
           "name": "name",
           "type": "varchar(512)",
@@ -684,6 +716,15 @@
           "primary": false,
           "nullable": false,
           "mappedType": "uuid"
+        },
+        "code": {
+          "name": "code",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
         },
         "name": {
           "name": "name",

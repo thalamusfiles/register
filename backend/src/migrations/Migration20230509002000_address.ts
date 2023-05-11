@@ -9,6 +9,7 @@ export class Migration20230509115642 extends Migration {
         "updated_at" timestamptz(0) not null, 
         "resource_country_acronym" varchar(4) not null, 
         "resource_uuid" uuid not null, 
+        "code" int not null,
         "name" varchar(512) not null, 
         
         constraint "country_pkey" primary key ("uuid"), 
@@ -22,7 +23,8 @@ export class Migration20230509115642 extends Migration {
         "created_at" timestamptz(0) not null, 
         "updated_at" timestamptz(0) not null, 
         "resource_country_acronym" varchar(4) not null, 
-        "resource_uuid" uuid not null, 
+        "resource_uuid" uuid not null,
+        "code" int not null,
         "name" varchar(512) not null, 
         
         constraint "city_pkey" primary key ("uuid"), 
