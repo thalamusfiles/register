@@ -18,6 +18,11 @@ export class Migration20230509115642 extends Migration {
     );
 
     this.addSql(
+      `alter table "address"."country" add constraint "country_resource_country_acronym_resource_uuid_code_unique"
+       unique ("resource_country_acronym", "resource_uuid", "code");`,
+    );
+
+    this.addSql(
       `create table "address"."city" (
         "uuid" uuid not null default uuid_generate_v4(), 
         "created_at" timestamptz(0) not null, 
@@ -30,6 +35,11 @@ export class Migration20230509115642 extends Migration {
         constraint "city_pkey" primary key ("uuid"), 
         constraint city_name_check check (LENGTH(name) >= 3)
       );`,
+    );
+
+    this.addSql(
+      `alter table "address"."city" add constraint "city_resource_country_acronym_resource_uuid_code_unique"
+       unique ("resource_country_acronym", "resource_uuid", "code");`,
     );
 
     this.addSql(

@@ -499,6 +499,17 @@
       "schema": "address",
       "indexes": [
         {
+          "keyName": "country_resource_country_acronym_resource_uuid_code_unique",
+          "columnNames": [
+            "resource_country_acronym",
+            "resource_uuid",
+            "code"
+          ],
+          "composite": true,
+          "primary": false,
+          "unique": true
+        },
+        {
           "keyName": "country_pkey",
           "columnNames": [
             "uuid"
@@ -740,6 +751,17 @@
       "name": "city",
       "schema": "address",
       "indexes": [
+        {
+          "keyName": "city_resource_country_acronym_resource_uuid_code_unique",
+          "columnNames": [
+            "resource_country_acronym",
+            "resource_uuid",
+            "code"
+          ],
+          "composite": true,
+          "primary": false,
+          "unique": true
+        },
         {
           "keyName": "city_pkey",
           "columnNames": [
