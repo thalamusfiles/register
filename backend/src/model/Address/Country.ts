@@ -6,10 +6,10 @@ import { ResourceCountry } from '../ResourceCountry';
 @Entity({ schema: 'address' })
 export class Country extends RegisterBaseEntity {
   @ManyToOne(() => ResourceCountry, { nullable: false })
-  resourceCountry?: ResourceCountry;
+  resourceCountry!: ResourceCountry;
 
   @ManyToOne(() => Resource, { nullable: false })
-  resource?: Resource;
+  resource!: Resource;
 
   @Property({ type: 'int4', nullable: false })
   code!: number;

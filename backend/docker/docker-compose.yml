@@ -17,7 +17,8 @@ services:
     networks:
       - register_backend-net
     ports:
-      - ${DATABASE_PORT}:5432
+      - ${DATABASE_PORT}:5001
+    command: -p 5001
 
   register_backend:
     container_name: register_backend_server

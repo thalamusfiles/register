@@ -13,10 +13,10 @@ import registerConfig from './register.config';
 
 const defaultModelConfig = {
   host: 'localhost',
-  port: 5432,
+  port: 5001,
   dbName: 'register',
-  user: 'register_user',
-  password: 'register_password',
+  user: 'airflow',
+  password: 'airflow',
   charset: 'UTF8',
 };
 
