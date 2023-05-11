@@ -198,16 +198,6 @@
           "length": 4,
           "mappedType": "string"
         },
-        "name": {
-          "name": "name",
-          "type": "varchar(512)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 512,
-          "mappedType": "string"
-        },
         "person_type": {
           "name": "person_type",
           "type": "varchar(16)",
@@ -238,6 +228,16 @@
           "length": 255,
           "mappedType": "string"
         },
+        "name": {
+          "name": "name",
+          "type": "varchar(512)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 512,
+          "mappedType": "string"
+        },
         "deleted_at": {
           "name": "deleted_at",
           "type": "timestamptz(0)",
@@ -253,6 +253,18 @@
       "schema": "public",
       "indexes": [
         {
+          "keyName": "person_resource_country_acronym_person_type_docume_61d85_unique",
+          "columnNames": [
+            "resource_country_acronym",
+            "person_type",
+            "document_type",
+            "document"
+          ],
+          "composite": true,
+          "primary": false,
+          "unique": true
+        },
+        {
           "keyName": "person_pkey",
           "columnNames": [
             "uuid"
@@ -264,16 +276,16 @@
       ],
       "checks": [
         {
-          "name": "person_name_check",
-          "expression": "LENGTH(name) >= 4",
-          "definition": "check ((LENGTH(name) >= 4))",
-          "columnName": "name"
-        },
-        {
           "name": "person_person_type_check",
           "expression": "person_type IN('legal', 'natural')",
           "definition": "check ((person_type IN('legal', 'natural')))",
           "columnName": "person_type"
+        },
+        {
+          "name": "person_name_check",
+          "expression": "LENGTH(name) >= 4",
+          "definition": "check ((LENGTH(name) >= 4))",
+          "columnName": "name"
         }
       ],
       "foreignKeys": {

@@ -21,6 +21,11 @@ export class Migration20230509115642 extends Migration {
     );
 
     this.addSql(
+      `alter table "person" add constraint "person_resource_country_acronym_person_type_docume_61d85_unique"
+       unique ("resource_country_acronym", "person_type", "document_type", "document");`,
+    );
+
+    this.addSql(
       `create table "person_resource" (
         "uuid" uuid not null default uuid_generate_v4(), 
         "created_at" timestamptz(0) not null, 
