@@ -283,8 +283,8 @@
         },
         {
           "name": "person_name_check",
-          "expression": "LENGTH(name) >= 4",
-          "definition": "check ((LENGTH(name) >= 4))",
+          "expression": "LENGTH(name) >= 3",
+          "definition": "check ((LENGTH(name) >= 3))",
           "columnName": "name"
         }
       ],
