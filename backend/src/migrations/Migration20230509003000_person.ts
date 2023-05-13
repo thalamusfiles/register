@@ -15,7 +15,6 @@ export class Migration20230509115642 extends Migration {
         "deleted_at" timestamptz(0) null, 
         
         constraint "person_pkey" primary key ("uuid"), 
-        constraint person_name_check check (LENGTH(name) >= 3), 
         constraint person_person_type_check check (person_type IN('legal', 'natural'))
       );`,
     );

@@ -18,7 +18,6 @@ export class Person extends RegisterBaseEntity {
   @Property({ nullable: false, length: 255 })
   document: string;
 
-  @Check({ expression: 'LENGTH(name) >= 3' })
   @Property({ nullable: false, length: 512 })
   name!: string;
 

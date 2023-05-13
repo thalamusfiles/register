@@ -280,12 +280,6 @@
           "expression": "person_type IN('legal', 'natural')",
           "definition": "check ((person_type IN('legal', 'natural')))",
           "columnName": "person_type"
-        },
-        {
-          "name": "person_name_check",
-          "expression": "LENGTH(name) >= 3",
-          "definition": "check ((LENGTH(name) >= 3))",
-          "columnName": "name"
         }
       ],
       "foreignKeys": {
