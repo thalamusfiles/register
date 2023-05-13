@@ -10,8 +10,9 @@ const PartnerPage: React.FC = () => {
   const __ = useI18N();
   const ctrl = new PersonPartnerCtrl();
   ctrl.notifyExeption = (ex: any) => {
-    if (ex.response?.status === 404) {
-      notify.danger(__('msg.error_404'));
+    const status = ex.response?.status;
+    if ([400, 404, 500].includes(status)) {
+      notify.danger(__(`msg.error_${status}`));
     } else {
       notify.danger(ex.message);
     }
