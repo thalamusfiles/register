@@ -1,10 +1,12 @@
+import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Logger, Module, NestModule } from '@nestjs/common';
+import FindPersonByDocument from '../../model/Materialized/FindPersonByDocument';
 import { EstablishmentController } from './controller/establishment.controller';
 
 import { PersonController } from './controller/person.controller';
 
 @Module({
-  imports: [],
+  imports: [MikroOrmModule.forFeature([FindPersonByDocument])],
   providers: [],
   controllers: [
     //

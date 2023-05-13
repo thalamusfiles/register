@@ -2,7 +2,7 @@ import { Check, Entity, ManyToOne, Property } from '@mikro-orm/core';
 import { RegisterBaseEntity } from './Base/RegisterBaseEntity';
 import { ResourceCountry } from './ResourceCountry';
 
-@Entity({ schema: 'public' })
+@Entity({ schema: 'public', readonly: true })
 export class Resource extends RegisterBaseEntity {
   @ManyToOne(() => ResourceCountry, { nullable: false })
   resourceCountry?: ResourceCountry;

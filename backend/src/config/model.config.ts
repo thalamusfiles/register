@@ -3,6 +3,7 @@ import { City } from '../model/Address/City';
 import { Country } from '../model/Address/Country';
 import { Contact } from '../model/Contact';
 import { Establishment } from '../model/Establishment';
+import FindPersonByDocument from '../model/Materialized/FindPersonByDocument';
 import { Person } from '../model/Person';
 import { PersonResource } from '../model/PersonResource';
 import { Resource } from '../model/Resource';
@@ -37,6 +38,8 @@ const modelConfig: MikroOrmModuleSyncOptions = {
     PersonResource,
     Establishment,
     Contact,
+    // Materialized
+    FindPersonByDocument,
   ],
   entitiesTs: ['./src/model'],
   type: 'postgresql',

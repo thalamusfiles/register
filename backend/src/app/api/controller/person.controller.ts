@@ -1,13 +1,19 @@
 import { Controller, Get, Logger, Query, UsePipes } from '@nestjs/common';
+import { EntityRepository } from '@mikro-orm/core';
 import { FindCompanyDto } from './dto/person.dto';
 import { RegisterValidationPipe } from '../../../commons/validation.pipe';
 import { ApiOperation } from '@nestjs/swagger';
+import { InjectRepository } from '@mikro-orm/nestjs';
+import FindPersonByDocument from '../../../model/Materialized/FindPersonByDocument';
 
 @Controller('api/person')
 export class PersonController {
   private readonly logger = new Logger(PersonController.name);
 
-  constructor() {
+  constructor(
+    @InjectRepository(FindPersonByDocument)
+    private readonly findPersonByDocument: EntityRepository<FindPersonByDocument>,
+  ) {
     this.logger.log('starting');
   }
 
@@ -20,10 +26,7 @@ export class PersonController {
   async findLegalByDocument(@Query() query?: FindCompanyDto): Promise<any> {
     this.logger.log(`Find Legal By Document ${query.document}`);
 
-    return {
-      uuid: '11111111-1111-1111-1111-111111111111',
-      document: query.document,
-    };
+    return this.findPersonByDocument.findOne({ key: `br:cnpj:${query.document}` });
   }
 
   /**
@@ -35,9 +38,6 @@ export class PersonController {
   async findNaturalByDocument(@Query() query?: FindCompanyDto): Promise<any> {
     this.logger.log(`Find Natural By Document ${query.document}`);
 
-    return {
-      uuid: '11111111-1111-1111-1111-111111111111',
-      document: query.document,
-    };
+    return this.findPersonByDocument.findOne({ key: `br:cpf:${query.document}` });
   }
 }

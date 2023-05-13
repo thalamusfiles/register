@@ -3,7 +3,7 @@ import { RegisterBaseEntity } from '../Base/RegisterBaseEntity';
 import { Resource } from '../Resource';
 import { ResourceCountry } from '../ResourceCountry';
 
-@Entity({ schema: 'address' })
+@Entity({ schema: 'address', readonly: true })
 @Unique({ properties: ['resourceCountry', 'resource', 'code'] })
 export class City extends RegisterBaseEntity {
   @ManyToOne(() => ResourceCountry, { nullable: false })

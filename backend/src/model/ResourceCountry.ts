@@ -1,6 +1,6 @@
 import { PrimaryKey, Check, Entity, Property } from '@mikro-orm/core';
 
-@Entity({ schema: 'public' })
+@Entity({ schema: 'public', readonly: true })
 export class ResourceCountry {
   @PrimaryKey({ type: 'varchar', length: 4, nullable: false })
   acronym: string;

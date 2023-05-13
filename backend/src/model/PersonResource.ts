@@ -4,7 +4,7 @@ import { Person } from './Person';
 import { Resource } from './Resource';
 import { ResourceCountry } from './ResourceCountry';
 
-@Entity({ schema: 'public' })
+@Entity({ schema: 'public', readonly: true })
 export class PersonResource extends RegisterBaseEntity {
   @ManyToOne(() => ResourceCountry, { nullable: false })
   resourceCountry?: ResourceCountry;
