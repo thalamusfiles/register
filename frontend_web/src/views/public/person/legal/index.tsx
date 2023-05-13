@@ -1,12 +1,16 @@
+import { observer } from 'mobx-react-lite';
 import { Alert, Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { useI18N } from '../../../../commons/i18';
 import { getLinkTo } from '../../../../commons/route';
+import { PersonLegalCtrl, PersonLegalProvider, usePersonLegalStore } from './ctrl';
 
 const PersonLegalPage: React.FC = () => {
+  const ctrl = new PersonLegalCtrl();
   const __ = useI18N();
+
   return (
-    <>
+    <PersonLegalProvider value={ctrl}>
       <Alert variant="secondary" className="p-4">
         <h2>{__('person.legal.title')}</h2>
         <p>{__('person.legal.descriptions')}</p>
@@ -14,7 +18,7 @@ const PersonLegalPage: React.FC = () => {
         <PersonLegaForm />
       </Alert>
       <PersonLegalResult />
-    </>
+    </PersonLegalProvider>
   );
 };
 
@@ -29,8 +33,10 @@ const PersonLegalBreadcrum: React.FC = () => {
   );
 };
 
-const PersonLegaForm: React.FC = () => {
+const PersonLegaForm: React.FC = observer(() => {
+  const ctrl = usePersonLegalStore();
   const __ = useI18N();
+
   return (
     <Form>
       <Row className="align-items-center">
@@ -49,28 +55,29 @@ const PersonLegaForm: React.FC = () => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.business_doc')}</InputGroup.Text>
-            <Form.Control id="document" />
+            <Form.Control id="document" onChange={ctrl.handleDocument} />
           </InputGroup>
         </Col>
         <Col xs="auto">
-          <Button type="submit" className="mb-2">
+          <Button type="button" className="mb-2" onClick={ctrl.findDocument}>
             {__('action.search')}
           </Button>
         </Col>
       </Row>
     </Form>
   );
-};
+});
 
-const PersonLegalResult: React.FC = () => {
+const PersonLegalResult: React.FC = observer(() => {
+  const ctrl = usePersonLegalStore();
   const __ = useI18N();
   return (
     <>
       <h2>{__('label.result')}</h2>
-      <pre>{JSON.stringify({ ihaaa: 'asdasd' })}</pre>
+      {ctrl.response && <pre>{JSON.stringify(ctrl.response)}</pre>}
     </>
   );
-};
+});
 
 export default PersonLegalPage;
 export { PersonLegalBreadcrum };

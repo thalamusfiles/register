@@ -26,7 +26,7 @@ export class PersonController {
   async findLegalByDocument(@Query() query?: FindCompanyDto): Promise<any> {
     this.logger.log(`Find Legal By Document ${query.document}`);
 
-    return this.findPersonByDocument.findOne({ key: `br:cnpj:${query.document}` });
+    return await this.findPersonByDocument.findOne({ key: `br:cnpj:${query.document}` });
   }
 
   /**

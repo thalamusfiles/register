@@ -4,11 +4,13 @@ import { createRoutesFromElements, RouterProvider } from 'react-router-dom';
 import './assets/fontawasome.library';
 import './assets/theme.scss';
 import { createBaseRouter } from './commons/route';
+import apiConfigure from './config/api.config';
 import * as serviceWorker from './serviceWorker';
 import UserCtxInstance, { UserProvider } from './store/userContext';
 import routes from './views/routes';
 
 UserCtxInstance.loadUser();
+apiConfigure(UserCtxInstance.token);
 
 const router = createBaseRouter(createRoutesFromElements(routes));
 

@@ -2,7 +2,10 @@ import { Migration } from '@mikro-orm/migrations';
 
 export class Migration20230509115642 extends Migration {
   async up(): Promise<void> {
+    // Dropa a tabale materializada anterior
     this.addSql('drop materialized view if exists "materialized".find_person_by_document');
+
+    // Cria a tabela materializada
     this.addSql(
       `create materialized view if not exists "materialized".find_person_by_document
       as
@@ -18,6 +21,9 @@ export class Migration20230509115642 extends Migration {
       inner join person_resource pr on pr.person_uuid = p.uuid 
       where p.person_type = 'legal';`,
     );
+
+    // Cria o indice da tabela materializada
+    this.addSql('create index find_person_by_document_key_unique on "materialized".find_person_by_document(key);');
   }
 
   async down(): Promise<void> {

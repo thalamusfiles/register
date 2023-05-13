@@ -17,6 +17,10 @@ async function bootstrap() {
   // Filtro de exceção do ORM
   app.useGlobalFilters(new NotFoundExceptionFilter());
 
+  if (!registerConfig.PRODCTION_MODE) {
+    app.enableCors();
+  }
+
   await app.listen(registerConfig.PORT);
 }
 bootstrap();
