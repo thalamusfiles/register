@@ -26,7 +26,11 @@ export class PersonController {
   async findLegalByDocument(@Query() query?: FindCompanyDto): Promise<any> {
     this.logger.log(`Find Legal By Document ${query.document}`);
 
-    return await this.findPersonByDocument.findOne({ key: `br:cnpj:${query.document}` });
+    const where = {
+      key: `br:cnpj:${query.document.replace(/[^\d]/gi, '')}`,
+    };
+
+    return await this.findPersonByDocument.findOne(where);
   }
 
   /**
@@ -38,6 +42,10 @@ export class PersonController {
   async findNaturalByDocument(@Query() query?: FindCompanyDto): Promise<any> {
     this.logger.log(`Find Natural By Document ${query.document}`);
 
-    return this.findPersonByDocument.findOne({ key: `br:cpf:${query.document}` });
+    const where = {
+      key: `br:cpf:${query.document.replace(/[^\d]/gi, '')}`,
+    };
+
+    return this.findPersonByDocument.findOne(where);
   }
 }

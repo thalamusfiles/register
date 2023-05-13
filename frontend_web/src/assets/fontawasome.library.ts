@@ -9,6 +9,7 @@ import {
   faBroom,
   faBuilding,
   faChartLine,
+  faCode,
   faCogs,
   faColumns,
   faDesktop,
@@ -17,6 +18,7 @@ import {
   faEdit,
   faEye,
   faFile,
+  faFileText,
   faFilter,
   faHandshake,
   faHistory,
@@ -102,5 +104,7 @@ library.add(
   faEarthAmericas,
   faLockOpen,
   faHandshake,
-  faMapLocationDot
+  faMapLocationDot,
+  faCode,
+  faFileText
 );

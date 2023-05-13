@@ -1,12 +1,24 @@
+import { observer } from 'mobx-react-lite';
 import { Alert, Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { useI18N } from '../../../../commons/i18';
 import { getLinkTo } from '../../../../commons/route';
+import { notify } from '../../../../components/Notification';
+import { PersonPartnerCtrl, PersonPartnerProvider, usePersonPartnerStore } from './ctrl';
 
 const PartnerPage: React.FC = () => {
   const __ = useI18N();
+  const ctrl = new PersonPartnerCtrl();
+  ctrl.notifyExeption = (ex: any) => {
+    if (ex.response?.status === 404) {
+      notify.danger(__('msg.error_404'));
+    } else {
+      notify.danger(ex.message);
+    }
+  };
+
   return (
-    <>
+    <PersonPartnerProvider value={ctrl}>
       <Alert variant="secondary" className="p-4">
         <h2>{__('person.partner.title')}</h2>
         <p>{__('person.partner.descriptions')}</p>
@@ -14,7 +26,7 @@ const PartnerPage: React.FC = () => {
         <PartnerForm />
       </Alert>
       <PersonLegalResult />
-    </>
+    </PersonPartnerProvider>
   );
 };
 
@@ -29,8 +41,10 @@ const PartnerBreadcrum: React.FC = () => {
   );
 };
 
-const PartnerForm: React.FC = () => {
+const PartnerForm: React.FC = observer(() => {
+  const ctrl = usePersonPartnerStore();
   const __ = useI18N();
+
   return (
     <Form>
       <Row className="align-items-center">
@@ -49,28 +63,29 @@ const PartnerForm: React.FC = () => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.partner_doc')}</InputGroup.Text>
-            <Form.Control id="document" />
+            <Form.Control id="document" onChange={ctrl.handleDocument} />
           </InputGroup>
         </Col>
         <Col xs="auto">
-          <Button type="submit" className="mb-2">
+          <Button type="button" className="mb-2" onClick={ctrl.findDocument}>
             {__('action.search')}
           </Button>
         </Col>
       </Row>
     </Form>
   );
-};
+});
 
-const PersonLegalResult: React.FC = () => {
+const PersonLegalResult: React.FC = observer(() => {
+  const ctrl = usePersonPartnerStore();
   const __ = useI18N();
   return (
     <>
       <h2>{__('label.result')}</h2>
-      <pre>{JSON.stringify({ ihaaa: 'asdasd' })}</pre>
+      {ctrl.response && <pre>{JSON.stringify(ctrl.response)}</pre>}
     </>
   );
-};
+});
 
 export default PartnerPage;
 export { PartnerBreadcrum };

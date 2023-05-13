@@ -27,13 +27,15 @@ export const IconsDef = {
   // Modules
   reports: 'chart-line' as IconName,
   management: 'tasks' as IconName,
-  // Cadastros
+  // Apis
   attachment: 'file' as IconName,
   user: ['user', 'building'] as Array<IconName>,
   personLegal: 'building' as IconName,
   personNatural: 'user' as IconName,
   partner: 'handshake' as IconName,
   zipcode: 'map-location-dot' as IconName,
+  swagger: 'code' as IconName,
+  docs: 'file-text' as IconName,
   // Atividades
   tokensActive: 'mobile-alt' as IconName,
   history: 'history' as IconName,

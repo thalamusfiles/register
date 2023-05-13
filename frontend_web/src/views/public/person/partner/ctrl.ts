@@ -2,7 +2,7 @@ import { action, makeObservable, observable } from 'mobx';
 import { createContext, useContext } from 'react';
 import { PersonDataSource, PersonFindByDocumentRespDto } from '../../../../datasources/person';
 
-export class PersonLegalCtrl {
+export class PersonPartnerCtrl {
   constructor() {
     // Modifica classe pra ser observável
     makeObservable(this);
@@ -10,7 +10,7 @@ export class PersonLegalCtrl {
 
   notifyExeption!: Function;
 
-  // PersonLegal
+  // PersonPartner
   @observable document = '';
   @observable response: PersonFindByDocumentRespDto | null = null;
 
@@ -22,7 +22,7 @@ export class PersonLegalCtrl {
   @action
   findDocument = () => {
     new PersonDataSource()
-      .findLegalByDocument(this.document!)
+      .findNaturalByDocument(this.document!)
       .then((response) => {
         this.response = response.data;
       })
@@ -34,6 +34,6 @@ export class PersonLegalCtrl {
   };
 }
 
-export const PersonLegalContext = createContext({} as PersonLegalCtrl);
-export const PersonLegalProvider = PersonLegalContext.Provider;
-export const usePersonLegalStore = (): PersonLegalCtrl => useContext(PersonLegalContext);
+export const PersonPartnerContext = createContext({} as PersonPartnerCtrl);
+export const PersonPartnerProvider = PersonPartnerContext.Provider;
+export const usePersonPartnerStore = (): PersonPartnerCtrl => useContext(PersonPartnerContext);

@@ -387,6 +387,17 @@
       "schema": "public",
       "indexes": [
         {
+          "keyName": "person_resource_resource_country_acronym_resource__13f13_unique",
+          "columnNames": [
+            "resource_country_acronym",
+            "resource_uuid",
+            "person_uuid"
+          ],
+          "composite": true,
+          "primary": false,
+          "unique": true
+        },
+        {
           "keyName": "person_resource_pkey",
           "columnNames": [
             "uuid"

@@ -16,6 +16,19 @@
         "establishments": "Estabelecimentos",
         "business_type": "Tipo de empresa"
     },
+    "card": {
+        "developer_guide": "Guia para desenvolvedores",
+        "developer_guide_description": "Acesso o manual das apis e realize testes para integração para a sua ferramenta",
+        "docs": "Documentação",
+        "docs_subtitle": "Api, autenticação, FAQ...",
+        "docs_description": "Manual do usuário e desenvolvedor de como utilizar a API Register em sua aplicação",
+        "swagger": "Swagger",
+        "swagger_subtitle": "Teste api agora",
+        "swagger_description": "Realize testes nesta API com a ferramenta Swagger e simule requisições"
+    },
+    "msg": {
+        "error_404": "Erro ao se comunicar com o servidor. Tente novamente mais tarde"
+    },
     "label": {
         "country": "Pais",
         "business_doc": "CNPJ",

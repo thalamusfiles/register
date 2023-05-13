@@ -3,11 +3,19 @@ import { Alert, Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { useI18N } from '../../../../commons/i18';
 import { getLinkTo } from '../../../../commons/route';
+import { notify } from '../../../../components/Notification';
 import { PersonLegalCtrl, PersonLegalProvider, usePersonLegalStore } from './ctrl';
 
 const PersonLegalPage: React.FC = () => {
-  const ctrl = new PersonLegalCtrl();
   const __ = useI18N();
+  const ctrl = new PersonLegalCtrl();
+  ctrl.notifyExeption = (ex: any) => {
+    if (ex.response?.status === 404) {
+      notify.danger(__('msg.error_404'));
+    } else {
+      notify.danger(ex.message);
+    }
+  };
 
   return (
     <PersonLegalProvider value={ctrl}>
