@@ -22,7 +22,7 @@ const PersonLegalPage: React.FC = () => {
     <PersonLegalProvider value={ctrl}>
       <Alert variant="secondary" className="p-4">
         <h2>{__('person.legal.title')}</h2>
-        <p>{__('person.legal.descriptions')}</p>
+        <p>{__('person.legal.description')}</p>
 
         <PersonLegaForm />
       </Alert>

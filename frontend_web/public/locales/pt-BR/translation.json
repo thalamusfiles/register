@@ -21,7 +21,7 @@
         "developer_guide_description": "Acesso o manual das apis e realize testes para integração para a sua ferramenta.",
         "docs": "Documentação",
         "docs_subtitle": "Api, autenticação, FAQ...",
-        "docs_description": "Manual do usuário e desenvolvedor de como utilizar a API Register em sua aplicação.",
+        "docs_description": "Manuais do usuário e do desenvolvedor de como utilizar a API Register em sua aplicação.",
         "swagger": "Swagger",
         "swagger_subtitle": "Teste api agora",
         "swagger_description": "Realize testes nesta API com a ferramenta Swagger e simule requisições."
@@ -51,6 +51,12 @@
         "partner_description": "Obtenha informações sobre o sócio da empresa por meio seu documento de registro (CPF).",
         "establishments_description": "Obtenha a lista de empresas localizadas em determinado endereço.",
         "business_type_description": "Obtenha a lista de empresas por meio do tipo de negócio (CNAES, Natureza...)."
+    },
+    "person": {
+        "legal.title": "Busca por pessoas jurídicas",
+        "legal.description": "Obtenha informações sobre a pessoa jurídica por meio de seu documento de registro (CNPJ).",
+        "partner.title": "Busca por sócios de empresas",
+        "partner.description": "Obtenha informações sobre o sócio da empresa por meio seu documento de registro (CPF)."
     },
     "languages": {
         "pt-BR": "Português (Brasil)"

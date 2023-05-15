@@ -30,7 +30,7 @@ export class PersonController {
       key: `br:cnpj:${query.document.replace(/[^\d]/gi, '')}`,
     };
 
-    return await this.findPersonByDocument.findOne(where);
+    return await this.findPersonByDocument.findOneOrFail(where);
   }
 
   /**
@@ -46,6 +46,6 @@ export class PersonController {
       key: `br:cpf:${query.document.replace(/[^\d]/gi, '')}`,
     };
 
-    return this.findPersonByDocument.findOne(where);
+    return this.findPersonByDocument.findOneOrFail(where);
   }
 }

@@ -22,7 +22,7 @@ const PartnerPage: React.FC = () => {
     <PersonPartnerProvider value={ctrl}>
       <Alert variant="secondary" className="p-4">
         <h2>{__('person.partner.title')}</h2>
-        <p>{__('person.partner.descriptions')}</p>
+        <p>{__('person.partner.description')}</p>
 
         <PartnerForm />
       </Alert>
