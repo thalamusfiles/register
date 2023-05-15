@@ -12,6 +12,7 @@ export class PersonPartnerCtrl {
 
   // PersonPartner
   @observable document = '';
+  @observable wanted: boolean = false;
   @observable response: PersonFindByDocumentRespDto | null = null;
 
   @action
@@ -21,12 +22,15 @@ export class PersonPartnerCtrl {
 
   @action
   findDocument = () => {
+    this.wanted = false;
     new PersonDataSource()
       .findNaturalByDocument(this.document!)
       .then((response) => {
+        this.wanted = true;
         this.response = response.data;
       })
       .catch((ex) => {
+        this.wanted = true;
         this.response = null;
 
         this.notifyExeption(ex);

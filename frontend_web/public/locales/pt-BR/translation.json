@@ -28,8 +28,11 @@
     },
     "msg": {
         "error_400": "Requisição incorreta. Verifique os dados informados e tente novamente.",
-        "error_404": "Erro ao se comunicar com o servidor. Tente novamente mais tarde.",
-        "error_500": "Ocorreu um erro inesperado. Aguarde um instante e tente novamente."
+        "error_404": "Registro não encontrado. Verifique os filtros informados.",
+        "error_500": "Ocorreu um erro inesperado. Aguarde um instante e tente novamente.",
+        "enter_filter": "Informe um filtro e click em procurar.",
+        "register_not_found": "Registro não encontrado.",
+        "no_option_selected": "Selecione uma opção selecionada. Click em uma das opções para liberar a funcionalidade."
     },
     "label": {
         "country": "Pais",

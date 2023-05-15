@@ -12,6 +12,7 @@ export class PersonLegalCtrl {
 
   // PersonLegal
   @observable document = '';
+  @observable wanted: boolean = false;
   @observable response: PersonFindByDocumentRespDto | null = null;
 
   @action
@@ -21,12 +22,15 @@ export class PersonLegalCtrl {
 
   @action
   findDocument = () => {
+    this.wanted = false;
     new PersonDataSource()
       .findLegalByDocument(this.document!)
       .then((response) => {
+        this.wanted = true;
         this.response = response.data;
       })
       .catch((ex) => {
+        this.wanted = true;
         this.response = null;
 
         this.notifyExeption(ex);

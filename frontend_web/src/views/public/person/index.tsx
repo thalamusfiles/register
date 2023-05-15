@@ -1,5 +1,5 @@
 import { Breadcrumb, Col, Container, Row, Stack } from 'react-bootstrap';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { IconsDef } from '../../../commons/consts';
 import { useI18N } from '../../../commons/i18';
 import { historyPush } from '../../../commons/route';
@@ -29,6 +29,7 @@ const PersonPage: React.FC = () => {
             <Routes>
               <Route path="/legal" element={<PersonLegalPage />} />
               <Route path="/partner" element={<PartnerPage />} />
+              <Route path="/" element={<NoneSelected />} />
             </Routes>
           </Col>
         </Row>
@@ -49,24 +50,39 @@ const PersonBreadcrum: React.FC = () => {
 
 const PersonHeader: React.FC = () => {
   const __ = useI18N();
+  const location = useLocation();
+  const hasLegalRoute = location.pathname.includes('legal');
+  const hasPartnerRoute = location.pathname.includes('partner');
+
   return (
     <>
       <h1>{__('menu.persons')}</h1>
       <p>{__('home.persons_description')}</p>
       <Stack direction="horizontal" gap={3}>
         <TCardTile
+          variant={hasLegalRoute ? 'info' : ''}
           title={__('menu.person_legal')}
           subtitle={__('menu.freemium')}
           faicon={IconsDef.personLegal}
           onClick={() => historyPush('person_legal')}
         />
         <TCardTile
+          variant={hasPartnerRoute ? 'info' : ''}
           title={__('menu.partners')}
           subtitle={__('menu.freemium')}
           faicon={IconsDef.partner}
           onClick={() => historyPush('person_partner')}
         />
       </Stack>
+    </>
+  );
+};
+
+const NoneSelected: React.FC = () => {
+  const __ = useI18N();
+  return (
+    <>
+      <p>{__('msg.no_option_selected')}</p>
     </>
   );
 };

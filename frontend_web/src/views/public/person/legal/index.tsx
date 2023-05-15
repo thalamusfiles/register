@@ -11,7 +11,9 @@ const PersonLegalPage: React.FC = () => {
   const ctrl = new PersonLegalCtrl();
   ctrl.notifyExeption = (ex: any) => {
     const status = ex.response?.status;
-    if ([400, 404, 500].includes(status)) {
+    if ([404].includes(status)) {
+      notify.warn(__(`msg.error_${status}`));
+    } else if ([400, 500].includes(status)) {
       notify.danger(__(`msg.error_${status}`));
     } else {
       notify.danger(ex.message);
@@ -83,6 +85,8 @@ const PersonLegalResult: React.FC = observer(() => {
   return (
     <>
       <h2>{__('label.result')}</h2>
+      {!ctrl.wanted && <p>{__('msg.enter_filter')}</p>}
+      {ctrl.wanted && !ctrl.response && <p>{__('msg.register_not_found')}</p>}
       {ctrl.response && <pre>{JSON.stringify(ctrl.response)}</pre>}
     </>
   );
