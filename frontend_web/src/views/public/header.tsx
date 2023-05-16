@@ -8,7 +8,7 @@ import * as json from '../../../package.json';
 import { useI18N } from '../../commons/i18';
 import { historyPush } from '../../commons/route';
 import NotificationValue, { NotificationProvider, useNotificationStore } from '../../components/Notification/ctrl';
-import thalamusLinks from '../../config/thalamus.links';
+import { thalamusLinks } from '../../config/thalamus.data';
 import UserCtxInstance, { useUserStore } from '../../store/userContext';
 
 const { docUrl } = json as any;
@@ -18,7 +18,7 @@ const Header: React.FC = () => {
   const context = useUserStore();
 
   return (
-    <Navbar className="header" expand="lg" fixed="top">
+    <Navbar className="header" expand="lg" fixed="top" bg="white">
       <Container fluid>
         <Navbar.Brand href="/">
           <>

@@ -4,37 +4,43 @@ import { IconsDef } from '../../../commons/consts';
 import { useI18N } from '../../../commons/i18';
 import { historyPush } from '../../../commons/route';
 import TCardTile from '../../../components/Card/card-tile';
+import DeveloperGuide from '../../cards/developer-guide';
 import SideBarHome from '../home/sidebarhome';
 import PersonLegalPage, { PersonLegalBreadcrum } from './legal';
 import PartnerPage, { PartnerBreadcrum } from './partner';
 
 const PersonPage: React.FC = () => {
   return (
-    <>
-      <Container fluid>
-        <Routes>
-          <Route path="/legal" element={<PersonLegalBreadcrum />} />
-          <Route path="/partner" element={<PartnerBreadcrum />} />
-          <Route path="/" element={<PersonBreadcrum />} />
-        </Routes>
+    <Container fluid>
+      <Routes>
+        <Route path="/legal/*" element={<PersonLegalBreadcrum />} />
+        <Route path="/partner" element={<PartnerBreadcrum />} />
+        <Route path="/" element={<PersonBreadcrum />} />
+      </Routes>
 
-        <Row>
-          <Col md={2}>
-            <SideBarHome />
-          </Col>
-          <Col>
-            <PersonHeader />
-            <br />
+      <Row>
+        <Col md={2}>
+          <SideBarHome />
+        </Col>
+        <Col>
+          <Row>
+            <Col md={12} lg={8}>
+              <PersonHeader />
+              <br />
+              <Routes>
+                <Route path="/legal" element={<PersonLegalPage />} />
+                <Route path="/partner" element={<PartnerPage />} />
+                <Route path="/" element={<NoneSelected />} />
+              </Routes>
+            </Col>
 
-            <Routes>
-              <Route path="/legal" element={<PersonLegalPage />} />
-              <Route path="/partner" element={<PartnerPage />} />
-              <Route path="/" element={<NoneSelected />} />
-            </Routes>
-          </Col>
-        </Row>
-      </Container>
-    </>
+            <Col sm={3}>
+              <DeveloperGuide />
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

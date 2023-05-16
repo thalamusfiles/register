@@ -1,9 +1,10 @@
 import { observer } from 'mobx-react-lite';
-import { Alert, Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
+import { Alert, Button, ButtonGroup, Col, Form, InputGroup, Row } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { useI18N } from '../../../../commons/i18';
 import { getLinkTo } from '../../../../commons/route';
 import { notify } from '../../../../components/Notification';
+import { thalamusData } from '../../../../config/thalamus.data';
 import { PersonPartnerCtrl, PersonPartnerProvider, usePersonPartnerStore } from './ctrl';
 
 const PartnerPage: React.FC = () => {
@@ -66,13 +67,26 @@ const PartnerForm: React.FC = observer(() => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.partner_doc')}</InputGroup.Text>
-            <Form.Control id="document" onChange={ctrl.handleDocument} />
+            <Form.Control id="document" value={ctrl.document} onChange={ctrl.handleDocument} />
           </InputGroup>
         </Col>
         <Col xs="auto">
-          <Button type="button" className="mb-2" onClick={ctrl.findDocument}>
-            {__('action.search')}
-          </Button>
+          <ButtonGroup>
+            <Button type="button" className="mb-2" onClick={ctrl.findDocument}>
+              {__('action.search')}
+            </Button>
+            <Button
+              type="button"
+              className="mb-2"
+              variant="outline-primary"
+              onClick={() => {
+                ctrl.document = thalamusData.THALAMUS_BR_DOC;
+                ctrl.findDocument();
+              }}
+            >
+              {__('action.test')}
+            </Button>
+          </ButtonGroup>
         </Col>
       </Row>
     </Form>

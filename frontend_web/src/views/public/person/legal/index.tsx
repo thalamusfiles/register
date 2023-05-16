@@ -1,9 +1,10 @@
 import { observer } from 'mobx-react-lite';
-import { Alert, Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
+import { Alert, Button, ButtonGroup, Card, Col, Form, InputGroup, Row } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { useI18N } from '../../../../commons/i18';
 import { getLinkTo } from '../../../../commons/route';
 import { notify } from '../../../../components/Notification';
+import { thalamusData } from '../../../../config/thalamus.data';
 import { PersonLegalCtrl, PersonLegalProvider, usePersonLegalStore } from './ctrl';
 
 const PersonLegalPage: React.FC = () => {
@@ -66,13 +67,28 @@ const PersonLegaForm: React.FC = observer(() => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.business_doc')}</InputGroup.Text>
-            <Form.Control id="document" onChange={ctrl.handleDocument} />
+            <Form.Control id="document" value={ctrl.document} onChange={ctrl.handleDocument} />
           </InputGroup>
         </Col>
-        <Col xs="auto">
-          <Button type="button" className="mb-2" onClick={ctrl.findDocument}>
-            {__('action.search')}
-          </Button>
+      </Row>
+      <Row>
+        <Col>
+          <ButtonGroup className="float-end">
+            <Button type="button" className="mb-2" onClick={ctrl.findDocument}>
+              {__('action.search')}
+            </Button>
+            <Button
+              type="button"
+              className="mb-2"
+              variant="outline-primary"
+              onClick={() => {
+                ctrl.document = thalamusData.THALAMUS_BR_DOC;
+                ctrl.findDocument();
+              }}
+            >
+              {__('action.test')}
+            </Button>
+          </ButtonGroup>
         </Col>
       </Row>
     </Form>
@@ -85,9 +101,13 @@ const PersonLegalResult: React.FC = observer(() => {
   return (
     <>
       <h2>{__('label.result')}</h2>
-      {!ctrl.wanted && <p>{__('msg.enter_filter')}</p>}
-      {ctrl.wanted && !ctrl.response && <p>{__('msg.register_not_found')}</p>}
-      {ctrl.response && <pre>{JSON.stringify(ctrl.response)}</pre>}
+      <Card bg="dark" text="light">
+        <Card.Body>
+          {!ctrl.wanted && <p>{__('msg.enter_filter')}</p>}
+          {ctrl.wanted && !ctrl.response && <p>{__('msg.register_not_found')}</p>}
+          {ctrl.response && <pre>{JSON.stringify(ctrl.response, null, 2)}</pre>}
+        </Card.Body>
+      </Card>
     </>
   );
 });

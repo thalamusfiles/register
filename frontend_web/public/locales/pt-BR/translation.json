@@ -44,22 +44,23 @@
     },
     "action": {
         "access": "Acessar",
-        "search": "Procurar"
+        "search": "Procurar",
+        "test": "Testar"
     },
     "home": {
         "by_adress": "Buscar por endereço",
         "persons_description": "Registros relacionados a pessoas físicas e jurídicas.",
         "address_description": "Registros relacionados a estabelecimentos. ",
-        "person_legal_description": "Obtenha informações sobre a pessoa jurídica por meio de seu documento de registro (CNPJ).",
-        "partner_description": "Obtenha informações sobre o sócio da empresa por meio seu documento de registro (CPF).",
-        "establishments_description": "Obtenha a lista de empresas localizadas em determinado endereço.",
-        "business_type_description": "Obtenha a lista de empresas por meio do tipo de negócio (CNAES, Natureza...)."
+        "person_legal_description": "Consulte informações sobre a pessoa jurídica por meio de seu documento de registro (CNPJ).",
+        "partner_description": "Consulte informações sobre o sócio da empresa por meio seu documento de registro (CPF).",
+        "establishments_description": "Consulte a lista de empresas localizadas em determinado endereço.",
+        "business_type_description": "Consulte a lista de empresas por meio do tipo de negócio (CNAES, Natureza...)."
     },
     "person": {
         "legal.title": "Busca por pessoas jurídicas",
-        "legal.description": "Obtenha informações sobre a pessoa jurídica por meio de seu documento de registro (CNPJ).",
+        "legal.description": "Consulte informações sobre a pessoa jurídica por meio de seu documento de registro (CNPJ).",
         "partner.title": "Busca por sócios de empresas",
-        "partner.description": "Obtenha informações sobre o sócio da empresa por meio seu documento de registro (CPF)."
+        "partner.description": "Consulte informações sobre o sócio da empresa por meio seu documento de registro (CPF)."
     },
     "languages": {
         "pt-BR": "Português (Brasil)"

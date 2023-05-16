@@ -1,5 +1,6 @@
 import { action, makeObservable, observable } from 'mobx';
 import { createContext, useContext } from 'react';
+import { historyReplace } from '../../../../commons/route';
 import { PersonDataSource, PersonFindByDocumentRespDto } from '../../../../datasources/person';
 
 export class PersonLegalCtrl {
@@ -22,6 +23,8 @@ export class PersonLegalCtrl {
 
   @action
   findDocument = () => {
+    historyReplace({ document: this.document });
+
     this.wanted = false;
     new PersonDataSource()
       .findLegalByDocument(this.document!)

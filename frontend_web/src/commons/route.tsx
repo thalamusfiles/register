@@ -80,17 +80,17 @@ export function historyPush(
  * Altera os filtros informados na URL.
  * Altera tudo que tem depois do ? na URL.
  * @param params
- * @param exclude
  */
-export function historySearchReplace(params: any, exclude: string[] = []) {
-  params = Object.assign({}, params, { page: undefined, count: undefined });
+export function historyReplace(search: any = {}) {
+  search = Object.assign({}, search);
 
-  exclude.forEach((x) => (params[x] = undefined));
-
-  // TODO: Ajustar
-  /*history.replace({
-    search: '?' + qs.stringify(params),
-  });*/
+  router.navigate(
+    {
+      pathname: router.state.location.pathname,
+      search: qs.stringify(search),
+    },
+    { replace: true },
+  );
 }
 
 /**

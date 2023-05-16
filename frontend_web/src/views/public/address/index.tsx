@@ -4,37 +4,43 @@ import { IconsDef } from '../../../commons/consts';
 import { useI18N } from '../../../commons/i18';
 import { historyPush } from '../../../commons/route';
 import TCardTile from '../../../components/Card/card-tile';
+import DeveloperGuide from '../../cards/developer-guide';
 import SideBarHome from '../home/sidebarhome';
 import ZipcodePage, { ZipcodeBreadcrum } from './zipcode';
 import BusinessTypePage, { BusinessTypeBreadcrum } from './businesstype';
 
 const AddressPage: React.FC = () => {
   return (
-    <>
-      <Container fluid>
-        <Routes>
-          <Route path="/zipcode" element={<ZipcodeBreadcrum />} />
-          <Route path="/businesstype" element={<BusinessTypeBreadcrum />} />
-          <Route path="/" element={<AddressBreadcrum />} />
-        </Routes>
+    <Container fluid>
+      <Routes>
+        <Route path="/zipcode" element={<ZipcodeBreadcrum />} />
+        <Route path="/businesstype" element={<BusinessTypeBreadcrum />} />
+        <Route path="/" element={<AddressBreadcrum />} />
+      </Routes>
 
-        <Row>
-          <Col md={2}>
-            <SideBarHome />
-          </Col>
-          <Col>
-            <AddressHeader />
-            <br />
+      <Row>
+        <Col md={2}>
+          <SideBarHome />
+        </Col>
+        <Col>
+          <Row>
+            <Col md={12} lg={8}>
+              <AddressHeader />
+              <br />
+              <Routes>
+                <Route path="/zipcode" element={<ZipcodePage />} />
+                <Route path="/businesstype" element={<BusinessTypePage />} />
+                <Route path="/" element={<NoneSelected />} />
+              </Routes>
+            </Col>
 
-            <Routes>
-              <Route path="/zipcode" element={<ZipcodePage />} />
-              <Route path="/businesstype" element={<BusinessTypePage />} />
-              <Route path="/" element={<NoneSelected />} />
-            </Routes>
-          </Col>
-        </Row>
-      </Container>
-    </>
+            <Col sm={3}>
+              <DeveloperGuide />
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
