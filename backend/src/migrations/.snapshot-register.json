@@ -631,6 +631,15 @@
           "nullable": false,
           "mappedType": "uuid"
         },
+        "extra_key": {
+          "name": "extra_key",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
         "data": {
           "name": "data",
           "type": "jsonb",
@@ -644,6 +653,18 @@
       "name": "contact",
       "schema": "public",
       "indexes": [
+        {
+          "keyName": "contact_resource_country_acronym_resource_uuid_per_759d7_unique",
+          "columnNames": [
+            "resource_country_acronym",
+            "resource_uuid",
+            "person_uuid",
+            "extra_key"
+          ],
+          "composite": true,
+          "primary": false,
+          "unique": true
+        },
         {
           "keyName": "contact_pkey",
           "columnNames": [
@@ -884,6 +905,15 @@
           "nullable": false,
           "mappedType": "uuid"
         },
+        "extra_key": {
+          "name": "extra_key",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
         "country_uuid": {
           "name": "country_uuid",
           "type": "uuid",
@@ -915,6 +945,18 @@
       "name": "establishment",
       "schema": "public",
       "indexes": [
+        {
+          "keyName": "establishment_resource_country_acronym_resource_uu_d04cc_unique",
+          "columnNames": [
+            "resource_country_acronym",
+            "resource_uuid",
+            "person_uuid",
+            "extra_key"
+          ],
+          "composite": true,
+          "primary": false,
+          "unique": true
+        },
         {
           "keyName": "establishment_pkey",
           "columnNames": [

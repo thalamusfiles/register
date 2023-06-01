@@ -10,10 +10,16 @@ export class Migration20230509115642 extends Migration {
         "resource_country_acronym" varchar(4) not null, 
         "resource_uuid" uuid not null, 
         "person_uuid" uuid not null, 
+        "extra_key" varchar(255) not null,
         "data" jsonb not null, 
         
         constraint "contact_pkey" primary key ("uuid")
       );`,
+    );
+
+    this.addSql(
+      `alter table "contact" add constraint "contact_resource_country_acronym_resource_uuid_per_759d7_unique"
+       unique ("resource_country_acronym", "resource_uuid", "person_uuid", "extra_key");`,
     );
 
     this.addSql(
