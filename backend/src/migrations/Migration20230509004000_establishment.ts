@@ -11,8 +11,8 @@ export class Migration20230509115642 extends Migration {
         "resource_uuid" uuid not null, 
         "person_uuid" uuid not null, 
         "extra_key" varchar(255) not null,
-        "country_uuid" uuid not null, 
-        "city_uuid" uuid not null, 
+        "country_uuid" uuid, 
+        "city_uuid" uuid, 
         "data" jsonb not null, 
         
         constraint "establishment_pkey" primary key ("uuid")
@@ -41,12 +41,12 @@ export class Migration20230509115642 extends Migration {
 
     this.addSql(
       `alter table "establishment" add constraint "establishment_country_uuid_foreign"
-       foreign key ("country_uuid") references "address"."country" ("uuid") on update cascade;`,
+       foreign key ("country_uuid") references "address"."country" ("uuid") on update cascade on delete set null;`,
     );
 
     this.addSql(
       `alter table "establishment" add constraint "establishment_city_uuid_foreign"
-       foreign key ("city_uuid") references "address"."city" ("uuid") on update cascade;`,
+       foreign key ("city_uuid") references "address"."city" ("uuid") on update cascade on delete set null;`,
     );
   }
 
