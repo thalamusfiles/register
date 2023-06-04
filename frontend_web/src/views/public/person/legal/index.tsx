@@ -4,7 +4,6 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { useI18N } from '../../../../commons/i18';
 import { getLinkTo } from '../../../../commons/route';
 import { notify } from '../../../../components/Notification';
-import { thalamusData } from '../../../../config/thalamus.data';
 import { PersonLegalCtrl, PersonLegalProvider, usePersonLegalStore } from './ctrl';
 
 const PersonLegalPage: React.FC = () => {
@@ -82,8 +81,7 @@ const PersonLegaForm: React.FC = observer(() => {
               className="mb-2"
               variant="outline-primary"
               onClick={() => {
-                ctrl.document = thalamusData.THALAMUS_BR_DOC;
-                ctrl.findDocument();
+                ctrl.findDocumentRandom();
               }}
             >
               {__('action.test')}

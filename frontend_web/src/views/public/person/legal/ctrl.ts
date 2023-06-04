@@ -1,6 +1,7 @@
 import { action, makeObservable, observable } from 'mobx';
 import { createContext, useContext } from 'react';
 import { historyReplace } from '../../../../commons/route';
+import { thalamusData } from '../../../../config/thalamus.data';
 import { PersonDataSource, PersonFindByDocumentRespDto } from '../../../../datasources/person';
 
 export class PersonLegalCtrl {
@@ -31,6 +32,33 @@ export class PersonLegalCtrl {
       .then((response) => {
         this.wanted = true;
         this.response = response.data;
+      })
+      .catch((ex) => {
+        this.wanted = true;
+        this.response = null;
+
+        this.notifyExeption(ex);
+      });
+  };
+
+  @action
+  findDocumentRandom = () => {
+    if (Math.random() > Math.random() * 3) {
+      this.document = thalamusData.THALAMUS_BR_DOC;
+      this.findDocument();
+      return;
+    }
+
+    this.document = '';
+    this.wanted = false;
+    new PersonDataSource()
+      .findLegalRandom()
+      .then((response) => {
+        this.wanted = true;
+        this.response = response.data;
+        this.document = response.data?.brGovDados?.document as string;
+
+        historyReplace({ document: this.document });
       })
       .catch((ex) => {
         this.wanted = true;

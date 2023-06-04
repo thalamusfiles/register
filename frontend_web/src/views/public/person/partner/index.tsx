@@ -70,8 +70,10 @@ const PartnerForm: React.FC = observer(() => {
             <Form.Control id="document" value={ctrl.document} onChange={ctrl.handleDocument} />
           </InputGroup>
         </Col>
-        <Col xs="auto">
-          <ButtonGroup>
+      </Row>
+      <Row>
+        <Col>
+          <ButtonGroup className="float-end">
             <Button type="button" className="mb-2" onClick={ctrl.findDocument}>
               {__('action.search')}
             </Button>
@@ -80,8 +82,7 @@ const PartnerForm: React.FC = observer(() => {
               className="mb-2"
               variant="outline-primary"
               onClick={() => {
-                ctrl.document = thalamusData.THALAMUS_BR_DOC;
-                ctrl.findDocument();
+                ctrl.findDocumentRandom();
               }}
             >
               {__('action.test')}

@@ -10,6 +10,8 @@ export type PersonFindByDocumentRespDto = {
 interface PersonDataSourceI {
   // Busca o registro da pessoa jurídica pelo identificador do documento
   findLegalByDocument(document: string): Promise<AxiosResponse<PersonFindByDocumentRespDto>>;
+  // Busca um registro aleatório de pessoa jurídica
+  findLegalRandom(document: string): Promise<AxiosResponse<PersonFindByDocumentRespDto>>;
 
   // Busca o registro da pessoa física pelo identificador do documento
   findNaturalByDocument(document: string): Promise<AxiosResponse<PersonFindByDocumentRespDto>>;
@@ -20,6 +22,9 @@ export class PersonDataSource implements PersonDataSourceI {
     return await Apis.ApiPerson.get(`${Endpoints.apiPersonLegal}`, {
       params: { document },
     });
+  }
+  async findLegalRandom(): Promise<AxiosResponse<PersonFindByDocumentRespDto>> {
+    return await Apis.ApiPerson.get(`${Endpoints.apiPersonLegalRandom}`);
   }
 
   async findNaturalByDocument(document: string): Promise<AxiosResponse<PersonFindByDocumentRespDto>> {

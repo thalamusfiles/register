@@ -5,16 +5,23 @@ import { RegisterValidationPipe } from '../../../commons/validation.pipe';
 import { ApiOperation } from '@nestjs/swagger';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import FindPersonByDocument from '../../../model/Materialized/FindPersonByDocument';
+import { Knex, PostgreSqlConnection } from '@mikro-orm/postgresql';
+import { Partner } from '../../../model/Partner';
 
 @Controller('api/person')
 export class PersonController {
   private readonly logger = new Logger(PersonController.name);
+  private readonly knex: Knex;
 
   constructor(
     @InjectRepository(FindPersonByDocument)
-    private readonly findPersonByDocument: EntityRepository<FindPersonByDocument>,
+    private readonly findPersonByDocumentRepo: EntityRepository<FindPersonByDocument>,
+    @InjectRepository(Partner)
+    private readonly partnerRepo: EntityRepository<Partner>,
   ) {
     this.logger.log('starting');
+
+    this.knex = (this.findPersonByDocumentRepo.getEntityManager().getConnection() as PostgreSqlConnection).getKnex();
   }
 
   /**
@@ -30,7 +37,29 @@ export class PersonController {
       key: `br:cnpj:${query.document.replace(/[^\d]/gi, '')}`,
     };
 
-    return await this.findPersonByDocument.findOneOrFail(where);
+    return await this.findPersonByDocumentRepo.findOneOrFail(where);
+  }
+
+  /**
+   * Busca registro de empresas
+   */
+  @ApiOperation({ tags: ['Person'], summary: 'Coletar registro aleatório de pessoa jurídica' })
+  @Get('/legal/random')
+  @UsePipes(new RegisterValidationPipe())
+  async findLegalRandom(): Promise<any> {
+    this.logger.log(`Find Random Legal`);
+
+    const schemaName = this.findPersonByDocumentRepo.getEntityManager().getMetadata().get(FindPersonByDocument.name).schema;
+    const tableName = this.findPersonByDocumentRepo.getEntityManager().getMetadata().get(FindPersonByDocument.name).tableName;
+    const randomize = 'TABLESAMPLE SYSTEM (1)';
+
+    const query = this.knex
+      .select('*')
+      .from(this.knex.raw(`${schemaName}.${tableName} ${randomize}`))
+      .limit(1)
+      .first();
+
+    return await query;
   }
 
   /**
@@ -43,9 +72,9 @@ export class PersonController {
     this.logger.log(`Find Natural By Document ${query.document}`);
 
     const where = {
-      key: `br:cpf:${query.document.replace(/[^\d]/gi, '')}`,
+      extraKey: query.document,
     };
 
-    return this.findPersonByDocument.findOneOrFail(where);
+    return this.partnerRepo.findOneOrFail(where);
   }
 }

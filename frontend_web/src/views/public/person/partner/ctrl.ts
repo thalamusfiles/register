@@ -36,6 +36,25 @@ export class PersonPartnerCtrl {
         this.notifyExeption(ex);
       });
   };
+
+  @action
+  findDocumentRandom = () => {
+    this.document = '';
+    this.wanted = false;
+    new PersonDataSource()
+      .findLegalRandom()
+      .then((response) => {
+        this.wanted = true;
+        this.response = response.data;
+        this.document = response.data?.brGovDados?.document as string;
+      })
+      .catch((ex) => {
+        this.wanted = true;
+        this.response = null;
+
+        this.notifyExeption(ex);
+      });
+  };
 }
 
 export const PersonPartnerContext = createContext({} as PersonPartnerCtrl);

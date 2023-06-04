@@ -50,7 +50,7 @@ export class Migration20230509115642 extends Migration {
         ),
         /*Others*/
         'reason', reason."value"->>'description'
-      ) as brGovDados
+      ) as "brGovDados"
     from person p cross join resource r
     inner join person_resource pr on pr.resource_country_acronym = 'br' and pr.resource_uuid = r.uuid and pr.person_uuid = p.uuid 
     inner join establishment e    on e.resource_country_acronym = 'br'  and e.resource_uuid = r.uuid and e.person_uuid = p.uuid

@@ -6,6 +6,7 @@ class EndpointsConfigure {
   // API Person
   apiPerson = null as string | null;
   apiPersonLegal = `/legal`;
+  apiPersonLegalRandom = `/legal/random`;
   apiPersonNatural = `/natural`;
 
   configureEndpoint = (baseUrl: string = 'localhost', basePort: string = '3000') => {
