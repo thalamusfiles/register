@@ -37,7 +37,7 @@
     "label": {
         "country": "Pais",
         "business_doc": "CNPJ",
-        "partner_doc": "CPF",
+        "partner_doc": "CPF ou CNPJ",
         "zipcode": "Código postal",
         "businesstype": "Tipo de empresa",
         "result": "Resultado"

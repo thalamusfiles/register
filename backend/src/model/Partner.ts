@@ -1,11 +1,11 @@
 import { Entity, ManyToOne, Property, Unique } from '@mikro-orm/core';
 import { RegisterBaseEntity } from './Base/RegisterBaseEntity';
-import { Person } from './Person';
+import { Establishment } from './Establishment';
 import { Resource } from './Resource';
 import { ResourceCountry } from './ResourceCountry';
 
 @Entity({ schema: 'public', readonly: true })
-@Unique({ properties: ['resourceCountry', 'resource', 'person', 'extraKey'] })
+@Unique({ properties: ['resourceCountry', 'resource', 'establishment', 'extraKey'] })
 export class Partner extends RegisterBaseEntity {
   @ManyToOne(() => ResourceCountry, { nullable: false })
   resourceCountry?: ResourceCountry;
@@ -13,8 +13,8 @@ export class Partner extends RegisterBaseEntity {
   @ManyToOne(() => Resource, { nullable: false })
   resource!: Resource;
 
-  @ManyToOne(() => Person, { nullable: false })
-  person!: Person;
+  @ManyToOne(() => Establishment, { nullable: false })
+  establishment!: Establishment;
 
   @Property({ nullable: false })
   extraKey!: string;

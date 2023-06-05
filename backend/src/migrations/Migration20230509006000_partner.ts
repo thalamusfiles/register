@@ -9,15 +9,15 @@ export class Migration20230602183124 extends Migration {
         "updated_at" timestamptz(0) not null, 
         "resource_country_acronym" varchar(4) not null, 
         "resource_uuid" uuid not null, 
-        "person_uuid" uuid not null, 
+        "establishment_uuid" uuid not null, 
         "extra_key" varchar(255) not null, 
         "data" jsonb not null, 
         
         constraint "partner_pkey" primary key ("uuid"));`,
     );
     this.addSql(
-      `alter table "partner" add constraint "partner_resource_country_acronym_resource_uuid_per_8e37d_unique"
-       unique ("resource_country_acronym", "resource_uuid", "person_uuid", "extra_key");`,
+      `alter table "partner" add constraint "partner_resource_country_acronym_resource_uuid_est_38788_unique"
+       unique ("resource_country_acronym", "resource_uuid", "establishment_uuid", "extra_key");`,
     );
 
     this.addSql(
@@ -29,8 +29,8 @@ export class Migration20230602183124 extends Migration {
        foreign key ("resource_uuid") references "resource" ("uuid") on update cascade;`,
     );
     this.addSql(
-      `alter table "partner" add constraint "partner_person_uuid_foreign"
-       foreign key ("person_uuid") references "person" ("uuid") on update cascade;`,
+      `alter table "partner" add constraint "partner_establishment_uuid_foreign"
+       foreign key ("establishment_uuid") references "establishment" ("uuid") on update cascade;`,
     );
   }
 

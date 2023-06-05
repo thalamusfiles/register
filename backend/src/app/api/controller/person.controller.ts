@@ -68,13 +68,25 @@ export class PersonController {
   @ApiOperation({ tags: ['Person'], summary: 'Coletar registro de pessoa física' })
   @Get('/natural')
   @UsePipes(new RegisterValidationPipe())
-  async findNaturalByDocument(@Query() query?: FindCompanyDto): Promise<any> {
-    this.logger.log(`Find Natural By Document ${query.document}`);
+  async findNaturalByDocument(@Query() reqQuery?: FindCompanyDto): Promise<any> {
+    this.logger.log(`Find Natural By Document ${reqQuery.document}`);
 
-    const where = {
-      extraKey: query.document,
-    };
+    let extraKey = reqQuery.document.replace(/[\/.-]*/g, '');
+    if (extraKey.length === 11) {
+      extraKey = `***${extraKey.substring(3, 9)}**`;
+    }
 
-    return this.partnerRepo.findOneOrFail(where);
+    const schemaName = this.findPersonByDocumentRepo.getEntityManager().getMetadata().get(Partner.name).schema;
+    const tableName = this.findPersonByDocumentRepo.getEntityManager().getMetadata().get(Partner.name).tableName;
+
+    const query = this.knex
+      .select('extra_key')
+      .select(this.knex.raw(`data->>'partner' as partner, data->>'partnerDoc' as "partnerDoc"`))
+      .select(this.knex.raw(`data->>'representativeDoc' as "representativeDoc", data->>'representativeName' as "representativeName"`))
+      .from(`${schemaName}.${tableName}`)
+      .where('extra_key', extraKey)
+      .limit(1);
+
+    return await query;
   }
 }
