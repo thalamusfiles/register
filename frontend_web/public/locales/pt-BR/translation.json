@@ -40,6 +40,7 @@
         "partner_doc": "CPF ou CNPJ",
         "zipcode": "Código postal",
         "businesstype": "Tipo de empresa",
+        "json_result": "Resultado Json",
         "result": "Resultado"
     },
     "action": {

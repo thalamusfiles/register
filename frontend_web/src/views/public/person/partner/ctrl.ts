@@ -1,6 +1,7 @@
 import { action, makeObservable, observable } from 'mobx';
 import { createContext, useContext } from 'react';
-import { PersonDataSource, PersonFindByDocumentRespDto } from '../../../../datasources/person';
+import { historyReplace } from '../../../../commons/route';
+import { PartnerList, PersonDataSource } from '../../../../datasources/person';
 
 export class PersonPartnerCtrl {
   constructor() {
@@ -13,7 +14,7 @@ export class PersonPartnerCtrl {
   // PersonPartner
   @observable document = '';
   @observable wanted: boolean = false;
-  @observable response: PersonFindByDocumentRespDto | null = null;
+  @observable response: PartnerList | null = null;
 
   @action
   handleDocument = (e: any) => {
@@ -22,6 +23,8 @@ export class PersonPartnerCtrl {
 
   @action
   findDocument = () => {
+    historyReplace({ document: this.document });
+
     this.wanted = false;
     new PersonDataSource()
       .findNaturalByDocument(this.document!)
@@ -42,11 +45,11 @@ export class PersonPartnerCtrl {
     this.document = '';
     this.wanted = false;
     new PersonDataSource()
-      .findLegalRandom()
+      .findNaturalRandom()
       .then((response) => {
         this.wanted = true;
         this.response = response.data;
-        this.document = response.data?.brGovDados?.document as string;
+        this.document = response.data[0]?.extra_key as string;
       })
       .catch((ex) => {
         this.wanted = true;

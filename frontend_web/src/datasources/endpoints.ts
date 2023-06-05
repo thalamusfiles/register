@@ -4,10 +4,11 @@ class EndpointsConfigure {
   base = null as string | null;
   timeout = 5000;
   // API Person
-  apiPerson = null as string | null;
-  apiPersonLegal = `/legal`;
-  apiPersonLegalRandom = `/legal/random`;
-  apiPersonNatural = `/natural`;
+  ePerson = null as string | null;
+  ePersonLegal = `/legal`;
+  ePersonLegalRandom = `/legal/random`;
+  ePersonNatural = `/natural`;
+  ePersonNaturalRandom = `/natural/random`;
 
   configureEndpoint = (baseUrl: string = 'localhost', basePort: string = '3000') => {
     const baseEndpoint = basePort ? `${baseUrl}:${basePort}` : baseUrl;
@@ -17,7 +18,7 @@ class EndpointsConfigure {
     this.url = baseUrl;
     this.port = basePort;
     this.base = baseEndpoint;
-    this.apiPerson = apiPerson;
+    this.ePerson = apiPerson;
   };
 }
 

@@ -7,6 +7,8 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import FindPersonByDocument from '../../../model/Materialized/FindPersonByDocument';
 import { Knex, PostgreSqlConnection } from '@mikro-orm/postgresql';
 import { Partner } from '../../../model/Partner';
+import { Establishment } from '../../../model/Establishment';
+import { Person } from '../../../model/Person';
 
 @Controller('api/person')
 export class PersonController {
@@ -63,9 +65,9 @@ export class PersonController {
   }
 
   /**
-   * Busca registro de empresas
+   * Busca registro de sócios
    */
-  @ApiOperation({ tags: ['Person'], summary: 'Coletar registro de pessoa física' })
+  @ApiOperation({ tags: ['Person'], summary: 'Coletar registro de sócio da empresa' })
   @Get('/natural')
   @UsePipes(new RegisterValidationPipe())
   async findNaturalByDocument(@Query() reqQuery?: FindCompanyDto): Promise<any> {
@@ -76,17 +78,49 @@ export class PersonController {
       extraKey = `***${extraKey.substring(3, 9)}**`;
     }
 
+    const partSchemaName = this.findPersonByDocumentRepo.getEntityManager().getMetadata().get(Partner.name).schema;
+    const partTableName = this.findPersonByDocumentRepo.getEntityManager().getMetadata().get(Partner.name).tableName;
+    const estSchemaName = this.findPersonByDocumentRepo.getEntityManager().getMetadata().get(Establishment.name).schema;
+    const estTableName = this.findPersonByDocumentRepo.getEntityManager().getMetadata().get(Establishment.name).tableName;
+    const persSchemaName = this.findPersonByDocumentRepo.getEntityManager().getMetadata().get(Person.name).schema;
+    const persTableName = this.findPersonByDocumentRepo.getEntityManager().getMetadata().get(Person.name).tableName;
+
+    const query = this.knex
+      .select(`e.extra_key`)
+      .select(`pers.name`)
+      .select(this.knex.raw(`p.data->>'partner' as partner`))
+      .select(this.knex.raw(`p.data->>'partnerDoc' as "partnerDoc"`))
+      .select(this.knex.raw(`p.data->>'representativeDoc' as "representativeDoc"`))
+      .select(this.knex.raw(`p.data->>'representativeName' as "representativeName"`))
+      .from(`${partSchemaName}.${partTableName} as p`)
+      .leftJoin(`${estSchemaName}.${estTableName} as e`, `e.uuid`, `p.establishment_uuid`)
+      .leftJoin(`${persSchemaName}.${persTableName} as pers`, `pers.uuid`, `e.person_uuid`)
+      .where('p.extra_key', extraKey);
+
+    return await query;
+  }
+
+  /**
+   * Busca registro de sócios
+   */
+  @ApiOperation({ tags: ['Person'], summary: 'Coletar registro aleatório de sócio de empresa' })
+  @Get('/natural/random')
+  @UsePipes(new RegisterValidationPipe())
+  async findNaturalRandom(): Promise<any> {
+    this.logger.log(`Find Random Natural`);
+
     const schemaName = this.findPersonByDocumentRepo.getEntityManager().getMetadata().get(Partner.name).schema;
     const tableName = this.findPersonByDocumentRepo.getEntityManager().getMetadata().get(Partner.name).tableName;
+    const randomize = 'TABLESAMPLE SYSTEM (1)';
 
     const query = this.knex
       .select('extra_key')
-      .select(this.knex.raw(`data->>'partner' as partner, data->>'partnerDoc' as "partnerDoc"`))
-      .select(this.knex.raw(`data->>'representativeDoc' as "representativeDoc", data->>'representativeName' as "representativeName"`))
-      .from(`${schemaName}.${tableName}`)
-      .where('extra_key', extraKey)
-      .limit(1);
+      .from(this.knex.raw(`${schemaName}.${tableName} ${randomize}`))
+      .limit(1)
+      .first();
 
-    return await query;
+    const extraKey = (await query).extra_key;
+
+    return this.findNaturalByDocument({ document: extraKey });
   }
 }

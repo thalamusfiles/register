@@ -26,7 +26,7 @@ class RegisterApisConfigure {
 
   initApis = () => {
     this.ApiPerson = this.axiosStart({
-      baseURL: Endpoint.apiPerson!,
+      baseURL: Endpoint.ePerson!,
       timeout: Endpoint.timeout,
     });
   };

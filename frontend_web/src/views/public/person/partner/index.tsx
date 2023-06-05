@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { Alert, Button, ButtonGroup, Card, Col, Form, InputGroup, Row } from 'react-bootstrap';
+import { Alert, Button, ButtonGroup, Card, Col, Form, InputGroup, Row, Table } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { useI18N } from '../../../../commons/i18';
 import { getLinkTo } from '../../../../commons/route';
@@ -28,7 +28,8 @@ const PartnerPage: React.FC = () => {
 
         <PartnerForm />
       </Alert>
-      <PersonLegalResult />
+      <PartnerPrettyResult />
+      <PartnerResult />
     </PersonPartnerProvider>
   );
 };
@@ -93,12 +94,57 @@ const PartnerForm: React.FC = observer(() => {
   );
 });
 
-const PersonLegalResult: React.FC = observer(() => {
+const PartnerPrettyResult: React.FC = observer(() => {
   const ctrl = usePersonPartnerStore();
   const __ = useI18N();
   return (
     <>
       <h2>{__('label.result')}</h2>
+      <Table>
+        <thead>
+          <tr>
+            <td>Sócio Doc</td>
+            <td>Sócio</td>
+            <td>Representante Doc</td>
+            <td>Representante</td>
+            <td>Empresa Doc</td>
+            <td>Empresa</td>
+          </tr>
+        </thead>
+        <tbody>
+          {!ctrl.wanted && (
+            <tr>
+              <td colSpan={6}>{__('msg.enter_filter')}</td>
+            </tr>
+          )}
+          {ctrl.wanted && !ctrl.response && (
+            <tr>
+              <td colSpan={6}>{__('msg.register_not_found')}</td>
+            </tr>
+          )}
+          {ctrl.response &&
+            ctrl.response.map((resp, idx) => (
+              <tr key={idx}>
+                <td>{resp.partner}</td>
+                <td>{resp.partnerDoc}</td>
+                <td>{resp.representativeName ? resp.representativeDoc : null}</td>
+                <td>{resp.representativeName}</td>
+                <td>{resp.extra_key}</td>
+                <td>{resp.name}</td>
+              </tr>
+            ))}
+        </tbody>
+      </Table>
+    </>
+  );
+});
+
+const PartnerResult: React.FC = observer(() => {
+  const ctrl = usePersonPartnerStore();
+  const __ = useI18N();
+  return (
+    <>
+      <h2>{__('label.json_result')}</h2>
       <Card bg="dark" text="light">
         <Card.Body>
           {!ctrl.wanted && <p>{__('msg.enter_filter')}</p>}
