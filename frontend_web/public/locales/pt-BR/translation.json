@@ -53,7 +53,7 @@
         "persons_description": "Registros relacionados a pessoas físicas e jurídicas.",
         "address_description": "Registros relacionados a estabelecimentos. ",
         "person_legal_description": "Consulte informações sobre a pessoa jurídica por meio de seu documento de registro (CNPJ).",
-        "partner_description": "Consulte informações sobre o sócio da empresa por meio seu documento de registro (CPF).",
+        "partner_description": "Consulte informações sobre o sócio da empresa por meio seu documento de registro (CPF/CNPJ).",
         "establishments_description": "Consulte a lista de empresas localizadas em determinado endereço.",
         "business_type_description": "Consulte a lista de empresas por meio do tipo de negócio (CNAES, Natureza...)."
     },
@@ -61,7 +61,7 @@
         "legal.title": "Busca por pessoas jurídicas",
         "legal.description": "Consulte informações sobre a pessoa jurídica por meio de seu documento de registro (CNPJ).",
         "partner.title": "Busca por sócios de empresas",
-        "partner.description": "Consulte informações sobre o sócio da empresa por meio seu documento de registro (CPF)."
+        "partner.description": "Consulte informações sobre o sócio da empresa por meio seu documento de registro (CPF/CNPJ)."
     },
     "languages": {
         "pt-BR": "Português (Brasil)"

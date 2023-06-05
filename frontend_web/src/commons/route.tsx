@@ -51,6 +51,8 @@ export function getLinkTo(owner: RoutesName | string | number, options: { uuid: 
       newLocation = newLocation + '&show_save=show_save';
     }
     return newLocation;
+  } else if (options.search) {
+    push += '?' + qs.stringify(options.search);
   }
 
   return push;

@@ -36,7 +36,7 @@ export class PersonController {
     this.logger.log(`Find Legal By Document ${query.document}`);
 
     const where = {
-      key: `br:cnpj:${query.document.replace(/[^\d]/gi, '')}`,
+      key: `br:cnpj:${query.document.replace(/\./g, '')}`,
     };
 
     return await this.findPersonByDocumentRepo.findOneOrFail(where);

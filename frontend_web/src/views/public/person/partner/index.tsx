@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { Alert, Button, ButtonGroup, Card, Col, Form, InputGroup, Row, Table } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import { Link } from 'react-router-dom';
 import { useI18N } from '../../../../commons/i18';
 import { getLinkTo } from '../../../../commons/route';
 import { notify } from '../../../../components/Notification';
@@ -97,6 +98,7 @@ const PartnerForm: React.FC = observer(() => {
 const PartnerPrettyResult: React.FC = observer(() => {
   const ctrl = usePersonPartnerStore();
   const __ = useI18N();
+
   return (
     <>
       <h2>{__('label.result')}</h2>
@@ -129,7 +131,11 @@ const PartnerPrettyResult: React.FC = observer(() => {
                 <td>{resp.partnerDoc}</td>
                 <td>{resp.representativeName ? resp.representativeDoc : null}</td>
                 <td>{resp.representativeName}</td>
-                <td>{resp.extra_key}</td>
+                <td>
+                  <Link to="#" onClick={(e) => ctrl.handleOpenPersonLegal(e, resp.extra_key)}>
+                    {resp.extra_key}
+                  </Link>
+                </td>
                 <td>{resp.name}</td>
               </tr>
             ))}

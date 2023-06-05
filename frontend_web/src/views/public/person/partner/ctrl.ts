@@ -2,6 +2,7 @@ import { action, makeObservable, observable } from 'mobx';
 import { createContext, useContext } from 'react';
 import { historyReplace } from '../../../../commons/route';
 import { PartnerList, PersonDataSource } from '../../../../datasources/person';
+import { historyPush } from '../../../../commons/route';
 
 export class PersonPartnerCtrl {
   constructor() {
@@ -49,7 +50,9 @@ export class PersonPartnerCtrl {
       .then((response) => {
         this.wanted = true;
         this.response = response.data;
-        this.document = response.data[0]?.extra_key as string;
+        this.document = response.data[0]?.partnerDoc as string;
+
+        historyReplace({ document: this.document });
       })
       .catch((ex) => {
         this.wanted = true;
@@ -57,6 +60,14 @@ export class PersonPartnerCtrl {
 
         this.notifyExeption(ex);
       });
+  };
+
+  handleOpenPersonLegal = (event:any,document: string) => {
+    event.preventDefault();
+
+    historyPush('person_legal', { open: true, search: { document } });
+
+    return false;
   };
 }
 
