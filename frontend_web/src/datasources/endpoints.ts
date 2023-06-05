@@ -10,15 +10,22 @@ class EndpointsConfigure {
   ePersonNatural = `/natural`;
   ePersonNaturalRandom = `/natural/random`;
 
+  // API Person
+  eEstablishment = null as string | null;
+  eEstablishmentZipcode = `/zipcode`;
+  eEstablishmentZipcodeRandom = `/zipcode/random`;
+
   configureEndpoint = (baseUrl: string = 'localhost', basePort: string = '3000') => {
     const baseEndpoint = basePort ? `${baseUrl}:${basePort}` : baseUrl;
 
     const apiPerson = `${baseEndpoint}/api/person`;
+    const eEstablishment = `${baseEndpoint}/api/establishment`;
 
     this.url = baseUrl;
     this.port = basePort;
     this.base = baseEndpoint;
     this.ePerson = apiPerson;
+    this.eEstablishment = eEstablishment;
   };
 }
 

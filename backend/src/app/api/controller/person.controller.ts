@@ -23,7 +23,7 @@ export class PersonController {
   ) {
     this.logger.log('starting');
 
-    this.knex = (this.findPersonByDocumentRepo.getEntityManager().getConnection() as PostgreSqlConnection).getKnex();
+    this.knex = (this.findPersonByDocumentRepo.getEntityManager().getConnection('read') as PostgreSqlConnection).getKnex();
   }
 
   /**
@@ -86,7 +86,11 @@ export class PersonController {
     const persTableName = this.findPersonByDocumentRepo.getEntityManager().getMetadata().get(Person.name).tableName;
 
     const query = this.knex
-      .select(`e.extra_key`)
+      .select(
+        this.knex.raw(
+          `(( SELECT (((a.a[1] || '/'::text) || lpad(a.a[2], 4, '0'::text)) || '-'::text) || lpad(a.a[3], 2, '0'::text) FROM regexp_matches(e.extra_key::text, '(.*)/(\\d+)-(.*)'::text) a)) as document`,
+        ),
+      )
       .select(`pers.name`)
       .select(this.knex.raw(`p.data->>'partner' as partner`))
       .select(this.knex.raw(`p.data->>'partnerDoc' as "partnerDoc"`))
@@ -101,7 +105,7 @@ export class PersonController {
   }
 
   /**
-   * Busca registro de sócios
+   * Busca registro aleatório de sócios
    */
   @ApiOperation({ tags: ['Person'], summary: 'Coletar registro aleatório de sócio de empresa' })
   @Get('/natural/random')

@@ -1,14 +1,18 @@
 import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
 import { Alert, Button, ButtonGroup, Card, Col, Form, InputGroup, Row } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import { useSearchParams } from 'react-router-dom';
 import { useI18N } from '../../../../commons/i18';
 import { getLinkTo } from '../../../../commons/route';
 import { notify } from '../../../../components/Notification';
 import { PersonLegalCtrl, PersonLegalProvider, usePersonLegalStore } from './ctrl';
 
+const ctrl = new PersonLegalCtrl();
 const PersonLegalPage: React.FC = () => {
   const __ = useI18N();
-  const ctrl = new PersonLegalCtrl();
+  const [searchParams] = useSearchParams();
+
   ctrl.notifyExeption = (ex: any) => {
     const status = ex.response?.status;
     if ([404].includes(status)) {
@@ -19,6 +23,17 @@ const PersonLegalPage: React.FC = () => {
       notify.danger(ex.message);
     }
   };
+
+  useEffect(() => {
+    const document = searchParams.get('document') as string;
+    if (ctrl.document !== document) {
+      ctrl.handleDocument({ target: { value: document || '' } });
+      if (ctrl.document) {
+        ctrl.findDocument();
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ctrl]);
 
   return (
     <PersonLegalProvider value={ctrl}>
@@ -96,9 +111,10 @@ const PersonLegaForm: React.FC = observer(() => {
 const PersonLegalResult: React.FC = observer(() => {
   const ctrl = usePersonLegalStore();
   const __ = useI18N();
+
   return (
     <>
-      <h2>{__('label.result')}</h2>
+      <h2>{__('label.json_result')}</h2>
       <Card bg="dark" text="light">
         <Card.Body>
           {!ctrl.wanted && <p>{__('msg.enter_filter')}</p>}

@@ -16,13 +16,11 @@ const router = createBaseRouter(createRoutesFromElements(routes));
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <React.StrictMode>
-    <React.Suspense fallback="loading">
-      <UserProvider value={UserCtxInstance}>
-        <RouterProvider router={router} />
-      </UserProvider>
-    </React.Suspense>
-  </React.StrictMode>,
+  <React.Suspense fallback="loading">
+    <UserProvider value={UserCtxInstance}>
+      <RouterProvider router={router} />
+    </UserProvider>
+  </React.Suspense>,
 );
 
 // If you want your app to work offline and load faster, you can change

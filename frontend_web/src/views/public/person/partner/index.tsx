@@ -1,15 +1,18 @@
 import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
 import { Alert, Button, ButtonGroup, Card, Col, Form, InputGroup, Row, Table } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useI18N } from '../../../../commons/i18';
 import { getLinkTo } from '../../../../commons/route';
 import { notify } from '../../../../components/Notification';
 import { PersonPartnerCtrl, PersonPartnerProvider, usePersonPartnerStore } from './ctrl';
 
+const ctrl = new PersonPartnerCtrl();
 const PartnerPage: React.FC = () => {
   const __ = useI18N();
-  const ctrl = new PersonPartnerCtrl();
+  const [searchParams] = useSearchParams();
+
   ctrl.notifyExeption = (ex: any) => {
     const status = ex.response?.status;
     if ([404].includes(status)) {
@@ -20,6 +23,17 @@ const PartnerPage: React.FC = () => {
       notify.danger(ex.message);
     }
   };
+
+  useEffect(() => {
+    const document = searchParams.get('document') as string;
+    if (ctrl.document !== document) {
+      ctrl.handleDocument({ target: { value: document || '' } });
+      if (ctrl.document) {
+        ctrl.findDocument();
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ctrl]);
 
   return (
     <PersonPartnerProvider value={ctrl}>
@@ -127,13 +141,13 @@ const PartnerPrettyResult: React.FC = observer(() => {
           {ctrl.response &&
             ctrl.response.map((resp, idx) => (
               <tr key={idx}>
-                <td>{resp.partner}</td>
                 <td>{resp.partnerDoc}</td>
+                <td>{resp.partner}</td>
                 <td>{resp.representativeName ? resp.representativeDoc : null}</td>
                 <td>{resp.representativeName}</td>
                 <td>
-                  <Link to="#" onClick={(e) => ctrl.handleOpenPersonLegal(e, resp.extra_key)}>
-                    {resp.extra_key}
+                  <Link to="#" onClick={(e) => ctrl.handleOpenPersonLegal(e, resp.document)} style={{ whiteSpace: 'nowrap' }}>
+                    {resp.document}
                   </Link>
                 </td>
                 <td>{resp.name}</td>
@@ -148,6 +162,7 @@ const PartnerPrettyResult: React.FC = observer(() => {
 const PartnerResult: React.FC = observer(() => {
   const ctrl = usePersonPartnerStore();
   const __ = useI18N();
+
   return (
     <>
       <h2>{__('label.json_result')}</h2>

@@ -11,8 +11,11 @@ export class Migration20230509115642 extends Migration {
         "resource_uuid" uuid not null, 
         "person_uuid" uuid not null, 
         "extra_key" varchar(255) not null,
+        
         "country_uuid" uuid, 
         "city_uuid" uuid, 
+        "zipcode" varchar(16) null,
+        
         "data" jsonb not null, 
         
         constraint "establishment_pkey" primary key ("uuid")

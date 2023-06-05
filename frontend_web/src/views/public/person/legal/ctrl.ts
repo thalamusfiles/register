@@ -20,6 +20,7 @@ export class PersonLegalCtrl {
   @action
   handleDocument = (e: any) => {
     this.document = e.target.value;
+    this.response = null;
   };
 
   @action
@@ -27,6 +28,8 @@ export class PersonLegalCtrl {
     historyReplace({ document: this.document });
 
     this.wanted = false;
+    this.response = null;
+
     new PersonDataSource()
       .findLegalByDocument(this.document!)
       .then((response) => {
@@ -51,6 +54,8 @@ export class PersonLegalCtrl {
 
     this.document = '';
     this.wanted = false;
+    this.response = null;
+
     new PersonDataSource()
       .findLegalRandom()
       .then((response) => {

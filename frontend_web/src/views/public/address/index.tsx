@@ -58,6 +58,7 @@ const AddressHeader: React.FC = () => {
   const __ = useI18N();
   const location = useLocation();
   const hasZipcodeRoute = location.pathname.includes('zipcode');
+  const businesstypeRoute = location.pathname.includes('businesstype');
 
   return (
     <>
@@ -72,7 +73,7 @@ const AddressHeader: React.FC = () => {
           onClick={() => historyPush('addresses_zipcode')}
         />
         <TCardTile
-          variant={!hasZipcodeRoute ? 'info' : ''}
+          variant={businesstypeRoute ? 'info' : ''}
           title={__('menu.business_type')}
           subtitle={__('menu.freemium')}
           faicon={IconsDef.zipcode}

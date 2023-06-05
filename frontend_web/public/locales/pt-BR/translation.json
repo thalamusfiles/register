@@ -18,7 +18,7 @@
     },
     "card": {
         "developer_guide": "Guia para desenvolvedores",
-        "developer_guide_description": "Acesso o manual das apis e realize testes para integração para a sua ferramenta.",
+        "developer_guide_description": "Acesse o manual das APIs e realize testes de integração para a sua ferramenta.",
         "docs": "Documentação",
         "docs_subtitle": "Api, autenticação, FAQ...",
         "docs_description": "Manuais do usuário e do desenvolvedor de como utilizar a API Register em sua aplicação.",
@@ -39,6 +39,7 @@
         "business_doc": "CNPJ",
         "partner_doc": "CPF ou CNPJ",
         "zipcode": "Código postal",
+        "limit.offset": "Limite e Início",
         "businesstype": "Tipo de empresa",
         "json_result": "Resultado Json",
         "result": "Resultado"

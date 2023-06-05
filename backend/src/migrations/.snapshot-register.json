@@ -932,6 +932,16 @@
           "nullable": true,
           "mappedType": "uuid"
         },
+        "zipcode": {
+          "name": "zipcode",
+          "type": "varchar(16)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 16,
+          "mappedType": "string"
+        },
         "data": {
           "name": "data",
           "type": "jsonb",

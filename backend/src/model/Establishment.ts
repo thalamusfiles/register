@@ -22,10 +22,13 @@ export class Establishment extends RegisterBaseEntity {
   extraKey!: string;
 
   @ManyToOne(() => Country, { nullable: true })
-  country!: Country;
+  country?: Country;
 
   @ManyToOne(() => City, { nullable: true })
-  city!: City;
+  city?: City;
+
+  @Property({ nullable: true, length: 16 })
+  zipcode?: string;
 
   @Property({ type: 'json', nullable: false })
   data!: string;

@@ -4,6 +4,7 @@ import Endpoint from './endpoints';
 class RegisterApisConfigure {
   token = '';
   ApiPerson!: AxiosInstance;
+  ApiEstablishment!: AxiosInstance;
 
   /**
    * Intercepta todas as requisições
@@ -27,6 +28,11 @@ class RegisterApisConfigure {
   initApis = () => {
     this.ApiPerson = this.axiosStart({
       baseURL: Endpoint.ePerson!,
+      timeout: Endpoint.timeout,
+    });
+
+    this.ApiEstablishment = this.axiosStart({
+      baseURL: Endpoint.eEstablishment!,
       timeout: Endpoint.timeout,
     });
   };

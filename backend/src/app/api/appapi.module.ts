@@ -1,5 +1,6 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Logger, Module, NestModule } from '@nestjs/common';
+import { Establishment } from '../../model/Establishment';
 import FindPersonByDocument from '../../model/Materialized/FindPersonByDocument';
 import { Partner } from '../../model/Partner';
 import { EstablishmentController } from './controller/establishment.controller';
@@ -7,7 +8,7 @@ import { EstablishmentController } from './controller/establishment.controller';
 import { PersonController } from './controller/person.controller';
 
 @Module({
-  imports: [MikroOrmModule.forFeature([FindPersonByDocument, Partner])],
+  imports: [MikroOrmModule.forFeature([FindPersonByDocument, Partner, Establishment])],
   providers: [],
   controllers: [
     //
