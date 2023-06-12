@@ -906,8 +906,8 @@
           "nullable": false,
           "mappedType": "integer"
         },
-        "state_code_uuid": {
-          "name": "state_code_uuid",
+        "state_uuid": {
+          "name": "state_uuid",
           "type": "uuid",
           "unsigned": false,
           "autoincrement": false,
@@ -983,10 +983,10 @@
           "referencedTableName": "public.resource",
           "updateRule": "cascade"
         },
-        "city_state_code_uuid_foreign": {
-          "constraintName": "city_state_code_uuid_foreign",
+        "city_state_uuid_foreign": {
+          "constraintName": "city_state_uuid_foreign",
           "columnNames": [
-            "state_code_uuid"
+            "state_uuid"
           ],
           "localTableName": "address.city",
           "referencedColumnNames": [

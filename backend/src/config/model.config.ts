@@ -1,6 +1,7 @@
 import { MikroOrmModuleSyncOptions } from '@mikro-orm/nestjs';
 import { City } from '../model/Address/City';
 import { Country } from '../model/Address/Country';
+import { State } from '../model/Address/State';
 import { Contact } from '../model/Contact';
 import { Establishment } from '../model/Establishment';
 import FindPersonByDocument from '../model/Materialized/FindPersonByDocument';
@@ -31,6 +32,7 @@ const modelConfig: MikroOrmModuleSyncOptions = {
   entities: [
     // Address
     Country,
+    State,
     City,
     // Base
     ResourceCountry,

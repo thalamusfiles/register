@@ -65,7 +65,7 @@ export class Migration20230509115642 extends Migration {
         "resource_uuid" uuid not null,
         
         "code" int not null,
-        "state_code_uuid" uuid null,
+        "state_uuid" uuid null,
         "name" varchar(512) not null, 
         
         constraint "city_pkey" primary key ("uuid"), 
@@ -88,8 +88,8 @@ export class Migration20230509115642 extends Migration {
     );
 
     this.addSql(
-      `alter table "address"."city" add constraint "city_state_code_uuid_foreign"
-       foreign key ("state_code_uuid") references "address"."state" ("uuid") on update cascade on delete set null;`,
+      `alter table "address"."city" add constraint "city_state_uuid_foreign"
+       foreign key ("state_uuid") references "address"."state" ("uuid") on update cascade on delete set null;`,
     );
   }
 
