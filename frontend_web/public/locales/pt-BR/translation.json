@@ -36,6 +36,9 @@
     },
     "label": {
         "country": "Pais",
+        "state": "Estado",
+        "city": "Cidade",
+        "business_type": "Tipo de empresa",
         "business_doc": "CNPJ",
         "partner_doc": "CPF ou CNPJ",
         "zipcode": "Código postal",
@@ -47,7 +50,7 @@
     "action": {
         "access": "Acessar",
         "search": "Procurar",
-        "test": "Testar"
+        "random_search": "Busca aleatória"
     },
     "home": {
         "by_adress": "Buscar por endereço",
@@ -63,6 +66,10 @@
         "legal.description": "Consulte informações sobre a pessoa jurídica por meio de seu documento de registro (CNPJ).",
         "partner.title": "Busca por sócios de empresas",
         "partner.description": "Consulte informações sobre o sócio da empresa por meio seu documento de registro (CPF/CNPJ)."
+    },
+    "address": {
+        "zipcode.title": "Busca por código postal",
+        "zipcode.description": "Consulte empresas cadastradas a partir de seu código postal(CEP)."
     },
     "languages": {
         "pt-BR": "Português (Brasil)"

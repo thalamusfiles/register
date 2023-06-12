@@ -100,7 +100,7 @@ const PartnerForm: React.FC = observer(() => {
                 ctrl.findDocumentRandom();
               }}
             >
-              {__('action.test')}
+              {__('action.random_search')}
             </Button>
           </ButtonGroup>
         </Col>

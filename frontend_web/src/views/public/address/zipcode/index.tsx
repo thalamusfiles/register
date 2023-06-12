@@ -85,6 +85,8 @@ const ZipcodeForm: React.FC = observer(() => {
             <Form.Control id="document" value={ctrl.zipcode} onChange={ctrl.handleDocument} />
           </InputGroup>
         </Col>
+      </Row>
+      <Row>
         <Col md={4}>
           <Form.Label htmlFor="document" visuallyHidden>
             {__('label.limit.offset')}
@@ -95,8 +97,6 @@ const ZipcodeForm: React.FC = observer(() => {
             <Form.Control id="document" value={ctrl.offset} onChange={ctrl.handleOffset} />
           </InputGroup>
         </Col>
-      </Row>
-      <Row>
         <Col>
           <ButtonGroup className="float-end">
             <Button type="button" className="mb-2" onClick={ctrl.findDocument}>
@@ -110,7 +110,7 @@ const ZipcodeForm: React.FC = observer(() => {
                 ctrl.findDocumentRandom();
               }}
             >
-              {__('action.test')}
+              {__('action.random_search')}
             </Button>
           </ButtonGroup>
         </Col>

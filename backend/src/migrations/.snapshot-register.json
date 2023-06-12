@@ -768,12 +768,152 @@
         },
         "code": {
           "name": "code",
+          "type": "varchar(8)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 8,
+          "mappedType": "string"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(512)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 512,
+          "mappedType": "string"
+        }
+      },
+      "name": "state",
+      "schema": "address",
+      "indexes": [
+        {
+          "keyName": "state_resource_country_acronym_resource_uuid_code_unique",
+          "columnNames": [
+            "resource_country_acronym",
+            "resource_uuid",
+            "code"
+          ],
+          "composite": true,
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "state_pkey",
+          "columnNames": [
+            "uuid"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "state_name_check",
+          "expression": "LENGTH(name) >= 2",
+          "definition": "check ((LENGTH(name) >= 2))",
+          "columnName": "name"
+        }
+      ],
+      "foreignKeys": {
+        "state_resource_country_acronym_foreign": {
+          "constraintName": "state_resource_country_acronym_foreign",
+          "columnNames": [
+            "resource_country_acronym"
+          ],
+          "localTableName": "address.state",
+          "referencedColumnNames": [
+            "acronym"
+          ],
+          "referencedTableName": "public.resource_country",
+          "updateRule": "cascade"
+        },
+        "state_resource_uuid_foreign": {
+          "constraintName": "state_resource_uuid_foreign",
+          "columnNames": [
+            "resource_uuid"
+          ],
+          "localTableName": "address.state",
+          "referencedColumnNames": [
+            "uuid"
+          ],
+          "referencedTableName": "public.resource",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "uuid": {
+          "name": "uuid",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "uuid_generate_v4()",
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "resource_country_acronym": {
+          "name": "resource_country_acronym",
+          "type": "varchar(4)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 4,
+          "mappedType": "string"
+        },
+        "resource_uuid": {
+          "name": "resource_uuid",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "code": {
+          "name": "code",
           "type": "int",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "mappedType": "integer"
+        },
+        "state_code_uuid": {
+          "name": "state_code_uuid",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "uuid"
         },
         "name": {
           "name": "name",
@@ -841,6 +981,19 @@
             "uuid"
           ],
           "referencedTableName": "public.resource",
+          "updateRule": "cascade"
+        },
+        "city_state_code_uuid_foreign": {
+          "constraintName": "city_state_code_uuid_foreign",
+          "columnNames": [
+            "state_code_uuid"
+          ],
+          "localTableName": "address.city",
+          "referencedColumnNames": [
+            "uuid"
+          ],
+          "referencedTableName": "address.state",
+          "deleteRule": "set null",
           "updateRule": "cascade"
         }
       }
