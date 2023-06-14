@@ -46,7 +46,7 @@ const TypeBreadcrum: React.FC = () => {
   return (
     <Breadcrumb>
       <Breadcrumb.Item href="/">{__('menu.home')}</Breadcrumb.Item>
-      <Breadcrumb.Item active>{__('menu.establishments')}</Breadcrumb.Item>
+      <Breadcrumb.Item active>{__('menu.type')}</Breadcrumb.Item>
     </Breadcrumb>
   );
 };

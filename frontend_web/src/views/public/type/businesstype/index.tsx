@@ -38,8 +38,8 @@ const BusinessTypePage: React.FC = () => {
   return (
     <AddressZipcodeProvider value={ctrl}>
       <Alert variant="secondary" className="p-4">
-        <h2>{__('address.bu.title')}</h2>
-        <p>{__('address.zipcode.description')}</p>
+        <h2>{__('type.business.title')}</h2>
+        <p>{__('type.business.description')}</p>
 
         <BusinessTypeForm />
       </Alert>
@@ -54,8 +54,8 @@ const BusinessTypeBreadcrum: React.FC = () => {
   return (
     <Breadcrumb>
       <Breadcrumb.Item href="/">{__('menu.home')}</Breadcrumb.Item>
-      <Breadcrumb.Item href={getLinkTo('persons')}>{__('menu.persons')}</Breadcrumb.Item>
-      <Breadcrumb.Item active>{__('menu.person_legal')}</Breadcrumb.Item>
+      <Breadcrumb.Item href={getLinkTo('persons')}>{__('menu.type')}</Breadcrumb.Item>
+      <Breadcrumb.Item active>{__('menu.business_type')}</Breadcrumb.Item>
     </Breadcrumb>
   );
 };

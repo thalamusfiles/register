@@ -54,8 +54,8 @@ const ZipcodeBreadcrum: React.FC = () => {
   return (
     <Breadcrumb>
       <Breadcrumb.Item href="/">{__('menu.home')}</Breadcrumb.Item>
-      <Breadcrumb.Item href={getLinkTo('persons')}>{__('menu.persons')}</Breadcrumb.Item>
-      <Breadcrumb.Item active>{__('menu.person_legal')}</Breadcrumb.Item>
+      <Breadcrumb.Item href={getLinkTo('addresse')}>{__('menu.address')}</Breadcrumb.Item>
+      <Breadcrumb.Item active>{__('menu.establishments')}</Breadcrumb.Item>
     </Breadcrumb>
   );
 };

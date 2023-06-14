@@ -73,6 +73,10 @@
         "zipcode.title": "Busca por código postal",
         "zipcode.description": "Consulte empresas cadastradas a partir de seu código postal(CEP)."
     },
+    "type": {
+        "business.title": "Busca por tipo de empresa",
+        "business.description": "Consulte empresas cadastradas a partir de seu tipo(CNAES, Natureza...)."
+    },
     "languages": {
         "pt-BR": "Português (Brasil)"
     },

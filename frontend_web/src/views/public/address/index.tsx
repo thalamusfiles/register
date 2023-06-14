@@ -7,14 +7,12 @@ import TCardTile from '../../../components/Card/card-tile';
 import DeveloperGuide from '../../cards/developer-guide';
 import SideBarHome from '../home/sidebarhome';
 import ZipcodePage, { ZipcodeBreadcrum } from './zipcode';
-import BusinessTypePage, { BusinessTypeBreadcrum } from './businesstype';
 
 const AddressPage: React.FC = () => {
   return (
     <Container fluid>
       <Routes>
         <Route path="/zipcode" element={<ZipcodeBreadcrum />} />
-        <Route path="/businesstype" element={<BusinessTypeBreadcrum />} />
         <Route path="/" element={<AddressBreadcrum />} />
       </Routes>
 
@@ -29,7 +27,6 @@ const AddressPage: React.FC = () => {
               <br />
               <Routes>
                 <Route path="/zipcode" element={<ZipcodePage />} />
-                <Route path="/businesstype" element={<BusinessTypePage />} />
                 <Route path="/" element={<NoneSelected />} />
               </Routes>
             </Col>
@@ -49,7 +46,7 @@ const AddressBreadcrum: React.FC = () => {
   return (
     <Breadcrumb>
       <Breadcrumb.Item href="/">{__('menu.home')}</Breadcrumb.Item>
-      <Breadcrumb.Item active>{__('menu.establishments')}</Breadcrumb.Item>
+      <Breadcrumb.Item active>{__('menu.address')}</Breadcrumb.Item>
     </Breadcrumb>
   );
 };
@@ -58,7 +55,6 @@ const AddressHeader: React.FC = () => {
   const __ = useI18N();
   const location = useLocation();
   const hasZipcodeRoute = location.pathname.includes('zipcode');
-  const businesstypeRoute = location.pathname.includes('businesstype');
 
   return (
     <>
@@ -71,13 +67,6 @@ const AddressHeader: React.FC = () => {
           subtitle={__('menu.freemium')}
           faicon={IconsDef.zipcode}
           onClick={() => historyPush('addresses_zipcode')}
-        />
-        <TCardTile
-          variant={businesstypeRoute ? 'info' : ''}
-          title={__('menu.business_type')}
-          subtitle={__('menu.freemium')}
-          faicon={IconsDef.zipcode}
-          onClick={() => historyPush('types_businesstype')}
         />
       </Stack>
     </>
