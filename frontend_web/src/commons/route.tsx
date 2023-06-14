@@ -30,14 +30,17 @@ export function getLinkTo(owner: RoutesName | string | number, options: { uuid: 
     case 'person_partner':
       push = '/public/person/partner';
       break;
+    case 'types':
+      push = '/public/types';
+      break;
+    case 'types_businesstype':
+      push = '/public/types/businesstype';
+      break;
     case 'addresses':
       push = '/public/addresses';
       break;
     case 'addresses_zipcode':
       push = '/public/addresses/zipcode';
-      break;
-    case 'addresses_businesstype':
-      push = '/public/addresses/businesstype';
       break;
     default:
       push = owner as string;

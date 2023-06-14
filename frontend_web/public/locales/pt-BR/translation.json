@@ -8,6 +8,7 @@
         "portuguese": "Português (Brasil)",
         "apis": "APIs",
         "persons": "Empresas e pessoas",
+        "type": "Tipo de empresa",
         "address": "Endereços",
         "person_legal": "Pessoas Jurídicas",
         "partners": "Sócios",
@@ -55,6 +56,7 @@
     "home": {
         "by_adress": "Buscar por endereço",
         "persons_description": "Registros relacionados a pessoas físicas e jurídicas.",
+        "type_description": "Registros relacionados ao tipo da empresa. ",
         "address_description": "Registros relacionados a estabelecimentos. ",
         "person_legal_description": "Consulte informações sobre a pessoa jurídica por meio de seu documento de registro (CNPJ).",
         "partner_description": "Consulte informações sobre o sócio da empresa por meio seu documento de registro (CPF/CNPJ).",

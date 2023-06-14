@@ -6,16 +6,14 @@ import { historyPush } from '../../../commons/route';
 import TCardTile from '../../../components/Card/card-tile';
 import DeveloperGuide from '../../cards/developer-guide';
 import SideBarHome from '../home/sidebarhome';
-import ZipcodePage, { ZipcodeBreadcrum } from './zipcode';
 import BusinessTypePage, { BusinessTypeBreadcrum } from './businesstype';
 
-const AddressPage: React.FC = () => {
+const TypePage: React.FC = () => {
   return (
     <Container fluid>
       <Routes>
-        <Route path="/zipcode" element={<ZipcodeBreadcrum />} />
         <Route path="/businesstype" element={<BusinessTypeBreadcrum />} />
-        <Route path="/" element={<AddressBreadcrum />} />
+        <Route path="/" element={<TypeBreadcrum />} />
       </Routes>
 
       <Row>
@@ -25,10 +23,9 @@ const AddressPage: React.FC = () => {
         <Col>
           <Row>
             <Col md={12} lg={8}>
-              <AddressHeader />
+              <TypeHeader />
               <br />
               <Routes>
-                <Route path="/zipcode" element={<ZipcodePage />} />
                 <Route path="/businesstype" element={<BusinessTypePage />} />
                 <Route path="/" element={<NoneSelected />} />
               </Routes>
@@ -44,7 +41,7 @@ const AddressPage: React.FC = () => {
   );
 };
 
-const AddressBreadcrum: React.FC = () => {
+const TypeBreadcrum: React.FC = () => {
   const __ = useI18N();
   return (
     <Breadcrumb>
@@ -54,24 +51,16 @@ const AddressBreadcrum: React.FC = () => {
   );
 };
 
-const AddressHeader: React.FC = () => {
+const TypeHeader: React.FC = () => {
   const __ = useI18N();
   const location = useLocation();
-  const hasZipcodeRoute = location.pathname.includes('zipcode');
   const businesstypeRoute = location.pathname.includes('businesstype');
 
   return (
     <>
-      <h1>{__('menu.address')}</h1>
-      <p>{__('home.address_description')}</p>
+      <h1>{__('menu.type')}</h1>
+      <p>{__('home.type_description')}</p>
       <Stack direction="horizontal" gap={3}>
-        <TCardTile
-          variant={hasZipcodeRoute ? 'info' : ''}
-          title={__('menu.establishments')}
-          subtitle={__('menu.freemium')}
-          faicon={IconsDef.zipcode}
-          onClick={() => historyPush('addresses_zipcode')}
-        />
         <TCardTile
           variant={businesstypeRoute ? 'info' : ''}
           title={__('menu.business_type')}
@@ -93,4 +82,4 @@ const NoneSelected: React.FC = () => {
   );
 };
 
-export default AddressPage;
+export default TypePage;

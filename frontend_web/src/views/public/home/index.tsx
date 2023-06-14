@@ -20,6 +20,7 @@ const Home: React.FC = () => {
           <Row>
             <Col md={12} lg={8}>
               <Person />
+              <Type />
               <Address />
             </Col>
             <Col sm={3}>
@@ -64,6 +65,31 @@ const Person: React.FC = () => {
   );
 };
 
+const Type: React.FC = () => {
+  const __ = useI18N();
+  return (
+    <>
+      <h1>{__('menu.type')}</h1>
+      <p>{__('home.type_description')}</p>
+
+      <Stack direction="horizontal" gap={3}>
+        <TCard title={__('menu.business_type')} subtitle={__('menu.freemium')} faicon={IconsDef.zipcode}>
+          <Card.Body style={{ height: 80 }}>
+            <Card.Text>{__('home.business_type_description')}</Card.Text>
+          </Card.Body>
+          <Card.Body>
+            <Button size="sm" onClick={() => historyPush('types_businesstype')} variant="outline-primary">
+              {__('action.access')}
+            </Button>
+          </Card.Body>
+        </TCard>
+      </Stack>
+
+      <br />
+    </>
+  );
+};
+
 const Address: React.FC = () => {
   const __ = useI18N();
   return (
@@ -78,17 +104,6 @@ const Address: React.FC = () => {
           </Card.Body>
           <Card.Body>
             <Button size="sm" onClick={() => historyPush('addresses_zipcode')} variant="outline-primary">
-              {__('action.access')}
-            </Button>
-          </Card.Body>
-        </TCard>
-
-        <TCard title={__('menu.business_type')} subtitle={__('menu.freemium')} faicon={IconsDef.zipcode}>
-          <Card.Body style={{ height: 80 }}>
-            <Card.Text>{__('home.business_type_description')}</Card.Text>
-          </Card.Body>
-          <Card.Body>
-            <Button size="sm" onClick={() => historyPush('addresses_businesstype')} variant="outline-primary">
               {__('action.access')}
             </Button>
           </Card.Body>

@@ -4,6 +4,7 @@ import { InModal } from '../../components/Modal';
 import AddressPage from './address';
 import Home from './home';
 import PersonPage from './person';
+import TypePage from './type';
 
 /**
  * Definições das rotas.
@@ -13,6 +14,7 @@ export const routes: RoutesDefinition = {
   // Home
   home: { path: '/home', component: Home, index: true },
   person: { path: '/person', component: PersonPage, index: true },
+  type: { path: '/types', component: TypePage, index: true },
   addresses: { path: '/addresses', component: AddressPage, index: true },
 };
 
