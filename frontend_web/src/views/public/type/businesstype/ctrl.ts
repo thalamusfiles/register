@@ -1,11 +1,11 @@
 import { action, makeObservable, observable } from 'mobx';
 import { createContext, useContext } from 'react';
-import { historyReplace } from '../../../../commons/route';
 import { PartnerList } from '../../../../datasources/person';
 import { historyPush } from '../../../../commons/route';
 import { EstablishmentDataSource } from '../../../../datasources/establishment';
+import { AddressDataSource, CityList, StateList } from '../../../../datasources/address';
 
-export class AddressZipcodeCtrl {
+export class TypeBusinessTypeCtrl {
   constructor() {
     // Modifica classe pra ser observável
     makeObservable(this);
@@ -14,11 +14,18 @@ export class AddressZipcodeCtrl {
   notifyExeption!: Function;
 
   // PersonPartner
+  @observable states = [] as StateList;
+  @observable cities = [] as CityList;
   @observable zipcode = '';
   @observable limit = 25;
   @observable offset = 0;
   @observable wanted: boolean = false;
   @observable response: PartnerList | null = null;
+
+  @action
+  init = () => {
+    this.findStates();
+  };
 
   @action
   handleDocument = (e: any) => {
@@ -45,9 +52,25 @@ export class AddressZipcodeCtrl {
   };
 
   @action
-  findDocument = () => {
-    historyReplace({ document: this.zipcode });
+  findStates = () => {
+    new AddressDataSource().findState().then((response) => {
+      this.states = response.data;
+    });
+  };
 
+  @action
+  findCities = (stateCode: string) => {
+    if (!stateCode) {
+      this.cities = [];
+    } else {
+      new AddressDataSource().findCity(stateCode).then((response) => {
+        this.cities = response.data;
+      });
+    }
+  };
+
+  @action
+  findDocument = () => {
     this.wanted = false;
     this.response = null;
 
@@ -77,8 +100,6 @@ export class AddressZipcodeCtrl {
         this.wanted = true;
         this.response = response.data;
         this.zipcode = response.data[0]?.zipcode;
-
-        historyReplace({ document: this.zipcode });
       })
       .catch((ex) => {
         this.wanted = true;
@@ -97,6 +118,6 @@ export class AddressZipcodeCtrl {
   };
 }
 
-export const AddressZipcodeContext = createContext({} as AddressZipcodeCtrl);
-export const AddressZipcodeProvider = AddressZipcodeContext.Provider;
-export const useAddressZipcodeStore = (): AddressZipcodeCtrl => useContext(AddressZipcodeContext);
+export const TypeBusinessTypeContext = createContext({} as TypeBusinessTypeCtrl);
+export const TypeBusinessTypeProvider = TypeBusinessTypeContext.Provider;
+export const useTypeBusinessTypeStore = (): TypeBusinessTypeCtrl => useContext(TypeBusinessTypeContext);

@@ -2,16 +2,15 @@ import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { Alert, Button, ButtonGroup, Card, Col, Form, InputGroup, Row, Table } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useI18N } from '../../../../commons/i18';
 import { getLinkTo } from '../../../../commons/route';
 import { notify } from '../../../../components/Notification';
-import { AddressZipcodeProvider, AddressZipcodeCtrl, useAddressZipcodeStore } from './ctrl';
+import { TypeBusinessTypeProvider, TypeBusinessTypeCtrl, useTypeBusinessTypeStore } from './ctrl';
 
-const ctrl = new AddressZipcodeCtrl();
+const ctrl = new TypeBusinessTypeCtrl();
 const BusinessTypePage: React.FC = () => {
   const __ = useI18N();
-  const [searchParams] = useSearchParams();
 
   ctrl.notifyExeption = (ex: any) => {
     const status = ex.response?.status;
@@ -25,18 +24,12 @@ const BusinessTypePage: React.FC = () => {
   };
 
   useEffect(() => {
-    const document = searchParams.get('document') as string;
-    if (ctrl.zipcode !== document) {
-      ctrl.handleDocument({ target: { value: document || '' } });
-      if (ctrl.zipcode) {
-        ctrl.findDocument();
-      }
-    }
+    ctrl.init();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrl]);
 
   return (
-    <AddressZipcodeProvider value={ctrl}>
+    <TypeBusinessTypeProvider value={ctrl}>
       <Alert variant="secondary" className="p-4">
         <h2>{__('type.business.title')}</h2>
         <p>{__('type.business.description')}</p>
@@ -45,7 +38,7 @@ const BusinessTypePage: React.FC = () => {
       </Alert>
       <BusinessTypePrettyResult />
       <BusinessTypeResult />
-    </AddressZipcodeProvider>
+    </TypeBusinessTypeProvider>
   );
 };
 
@@ -61,7 +54,7 @@ const BusinessTypeBreadcrum: React.FC = () => {
 };
 
 const BusinessTypeForm: React.FC = observer(() => {
-  const ctrl = useAddressZipcodeStore();
+  const ctrl = useTypeBusinessTypeStore();
   const __ = useI18N();
 
   return (
@@ -82,8 +75,13 @@ const BusinessTypeForm: React.FC = observer(() => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.state')}</InputGroup.Text>
-            <Form.Select size="sm">
+            <Form.Select size="sm" onChange={(e) => ctrl.findCities(e.target.value)}>
               <option>Selecione...</option>
+              {ctrl.states.map((state) => (
+                <option key={state.code} value={state.code}>
+                  {state.name}
+                </option>
+              ))}
             </Form.Select>
           </InputGroup>
         </Col>
@@ -95,6 +93,11 @@ const BusinessTypeForm: React.FC = observer(() => {
             <InputGroup.Text>{__('label.city')}</InputGroup.Text>
             <Form.Select size="sm">
               <option>Selecione...</option>
+              {ctrl.cities.map((city) => (
+                <option key={city.code} value={city.code}>
+                  {city.name}
+                </option>
+              ))}
             </Form.Select>
           </InputGroup>
         </Col>
@@ -144,7 +147,7 @@ const BusinessTypeForm: React.FC = observer(() => {
 });
 
 const BusinessTypePrettyResult: React.FC = observer(() => {
-  const ctrl = useAddressZipcodeStore();
+  const ctrl = useTypeBusinessTypeStore();
   const __ = useI18N();
 
   return (
@@ -189,7 +192,7 @@ const BusinessTypePrettyResult: React.FC = observer(() => {
 });
 
 const BusinessTypeResult: React.FC = observer(() => {
-  const ctrl = useAddressZipcodeStore();
+  const ctrl = useTypeBusinessTypeStore();
   const __ = useI18N();
 
   return (

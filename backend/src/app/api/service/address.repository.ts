@@ -29,7 +29,7 @@ export class AddressService {
 
     await this.getResourceRef();
 
-    return this.stateRepo.find({ resourceCountry: this.resourceContry });
+    return this.stateRepo.find({ resourceCountry: this.resourceContry }, { fields: ['code', 'name'] });
   }
 
   /**
@@ -40,7 +40,7 @@ export class AddressService {
 
     await this.getResourceRef();
 
-    return this.cityRepo.find({ resourceCountry: this.resourceContry, state: { code: stateCode.toUpperCase() } });
+    return this.cityRepo.find({ resourceCountry: this.resourceContry, state: { code: stateCode.toUpperCase() } }, { fields: ['code', 'name'] });
   }
 
   private async getResourceRef() {

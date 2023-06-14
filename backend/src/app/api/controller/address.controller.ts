@@ -16,7 +16,7 @@ export class AddressController {
    * Busca estados
    */
   @ApiOperation({ tags: ['States'], summary: 'Coletar registro de estados' })
-  @Get('/states')
+  @Get('/state')
   @UsePipes(new RegisterValidationPipe())
   async findStates(): Promise<any> {
     this.logger.log(`Find States`);
@@ -28,7 +28,7 @@ export class AddressController {
    * Busca estados
    */
   @ApiOperation({ tags: ['Cities'], summary: 'Coletar registro de cidades de determinado estado' })
-  @Get('/cities')
+  @Get('/city')
   @UsePipes(new RegisterValidationPipe())
   async findCitiesByState(@Query() reqQuery?: FindCitiesByStateDto): Promise<any> {
     this.logger.log(`Find Cities By State`);
