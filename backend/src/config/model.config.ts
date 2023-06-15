@@ -10,6 +10,7 @@ import { Person } from '../model/Person';
 import { PersonResource } from '../model/PersonResource';
 import { Resource } from '../model/Resource';
 import { ResourceCountry } from '../model/ResourceCountry';
+import { TypeKeyValue } from '../model/TypeKeyValue';
 // Carregar neste ordem para não gerar erro de dependência cíclica
 //import { User } from '../model/User';
 import registerConfig from './register.config';
@@ -42,6 +43,7 @@ const modelConfig: MikroOrmModuleSyncOptions = {
     Establishment,
     Contact,
     Partner,
+    TypeKeyValue,
     // Materialized
     FindPersonByDocument,
   ],

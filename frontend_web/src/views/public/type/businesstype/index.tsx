@@ -109,6 +109,11 @@ const BusinessTypeForm: React.FC = observer(() => {
             <InputGroup.Text>{__('label.business_type')}</InputGroup.Text>
             <Form.Select size="sm">
               <option>Selecione...</option>
+              {ctrl.brCNAE.map((cname) => (
+                <option key={cname.key} value={cname.key}>
+                  {cname.value?.description}
+                </option>
+              ))}
             </Form.Select>
           </InputGroup>
         </Col>

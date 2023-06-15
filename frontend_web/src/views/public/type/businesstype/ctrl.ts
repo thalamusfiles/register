@@ -4,6 +4,7 @@ import { PartnerList } from '../../../../datasources/person';
 import { historyPush } from '../../../../commons/route';
 import { EstablishmentDataSource } from '../../../../datasources/establishment';
 import { AddressDataSource, CityList, StateList } from '../../../../datasources/address';
+import { BRCNAEList, TypeKeyValueDataSource } from '../../../../datasources/typekeyvalue';
 
 export class TypeBusinessTypeCtrl {
   constructor() {
@@ -16,6 +17,7 @@ export class TypeBusinessTypeCtrl {
   // PersonPartner
   @observable states = [] as StateList;
   @observable cities = [] as CityList;
+  @observable brCNAE = [] as BRCNAEList;
   @observable zipcode = '';
   @observable limit = 25;
   @observable offset = 0;
@@ -25,6 +27,7 @@ export class TypeBusinessTypeCtrl {
   @action
   init = () => {
     this.findStates();
+    this.findBusunissType();
   };
 
   @action
@@ -67,6 +70,13 @@ export class TypeBusinessTypeCtrl {
         this.cities = response.data;
       });
     }
+  };
+
+  @action
+  findBusunissType = () => {
+    new TypeKeyValueDataSource().findBRCNAES().then((response) => {
+      this.brCNAE = response.data;
+    });
   };
 
   @action

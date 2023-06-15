@@ -5,6 +5,7 @@ class RegisterApisConfigure {
   token = '';
   ApiPerson!: AxiosInstance;
   ApiAddress!: AxiosInstance;
+  ApiTypeKeyValue!: AxiosInstance;
   ApiEstablishment!: AxiosInstance;
 
   /**
@@ -34,6 +35,11 @@ class RegisterApisConfigure {
 
     this.ApiAddress = this.axiosStart({
       baseURL: Endpoint.eAddress!,
+      timeout: Endpoint.timeout,
+    });
+
+    this.ApiTypeKeyValue = this.axiosStart({
+      baseURL: Endpoint.eTypeKeyValue!,
       timeout: Endpoint.timeout,
     });
 

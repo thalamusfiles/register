@@ -27,7 +27,7 @@ const DeveloperGuide: React.FC = () => {
       <TCard title={__('card.swagger')} subtitle={__('card.swagger_subtitle')} faicon={IconsDef.swagger} border="info">
         <Card.Body>
           <Card.Text>{__('card.swagger_description')}</Card.Text>
-          <Button size="sm" onClick={() => historyPush('/swagger')} variant="outline-info">
+          <Button size="sm" onClick={() => historyPush('/swagger', { open: true })} variant="outline-info">
             {__('action.access')}
           </Button>
         </Card.Body>
