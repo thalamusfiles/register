@@ -37,3 +37,30 @@ export class ZipcodeRandomDto {
   @IsNotEmpty()
   offset!: number;
 }
+
+@Exclude()
+export class BusinessTypeDto {
+  @ApiProperty({ description: 'Informe o código da cidade para busca' })
+  @Expose()
+  @IsString()
+  @IsNotEmpty()
+  cityCode!: string;
+
+  @ApiProperty({ description: 'Informe o tipo de negócio (CNAE)' })
+  @Expose()
+  @IsString()
+  @IsNotEmpty()
+  businessType!: string;
+
+  @ApiProperty({ description: 'Informe o limite de resultados' })
+  @Expose()
+  @IsNumberString()
+  @IsNotEmpty()
+  limit!: number;
+
+  @ApiProperty({ description: 'Informe o offset do limite de resultados' })
+  @Expose()
+  @IsNumberString()
+  @IsNotEmpty()
+  offset!: number;
+}

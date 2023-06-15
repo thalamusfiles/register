@@ -75,7 +75,7 @@ const BusinessTypeForm: React.FC = observer(() => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.state')}</InputGroup.Text>
-            <Form.Select size="sm" onChange={(e) => ctrl.findCities(e.target.value)}>
+            <Form.Select size="sm" onChange={ctrl.handleState}>
               <option>Selecione...</option>
               {ctrl.states.map((state) => (
                 <option key={state.code} value={state.code}>
@@ -91,7 +91,7 @@ const BusinessTypeForm: React.FC = observer(() => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.city')}</InputGroup.Text>
-            <Form.Select size="sm">
+            <Form.Select size="sm" onChange={ctrl.handleCity}>
               <option>Selecione...</option>
               {ctrl.cities.map((city) => (
                 <option key={city.code} value={city.code}>
@@ -107,11 +107,11 @@ const BusinessTypeForm: React.FC = observer(() => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.business_type')}</InputGroup.Text>
-            <Form.Select size="sm">
+            <Form.Select size="sm" onChange={ctrl.handleBusinessType}>
               <option>Selecione...</option>
-              {ctrl.brCNAE.map((cname) => (
-                <option key={cname.key} value={cname.key}>
-                  {cname.value?.description}
+              {ctrl.businessTypes.map((type) => (
+                <option key={type.key} value={type.key}>
+                  {type.value?.description}
                 </option>
               ))}
             </Form.Select>
@@ -161,8 +161,7 @@ const BusinessTypePrettyResult: React.FC = observer(() => {
       <Table>
         <thead>
           <tr>
-            <td>Zipcode</td>
-            <td>Tipo empresa</td>
+            <td>Tipo de empresa / Atividade principal</td>
             <td>Empresa Doc</td>
             <td>Empresa</td>
           </tr>
@@ -181,7 +180,7 @@ const BusinessTypePrettyResult: React.FC = observer(() => {
           {ctrl.response &&
             ctrl.response.map((resp, idx) => (
               <tr key={idx}>
-                <td>{resp.zipcode}</td>
+                <td>{resp.businesstype}</td>
                 <td>
                   <Link to="#" onClick={(e) => ctrl.handleOpenPersonLegal(e, resp.document)} style={{ whiteSpace: 'nowrap' }}>
                     {resp.document}

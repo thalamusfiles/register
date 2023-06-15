@@ -17,8 +17,10 @@ export class TypeBusinessTypeCtrl {
   // PersonPartner
   @observable states = [] as StateList;
   @observable cities = [] as CityList;
-  @observable brCNAE = [] as BRCNAEList;
-  @observable zipcode = '';
+  @observable businessTypes = [] as BRCNAEList;
+  @observable state = null as string | null;
+  @observable city = null as string | null;
+  @observable businessType = null as string | null;
   @observable limit = 25;
   @observable offset = 0;
   @observable wanted: boolean = false;
@@ -31,8 +33,22 @@ export class TypeBusinessTypeCtrl {
   };
 
   @action
-  handleDocument = (e: any) => {
-    this.zipcode = e.target.value;
+  handleState = (e: any) => {
+    this.state = e.target.value;
+    this.response = null;
+
+    this.findCities(this.state);
+  };
+
+  @action
+  handleCity = (e: any) => {
+    this.city = e.target.value;
+    this.response = null;
+  };
+
+  @action
+  handleBusinessType = (e: any) => {
+    this.businessType = e.target.value;
     this.response = null;
   };
 
@@ -62,7 +78,7 @@ export class TypeBusinessTypeCtrl {
   };
 
   @action
-  findCities = (stateCode: string) => {
+  findCities = (stateCode: string | null) => {
     if (!stateCode) {
       this.cities = [];
     } else {
@@ -75,7 +91,7 @@ export class TypeBusinessTypeCtrl {
   @action
   findBusunissType = () => {
     new TypeKeyValueDataSource().findBRCNAES().then((response) => {
-      this.brCNAE = response.data;
+      this.businessTypes = response.data;
     });
   };
 
@@ -85,7 +101,7 @@ export class TypeBusinessTypeCtrl {
     this.response = null;
 
     new EstablishmentDataSource()
-      .findByZipcode(this.zipcode, this.limit, this.offset)
+      .findByBusinessType(this.businessType!, this.city!, this.limit, this.offset)
       .then((response) => {
         this.wanted = true;
         this.response = response.data;
@@ -100,16 +116,18 @@ export class TypeBusinessTypeCtrl {
 
   @action
   findDocumentRandom = () => {
-    this.zipcode = '';
+    this.state = null;
+    this.city = null;
+    this.businessType = null;
+
     this.wanted = false;
     this.response = null;
 
     new EstablishmentDataSource()
-      .findByZipcodeRandom(this.limit, this.offset)
+      .findByBusinessType('', '', this.limit, this.offset)
       .then((response) => {
         this.wanted = true;
         this.response = response.data;
-        this.zipcode = response.data[0]?.zipcode;
       })
       .catch((ex) => {
         this.wanted = true;

@@ -8,7 +8,7 @@ import { ResourceCountry } from '../../../model/ResourceCountry';
 @Injectable()
 export class AddressService {
   private readonly logger = new Logger(AddressService.name);
-  private resourceContry: ResourceCountry;
+  private resourceContry: Record<string, ResourceCountry> = {};
 
   constructor(
     @InjectRepository(ResourceCountry)
@@ -27,9 +27,9 @@ export class AddressService {
   async findStates(): Promise<State[]> {
     this.logger.verbose('findStates');
 
-    await this.getResourceRef();
+    const resourceCountry = await this.getResourceRef('br');
 
-    return this.stateRepo.find({ resourceCountry: this.resourceContry }, { fields: ['code', 'name'] });
+    return this.stateRepo.find({ resourceCountry }, { fields: ['code', 'name'] });
   }
 
   /**
@@ -38,14 +38,15 @@ export class AddressService {
   async findCitiesByState(stateCode): Promise<City[]> {
     this.logger.verbose('findCitiesByState');
 
-    await this.getResourceRef();
+    const resourceCountry = await this.getResourceRef('br');
 
-    return this.cityRepo.find({ resourceCountry: this.resourceContry, state: { code: stateCode.toUpperCase() } }, { fields: ['code', 'name'] });
+    return this.cityRepo.find({ resourceCountry, state: { code: stateCode.toUpperCase() } }, { fields: ['code', 'name'], orderBy: { name: 'ASC' } });
   }
 
-  private async getResourceRef() {
-    if (!this.resourceContry) {
-      this.resourceContry = await this.resourceCountry.findOneOrFail({ acronym: 'br' });
+  private async getResourceRef(acronym: string) {
+    if (!this.resourceContry[acronym]) {
+      this.resourceContry[acronym] = await this.resourceCountry.findOneOrFail({ acronym });
     }
+    return this.resourceContry[acronym];
   }
 }

@@ -10,6 +10,9 @@ interface EstablishmentDataSourceI {
 
   // Busca os estabelecimentos de um zipcode aleatório
   findByZipcodeRandom(limit: number, offset: number): Promise<AxiosResponse<ZipCodeList>>;
+
+  // Busca os estabelecimentos de um determinado tipo de empresa (CNAE)
+  findByBusinessType(businessType: string, cityCode: string, limit: number, offset: number): Promise<AxiosResponse<ZipCodeList>>;
 }
 
 export class EstablishmentDataSource implements EstablishmentDataSourceI {
@@ -22,6 +25,12 @@ export class EstablishmentDataSource implements EstablishmentDataSourceI {
   async findByZipcodeRandom(limit: number, offset: number): Promise<AxiosResponse<ZipCodeList>> {
     return await Apis.ApiEstablishment.get(`${Endpoints.eEstablishmentZipcodeRandom}`, {
       params: { limit, offset },
+    });
+  }
+
+  async findByBusinessType(businessType: string, cityCode: string, limit: number, offset: number): Promise<AxiosResponse<ZipCodeList>> {
+    return await Apis.ApiEstablishment.get(`${Endpoints.eEstablishmentBusinessType}`, {
+      params: { businessType, cityCode, limit, offset },
     });
   }
 }

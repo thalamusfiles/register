@@ -14,6 +14,7 @@ class EndpointsConfigure {
   eEstablishment = null as string | null;
   eEstablishmentZipcode = `/zipcode`;
   eEstablishmentZipcodeRandom = `/zipcode/random`;
+  eEstablishmentBusinessType = `/businesstype`;
 
   // API Person
   eAddress = null as string | null;
