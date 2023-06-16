@@ -43,7 +43,15 @@ const PersonLegalPage: React.FC = () => {
 
         <PersonLegaForm />
       </Alert>
-      <PersonLegalResult />
+
+      <Row>
+        <Col md={6}>
+          <PersonPrettyResult />
+        </Col>
+        <Col md={6}>
+          <PersonLegalResult />
+        </Col>
+      </Row>
     </PersonLegalProvider>
   );
 };
@@ -105,6 +113,88 @@ const PersonLegaForm: React.FC = observer(() => {
         </Col>
       </Row>
     </Form>
+  );
+});
+
+const PersonPrettyResult: React.FC = observer(() => {
+  const ctrl = usePersonLegalStore();
+  const __ = useI18N();
+
+  const data = ctrl.response?.brGovDados;
+  return (
+    <>
+      <h2>{__('label.result')}</h2>
+      {!ctrl.wanted && <p>{__('msg.enter_filter')}</p>}
+      {ctrl.wanted && !ctrl.response && <p>{__('msg.register_not_found')}</p>}
+      {ctrl.response && (
+        <Form>
+          <Form.Group as={Row}>
+            <Form.Label column sm="4">
+              Tipo de documento
+            </Form.Label>
+            <Col sm="8">
+              <Form.Control plaintext readOnly defaultValue={data?.documentType} />
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Row}>
+            <Form.Label column sm="4">
+              Documento
+            </Form.Label>
+            <Col sm="8">
+              <Form.Control plaintext readOnly defaultValue={data?.document} />
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Row}>
+            <Form.Label column sm="4">
+              Nome
+            </Form.Label>
+            <Col sm="8">
+              <Form.Control plaintext readOnly defaultValue={data?.name} />
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Row}>
+            <Form.Label column sm="4">
+              Nome fantasia
+            </Form.Label>
+            <Col sm="8">
+              <Form.Control plaintext readOnly defaultValue={data?.fantasyName} />
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Row}>
+            <Form.Label column sm="4">
+              Código tipo <br />
+              Código atividade
+            </Form.Label>
+            <Col sm="8">
+              <Form.Control plaintext readOnly defaultValue={data?.mainActivity} />
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Row}>
+            <Form.Label column sm="4">
+              Tipo de empresa <br />
+              Atividade principal
+            </Form.Label>
+            <Col sm="8">
+              <Form.Control plaintext readOnly defaultValue={data?.mainActivityDescription} />
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Row}>
+            <Form.Label column sm="4">
+              E-mail
+            </Form.Label>
+            <Col sm="8">
+              <Form.Control plaintext readOnly defaultValue={data?.email} />
+            </Col>
+          </Form.Group>
+        </Form>
+      )}
+    </>
   );
 });
 

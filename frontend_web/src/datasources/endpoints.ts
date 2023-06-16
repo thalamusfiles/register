@@ -15,12 +15,13 @@ class EndpointsConfigure {
   eEstablishmentZipcode = `/zipcode`;
   eEstablishmentZipcodeRandom = `/zipcode/random`;
   eEstablishmentBusinessType = `/businesstype`;
+  eEstablishmentBusinessTypeRandom = `/businesstype/random`;
 
   // API Person
   eAddress = null as string | null;
   eAddressState = `/state`;
   eAddressCity = `/city`;
-  
+
   // API TypeKeyValue
   eTypeKeyValue = null as string | null;
   eTypeKeyValueBrCnae = `/br/cnae`;

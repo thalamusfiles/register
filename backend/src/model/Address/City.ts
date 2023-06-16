@@ -13,8 +13,8 @@ export class City extends RegisterBaseEntity {
   @ManyToOne(() => Resource, { nullable: false })
   resource?: Resource;
 
-  @Property({ type: 'int4', nullable: false })
-  code!: number;
+  @Property({ nullable: false, length: 16 })
+  code!: string;
 
   @ManyToOne(() => State, { nullable: true })
   state!: State;

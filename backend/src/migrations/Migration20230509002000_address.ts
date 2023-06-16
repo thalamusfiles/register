@@ -11,7 +11,7 @@ export class Migration20230509115642 extends Migration {
         "resource_country_acronym" varchar(4) not null, 
         "resource_uuid" uuid not null, 
 
-        "code" int not null,
+        "code" varchar(16) not null,
         "name" varchar(512) not null, 
         
         constraint "country_pkey" primary key ("uuid"), 
@@ -64,7 +64,7 @@ export class Migration20230509115642 extends Migration {
         "resource_country_acronym" varchar(4) not null, 
         "resource_uuid" uuid not null,
         
-        "code" int not null,
+        "code" varchar(16) not null,
         "state_uuid" uuid null,
         "name" varchar(512) not null, 
         

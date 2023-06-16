@@ -124,7 +124,7 @@ export class TypeBusinessTypeCtrl {
     this.response = null;
 
     new EstablishmentDataSource()
-      .findByBusinessType('', '', this.limit, this.offset)
+      .findByBusinessTypeRandom(this.limit, this.offset)
       .then((response) => {
         this.wanted = true;
         this.response = response.data;

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
-import { useEffect } from 'react';
-import { Alert, Button, ButtonGroup, Card, Col, Form, InputGroup, Row, Table } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Alert, Button, ButtonGroup, Card, Col, Form, InputGroup, Nav, Row, Table } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { Link } from 'react-router-dom';
 import { useI18N } from '../../../../commons/i18';
@@ -11,6 +11,7 @@ import { TypeBusinessTypeProvider, TypeBusinessTypeCtrl, useTypeBusinessTypeStor
 const ctrl = new TypeBusinessTypeCtrl();
 const BusinessTypePage: React.FC = () => {
   const __ = useI18N();
+  const [tab, setTab] = useState('formated' as string | null);
 
   ctrl.notifyExeption = (ex: any) => {
     const status = ex.response?.status;
@@ -36,8 +37,18 @@ const BusinessTypePage: React.FC = () => {
 
         <BusinessTypeForm />
       </Alert>
-      <BusinessTypePrettyResult />
-      <BusinessTypeResult />
+      <Nav variant="tabs" defaultActiveKey="formated" onSelect={setTab}>
+        <Nav.Item>
+          <Nav.Link eventKey="formated">{__('label.formated')}</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="json">{__('label.json')}</Nav.Link>
+        </Nav.Item>
+      </Nav>
+      <br />
+
+      {tab === 'formated' && <BusinessTypePrettyResult />}
+      {tab === 'json' && <BusinessTypeResult />}
     </TypeBusinessTypeProvider>
   );
 };

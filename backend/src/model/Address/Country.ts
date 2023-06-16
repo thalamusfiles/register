@@ -12,8 +12,8 @@ export class Country extends RegisterBaseEntity {
   @ManyToOne(() => Resource, { nullable: false })
   resource!: Resource;
 
-  @Property({ type: 'int4', nullable: false })
-  code!: number;
+  @Property({ nullable: false, length: 16 })
+  code!: string;
 
   @Check({ expression: 'LENGTH(name) >= 3' })
   @Property({ nullable: false, length: 512 })

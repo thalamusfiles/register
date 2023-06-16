@@ -30,6 +30,9 @@ export class Establishment extends RegisterBaseEntity {
   @Property({ nullable: true, length: 16 })
   zipcode?: string;
 
+  @Property({ nullable: false, length: 16 })
+  mainActivity?: string;
+
   @Property({ type: 'json', nullable: false })
   data!: string;
 }

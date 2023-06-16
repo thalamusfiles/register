@@ -46,7 +46,9 @@
         "limit.offset": "Limite e Início",
         "businesstype": "Tipo de empresa",
         "json_result": "Resultado Json",
-        "result": "Resultado"
+        "result": "Resultado",
+        "formated": "Formatado",
+        "json": "JSON"
     },
     "action": {
         "access": "Acessar",

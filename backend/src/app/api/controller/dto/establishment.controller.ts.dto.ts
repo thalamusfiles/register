@@ -24,7 +24,7 @@ export class ZipcodeDto {
 }
 
 @Exclude()
-export class ZipcodeRandomDto {
+export class LimitOffsetDto {
   @ApiProperty({ description: 'Informe o limite de resultados' })
   @Expose()
   @IsNumberString()

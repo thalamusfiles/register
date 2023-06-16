@@ -23,10 +23,10 @@ export class EstablishmentService {
   }
 
   /**
-   * Busca registro de sócios
+   * Busca registro de estabelecimentos por zipcode
    */
   async findByZipcode(zipcode: string, limit: number, offset: number): Promise<any> {
-    this.logger.verbose('findPartnerByDocument');
+    this.logger.verbose('findByZipcode');
 
     zipcode = zipcode.replace(/[^\d]/g, '');
     limit = limit > 1000 ? 1000 : limit;
@@ -55,7 +55,7 @@ export class EstablishmentService {
   }
 
   /**
-   * Busca registro de sócios
+   * Busca registro de estabelecimentos por zipcode aleatório
    */
   async findByZipcodeRandom(limit: number, offset: number): Promise<any> {
     this.logger.verbose('findByZipcodeRandom');
@@ -76,12 +76,12 @@ export class EstablishmentService {
   }
 
   /**
-   * Busca registro de sócios
+   * Busca registro de estabelecimentos tipo/atividade da empresa
    */
   async findByBusinessType(businessType: string, cityCode: string, limit: number, offset: number): Promise<any[]> {
     this.logger.verbose('findByBusinessType');
 
-    const city = await this.cityRepo.findOneOrFail({ code: parseInt(cityCode) }, { fields: ['uuid'] });
+    const city = await this.cityRepo.findOneOrFail({ code: cityCode }, { fields: ['uuid'] });
 
     limit = limit > 1000 ? 1000 : limit;
     offset = offset || 0;
@@ -107,5 +107,30 @@ export class EstablishmentService {
       .limit(limit)
       .offset(offset);
     return await query;
+  }
+
+  /**
+   * Busca registro de estabelecimentos tipo/atividade da empresa
+   */
+  async findByBusinessTypeRandom(limit: number, offset: number): Promise<any> {
+    this.logger.verbose('findByZipcodeRandom');
+
+    const schemaName = this.establishmentRepo.getEntityManager().getMetadata().get(Establishment.name).schema;
+    const tableName = this.establishmentRepo.getEntityManager().getMetadata().get(Establishment.name).tableName;
+    const randomize = 'TABLESAMPLE SYSTEM (1)';
+
+    const query = this.knex
+      .select(this.knex.raw(`data->>'mainActivity' as "mainActivity"`))
+      .select(this.knex.raw(`data->>'cityCode' as "cityCode"`))
+      .from(this.knex.raw(`${schemaName}.${tableName} ${randomize}`))
+      .limit(1)
+      .first();
+
+    const rs = await query;
+    const businessType = rs.mainActivity;
+    const cityCode = rs.cityCode;
+
+    console.log(rs, businessType, cityCode);
+    return this.findByBusinessType(businessType, cityCode, limit, offset);
   }
 }

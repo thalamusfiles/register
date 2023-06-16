@@ -494,12 +494,13 @@
         },
         "code": {
           "name": "code",
-          "type": "int",
+          "type": "varchar(16)",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "mappedType": "integer"
+          "length": 16,
+          "mappedType": "string"
         },
         "name": {
           "name": "name",
@@ -899,12 +900,13 @@
         },
         "code": {
           "name": "code",
-          "type": "int",
+          "type": "varchar(16)",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "mappedType": "integer"
+          "length": 16,
+          "mappedType": "string"
         },
         "state_uuid": {
           "name": "state_uuid",
@@ -1092,6 +1094,16 @@
           "autoincrement": false,
           "primary": false,
           "nullable": true,
+          "length": 16,
+          "mappedType": "string"
+        },
+        "main_activity": {
+          "name": "main_activity",
+          "type": "varchar(16)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
           "length": 16,
           "mappedType": "string"
         },

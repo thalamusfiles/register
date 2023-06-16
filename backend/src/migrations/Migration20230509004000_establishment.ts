@@ -15,6 +15,7 @@ export class Migration20230509115642 extends Migration {
         "country_uuid" uuid, 
         "city_uuid" uuid, 
         "zipcode" varchar(16) null,
+        "main_activity" varchar(16) not null,
         
         "data" jsonb not null, 
         
