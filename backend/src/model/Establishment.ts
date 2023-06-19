@@ -1,4 +1,4 @@
-import { Entity, ManyToOne, Property, Unique } from '@mikro-orm/core';
+import { ArrayType, Entity, ManyToOne, Property, Unique } from '@mikro-orm/core';
 import { City } from './Address/City';
 import { Country } from './Address/Country';
 import { RegisterBaseEntity } from './Base/RegisterBaseEntity';
@@ -32,6 +32,9 @@ export class Establishment extends RegisterBaseEntity {
 
   @Property({ nullable: false, length: 16 })
   mainActivity?: string;
+
+  @Property({ type: ArrayType, length: 16, nullable: false })
+  otherActivities?: string[];
 
   @Property({ type: 'json', nullable: false })
   data!: string;
