@@ -18,14 +18,14 @@ export class Migration20230509115642 extends Migration {
         'fantasyName', e."data"->>'name',
         'captal', pr."data"->>'capital',
         /**/
-        'mainActivity', e."mainActivity",
+        'mainActivity', e."main_activity",
         'mainActivityDescription', activity."value"->>'description',
-        'otherActivities', e."otherActivities",
+        'otherActivities', e."other_activities",
         /*status*/
-        'sizeCode', pr."data"->>."sizeCode",
-        'natureCode', pr."data"->>."natureCode",
-        'status', e."data"->>.'status',
-        'statusDate', e."data"->>.'statusDate',
+        'sizeCode', pr."data"->>'sizeCode',
+        'natureCode', pr."data"->>'natureCode',
+        'status', e."data"->>'status',
+        'statusDate', e."data"->>'statusDate',
         /*Address*/
         'zipcode', e."data"->>'zipcode',
         'countryCode', e."data"->>'countryCode',
@@ -51,7 +51,7 @@ export class Migration20230509115642 extends Migration {
             'representativeName', partner."data"->>'representativeName',
             'representativeDoc', partner."data"->>'representativeDoc'
           )) from partner
-          where partner.resource_country_acronym = 'br' and partner.resource_uuid = r.uuid and partner.person_uuid = p.uuid
+          where partner.resource_country_acronym = 'br' and partner.resource_uuid = r.uuid and partner.establishment_uuid = e.uuid
         ),
         /*Others*/
         'reason', reason."value"->>'description'
@@ -62,7 +62,7 @@ export class Migration20230509115642 extends Migration {
     inner join contact c          on c.resource_country_acronym = 'br'  and c.resource_uuid = r.uuid and c.person_uuid = p.uuid and e.extra_key = c.extra_key
     left join "address".country country on country.resource_country_acronym = 'br'  and country.resource_uuid = r.uuid and country.code::varchar = e."data"->>'countryCode'
     left join "address".city city       on city.resource_country_acronym = 'br'     and city.resource_uuid = r.uuid and city.code::varchar =e."data"->>'cityCode'
-    left join type_key_value activity   on activity.resource_country_acronym = 'br' and activity.resource_uuid = r.uuid and activity."type" = 'cnae' and activity.key = e."mainActivity" 
+    left join type_key_value activity   on activity.resource_country_acronym = 'br' and activity.resource_uuid = r.uuid and activity."type" = 'cnae' and activity.key = e."main_activity"
     left join type_key_value reason     on activity.resource_country_acronym = 'br' and reason.resource_uuid = r.uuid and reason."type" = 'reason' and reason.key = e."data"->>'reason'
     where p.person_type = 'legal' and r."name" = 'br_gov_dados';`,
     );
