@@ -39,11 +39,7 @@ export class PersonService {
     const persTableName = this.personRepo.getEntityManager().getMetadata().get(Person.name).tableName;
 
     const query = this.knex
-      .select(
-        this.knex.raw(
-          `(( SELECT (((a.a[1] || '/'::text) || lpad(a.a[2], 4, '0'::text)) || '-'::text) || lpad(a.a[3], 2, '0'::text) FROM regexp_matches(e.extra_key::text, '(.*)/(\\d+)-(.*)'::text) a)) as document`,
-        ),
-      )
+      .select('e.extra_key as document')
       .select(`pers.name`)
       .select(this.knex.raw(`p.data->>'partner' as partner`))
       .select(this.knex.raw(`p.data->>'partnerDoc' as "partnerDoc"`))

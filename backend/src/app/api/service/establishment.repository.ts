@@ -39,11 +39,7 @@ export class EstablishmentService {
 
     const query = this.knex
       .select('zipcode')
-      .select(
-        this.knex.raw(
-          `(( SELECT (((a.a[1] || '/'::text) || lpad(a.a[2], 4, '0'::text)) || '-'::text) || lpad(a.a[3], 2, '0'::text) FROM regexp_matches(e.extra_key::text, '(.*)/(\\d+)-(.*)'::text) a)) as document`,
-        ),
-      )
+      .select('e.extra_key as document')
       .select(`pers.name`)
       .from(`${estSchemaName}.${estTableName} as e`)
       .leftJoin(`${persSchemaName}.${persTableName} as pers`, `pers.uuid`, `e.person_uuid`)
@@ -79,7 +75,7 @@ export class EstablishmentService {
    * Busca registro de estabelecimentos tipo/atividade da empresa
    */
   async findByBusinessType(businessType: string, cityCode: string, limit: number, offset: number): Promise<any[]> {
-    this.logger.verbose('findByBusinessType');
+    this.logger.verbose(`findByBusinessType ${businessType} and ${cityCode}`);
 
     const city = await this.cityRepo.findOneOrFail({ code: cityCode }, { fields: ['uuid'] });
 
@@ -92,12 +88,8 @@ export class EstablishmentService {
     const persTableName = this.establishmentRepo.getEntityManager().getMetadata().get(Person.name).tableName;
 
     const query = this.knex
-      .select(this.knex.raw("e.data->>'mainActivity' as businesstype"))
-      .select(
-        this.knex.raw(
-          `(( SELECT (((a.a[1] || '/'::text) || lpad(a.a[2], 4, '0'::text)) || '-'::text) || lpad(a.a[3], 2, '0'::text) FROM regexp_matches(e.extra_key::text, '(.*)/(\\d+)-(.*)'::text) a)) as document`,
-        ),
-      )
+      .select('e.main_activity as businesstype')
+      .select('e.extra_key as document')
       .select(`pers.name`)
       .from(`${estSchemaName}.${estTableName} as e`)
       .leftJoin(`${persSchemaName}.${persTableName} as pers`, `pers.uuid`, `e.person_uuid`)
@@ -127,7 +119,7 @@ export class EstablishmentService {
       .first();
 
     const rs = await query;
-    const businessType = rs.mainActivity;
+    const businessType = rs.main_activity;
     const cityCode = rs.cityCode;
 
     console.log(rs, businessType, cityCode);
