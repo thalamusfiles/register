@@ -101,8 +101,8 @@ export class EstablishmentService {
       .select(`pers.name`)
       .from(`${estSchemaName}.${estTableName} as e`)
       .leftJoin(`${persSchemaName}.${persTableName} as pers`, `pers.uuid`, `e.person_uuid`)
-      //.where('e.city_uuid', city.uuid)
-      .andWhere(this.knex.raw("e.data->>'mainActivity' = :businessType", { businessType }))
+      .where('e.city_uuid', city.uuid)
+      .andWhere('e.main_activity', businessType)
       .orderBy('pers.name')
       .limit(limit)
       .offset(offset);
@@ -120,7 +120,7 @@ export class EstablishmentService {
     const randomize = 'TABLESAMPLE SYSTEM (1)';
 
     const query = this.knex
-      .select(this.knex.raw(`data->>'mainActivity' as "mainActivity"`))
+      .select('main_activity')
       .select(this.knex.raw(`data->>'cityCode' as "cityCode"`))
       .from(this.knex.raw(`${schemaName}.${tableName} ${randomize}`))
       .limit(1)

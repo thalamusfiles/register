@@ -122,7 +122,7 @@ const BusinessTypeForm: React.FC = observer(() => {
               <option>Selecione...</option>
               {ctrl.businessTypes.map((type) => (
                 <option key={type.key} value={type.key}>
-                  {type.value?.description}
+                  {type.key} - {type.value?.description}
                 </option>
               ))}
             </Form.Select>

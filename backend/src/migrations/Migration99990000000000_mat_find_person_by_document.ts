@@ -8,7 +8,7 @@ export class Migration20230509115642 extends Migration {
     // Cria a tabela materializada
     this.addSql(
       `create materialized view if not exists "materialized".find_person_by_document as
-      select 
+       select 
       'br:cnpj:' || (select a[1] || '/' || lpad(a[2], 4, '0') || '-' || lpad(a[3], 2, '0') from REGEXP_MATCHES(e.extra_key, '(.*)/(\d+)-(.*)') a) as key,
       json_build_object(
         'documentType', p.document_type,
@@ -24,6 +24,7 @@ export class Migration20230509115642 extends Migration {
         /*status*/
         'sizeCode', pr."data"->>'sizeCode',
         'natureCode', pr."data"->>'natureCode',
+        'nature', nt."value"->>'description',
         'status', e."data"->>'status',
         'statusDate', e."data"->>'statusDate',
         /*Address*/
@@ -54,6 +55,16 @@ export class Migration20230509115642 extends Migration {
           where partner.resource_country_acronym = 'br' and partner.resource_uuid = r.uuid and partner.establishment_uuid = e.uuid
         ),
         /*Others*/
+        'simples', json_build_object(
+          'is', pr."data"->>'isSimple',
+          'createdAt', pr."data"->>'simpleCreatedAt',
+          'deletedAt', pr."data"->>'simpleDeletedAt'
+        ),
+        'MEI', json_build_object(
+          'is', pr."data"->>'isMEI',
+          'createdAt', pr."data"->>'MEICreatedAt',
+          'deletedAt', pr."data"->>'MEIDeletedAt'
+        ),
         'reason', reason."value"->>'description'
       ) as "brGovDados"
     from person p cross join resource r
@@ -64,7 +75,8 @@ export class Migration20230509115642 extends Migration {
     left join "address".city city       on city.resource_country_acronym = 'br'     and city.resource_uuid = r.uuid and city.code::varchar =e."data"->>'cityCode'
     left join type_key_value activity   on activity.resource_country_acronym = 'br' and activity.resource_uuid = r.uuid and activity."type" = 'cnae' and activity.key = e."main_activity"
     left join type_key_value reason     on activity.resource_country_acronym = 'br' and reason.resource_uuid = r.uuid and reason."type" = 'reason' and reason.key = e."data"->>'reason'
-    where p.person_type = 'legal' and r."name" = 'br_gov_dados';`,
+    left join type_key_value nt         on activity.resource_country_acronym = 'br' and reason.resource_uuid = r.uuid and nt."type" = 'nature' and nt.key = pr."data"->>'natureCode'
+    where p.person_type = 'legal' and r."name" = 'br_gov_dados'`,
     );
 
     // Cria o indice da tabela materializada
