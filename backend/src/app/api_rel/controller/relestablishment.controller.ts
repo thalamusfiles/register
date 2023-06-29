@@ -13,7 +13,7 @@ export class RelEstablishmentController {
   }
 
   /**
-   * Relatório com tótial de empresas por mes e estado
+   * Relatório com total de empresas por mes e estado
    */
   @ApiOperation({ tags: ['Rel'], summary: 'Relatório totalizador de empresas por mes e estado' })
   @Get('/totalbymonthstate')
@@ -25,7 +25,7 @@ export class RelEstablishmentController {
   }
 
   /**
-   * Relatório com tótial de empresas por mes e estado
+   * Relatório com total de empresas por mes e estado
    */
   @ApiOperation({ tags: ['Rel'], summary: 'Relatório totalizador de empresas por mes e estado com dados cruzados' })
   @Get('/totalbymonthstate/crosstab')

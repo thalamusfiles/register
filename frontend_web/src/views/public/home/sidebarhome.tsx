@@ -15,6 +15,9 @@ const SideBarHome: React.FC = () => {
       <SideBarAction faicon={IconsDef.user} title={__('menu.persons')} link={getLinkTo('persons')} />
       <SideBarAction faicon={IconsDef.zipcode} title={__('menu.type')} link={getLinkTo('types')} />
       <SideBarAction faicon={IconsDef.zipcode} title={__('menu.address')} link={getLinkTo('addresses')} />
+
+      <div className="title">{__('menu.reports')}</div>
+      <SideBarAction faicon={IconsDef.reports} title={__('menu.business')} link={getLinkTo('rel_estab')} />
     </div>
   );
 };

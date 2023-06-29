@@ -8,5 +8,8 @@ export type RoutesName =
   | 'types'
   | 'types_businesstype'
   | 'addresses'
-  | 'addresses_zipcode';
+  | 'addresses_zipcode'
+  | 'rel_estab'
+  | 'rel_estab_tt_month_state'
+  | 'rel_estab_tt_month_state_cumulate';
   

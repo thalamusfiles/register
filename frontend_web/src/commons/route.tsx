@@ -21,6 +21,7 @@ export function getLinkTo(owner: RoutesName | string | number, options: { uuid: 
     case 'home_public':
       push = '/public/home';
       break;
+    // APIs
     case 'persons':
       push = '/public/person';
       break;
@@ -41,6 +42,16 @@ export function getLinkTo(owner: RoutesName | string | number, options: { uuid: 
       break;
     case 'addresses_zipcode':
       push = '/public/addresses/zipcode';
+      break;
+    // Relatórios
+    case 'rel_estab':
+      push = '/public/rel/establishment';
+      break;
+    case 'rel_estab_tt_month_state':
+      push = '/public/rel/establishment/total_month_state';
+      break;
+    case 'rel_estab_tt_month_state_cumulate':
+      push = '/public/rel/establishment/total_month_state_cumulate';
       break;
     default:
       push = owner as string;

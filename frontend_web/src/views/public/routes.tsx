@@ -4,6 +4,7 @@ import { InModal } from '../../components/Modal';
 import AddressPage from './address';
 import Home from './home';
 import PersonPage from './person';
+import RelEstablishmentPage from './rel_establishment';
 import TypePage from './type';
 
 /**
@@ -13,9 +14,12 @@ import TypePage from './type';
 export const routes: RoutesDefinition = {
   // Home
   home: { path: '/home', component: Home, index: true },
+  // Apis
   person: { path: '/person', component: PersonPage, index: true },
   type: { path: '/types', component: TypePage, index: true },
   addresses: { path: '/addresses', component: AddressPage, index: true },
+  // Rels
+  rel_establishment: { path: '/rel/establishment', component: RelEstablishmentPage, index: true },
 };
 
 /**

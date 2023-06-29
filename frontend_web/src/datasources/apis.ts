@@ -7,6 +7,7 @@ class RegisterApisConfigure {
   ApiAddress!: AxiosInstance;
   ApiTypeKeyValue!: AxiosInstance;
   ApiEstablishment!: AxiosInstance;
+  ApiRelEstablishment!: AxiosInstance;
 
   /**
    * Intercepta todas as requisições
@@ -45,6 +46,12 @@ class RegisterApisConfigure {
 
     this.ApiEstablishment = this.axiosStart({
       baseURL: Endpoint.eEstablishment!,
+      timeout: Endpoint.timeout,
+    });
+
+    // API Relatórios
+    this.ApiRelEstablishment = this.axiosStart({
+      baseURL: Endpoint.eRelEstablishment!,
       timeout: Endpoint.timeout,
     });
   };

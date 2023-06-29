@@ -10,12 +10,16 @@
         "persons": "Empresas e pessoas",
         "type": "Tipo de empresa",
         "address": "Endereços",
-        "person_legal": "Pessoas Jurídicas",
+        "person_legal": "Pessoas jurídicas",
         "partners": "Sócios",
         "help": "Ajuda",
         "freemium": "Freemium",
         "establishments": "Estabelecimentos",
-        "business_type": "Tipo de empresa"
+        "business_type": "Tipo de empresa",
+        "reports": "Relatórios",
+        "business": "Empresas",
+        "tt_month_state": "Total por mês e estado",
+        "tt_month_state_cumulate": "Total por mês e estado acumulado"
     },
     "card": {
         "developer_guide": "Guia para desenvolvedores",
@@ -33,7 +37,7 @@
         "error_500": "Ocorreu um erro inesperado. Aguarde um instante e tente novamente.",
         "enter_filter": "Informe um filtro e click em procurar.",
         "register_not_found": "Registro não encontrado.",
-        "no_option_selected": "Selecione uma opção selecionada. Click em uma das opções para liberar a funcionalidade."
+        "no_option_selected": "Selecione uma opção. Click em uma das opções para liberar a funcionalidade."
     },
     "label": {
         "country": "Pais",
@@ -48,7 +52,8 @@
         "json_result": "Resultado Json",
         "result": "Resultado",
         "formated": "Formatado",
-        "json": "JSON"
+        "json": "JSON",
+        "table": "Tabela"
     },
     "action": {
         "access": "Acessar",
@@ -74,6 +79,12 @@
     "address": {
         "zipcode.title": "Busca por código postal",
         "zipcode.description": "Consulte empresas cadastradas a partir de seu código postal(CEP)."
+    },
+    "report": {
+        "business_description": "Relatórios e totalizadores dos registros de empresas e estabelecimentos.",
+        "establishment": {
+            "total_month_state.description":"Quantidade total novas empresas(Matriz e Filial) registradas no mês."
+        }
     },
     "type": {
         "business.title": "Busca por tipo de empresa",

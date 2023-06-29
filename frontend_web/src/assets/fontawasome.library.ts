@@ -8,7 +8,9 @@ import {
   faBell,
   faBroom,
   faBuilding,
+  faChartBar,
   faChartLine,
+  faChartSimple,
   faCode,
   faCogs,
   faColumns,
@@ -106,5 +108,7 @@ library.add(
   faHandshake,
   faMapLocationDot,
   faCode,
-  faFileText
+  faFileText,
+  faChartBar,
+  faChartSimple
 );

@@ -25,7 +25,8 @@ export const IconsDef = {
   reset: 'undo' as IconName,
   filter: 'filter' as IconName,
   // Modules
-  reports: 'chart-line' as IconName,
+  reports: 'chart-bar' as IconName,
+  chartBar: 'chart-simple' as IconName,
   management: 'tasks' as IconName,
   // Apis
   attachment: 'file' as IconName,

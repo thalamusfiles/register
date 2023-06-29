@@ -22,6 +22,11 @@ class EndpointsConfigure {
   eAddressState = `/state`;
   eAddressCity = `/city`;
 
+  // API Rel Establishment
+  eRelEstablishment = null as string | null;
+  eRelEstablishmentTotalByMonthState = `/totalbymonthstate`;
+  eRelEstablishmentTotalByMonthStateCrosstab = `/totalbymonthstate/crosstab`;
+
   // API TypeKeyValue
   eTypeKeyValue = null as string | null;
   eTypeKeyValueBrCnae = `/br/cnae`;
@@ -33,6 +38,8 @@ class EndpointsConfigure {
     const eAddress = `${baseEndpoint}/api/address`;
     const eEstablishment = `${baseEndpoint}/api/establishment`;
     const eTypeKeyValue = `${baseEndpoint}/api/keyvalue`;
+    // API Relatórios
+    const eRelEstablishment = `${baseEndpoint}/api/rel/establishment`;
 
     this.url = baseUrl;
     this.port = basePort;
@@ -41,6 +48,7 @@ class EndpointsConfigure {
     this.eAddress = eAddress;
     this.eEstablishment = eEstablishment;
     this.eTypeKeyValue = eTypeKeyValue;
+    this.eRelEstablishment = eRelEstablishment;
   };
 }
 
