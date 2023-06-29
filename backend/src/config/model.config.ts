@@ -5,6 +5,8 @@ import { State } from '../model/Address/State';
 import { Contact } from '../model/Contact';
 import { Establishment } from '../model/Establishment';
 import FindPersonByDocument from '../model/Materialized/FindPersonByDocument';
+import RelEstablishmentByMonthAndState from '../model/Materialized/RelEstablishmentByMonthAndState';
+import RelEstablishmentByMonthAndStateCrossTab from '../model/Materialized/RelEstablishmentByMonthAndStateCrossTab';
 import { Partner } from '../model/Partner';
 import { Person } from '../model/Person';
 import { PersonResource } from '../model/PersonResource';
@@ -46,6 +48,8 @@ const modelConfig: MikroOrmModuleSyncOptions = {
     TypeKeyValue,
     // Materialized
     FindPersonByDocument,
+    RelEstablishmentByMonthAndState,
+    RelEstablishmentByMonthAndStateCrossTab,
   ],
   entitiesTs: ['./src/model'],
   type: 'postgresql',

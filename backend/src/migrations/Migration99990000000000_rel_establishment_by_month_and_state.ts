@@ -31,7 +31,12 @@ export class Migration20230509115642 extends Migration {
       select s.code from address.state s where resource_country_acronym = 'br' order by s.code
       $$
       )
-      as rel_establishment_by_month_and_state_crostab(date varchar(6),AC int8, AL int8, AM int8, AP int, BA int, CE int, DF int, ES int,EX int, GO int, MA int, MG int, MS int, MT int, PA int, PB int, PE int, PI int, PR int, RJ int, RN int, RO int, RR int, RS int, SC int, SE int, SP int, "TO" int);`,
+      as rel_establishment_by_month_and_state_crostab(date varchar(6),
+        ac int4, al int4, am int4, ap int4, ba int4, ce int4,
+        df int4, es int4, ex int4, go int4, ma int4, mg int4,
+        ms int4, mt int4, pa int4, pb int4, pe int4, pi int4,
+        pr int4, rj int4, rn int4, ro int4, rr int4, rs int4,
+        sc int4, se int4, sp int4, "to" int4);`,
     );
   }
 
