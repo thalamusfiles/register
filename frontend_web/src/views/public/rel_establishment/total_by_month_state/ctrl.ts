@@ -21,7 +21,7 @@ export class TotalByMonthStateCtrl {
   fillMonths = (size: number = 12) => {
     this.months = Array(size)
       .fill(0)
-      .map((v, idx: number) => DateTime.now().minus({ month: idx }).toFormat('yyyyMM'));
+      .map((v, idx: number) => DateTime.now().minus({ month: idx }).toFormat('yyyyMM')).reverse();
   };
 
   @action
@@ -44,7 +44,7 @@ export class TotalByMonthStateCtrl {
     this.response = null;
 
     new RelEstablishmentDataSource()
-      .findTotalByMonthAndState(months)
+      .totalByMonthAndState(months)
       .then((response) => {
         this.wanted = true;
         this.response = response.data.sort((l, r) => r.total - l.total);

@@ -9,6 +9,6 @@ export class TotalByMonthAndStateDto {
   @Expose()
   @IsNotEmpty()
   @IsArray()
-  @ArrayMaxSize(3)
+  @ArrayMaxSize(12)
   months!: Array<string>;
 }

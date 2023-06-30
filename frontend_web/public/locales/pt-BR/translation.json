@@ -19,7 +19,7 @@
         "reports": "Relatórios",
         "business": "Empresas",
         "tt_month_state": "Total por mês e estado",
-        "tt_month_state_cumulate": "Total por mês e estado acumulado"
+        "tt_month_state_history": "Total por mês e estado histórico"
     },
     "card": {
         "developer_guide": "Guia para desenvolvedores",
@@ -58,7 +58,8 @@
     "action": {
         "access": "Acessar",
         "search": "Procurar",
-        "random_search": "Busca aleatória"
+        "random_search": "Busca aleatória",
+        "show_more": "Ver mais"
     },
     "home": {
         "by_adress": "Buscar por endereço",
@@ -83,8 +84,9 @@
     "report": {
         "business_description": "Relatórios e totalizadores dos registros de empresas e estabelecimentos.",
         "establishment": {
-            "total_month_state.description":"Quantidade total novas empresas(Matriz e Filial) registradas no mês.",
-            "total_month_state.chart":"Novas empresas por estado"
+            "total_month_state.description":"Quantidade total de novas empresas(Matriz e Filial) registradas no mês.",
+            "total_month_state.chart":"Novas empresas por estado em {{month}}",
+            "total_month_state_history.chart": "Histórico de novas empresas por estado e mês"
         }
     },
     "type": {

@@ -6,6 +6,7 @@ import { useI18N } from '../../../../commons/i18';
 import { Button, ButtonGroup, Stack } from 'react-bootstrap';
 import { useEffect } from 'react';
 import { TotalByMonthStateProvider, TotalByMonthStateCtrl, useTotalByMonthStateStore } from './ctrl';
+import { historyPush } from '../../../../commons/route';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -24,20 +25,22 @@ const TotalByMonthStateChartCompProvided: React.FC = () => {
   );
 };
 
-
-
 const TotalByMonthStateChartComp: React.FC = observer(() => {
   const ctrl = useTotalByMonthStateStore();
   const __ = useI18N();
 
   return (
     <>
-      <h1>{__('report.establishment.total_month_state.chart')}</h1>
+      <h1>{__('report.establishment.total_month_state.chart', { month: `${ctrl.month.substring(4)}/${ctrl.month.substring(0, 4)}` })}</h1>
       <TotalByMonthStatePrettyChart />
       <br />
 
       <Stack gap={1} className="col-md-8 mx-auto">
         <ButtonGroup>
+          <Button size="sm" variant="outline-info" onClick={() => historyPush('month')}>
+            ...
+          </Button>
+
           {ctrl.months.map((month) => (
             <Button key={month} size="sm" variant="outline-info" active={month === ctrl.month} onClick={() => ctrl.handleChangeMonth(month)}>
               {month.substring(4)}/{month.substring(0, 4)}

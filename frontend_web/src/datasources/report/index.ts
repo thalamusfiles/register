@@ -39,14 +39,14 @@ export type RelEstabByMMAndStateCrosstabList = Array<RelEstabByMMAndStateCrossta
 
 interface RelEstablishmentDataSourceI {
   // Relatório com total de empresas por mes e estado
-  findTotalByMonthAndState(months: Array<string>): Promise<AxiosResponse<RelEstabByMMAndStateList>>;
+  totalByMonthAndState(months: Array<string>): Promise<AxiosResponse<RelEstabByMMAndStateList>>;
 
   // Relatório com total de empresas por mes e estado
   totalByMonthAndStateCrosstab(months: Array<string>): Promise<AxiosResponse<RelEstabByMMAndStateCrosstabList>>;
 }
 
 export class RelEstablishmentDataSource implements RelEstablishmentDataSourceI {
-  async findTotalByMonthAndState(months: Array<string>): Promise<AxiosResponse<RelEstabByMMAndStateList>> {
+  async totalByMonthAndState(months: Array<string>): Promise<AxiosResponse<RelEstabByMMAndStateList>> {
     return await Apis.ApiRelEstablishment.get(`${Endpoints.eRelEstablishmentTotalByMonthState}`, {
       params: { months },
     });

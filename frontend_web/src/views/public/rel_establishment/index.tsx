@@ -7,12 +7,14 @@ import TCardTile from '../../../components/Card/card-tile';
 import DeveloperGuide from '../../cards/developer-guide';
 import SideBarHome from '../home/sidebarhome';
 import TotalByMonthStatePage, { TotalByMonthStateBreadcrum } from './total_by_month_state';
+import TotalByMonthStateHistoryPage, { TotalByMonthStateHistoryBreadcrum } from './total_by_month_state_history';
 
 const RelEstablishmentPage: React.FC = () => {
   return (
     <Container fluid>
       <Routes>
         <Route path="/total_month_state" element={<TotalByMonthStateBreadcrum />} />
+        <Route path="/total_month_state_history" element={<TotalByMonthStateHistoryBreadcrum />} />
         <Route path="/" element={<RelEstablishmentBreadcrum />} />
       </Routes>
 
@@ -27,6 +29,7 @@ const RelEstablishmentPage: React.FC = () => {
               <br />
               <Routes>
                 <Route path="/total_month_state" element={<TotalByMonthStatePage />} />
+                <Route path="/total_month_state_history" element={<TotalByMonthStateHistoryPage />} />
                 <Route path="/" element={<NoneSelected />} />
               </Routes>
             </Col>
@@ -56,7 +59,7 @@ const RelEstablishmentHeader: React.FC = () => {
   const __ = useI18N();
   const location = useLocation();
   const ttMMStRoute = location.pathname.endsWith('total_month_state');
-  const ttMMStCumRoute = location.pathname.endsWith('total_month_state_cumulate');
+  const ttMMStCumRoute = location.pathname.endsWith('total_month_state_history');
 
   return (
     <>
@@ -75,10 +78,10 @@ const RelEstablishmentHeader: React.FC = () => {
 
         <TCardTile
           variant={ttMMStCumRoute ? 'info' : ''}
-          title={__('menu.tt_month_state_cumulate')}
+          title={__('menu.tt_month_state_history')}
           subtitle={''}
           faicon={IconsDef.chartBar}
-          onClick={() => historyPush('rel_estab_tt_month_state_cumulate')}
+          onClick={() => historyPush('rel_estab_tt_month_state_history')}
         />
       </Stack>
     </>
