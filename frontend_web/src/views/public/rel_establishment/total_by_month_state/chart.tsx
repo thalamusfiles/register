@@ -1,11 +1,53 @@
 import { observer } from 'mobx-react-lite';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartOptions } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { useTotalByMonthStateStore } from './ctrl';
 import { ChartBackgroundColor, ChartBarOptions, ChartBorderColor } from '../../../../commons/chat.options';
 import { useI18N } from '../../../../commons/i18';
+import { Button, ButtonGroup, Stack } from 'react-bootstrap';
+import { useEffect } from 'react';
+import { TotalByMonthStateProvider, TotalByMonthStateCtrl, useTotalByMonthStateStore } from './ctrl';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+
+const ctrl = new TotalByMonthStateCtrl();
+const TotalByMonthStateChartCompProvided: React.FC = () => {
+  useEffect(() => {
+    ctrl.fillMonths(3);
+    ctrl.findReportLastMonth();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ctrl]);
+
+  return (
+    <TotalByMonthStateProvider value={ctrl}>
+      <TotalByMonthStateChartComp />
+    </TotalByMonthStateProvider>
+  );
+};
+
+
+
+const TotalByMonthStateChartComp: React.FC = observer(() => {
+  const ctrl = useTotalByMonthStateStore();
+  const __ = useI18N();
+
+  return (
+    <>
+      <h1>{__('report.establishment.total_month_state.chart')}</h1>
+      <TotalByMonthStatePrettyChart />
+      <br />
+
+      <Stack gap={1} className="col-md-8 mx-auto">
+        <ButtonGroup>
+          {ctrl.months.map((month) => (
+            <Button key={month} size="sm" variant="outline-info" active={month === ctrl.month} onClick={() => ctrl.handleChangeMonth(month)}>
+              {month.substring(4)}/{month.substring(0, 4)}
+            </Button>
+          ))}
+        </ButtonGroup>
+      </Stack>
+    </>
+  );
+});
 
 const options: ChartOptions = {
   ...ChartBarOptions,
@@ -13,20 +55,17 @@ const options: ChartOptions = {
   elements: { bar: { borderWidth: 1 } },
   maintainAspectRatio: false,
   responsive: true,
-};
-
-options.plugins!.title = {
-  display: true,
-  font: {
-    size: 30,
+  animations: {
+    x: {
+      duration: 500,
+      from: 0,
+    },
+    y: { duration: 0 },
   },
 };
 
 const TotalByMonthStatePrettyChart: React.FC = observer(() => {
   const ctrl = useTotalByMonthStateStore();
-  const __ = useI18N();
-
-  options.plugins!.title!.text = __('report.establishment.total_month_state.chart');
 
   const labels = ctrl.response?.map((resp) => resp.statecode) || [];
   const data = {
@@ -50,4 +89,5 @@ const TotalByMonthStatePrettyChart: React.FC = observer(() => {
   );
 });
 
-export default TotalByMonthStatePrettyChart;
+export default TotalByMonthStateChartComp;
+export { TotalByMonthStateChartCompProvided };

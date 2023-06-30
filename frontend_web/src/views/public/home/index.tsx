@@ -8,6 +8,7 @@ import { historyPush } from '../../../commons/route';
 import TCard from '../../../components/Card/card';
 import SideBarHome from './sidebarhome';
 import DeveloperGuide from '../../cards/developer-guide';
+import { TotalByMonthStateChartCompProvided } from '../rel_establishment/total_by_month_state/chart';
 
 const Home: React.FC = () => {
   return (
@@ -18,13 +19,16 @@ const Home: React.FC = () => {
         </Col>
         <Col>
           <Row>
-            <Col md={12} lg={8}>
+            <Col xs={12} lg={5}>
               <Person />
               <Type />
               <Address />
             </Col>
-            <Col sm={3}>
+            <Col lg={3}>
               <DeveloperGuide />
+            </Col>
+            <Col lg={3}>
+              <TotalByMonthStateChartCompProvided />
             </Col>
           </Row>
         </Col>

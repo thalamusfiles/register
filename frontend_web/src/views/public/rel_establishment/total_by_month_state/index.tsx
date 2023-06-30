@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
-import { Button, ButtonGroup, Card, Nav, Stack, Table } from 'react-bootstrap';
+import { Card, Nav, Table } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { useI18N } from '../../../../commons/i18';
 import { getLinkTo } from '../../../../commons/route';
 import { notify } from '../../../../components/Notification';
-import TotalByMonthStatePrettyChart from './chart';
+import TotalByMonthStateChartComp from './chart';
 import { TotalByMonthStateProvider, TotalByMonthStateCtrl, useTotalByMonthStateStore } from './ctrl';
 
 const ctrl = new TotalByMonthStateCtrl();
@@ -25,6 +25,7 @@ const TotalByMonthStatePage: React.FC = () => {
   };
 
   useEffect(() => {
+    ctrl.fillMonths();
     ctrl.findReportLastMonth();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrl]);
@@ -33,7 +34,7 @@ const TotalByMonthStatePage: React.FC = () => {
     <TotalByMonthStateProvider value={ctrl}>
       <p>{__('report.establishment.total_month_state.description')}</p>
 
-      <TotalByMonthStatePrettyChartComp />
+      <TotalByMonthStateChartComp />
       <br />
 
       <Nav variant="tabs" defaultActiveKey="formated" onSelect={setTab}>
@@ -61,27 +62,6 @@ const TotalByMonthStateBreadcrum: React.FC = () => {
     </Breadcrumb>
   );
 };
-
-const TotalByMonthStatePrettyChartComp: React.FC = observer(() => {
-  const ctrl = useTotalByMonthStateStore();
-
-  return (
-    <>
-      <TotalByMonthStatePrettyChart />
-      <br />
-
-      <Stack gap={1} className="col-md-8 mx-auto">
-        <ButtonGroup>
-          {ctrl.months.map((month) => (
-            <Button key={month} size="sm" variant="outline-info" active={month === ctrl.month} onClick={() => ctrl.handleChangeMonth(month)}>
-              {month.substring(4)}/{month.substring(0, 4)}
-            </Button>
-          ))}
-        </ButtonGroup>
-      </Stack>
-    </>
-  );
-});
 
 const TotalByMonthStatePrettyResult: React.FC = observer(() => {
   const ctrl = useTotalByMonthStateStore();

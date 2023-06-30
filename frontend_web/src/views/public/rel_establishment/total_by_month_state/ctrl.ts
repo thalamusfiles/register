@@ -7,10 +7,6 @@ export class TotalByMonthStateCtrl {
   constructor() {
     // Modifica classe pra ser observável
     makeObservable(this);
-
-    this.months = Array(12)
-      .fill(0)
-      .map((v, idx: number) => DateTime.now().minus({ month: idx }).toFormat('yyyyMM'));
   }
 
   notifyExeption!: Function;
@@ -20,6 +16,13 @@ export class TotalByMonthStateCtrl {
   @observable months: Array<string> = [];
   @observable wanted: boolean = false;
   @observable response: RelEstabByMMAndStateList | null = null;
+
+  @action
+  fillMonths = (size: number = 12) => {
+    this.months = Array(size)
+      .fill(0)
+      .map((v, idx: number) => DateTime.now().minus({ month: idx }).toFormat('yyyyMM'));
+  };
 
   @action
   handleChangeMonth = (month: string) => {

@@ -2,6 +2,11 @@ import { ChartOptions } from 'chart.js';
 
 export const ChartBarOptions: ChartOptions = {
   scales: {
+    x: {
+      grid: {
+        color: 'transparent',
+      },
+    },
     y: {
       grid: {
         color: 'transparent',
@@ -14,6 +19,9 @@ export const ChartBarOptions: ChartOptions = {
   },
   plugins: {
     legend: {
+      display: false,
+    },
+    title: {
       display: false,
     },
   },
