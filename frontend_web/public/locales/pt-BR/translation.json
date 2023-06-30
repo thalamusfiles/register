@@ -83,7 +83,8 @@
     "report": {
         "business_description": "Relatórios e totalizadores dos registros de empresas e estabelecimentos.",
         "establishment": {
-            "total_month_state.description":"Quantidade total novas empresas(Matriz e Filial) registradas no mês."
+            "total_month_state.description":"Quantidade total novas empresas(Matriz e Filial) registradas no mês.",
+            "total_month_state.chart":"Total de novos registros por estado"
         }
     },
     "type": {

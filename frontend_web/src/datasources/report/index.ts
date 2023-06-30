@@ -34,7 +34,7 @@ type RelEstabByMMAndStateCrosstabData = {
   to: number;
 };
 
-export type RelEstabByMMAndStateList = Array<{ begindate: string; statecode?: string; total?: number }>;
+export type RelEstabByMMAndStateList = Array<{ begindate: string; statecode: string; total: number }>;
 export type RelEstabByMMAndStateCrosstabList = Array<RelEstabByMMAndStateCrosstabData>;
 
 interface RelEstablishmentDataSourceI {

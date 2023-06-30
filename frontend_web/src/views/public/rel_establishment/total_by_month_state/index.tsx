@@ -1,10 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
-import { Card, Nav, Table } from 'react-bootstrap';
+import { Button, ButtonGroup, Card, Nav, Stack, Table } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { useI18N } from '../../../../commons/i18';
 import { getLinkTo } from '../../../../commons/route';
 import { notify } from '../../../../components/Notification';
+import TotalByMonthStatePrettyChart from './chart';
 import { TotalByMonthStateProvider, TotalByMonthStateCtrl, useTotalByMonthStateStore } from './ctrl';
 
 const ctrl = new TotalByMonthStateCtrl();
@@ -32,7 +33,8 @@ const TotalByMonthStatePage: React.FC = () => {
     <TotalByMonthStateProvider value={ctrl}>
       <p>{__('report.establishment.total_month_state.description')}</p>
 
-      <TotalByMonthStatePrettyChart />
+      <TotalByMonthStatePrettyChartComp />
+      <br />
 
       <Nav variant="tabs" defaultActiveKey="formated" onSelect={setTab}>
         <Nav.Item>
@@ -60,9 +62,25 @@ const TotalByMonthStateBreadcrum: React.FC = () => {
   );
 };
 
-const TotalByMonthStatePrettyChart: React.FC = observer(() => {
+const TotalByMonthStatePrettyChartComp: React.FC = observer(() => {
   const ctrl = useTotalByMonthStateStore();
-  return <>{ctrl.months.join(',    ')}</>;
+
+  return (
+    <>
+      <TotalByMonthStatePrettyChart />
+      <br />
+
+      <Stack gap={1} className="col-md-8 mx-auto">
+        <ButtonGroup>
+          {ctrl.months.map((month) => (
+            <Button key={month} size="sm" variant="outline-info" active={month === ctrl.month} onClick={() => ctrl.handleChangeMonth(month)}>
+              {month.substring(4)}/{month.substring(0, 4)}
+            </Button>
+          ))}
+        </ButtonGroup>
+      </Stack>
+    </>
+  );
 });
 
 const TotalByMonthStatePrettyResult: React.FC = observer(() => {
@@ -92,7 +110,9 @@ const TotalByMonthStatePrettyResult: React.FC = observer(() => {
         {ctrl.response &&
           ctrl.response.map((resp, idx) => (
             <tr key={idx}>
-              <td>{resp.begindate}</td>
+              <td>
+                {resp.begindate.substring(4)}/{resp.begindate.substring(0, 4)}
+              </td>
               <td>{resp.statecode}</td>
               <td>{resp.total}</td>
             </tr>

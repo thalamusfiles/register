@@ -16,14 +16,22 @@ export class TotalByMonthStateCtrl {
   notifyExeption!: Function;
 
   // PersonPartner
+  @observable month: string = '';
   @observable months: Array<string> = [];
   @observable wanted: boolean = false;
   @observable response: RelEstabByMMAndStateList | null = null;
 
   @action
+  handleChangeMonth = (month: string) => {
+    this.month = month;
+    this.findReport([month]);
+  };
+
+  @action
   findReportLastMonth = () => {
     if (this.months) {
-      this.findReport([this.months[this.months.length - 1]]);
+      this.month = this.months[this.months.length - 1];
+      this.findReport([this.month]);
     }
   };
 
@@ -36,7 +44,7 @@ export class TotalByMonthStateCtrl {
       .findTotalByMonthAndState(months)
       .then((response) => {
         this.wanted = true;
-        this.response = response.data;
+        this.response = response.data.sort((l, r) => r.total - l.total);
       })
       .catch((ex) => {
         this.wanted = true;

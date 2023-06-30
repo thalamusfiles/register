@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
-import { IsNotEmpty, IsArray, MaxLength, MinLength, ArrayMaxSize } from 'class-validator';
+import { IsNotEmpty, IsArray, ArrayMaxSize } from 'class-validator';
 
 // DTO find User
 @Exclude()
