@@ -93,7 +93,7 @@ const TotalByMonthNaturePrettyResult: React.FC = observer(() => {
               <td>
                 {resp.beginDate.substring(4)}/{resp.beginDate.substring(0, 4)}
               </td>
-              <td>{resp.stateCode}</td>
+              <td>{resp.natureCode}</td>
               <td>{resp.total}</td>
             </tr>
           ))}

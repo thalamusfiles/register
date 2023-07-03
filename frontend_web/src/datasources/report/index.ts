@@ -36,6 +36,8 @@ type RelEstabByMMAndStateCrosstabData = {
 
 export type RelEstabByMMAndStateList = Array<{ beginDate: string; stateCode: string; total: number }>;
 export type RelEstabByMMAndStateCrosstabList = Array<RelEstabByMMAndStateCrosstabData>;
+export type RelEstabByMMAndNatureList = Array<{ beginDate: string; natureCode: string; nature: string; total: number }>;
+export type RelEstabByMMAndMainActivityList = Array<{ beginDate: string; mainActivity: string; total: number }>;
 
 interface RelEstablishmentDataSourceI {
   // Relatório com total de empresas por mes e estado
@@ -43,6 +45,12 @@ interface RelEstablishmentDataSourceI {
 
   // Relatório com total de empresas por mes e estado
   totalByMonthAndStateCrosstab(months: Array<string>): Promise<AxiosResponse<RelEstabByMMAndStateCrosstabList>>;
+
+  // Relatório com total de empresas por mes e natureza
+  totalByMonthAndNature(months: Array<string>): Promise<AxiosResponse<RelEstabByMMAndNatureList>>;
+
+  // Relatório com total de empresas por mes tipo de atividade
+  totalByMonthAndActivity(months: Array<string>): Promise<AxiosResponse<RelEstabByMMAndMainActivityList>>;
 }
 
 export class RelEstablishmentDataSource implements RelEstablishmentDataSourceI {
@@ -54,6 +62,18 @@ export class RelEstablishmentDataSource implements RelEstablishmentDataSourceI {
 
   async totalByMonthAndStateCrosstab(months: Array<string>): Promise<AxiosResponse<RelEstabByMMAndStateCrosstabList>> {
     return await Apis.ApiRelEstablishment.get(`${Endpoints.eRelEstablishmentTotalByMonthStateCrosstab}`, {
+      params: { months },
+    });
+  }
+
+  async totalByMonthAndNature(months: Array<string>): Promise<AxiosResponse<RelEstabByMMAndNatureList>> {
+    return await Apis.ApiRelEstablishment.get(`${Endpoints.eRelEstablishmentTotalByMonthNature}`, {
+      params: { months },
+    });
+  }
+
+  async totalByMonthAndActivity(months: Array<string>): Promise<AxiosResponse<RelEstabByMMAndMainActivityList>> {
+    return await Apis.ApiRelEstablishment.get(`${Endpoints.eRelEstablishmentTotalByMonthMainActivity}`, {
       params: { months },
     });
   }

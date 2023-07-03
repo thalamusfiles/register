@@ -26,6 +26,8 @@ class EndpointsConfigure {
   eRelEstablishment = null as string | null;
   eRelEstablishmentTotalByMonthState = `/totalbymonthstate`;
   eRelEstablishmentTotalByMonthStateCrosstab = `/totalbymonthstate/crosstab`;
+  eRelEstablishmentTotalByMonthNature = `/totalbymonthnature`;
+  eRelEstablishmentTotalByMonthMainActivity = `/totalbymonthmainactivity`;
 
   // API TypeKeyValue
   eTypeKeyValue = null as string | null;

@@ -18,7 +18,7 @@ export class RelEstablishmentService {
   }
 
   /**
-   * Relatório com tótial de empresas por mes e estado
+   * Relatório com total de empresas por mes e estado
    */
   async totalByMonthAndState(months: Array<string>): Promise<RelEstablishmentByMonthAndState[]> {
     this.logger.verbose('Find Total By Month And State');
@@ -31,7 +31,7 @@ export class RelEstablishmentService {
   }
 
   /**
-   * Relatório com tótial de empresas por mes e estado, cruzando o mes e o estado
+   * Relatório com total de empresas por mes e estado, cruzando o mes e o estado
    */
   async totalByMonthAndStateCrosstab(months: Array<string>): Promise<RelEstablishmentByMonthAndStateCrossTab[]> {
     this.logger.verbose('Find Total By Month And State');

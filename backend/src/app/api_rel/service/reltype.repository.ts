@@ -2,7 +2,7 @@ import { EntityRepository, FilterQuery } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable, Logger } from '@nestjs/common';
 import RelEstablishmentByMonthAndMainActivity from '../../../model/Materialized/RelEstablishmentByMonthAndMainActivity';
-import RelEstablishmentByMonthAndNature from '../../../model/Materialized/RelEstablishmentByMonthAndMainNature';
+import RelEstablishmentByMonthAndNature from '../../../model/Materialized/RelEstablishmentByMonthAndNature';
 
 @Injectable()
 export class RelTypeService {
@@ -18,7 +18,7 @@ export class RelTypeService {
   }
 
   /**
-   * Relatório com tótial de empresas por mes e natureza
+   * Relatório com total de empresas por mes e natureza
    */
   async totalByMonthAndNature(months: Array<string>): Promise<RelEstablishmentByMonthAndNature[]> {
     this.logger.verbose('Find Total By Month And Nature');
@@ -31,7 +31,7 @@ export class RelTypeService {
   }
 
   /**
-   * Relatório com tótial de empresas por mes tipo de atividade
+   * Relatório com total de empresas por mes tipo de atividade
    */
   async totalByMonthAndMainActivity(months: Array<string>): Promise<RelEstablishmentByMonthAndMainActivity[]> {
     this.logger.verbose('Find Total By Month And Main Activity');

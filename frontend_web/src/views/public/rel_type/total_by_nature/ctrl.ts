@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { action, makeObservable, observable } from 'mobx';
 import { createContext, useContext } from 'react';
-import { RelEstabByMMAndStateList, RelEstablishmentDataSource } from '../../../../datasources/report';
+import { RelEstabByMMAndNatureList, RelEstablishmentDataSource } from '../../../../datasources/report';
 
 export class TotalByMonthNatureCtrl {
   constructor() {
@@ -15,7 +15,7 @@ export class TotalByMonthNatureCtrl {
   @observable month: string = '';
   @observable months: Array<string> = [];
   @observable wanted: boolean = false;
-  @observable response: RelEstabByMMAndStateList | null = null;
+  @observable response: RelEstabByMMAndNatureList | null = null;
 
   @action
   fillMonths = (size: number = 12) => {
@@ -51,7 +51,7 @@ export class TotalByMonthNatureCtrl {
     this.response = null;
 
     return new RelEstablishmentDataSource()
-      .totalByMonthAndState(months)
+      .totalByMonthAndNature(months)
       .then((response) => {
         this.wanted = true;
         this.response = response.data.sort((l, r) => r.total - l.total);

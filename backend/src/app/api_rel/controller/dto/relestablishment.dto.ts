@@ -12,3 +12,14 @@ export class TotalByMonthAndStateDto {
   @ArrayMaxSize(12)
   months!: Array<string>;
 }
+
+// DTO find User
+@Exclude()
+export class TotalByMonthAndTypeDto {
+  @ApiProperty({ description: 'Informe um documento para busca' })
+  @Expose()
+  @IsNotEmpty()
+  @IsArray()
+  @ArrayMaxSize(2)
+  months!: Array<string>;
+}

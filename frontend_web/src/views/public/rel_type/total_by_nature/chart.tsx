@@ -70,7 +70,7 @@ const options: ChartOptions = {
 const TotalByMonthNaturePrettyChart: React.FC = observer(() => {
   const ctrl = useTotalByMonthNatureStore();
 
-  const labels = ctrl.response?.map((resp) => resp.stateCode) || [];
+  const labels = ctrl.response?.map((resp) => resp.nature) || [];
   const data = {
     labels,
     datasets: [
