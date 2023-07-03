@@ -9,8 +9,10 @@ import TCard from '../../../components/Card/card';
 import SideBarHome from './sidebarhome';
 import DeveloperGuide from '../../cards/developer-guide';
 import { TotalByMonthStateChartCompProvided } from '../rel_establishment/total_by_month_state/chart';
+import { TotalByMonthNatureChartCompProvided } from '../rel_type/total_by_nature/chart';
 
 const Home: React.FC = () => {
+  const randomizeShow = Math.floor(Math.random() * 10);
   return (
     <Container fluid>
       <Row>
@@ -28,7 +30,8 @@ const Home: React.FC = () => {
               <DeveloperGuide />
             </Col>
             <Col lg={3}>
-              <TotalByMonthStateChartCompProvided />
+              {randomizeShow < 6 && <TotalByMonthNatureChartCompProvided />}
+              {randomizeShow > 5 && <TotalByMonthStateChartCompProvided />}
             </Col>
           </Row>
         </Col>
