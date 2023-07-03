@@ -53,6 +53,15 @@ export function getLinkTo(owner: RoutesName | string | number, options: { uuid: 
     case 'rel_estab_tt_month_state_history':
       push = '/public/rel/establishment/total_month_state_history';
       break;
+    case 'rel_type':
+      push = '/public/rel/type';
+      break;
+    case 'rel_type_tt_nature':
+      push = '/public/rel/type/total_month_nature';
+      break;
+    case 'rel_type_tt_activity':
+      push = '/public/rel/type/total_month_activity';
+      break;
     default:
       push = owner as string;
       break;

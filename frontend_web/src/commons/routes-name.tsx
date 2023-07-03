@@ -11,5 +11,8 @@ export type RoutesName =
   | 'addresses_zipcode'
   | 'rel_estab'
   | 'rel_estab_tt_month_state'
-  | 'rel_estab_tt_month_state_history';
+  | 'rel_estab_tt_month_state_history'
+  | 'rel_type'
+  | 'rel_type_tt_nature'
+  | 'rel_type_tt_activity';
   

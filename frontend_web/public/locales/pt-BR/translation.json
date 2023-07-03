@@ -19,7 +19,9 @@
         "reports": "Relatórios",
         "business": "Empresas",
         "tt_month_state": "Total por mês e estado",
-        "tt_month_state_history": "Total por mês e estado histórico"
+        "tt_month_state_history": "Total por mês e estado histórico",
+        "tt_month_nature": "Total por natureza",
+        "tt_month_activity": "Total por atividade"
     },
     "card": {
         "developer_guide": "Guia para desenvolvedores",
@@ -86,7 +88,14 @@
         "establishment": {
             "total_month_state.description":"Quantidade total de novas empresas(Matriz e Filial) registradas no mês.",
             "total_month_state.chart":"Novas empresas por estado em {{month}}",
-            "total_month_state_history.chart": "Histórico de novas empresas por estado e mês"
+            "total_month_state_history.chart": "Histórico de novas empresas por estado e mês."
+        },
+        "type_description": "Quantidade total de novas empresas agrupadas por tipo de atividade ou natureza.",
+        "type": {
+            "total_month_nature.description":"Quantidade total de novas empresas agrupadas por natureza.",
+            "total_month_nature.chart":"Novas empresas por natureza {{month}}",
+            "total_month_activity.description":"Quantidade total de novas empresas agrupadas por tipo de atividade (CNAE).",
+            "total_month_activity.chart":"Novas empresas por atividade {{month}}"
         }
     },
     "type": {

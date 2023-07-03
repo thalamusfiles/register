@@ -3,7 +3,7 @@ import { action, makeObservable, observable } from 'mobx';
 import { createContext, useContext } from 'react';
 import { RelEstabByMMAndStateList, RelEstablishmentDataSource } from '../../../../datasources/report';
 
-export class TotalByMonthStateCtrl {
+export class TotalByMonthNatureCtrl {
   constructor() {
     // Modifica classe pra ser observável
     makeObservable(this);
@@ -65,6 +65,6 @@ export class TotalByMonthStateCtrl {
   };
 }
 
-export const TotalByMonthStateContext = createContext({} as TotalByMonthStateCtrl);
-export const TotalByMonthStateProvider = TotalByMonthStateContext.Provider;
-export const useTotalByMonthStateStore = (): TotalByMonthStateCtrl => useContext(TotalByMonthStateContext);
+export const TotalByMonthNatureContext = createContext({} as TotalByMonthNatureCtrl);
+export const TotalByMonthNatureProvider = TotalByMonthNatureContext.Provider;
+export const useTotalByMonthNatureStore = (): TotalByMonthNatureCtrl => useContext(TotalByMonthNatureContext);

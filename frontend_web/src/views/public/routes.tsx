@@ -5,6 +5,7 @@ import AddressPage from './address';
 import Home from './home';
 import PersonPage from './person';
 import RelEstablishmentPage from './rel_establishment';
+import RelTypePage from './rel_type';
 import TypePage from './type';
 
 /**
@@ -20,6 +21,7 @@ export const routes: RoutesDefinition = {
   addresses: { path: '/addresses', component: AddressPage, index: true },
   // Rels
   rel_establishment: { path: '/rel/establishment', component: RelEstablishmentPage, index: true },
+  rel_type: { path: '/rel/type', component: RelTypePage, index: true },
 };
 
 /**

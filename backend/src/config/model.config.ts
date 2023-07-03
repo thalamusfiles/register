@@ -6,7 +6,7 @@ import { Contact } from '../model/Contact';
 import { Establishment } from '../model/Establishment';
 import FindPersonByDocument from '../model/Materialized/FindPersonByDocument';
 import RelEstablishmentByMonthAndMainActivity from '../model/Materialized/RelEstablishmentByMonthAndMainActivity';
-import RelEstablishmentByMonthAndNature from '../model/Materialized/RelEstablishmentByMonthAndMainActivityNature';
+import RelEstablishmentByMonthAndNature from '../model/Materialized/RelEstablishmentByMonthAndMainNature';
 import RelEstablishmentByMonthAndState from '../model/Materialized/RelEstablishmentByMonthAndState';
 import RelEstablishmentByMonthAndStateCrossTab from '../model/Materialized/RelEstablishmentByMonthAndStateCrossTab';
 import { Partner } from '../model/Partner';
@@ -53,7 +53,7 @@ const modelConfig: MikroOrmModuleSyncOptions = {
     RelEstablishmentByMonthAndState,
     RelEstablishmentByMonthAndStateCrossTab,
     RelEstablishmentByMonthAndMainActivity,
-    RelEstablishmentByMonthAndNature
+    RelEstablishmentByMonthAndNature,
   ],
   entitiesTs: ['./src/model'],
   type: 'postgresql',
