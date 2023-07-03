@@ -55,7 +55,7 @@ export class RelEstablishmentController {
   @ApiOperation({ tags: ['Rel'], summary: 'Relatório com total de empresas por mes tipo de atividade' })
   @Get('/totalbymonthmainactivity')
   @UsePipes(new RegisterValidationPipe())
-  async totalByMonthAndActivity(@Query() query?: TotalByMonthAndTypeDto): Promise<any> {
+  async totalByMonthAndMainActivity(@Query() query?: TotalByMonthAndTypeDto): Promise<any> {
     this.logger.log(`Find Total By Month And Main Activity ${query.months}`);
 
     return await this.relTypeServiceService.totalByMonthAndMainActivity(query.months);

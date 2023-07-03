@@ -70,13 +70,13 @@ const options: ChartOptions = {
 const TotalByMonthActivityPrettyChart: React.FC = observer(() => {
   const ctrl = useTotalByMonthActivityStore();
 
-  const labels = ctrl.response?.map((resp) => resp.stateCode) || [];
+  const labels = ctrl.responseChart?.map((resp) => resp.mainActivity) || [];
   const data = {
     labels,
     datasets: [
       {
         label: 'Novos registros',
-        data: ctrl.response?.map((resp) => resp.total),
+        data: ctrl.responseChart?.map((resp) => resp.total),
         lineTension: 1,
         backgroundColor: ChartBackgroundColor,
         borderColor: ChartBorderColor,

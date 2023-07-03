@@ -72,7 +72,7 @@ const TotalByMonthActivityPrettyResult: React.FC = observer(() => {
       <thead>
         <tr>
           <td>Data</td>
-          <td>Estado</td>
+          <td>Atividade (CNAE)</td>
           <td>Total</td>
         </tr>
       </thead>
@@ -93,7 +93,7 @@ const TotalByMonthActivityPrettyResult: React.FC = observer(() => {
               <td>
                 {resp.beginDate.substring(4)}/{resp.beginDate.substring(0, 4)}
               </td>
-              <td>{resp.stateCode}</td>
+              <td>{resp.mainActivity}</td>
               <td>{resp.total}</td>
             </tr>
           ))}

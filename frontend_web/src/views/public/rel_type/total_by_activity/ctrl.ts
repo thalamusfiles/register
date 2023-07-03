@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { action, makeObservable, observable } from 'mobx';
 import { createContext, useContext } from 'react';
-import { RelEstabByMMAndStateList, RelEstablishmentDataSource } from '../../../../datasources/report';
+import { RelEstabByMMAndMainActivityList, RelEstablishmentDataSource } from '../../../../datasources/report';
 
 export class TotalByMonthActivityCtrl {
   constructor() {
@@ -15,7 +15,8 @@ export class TotalByMonthActivityCtrl {
   @observable month: string = '';
   @observable months: Array<string> = [];
   @observable wanted: boolean = false;
-  @observable response: RelEstabByMMAndStateList | null = null;
+  @observable response: RelEstabByMMAndMainActivityList | null = null;
+  @observable responseChart: RelEstabByMMAndMainActivityList | null = null;
 
   @action
   fillMonths = (size: number = 12) => {
@@ -51,10 +52,11 @@ export class TotalByMonthActivityCtrl {
     this.response = null;
 
     return new RelEstablishmentDataSource()
-      .totalByMonthAndState(months)
+      .totalByMonthAndMainActivity(months)
       .then((response) => {
         this.wanted = true;
         this.response = response.data.sort((l, r) => r.total - l.total);
+        this.responseChart = this.response.filter((_, idx) => idx < 35);
       })
       .catch((ex) => {
         this.wanted = true;

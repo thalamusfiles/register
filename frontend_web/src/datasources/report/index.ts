@@ -50,7 +50,7 @@ interface RelEstablishmentDataSourceI {
   totalByMonthAndNature(months: Array<string>): Promise<AxiosResponse<RelEstabByMMAndNatureList>>;
 
   // Relatório com total de empresas por mes tipo de atividade
-  totalByMonthAndActivity(months: Array<string>): Promise<AxiosResponse<RelEstabByMMAndMainActivityList>>;
+  totalByMonthAndMainActivity(months: Array<string>): Promise<AxiosResponse<RelEstabByMMAndMainActivityList>>;
 }
 
 export class RelEstablishmentDataSource implements RelEstablishmentDataSourceI {
@@ -72,7 +72,7 @@ export class RelEstablishmentDataSource implements RelEstablishmentDataSourceI {
     });
   }
 
-  async totalByMonthAndActivity(months: Array<string>): Promise<AxiosResponse<RelEstabByMMAndMainActivityList>> {
+  async totalByMonthAndMainActivity(months: Array<string>): Promise<AxiosResponse<RelEstabByMMAndMainActivityList>> {
     return await Apis.ApiRelEstablishment.get(`${Endpoints.eRelEstablishmentTotalByMonthMainActivity}`, {
       params: { months },
     });

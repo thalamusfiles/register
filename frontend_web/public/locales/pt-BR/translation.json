@@ -92,9 +92,9 @@
         },
         "type_description": "Quantidade total de novas empresas agrupadas por tipo de atividade ou natureza.",
         "type": {
-            "total_month_nature.description":"Quantidade total de novas empresas agrupadas por natureza.",
+            "total_month_nature.description":"Quantidade total de novas empresas (Simples, MEI, ...) agrupadas por natureza.",
             "total_month_nature.chart":"Novas empresas por natureza {{month}}",
-            "total_month_activity.description":"Quantidade total de novas empresas agrupadas por tipo de atividade (CNAE).",
+            "total_month_activity.description":"Quantidade total de novas empresas (Simples, MEI, ...) agrupadas por tipo de atividade (CNAE).",
             "total_month_activity.chart":"Novas empresas por atividade {{month}}"
         }
     },
