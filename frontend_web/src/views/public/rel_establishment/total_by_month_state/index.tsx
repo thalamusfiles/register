@@ -91,9 +91,9 @@ const TotalByMonthStatePrettyResult: React.FC = observer(() => {
           ctrl.response.map((resp, idx) => (
             <tr key={idx}>
               <td>
-                {resp.begindate.substring(4)}/{resp.begindate.substring(0, 4)}
+                {resp.beginDate.substring(4)}/{resp.beginDate.substring(0, 4)}
               </td>
-              <td>{resp.statecode}</td>
+              <td>{resp.stateCode}</td>
               <td>{resp.total}</td>
             </tr>
           ))}

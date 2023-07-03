@@ -3,6 +3,7 @@ services:
   register_db:
     container_name: register_postgres
     image: postgres:15-alpine
+    shm_size: 1g
     environment:
       - POSTGRES_DB=${DATABASE_NAME}
       - POSTGRES_USER=${DATABASE_USER}

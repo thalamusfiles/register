@@ -110,5 +110,6 @@ library.add(
   faCode,
   faFileText,
   faChartBar,
-  faChartSimple
+  faChartSimple,
+  faChartLine
 );

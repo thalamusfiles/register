@@ -24,7 +24,7 @@ export class RelEstablishmentService {
     this.logger.verbose('Find Total By Month And State');
 
     const where: FilterQuery<RelEstablishmentByMonthAndState> = {
-      begindate: { $in: months },
+      beginDate: { $in: months },
     };
 
     return await this.relEstablishmentByMonthAndStateRepo.find(where);

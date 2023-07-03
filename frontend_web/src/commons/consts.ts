@@ -27,6 +27,7 @@ export const IconsDef = {
   // Modules
   reports: 'chart-bar' as IconName,
   chartBar: 'chart-simple' as IconName,
+  chartLine: 'chart-line' as IconName,
   management: 'tasks' as IconName,
   // Apis
   attachment: 'file' as IconName,

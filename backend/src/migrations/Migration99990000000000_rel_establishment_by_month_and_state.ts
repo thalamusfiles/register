@@ -5,27 +5,27 @@ export class Migration20230509115642 extends Migration {
     // Cria a tabela materializada de estabelecimentos por mes e estado, com dados formatados
     this.addSql(
       `create materialized view if not exists "materialized".rel_establishment_by_month_and_state as
-      select 
-        substring(e."data"->>'beginDate', 1, 6) as beginDate, 
-        e."data"->>'stateCode' as stateCode, 
+      select
+        substring(e."data"->>'beginDate', 1, 6) as begin_date, 
+        e."data"->>'stateCode' as state_code, 
         count(e.uuid) as total
       from establishment e
-      group by beginDate, stateCode
-      order by beginDate desc, stateCode`,
+      group by begin_date, state_code
+      order by begin_date desc, state_code;`,
     );
 
     // Cria a tabela materializada de estabelecimentos por mes e estado com colunas formatados
     this.addSql(
       `create materialized view if not exists "materialized".rel_establishment_by_month_and_state_crosstab as
-      Select * from
+      select * from
       crosstab($$
       select 
-        substring(e."data"->>'beginDate', 1, 6) as beginDate, 
-        e."data"->>'stateCode' as stateCode, 
+        substring(e."data"->>'beginDate', 1, 6) as begin_date, 
+        e."data"->>'stateCode' as state_code, 
         count(e.uuid) as total
       from establishment e
-      group by beginDate, stateCode
-      order by beginDate desc, stateCode
+      group by begin_date, state_code
+      order by begin_date desc, state_code
       $$,
       $$
       select s.code from address.state s where resource_country_acronym = 'br' order by s.code

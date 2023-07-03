@@ -71,11 +71,11 @@ export class Migration20230509115642 extends Migration {
     inner join person_resource pr on pr.resource_country_acronym = 'br' and pr.resource_uuid = r.uuid and pr.person_uuid = p.uuid 
     inner join establishment e    on e.resource_country_acronym = 'br'  and e.resource_uuid = r.uuid and e.person_uuid = p.uuid
     inner join contact c          on c.resource_country_acronym = 'br'  and c.resource_uuid = r.uuid and c.person_uuid = p.uuid and e.extra_key = c.extra_key
-    left join "address".country country on country.resource_country_acronym = 'br'  and country.resource_uuid = r.uuid and country.code::varchar = e."data"->>'countryCode'
-    left join "address".city city       on city.resource_country_acronym = 'br'     and city.resource_uuid = r.uuid and city.code::varchar =e."data"->>'cityCode'
+    left join "address".country country on country.resource_country_acronym = 'br'  and country.resource_uuid = r.uuid  and country.code::varchar = e."data"->>'countryCode'
+    left join "address".city city       on city.resource_country_acronym = 'br'     and city.resource_uuid = r.uuid     and city.code::varchar =e."data"->>'cityCode'
     left join type_key_value activity   on activity.resource_country_acronym = 'br' and activity.resource_uuid = r.uuid and activity."type" = 'cnae' and activity.key = e."main_activity"
-    left join type_key_value reason     on activity.resource_country_acronym = 'br' and reason.resource_uuid = r.uuid and reason."type" = 'reason' and reason.key = e."data"->>'reason'
-    left join type_key_value nt         on activity.resource_country_acronym = 'br' and reason.resource_uuid = r.uuid and nt."type" = 'nature' and nt.key = pr."data"->>'natureCode'
+    left join type_key_value reason     on reason.resource_country_acronym = 'br'   and reason.resource_uuid = r.uuid   and reason."type" = 'reason' and reason.key = e."data"->>'reason'
+    left join type_key_value nt         on nt.resource_country_acronym = 'br'       and nt.resource_uuid = r.uuid       and nt."type" = 'nature'     and nt.key = pr."data"->>'natureCode'
     where p.person_type = 'legal' and r."name" = 'br_gov_dados'`,
     );
 

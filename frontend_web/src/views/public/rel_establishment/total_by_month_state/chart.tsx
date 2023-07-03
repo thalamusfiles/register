@@ -70,7 +70,7 @@ const options: ChartOptions = {
 const TotalByMonthStatePrettyChart: React.FC = observer(() => {
   const ctrl = useTotalByMonthStateStore();
 
-  const labels = ctrl.response?.map((resp) => resp.statecode) || [];
+  const labels = ctrl.response?.map((resp) => resp.stateCode) || [];
   const data = {
     labels,
     datasets: [
