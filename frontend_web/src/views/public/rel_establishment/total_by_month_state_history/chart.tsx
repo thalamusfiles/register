@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ChartOptions } from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar, Line } from 'react-chartjs-2';
 import { ChartBackgroundColor, ChartBorderColor } from '../../../../commons/chat.options';
 import { useI18N } from '../../../../commons/i18';
