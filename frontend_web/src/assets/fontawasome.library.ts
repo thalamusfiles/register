@@ -43,6 +43,7 @@ import {
   faSortAmountUp,
   faSync,
   faTable,
+  faTableCells,
   faTasks,
   faTh,
   faThLarge,
@@ -111,5 +112,6 @@ library.add(
   faFileText,
   faChartBar,
   faChartSimple,
-  faChartLine
+  faChartLine,
+  faTableCells
 );
