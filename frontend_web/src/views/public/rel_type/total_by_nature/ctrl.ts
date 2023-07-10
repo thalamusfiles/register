@@ -60,7 +60,7 @@ export class TotalByMonthNatureCtrl {
         this.wanted = true;
         this.response = null;
 
-        this.notifyExeption(ex);
+        if (this.notifyExeption) this.notifyExeption(ex);
       });
   };
 }

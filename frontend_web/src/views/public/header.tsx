@@ -7,6 +7,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import * as json from '../../../package.json';
 import { useI18N } from '../../commons/i18';
 import { historyPush } from '../../commons/route';
+import ThalamusLinksMenu from '../../components/NavBar/thalamus-links-menu';
 import NotificationValue, { NotificationProvider, useNotificationStore } from '../../components/Notification/ctrl';
 import { thalamusLinks } from '../../config/thalamus.data';
 import UserCtxInstance, { useUserStore } from '../../store/userContext';
@@ -44,16 +45,10 @@ const Header: React.FC = () => {
             </NotificationProvider>
             <div className="navbar-spacer" />
 
-            <NavDropdown title={<FontAwesomeIcon icon={'list'} />} id="user-dd">
-              {Object.values(thalamusLinks).map((link, idx) => (
-                <NavDropdown.Item onClick={() => historyPush(link.link, { open: true })} key={idx}>
-                  {link.name}
-                </NavDropdown.Item>
-              ))}
-            </NavDropdown>
+            <ThalamusLinksMenu />
             <div className="navbar-spacer" />
 
-            <NavDropdown title={<FontAwesomeIcon icon={'user-circle'} />} id="user-dd">
+            <NavDropdown title={<FontAwesomeIcon icon={'user-circle'} />}>
               <NavDropdown.Item onClick={() => historyPush('login', { open: true })}>{__('menu.login')}</NavDropdown.Item>
               {context?.user?.uuid && (
                 <>

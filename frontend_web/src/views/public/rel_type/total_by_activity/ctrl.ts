@@ -62,7 +62,7 @@ export class TotalByMonthActivityCtrl {
         this.wanted = true;
         this.response = null;
 
-        this.notifyExeption(ex);
+        if (this.notifyExeption) this.notifyExeption(ex);
       });
   };
 }
