@@ -6,7 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import * as json from '../../../package.json';
 import { useI18N } from '../../commons/i18';
-import { historyPush } from '../../commons/route';
+import { getLinkTo, historyPush } from '../../commons/route';
 import ThalamusLinksMenu from '../../components/NavBar/thalamus-links-menu';
 import NotificationValue, { NotificationProvider, useNotificationStore } from '../../components/Notification/ctrl';
 import { thalamusLinks } from '../../config/thalamus.data';
@@ -49,7 +49,7 @@ const Header: React.FC = () => {
             <div className="navbar-spacer" />
 
             <NavDropdown title={<FontAwesomeIcon icon={'user-circle'} />}>
-              <NavDropdown.Item onClick={() => historyPush('login', { open: true })}>{__('menu.login')}</NavDropdown.Item>
+              <NavDropdown.Item href={getLinkTo('login')}>{__('menu.login')}</NavDropdown.Item>
               {context?.user?.uuid && (
                 <>
                   <NavDropdown.Item onClick={() => historyPush(thalamusLinks.IAM_ACCOUNT.link, { open: true })}>

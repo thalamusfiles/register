@@ -3,6 +3,9 @@ class EndpointsConfigure {
   port = null as string | null;
   base = null as string | null;
   timeout = 5000;
+  // Auth
+  eAuth = null as string | null;
+  eAuthIam = '/iam';
   // API Person
   ePerson = null as string | null;
   ePersonLegal = `/legal`;
@@ -36,7 +39,10 @@ class EndpointsConfigure {
   configureEndpoint = (baseUrl: string = 'localhost', basePort: string = '3000') => {
     const baseEndpoint = basePort ? `${baseUrl}:${basePort}` : baseUrl;
 
-    const apiPerson = `${baseEndpoint}/api/person`;
+    // Auth
+    const eAuth = `${baseEndpoint}/auth`;
+    // Api
+    const ePerson = `${baseEndpoint}/api/person`;
     const eAddress = `${baseEndpoint}/api/address`;
     const eEstablishment = `${baseEndpoint}/api/establishment`;
     const eTypeKeyValue = `${baseEndpoint}/api/keyvalue`;
@@ -46,7 +52,8 @@ class EndpointsConfigure {
     this.url = baseUrl;
     this.port = basePort;
     this.base = baseEndpoint;
-    this.ePerson = apiPerson;
+    this.ePerson = ePerson;
+    this.eAuth = eAuth;
     this.eAddress = eAddress;
     this.eEstablishment = eEstablishment;
     this.eTypeKeyValue = eTypeKeyValue;

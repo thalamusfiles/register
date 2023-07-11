@@ -16,13 +16,27 @@ export class AuthController {
    * @param body
    * @returns
    */
-  @Get('login')
+  @Get('iam')
   @UsePipes(new RegisterValidationPipe())
-  async login(@Res({ passthrough: true }) response: Response): Promise<any> {
+  async login(@Res() response: Response): Promise<any> {
     this.logger.log('Login Local');
 
     const url = authConfig.AUTH_URL + authConfig.AUTH_URL_PATH;
 
     return response.redirect(url.replace(':clienteId', authConfig.APP_REGISTER_ID));
+  }
+
+  /**
+   * Retorno da chamada do IAM com a chave de autorização
+   * Com a chave de autorização é coletado o token do usuário.
+   * @param body
+   * @returns
+   */
+  @Get('iam/callback')
+  @UsePipes(new RegisterValidationPipe())
+  async callback(): Promise<any> {
+    this.logger.log('Login Local');
+
+    return { callback: true };
   }
 }

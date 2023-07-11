@@ -1,6 +1,7 @@
 import type { Router as RemixRouter } from '@remix-run/router';
 import qs from 'qs';
 import { createBrowserRouter, Navigate, RouteObject } from 'react-router-dom';
+import Endpoints from '../datasources/endpoints';
 import { localStorageDef } from './consts';
 import { RoutesName } from './routes-name';
 import Storage from './storage';
@@ -16,7 +17,7 @@ export function getLinkTo(owner: RoutesName | string | number, options: { uuid: 
   switch (owner as RoutesName) {
     // PUBLIC
     case 'login':
-      push = '/public/home';
+      push = `${Endpoints.eAuth}${Endpoints.eAuthIam}`;
       break;
     case 'home_public':
       push = '/public/home';
