@@ -1,7 +1,6 @@
-import { Controller, Get, Logger, Res, UsePipes } from '@nestjs/common';
-import { Response } from 'express';
+import { Controller, Get, Logger, Query, Request, UseGuards, UsePipes } from '@nestjs/common';
 import { RegisterValidationPipe } from '../../../commons/validation.pipe';
-import authConfig from '../../../config/auth.config';
+import { IamGuard } from '../passaport/iam.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -12,18 +11,14 @@ export class AuthController {
   }
 
   /**
-   * Realiza o login via sistema IAM
+   * Realiza o login via Oauth IAM
    * @param body
    * @returns
    */
   @Get('iam')
-  @UsePipes(new RegisterValidationPipe())
-  async login(@Res() response: Response): Promise<any> {
-    this.logger.log('Login Local');
-
-    const url = authConfig.AUTH_URL + authConfig.AUTH_URL_PATH;
-
-    return response.redirect(url.replace(':clienteId', authConfig.APP_REGISTER_ID));
+  @UseGuards(IamGuard)
+  async iam() {
+    // do nothing
   }
 
   /**
@@ -34,9 +29,9 @@ export class AuthController {
    */
   @Get('iam/callback')
   @UsePipes(new RegisterValidationPipe())
-  async callback(): Promise<any> {
+  async callback(@Request() request, @Query() query?: { code: string; state: string }): Promise<any> {
     this.logger.log('Login Local');
 
-    return { callback: true };
+    return { code: query.code, state: query.state };
   }
 }

@@ -4,6 +4,8 @@ import { AppModule } from './app/app.module';
 import createNestLogger from './app/logger/create-logger';
 import { NotFoundExceptionFilter } from './commons/catch.exception';
 import registerConfig from './config/register.config';
+import * as session from 'express-session';
+import cookieConfig from './config/cookie.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -16,6 +18,20 @@ async function bootstrap() {
 
   // Filtro de exceção do ORM
   app.useGlobalFilters(new NotFoundExceptionFilter());
+
+  // somewhere in your initialization file
+  app.use(
+    session({
+      secret: cookieConfig.SECRET,
+      name: cookieConfig.NAME,
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        maxAge: cookieConfig.MAX_AGE,
+        path: cookieConfig.PATH,
+      },
+    }),
+  );
 
   if (!registerConfig.PRODCTION_MODE) {
     app.enableCors();
