@@ -4,12 +4,15 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import authConfig from '../../../config/auth.config';
 import cookieConfig from '../../../config/cookie.config';
 
-export const buildIamOpenIdClient = async (): Promise<Client> => {
-  const TrustIssuer = await Issuer.discover(`${authConfig.OAUTH_URL}${authConfig.OAUTH_AUTHORIZE}`);
+export const buildIamOpenIdClient = async (): Promise<Client | null> => {
+  const TrustIssuer = await Issuer.discover(`${authConfig.OAUTH_URL}`).catch(() => null);
+  if (!TrustIssuer) return null;
+
   const client = new TrustIssuer.Client({
     client_id: authConfig.CLIENT_ID,
     client_secret: cookieConfig.SECRET,
   });
+
   return client;
 };
 
@@ -17,7 +20,7 @@ export const buildIamOpenIdClient = async (): Promise<Client> => {
 export class IamStrategy extends PassportStrategy(Strategy, 'iam') {
   constructor(private readonly client: Client) {
     super({
-      client: '' as any,
+      client: client,
       params: {
         redirect_uri: authConfig.OAUTH_CALLBACK,
         client_id: authConfig.CLIENT_ID,
@@ -28,6 +31,7 @@ export class IamStrategy extends PassportStrategy(Strategy, 'iam') {
   }
 
   async validate(tokenset: TokenSet): Promise<any> {
+    console.log(11111111111111);
     const userinfo = await this.client.userinfo(tokenset);
 
     try {
@@ -50,7 +54,9 @@ export class IamStrategy extends PassportStrategy(Strategy, 'iam') {
 export const IamStrategyFactory = {
   provide: 'IamStrategy',
   useFactory: async () => {
-    const client = await buildIamOpenIdClient(); // secret sauce! build the dynamic client before injecting it into the strategy for use in the constructor super call.
+    const client = await buildIamOpenIdClient();
+    if (!client) return null;
+
     const strategy = new IamStrategy(client);
     return strategy;
   },

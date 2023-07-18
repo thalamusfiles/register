@@ -1,5 +1,4 @@
-import { Controller, Get, Logger, Query, Request, UseGuards, UsePipes } from '@nestjs/common';
-import { RegisterValidationPipe } from '../../../commons/validation.pipe';
+import { Controller, Get, Logger, Query, Request, UseGuards } from '@nestjs/common';
 import { IamGuard } from '../passaport/iam.guard';
 
 @Controller('auth')
@@ -28,7 +27,7 @@ export class AuthController {
    * @returns
    */
   @Get('iam/callback')
-  @UsePipes(new RegisterValidationPipe())
+  @UseGuards(IamGuard)
   async callback(@Request() request, @Query() query?: { code: string; state: string }): Promise<any> {
     this.logger.log('Login Local');
 
