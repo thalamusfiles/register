@@ -24,14 +24,16 @@ export class IamStrategy extends PassportStrategy(Strategy, 'iam') {
       params: {
         redirect_uri: authConfig.OAUTH_CALLBACK,
         client_id: authConfig.CLIENT_ID,
+        response_type: 'code',
         scope: authConfig.OAUTH_SCOPE,
       },
+      sessionKey: cookieConfig.NAME,
       usePKCE: true,
     });
   }
 
   async validate(tokenset: TokenSet): Promise<any> {
-    console.log(11111111111111);
+    console.log(2222222);
     const userinfo = await this.client.userinfo(tokenset);
 
     try {

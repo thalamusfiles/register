@@ -12,7 +12,7 @@ const authConfig = {
   // URL de autenticação do sistema.
   OAUTH_TOKEN: '/oauth2/token',
   // Oauth scope
-  OAUTH_CALLBACK: process.env.NODE_ENV !== 'production' ? `http://localhost:${registerConfig.SYSTEM_PORT}/auth/iam/callback` : '',
+  OAUTH_CALLBACK: process.env.NODE_ENV !== 'production' ? `http://localhost:${registerConfig.PORT}/auth/iam/callback` : '',
   // Oauth scope
   OAUTH_SCOPE: 'iam_all',
   // URL de autenticação do sistema.
