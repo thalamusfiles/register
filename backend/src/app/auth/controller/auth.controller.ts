@@ -17,6 +17,7 @@ export class AuthController {
   @Get('iam')
   @UseGuards(IamGuard)
   async iam() {
+    this.logger.log('callback');
     // do nothing
   }
 
@@ -29,7 +30,7 @@ export class AuthController {
   @Get('iam/callback')
   @UseGuards(IamGuard)
   async callback(@Request() request, @Query() query?: { code: string; state: string }): Promise<any> {
-    this.logger.log('Login Local');
+    this.logger.log('callback');
 
     return { code: query.code, state: query.state };
   }
