@@ -33,7 +33,7 @@ export class IamStrategy extends PassportStrategy(Strategy, 'iam') {
   }
 
   async validate(tokenset: TokenSet): Promise<any> {
-    console.log(2222222);
+    console.log(222221);
     const userinfo = await this.client.userinfo(tokenset);
 
     try {
