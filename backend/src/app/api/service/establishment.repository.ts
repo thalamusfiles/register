@@ -122,7 +122,6 @@ export class EstablishmentService {
     const businessType = rs.main_activity;
     const cityCode = rs.cityCode;
 
-    console.log(rs, businessType, cityCode);
     return this.findByBusinessType(businessType, cityCode, limit, offset);
   }
 }

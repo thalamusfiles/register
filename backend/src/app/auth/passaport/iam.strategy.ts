@@ -9,8 +9,10 @@ export const buildIamOpenIdClient = async (): Promise<Client | null> => {
   if (!TrustIssuer) return null;
 
   const client = new TrustIssuer.Client({
+    authorization_signed_response_alg: 'HS256', //TODO: implementar RS256
+    id_token_signed_response_alg: 'HS256', //TODO: implementar RS256
     client_id: authConfig.CLIENT_ID,
-    client_secret: cookieConfig.SECRET,
+    client_secret: authConfig.CLIENT_SECRET,
   });
 
   return client;
@@ -24,6 +26,7 @@ export class IamStrategy extends PassportStrategy(Strategy, 'iam') {
       params: {
         redirect_uri: authConfig.OAUTH_CALLBACK,
         client_id: authConfig.CLIENT_ID,
+        client_secret: authConfig.CLIENT_SECRET,
         response_type: 'code',
         scope: authConfig.OAUTH_SCOPE,
       },
@@ -33,8 +36,8 @@ export class IamStrategy extends PassportStrategy(Strategy, 'iam') {
   }
 
   async validate(tokenset: TokenSet): Promise<any> {
-    console.log(222221);
-    const userinfo = await this.client.userinfo(tokenset);
+    //const userinfo = await this.client.userinfo(tokenset);
+    console.log(tokenset);
 
     try {
       const id_token = tokenset.id_token;
@@ -44,7 +47,6 @@ export class IamStrategy extends PassportStrategy(Strategy, 'iam') {
         id_token,
         access_token,
         refresh_token,
-        userinfo,
       };
       return user;
     } catch (err) {
