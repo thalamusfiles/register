@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
@@ -16,7 +17,6 @@ const { docUrl } = json as any;
 
 const Header: React.FC = () => {
   const __ = useI18N();
-  const context = useUserStore();
 
   return (
     <Navbar className="header" expand="lg" fixed="top" bg="white">
@@ -48,23 +48,31 @@ const Header: React.FC = () => {
             <ThalamusLinksMenu />
             <div className="navbar-spacer" />
 
-            <NavDropdown title={<FontAwesomeIcon icon={'user-circle'} />}>
-              <NavDropdown.Item href={getLinkTo('login')}>{__('menu.login')}</NavDropdown.Item>
-              {context?.user?.uuid && (
-                <>
-                  <NavDropdown.Item onClick={() => historyPush(thalamusLinks.IAM_ACCOUNT.link, { open: true })}>
-                    {context?.user.name}
-                  </NavDropdown.Item>
-                  <NavDropdown.Item onClick={() => UserCtxInstance.logout()}>{__('menu.logout')}</NavDropdown.Item>
-                </>
-              )}
-            </NavDropdown>
+            <UserDropdown />
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
   );
 };
+
+const UserDropdown: React.FC = observer(() => {
+  const __ = useI18N();
+  const context = useUserStore();
+
+  return (
+    <NavDropdown title={<FontAwesomeIcon icon={'user-circle'} />}>
+      {context?.user?.sub ? (
+        <>
+          <NavDropdown.Item onClick={() => historyPush(thalamusLinks.IAM_ACCOUNT.link, { open: true })}>{context?.user.name}</NavDropdown.Item>
+          <NavDropdown.Item onClick={() => UserCtxInstance.logout()}>{__('menu.logout')}</NavDropdown.Item>
+        </>
+      ) : (
+        <NavDropdown.Item href={getLinkTo('login')}>{__('menu.login')}</NavDropdown.Item>
+      )}
+    </NavDropdown>
+  );
+});
 
 const NotificationBell: React.FC = () => {
   const notify = useNotificationStore();

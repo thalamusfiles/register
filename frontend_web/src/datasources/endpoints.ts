@@ -6,6 +6,7 @@ class EndpointsConfigure {
   // Auth
   eAuth = null as string | null;
   eAuthIam = '/iam';
+  eAuthToken = '/token';
   // API Person
   ePerson = null as string | null;
   ePersonLegal = `/legal`;

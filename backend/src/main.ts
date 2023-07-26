@@ -27,6 +27,8 @@ async function bootstrap() {
       resave: false,
       saveUninitialized: false,
       cookie: {
+        httpOnly: cookieConfig.HTTP_ONLY,
+        sameSite: cookieConfig.SAME_SITE as false | undefined,
         maxAge: cookieConfig.MAX_AGE,
         path: cookieConfig.PATH,
       },
@@ -34,7 +36,10 @@ async function bootstrap() {
   );
 
   if (!registerConfig.PRODCTION_MODE) {
-    app.enableCors();
+    app.enableCors({
+      origin: registerConfig.DEV_URL,
+      credentials: true,
+    });
   }
 
   await app.listen(registerConfig.PORT);

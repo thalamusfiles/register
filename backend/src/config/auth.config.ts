@@ -6,6 +6,10 @@ const defaultAuthConfig = {
 };
 
 const authConfig = {
+  // Definição de como enviar o ID Token para o frontend
+  SEND_TOKEN_BY: registerConfig.PRODCTION_MODE ? 'header' : 'session',
+  //
+  TOKEN_HEADER_NAME: 'x-access-token',
   // URL de autenticação do sistema.
   OAUTH_URL: process.env.OAUTH_URL || defaultAuthConfig.OAUTH_URL,
   // URL de autenticação do sistema.
@@ -13,7 +17,7 @@ const authConfig = {
   // URL de autenticação do sistema.
   OAUTH_TOKEN: '/oauth2/token',
   // Oauth scope
-  OAUTH_CALLBACK: process.env.NODE_ENV !== 'production' ? `http://localhost:${registerConfig.PORT}/auth/iam/callback` : '',
+  OAUTH_CALLBACK: registerConfig.PRODCTION_MODE ? '/auth/iam/callback' : `http://localhost:${registerConfig.PORT}/auth/iam/callback`,
   // Oauth scope
   OAUTH_SCOPE: 'iam_all',
   // Identificação do Cliente

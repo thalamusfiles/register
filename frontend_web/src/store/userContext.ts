@@ -4,15 +4,16 @@ import { createContext, useContext } from 'react';
 import { localStorageDef } from '../commons/consts';
 import { historyPush } from '../commons/route';
 import Storage from '../commons/storage';
+import { AuthDataSource } from '../datasources/auth';
 
-type AccessUserInfo = { iat: number; uuid: string; /*sub*/ name: string; applicationLogged: string };
+type AccessUserInfo = { iat: number; sub: string;  name: string; aud: string };
 
 export class Ctx {
   constructor() {
     //Modifica classe pra ser observável
     makeObservable(this);
 
-    this.loadUser();
+    this.loadUser(true);
   }
 
   @observable user = {} as AccessUserInfo;
@@ -42,10 +43,25 @@ export class Ctx {
     return !!this.token;
   }
 
-  @action loadUser() {
+  @action loadUser(reload = false) {
     this.user = Storage.getItem(localStorageDef.userContextKey, {});
     this.token = Storage.getItem(localStorageDef.tokenKey);
     this.expiresIn = Storage.getItem(localStorageDef.tokenKey);
+
+    if (!this.token && reload) {
+      //Esse setTimeout é um POG
+      setTimeout(() => {
+        new AuthDataSource()
+          .getToken()
+          .then((resp) => {
+            this.token = resp.data.idToken;
+            this.user = resp.data.userInfo;
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }, 500);
+    }
   }
 
   @action saveUser(user: any, token: string | null, expiresIn: number | null) {

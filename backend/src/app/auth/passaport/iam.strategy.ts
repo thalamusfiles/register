@@ -3,6 +3,7 @@ import { Strategy, Client, Issuer, TokenSet } from 'openid-client';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import authConfig from '../../../config/auth.config';
 import cookieConfig from '../../../config/cookie.config';
+import { IAMInfo } from './iam.info';
 
 export const buildIamOpenIdClient = async (): Promise<Client | null> => {
   const TrustIssuer = await Issuer.discover(`${authConfig.OAUTH_URL}`).catch(() => null);
@@ -35,20 +36,19 @@ export class IamStrategy extends PassportStrategy(Strategy, 'iam') {
     });
   }
 
-  async validate(tokenset: TokenSet): Promise<any> {
-    //const userinfo = await this.client.userinfo(tokenset);
-    console.log(tokenset);
-
+  async validate(tokenset: TokenSet): Promise<IAMInfo> {
     try {
-      const id_token = tokenset.id_token;
-      const access_token = tokenset.access_token;
-      const refresh_token = tokenset.refresh_token;
-      const user = {
-        id_token,
-        access_token,
-        refresh_token,
+      const idToken = tokenset.id_token;
+      const accessToken = tokenset.access_token;
+      //const refresh_token = tokenset.refresh_token;
+      const payload = idToken.split('.')[1];
+      const userinfo = JSON.parse(Buffer.from(payload, 'base64').toString());
+      return {
+        idToken,
+        accessToken,
+        //refresh_token,
+        userinfo,
       };
-      return user;
     } catch (err) {
       throw new UnauthorizedException();
     }

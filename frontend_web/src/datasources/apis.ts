@@ -3,6 +3,7 @@ import Endpoint from './endpoints';
 
 class RegisterApisConfigure {
   token = '';
+  ApiAuth!: AxiosInstance;
   ApiPerson!: AxiosInstance;
   ApiAddress!: AxiosInstance;
   ApiTypeKeyValue!: AxiosInstance;
@@ -19,16 +20,18 @@ class RegisterApisConfigure {
   };
 
   axiosStart = (config: AxiosRequestConfig): AxiosInstance => {
-    // Default Headers
-    axios.defaults.headers.common['Access-Control-Allow-Credentials'] = true;
-    axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-
     const api = axios.create(config);
     api.interceptors.request.use(this.requestInterceptors);
     return api;
   };
 
   initApis = () => {
+    this.ApiAuth = this.axiosStart({
+      baseURL: Endpoint.eAuth!,
+      timeout: Endpoint.timeout,
+      withCredentials: true,
+    });
+
     this.ApiPerson = this.axiosStart({
       baseURL: Endpoint.ePerson!,
       timeout: Endpoint.timeout,
