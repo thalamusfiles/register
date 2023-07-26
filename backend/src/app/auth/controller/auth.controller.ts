@@ -68,4 +68,15 @@ export class AuthController {
     }
     return null;
   }
+
+  /**
+   * Inviabiliza o token de acesso no banco.
+   * Desloga o usuário da sessão
+   */
+  @Get('logout')
+  async logout(@Request() req): Promise<void> {
+    this.logger.log('logout');
+
+    req.session.destroy();
+  }
 }
