@@ -6,7 +6,7 @@ import { historyPush } from '../commons/route';
 import Storage from '../commons/storage';
 import { AuthDataSource } from '../datasources/auth';
 
-type AccessUserInfo = { iat: number; sub: string;  name: string; aud: string };
+type AccessUserInfo = { iat: number; sub: string; name: string; aud: string };
 
 export class Ctx {
   constructor() {
@@ -34,7 +34,7 @@ export class Ctx {
   logout() {
     this.saveUser({}, null, null);
 
-    historyPush('/');
+    historyPush('logout', { absolute: true });
   }
 
   //Retorna se usuário esta logado

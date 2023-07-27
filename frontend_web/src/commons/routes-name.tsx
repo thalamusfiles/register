@@ -1,6 +1,7 @@
 export type RoutesName =
   // PUBLIC
   | 'login'
+  | 'logout'
   | 'home_public'
   | 'persons'
   | 'person_legal'
@@ -15,4 +16,3 @@ export type RoutesName =
   | 'rel_type'
   | 'rel_type_tt_nature'
   | 'rel_type_tt_activity';
-  

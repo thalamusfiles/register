@@ -32,20 +32,20 @@ export class AuthController {
    */
   @Get('iam/callback')
   @UseGuards(IamGuard)
-  async callback(@Request() req, @Res() res): Promise<any> {
+  async callback(@Request() request, @Res() response): Promise<any> {
     this.logger.log('callback');
 
     if (authConfig.SEND_TOKEN_BY === 'header') {
-      res.header(authConfig.TOKEN_HEADER_NAME, req.user.idToken);
+      response.header(authConfig.TOKEN_HEADER_NAME, request.user.idToken);
     } else {
-      if (req.session[cookieConfig.NAME]) {
-        req.session[cookieConfig.NAME][authConfig.TOKEN_HEADER_NAME] = req.user.idToken;
+      if (request.session[cookieConfig.NAME]) {
+        request.session[cookieConfig.NAME][authConfig.TOKEN_HEADER_NAME] = request.user.idToken;
       } else {
-        req.session[cookieConfig.NAME] = { [authConfig.TOKEN_HEADER_NAME]: req.user.idToken };
+        request.session[cookieConfig.NAME] = { [authConfig.TOKEN_HEADER_NAME]: request.user.idToken };
       }
     }
 
-    return res.redirect(registerConfig.PRODCTION_MODE ? '/' : `${registerConfig.DEV_URL}/`);
+    return response.redirect(registerConfig.PRODCTION_MODE ? '/' : `${registerConfig.DEV_URL}/`);
   }
 
   /**
@@ -55,8 +55,8 @@ export class AuthController {
    * @returns
    */
   @Get('token')
-  async getIdToken(@Request() req): Promise<any> {
-    this.logger.log('getIdToken');
+  async token(@Request() req): Promise<any> {
+    this.logger.log('token');
 
     const idToken = (req.session[cookieConfig.NAME] || {})[authConfig.TOKEN_HEADER_NAME];
 
@@ -74,9 +74,11 @@ export class AuthController {
    * Desloga o usuário da sessão
    */
   @Get('logout')
-  async logout(@Request() req): Promise<void> {
+  async logout(@Request() request, @Res() response): Promise<void> {
     this.logger.log('logout');
 
-    req.session.destroy();
+    request.session.destroy();
+
+    return response.redirect(registerConfig.PRODCTION_MODE ? '/' : `${registerConfig.DEV_URL}/`);
   }
 }

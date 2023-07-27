@@ -19,6 +19,9 @@ export function getLinkTo(owner: RoutesName | string | number, options: { uuid: 
     case 'login':
       push = `${Endpoints.eAuth}${Endpoints.eAuthIam}`;
       break;
+    case 'logout':
+      push = `${Endpoints.eAuth}${Endpoints.eAuthLogout}`;
+      break;
     case 'home_public':
       push = '/public/home';
       break;
@@ -92,11 +95,9 @@ export function historyPush(
   const push = getLinkTo(owner, options);
 
   if (options?.open) {
-    if (options.absolute) {
-      window.open(push);
-    } else {
-      window.open(`${push}`);
-    }
+    window.open(push);
+  } else if (options.absolute) {
+    window.location.href = push;
   } else {
     router.navigate(push);
   }
