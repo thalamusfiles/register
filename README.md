@@ -14,6 +14,10 @@ O projeto frontend web contém a interface do usuário.
 
 A pasta docs contém toda a documentação do projeto.
 
+## Logs
+
+O arquivo Logs.md possui todos os principais tipos de logs realizados no sistema.
+
 # Dependências
 
 Esta ferramenta tem como dependência a ferramenta Thalamus IAM, para controle de acesso da aplicação.

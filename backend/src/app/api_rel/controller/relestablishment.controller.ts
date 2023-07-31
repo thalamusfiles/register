@@ -19,8 +19,8 @@ export class RelEstablishmentController {
   @ApiOperation({ tags: ['Rel'], summary: 'Relatório totalizador de empresas por mes e estado' })
   @Get('/totalbymonthstate')
   @UsePipes(new RegisterValidationPipe())
-  async findTotalByMonthAndState(@Query() query?: TotalByMonthAndStateDto): Promise<any> {
-    this.logger.log(`Find Total By Month And State ${query.months}`);
+  async totalByMonthAndState(@Query() query?: TotalByMonthAndStateDto): Promise<any> {
+    this.logger.log(`totalByMonthAndState ${query.months}`);
 
     return await this.relEstablishmentService.totalByMonthAndState(query.months);
   }
@@ -32,7 +32,7 @@ export class RelEstablishmentController {
   @Get('/totalbymonthstate/crosstab')
   @UsePipes(new RegisterValidationPipe())
   async totalByMonthAndStateCrosstab(@Query() query?: TotalByMonthAndStateDto): Promise<any> {
-    this.logger.log(`Find Total By Month And State ${query.months}`);
+    this.logger.log(`totalByMonthAndStateCrosstab ${query.months}`);
 
     return await this.relEstablishmentService.totalByMonthAndStateCrosstab(query.months);
   }
@@ -44,7 +44,7 @@ export class RelEstablishmentController {
   @Get('/totalbymonthnature')
   @UsePipes(new RegisterValidationPipe())
   async totalByMonthAndNature(@Query() query?: TotalByMonthAndTypeDto): Promise<any> {
-    this.logger.log(`Find Total By Month And State ${query.months}`);
+    this.logger.log(`totalByMonthAndNature ${query.months}`);
 
     return await this.relTypeServiceService.totalByMonthAndNature(query.months);
   }
@@ -56,7 +56,7 @@ export class RelEstablishmentController {
   @Get('/totalbymonthmainactivity')
   @UsePipes(new RegisterValidationPipe())
   async totalByMonthAndMainActivity(@Query() query?: TotalByMonthAndTypeDto): Promise<any> {
-    this.logger.log(`Find Total By Month And Main Activity ${query.months}`);
+    this.logger.log(`totalByMonthAndMainActivity ${query.months}`);
 
     return await this.relTypeServiceService.totalByMonthAndMainActivity(query.months);
   }

@@ -19,7 +19,7 @@ export class EstablishmentController {
   @Get('/zipcode')
   @UsePipes(new RegisterValidationPipe())
   async findByZipcode(@Query() reqQuery?: ZipcodeDto): Promise<any> {
-    this.logger.log(`Find By ZipCode ${reqQuery.zipcode}`);
+    this.logger.log(`findByZipcode ${reqQuery.zipcode}`);
 
     return this.establishmentService.findByZipcode(reqQuery.zipcode, reqQuery.limit, reqQuery.offset);
   }
@@ -30,8 +30,8 @@ export class EstablishmentController {
   @ApiOperation({ tags: ['Establishment'], summary: 'Coletar registro aleatórios estabelecimentos comerciais de determinado zipcode' })
   @Get('/zipcode/random')
   @UsePipes(new RegisterValidationPipe())
-  async findZipcodeRandom(@Query() reqQuery?: LimitOffsetDto): Promise<any> {
-    this.logger.log(`Find Random ZipCode`);
+  async findByZipcodeRandom(@Query() reqQuery?: LimitOffsetDto): Promise<any> {
+    this.logger.log(`findByZipcodeRandom`);
 
     return this.establishmentService.findByZipcodeRandom(reqQuery.limit, reqQuery.offset);
   }
@@ -43,7 +43,7 @@ export class EstablishmentController {
   @Get('/businesstype')
   @UsePipes(new RegisterValidationPipe())
   async findByBusinessType(@Query() reqQuery?: BusinessTypeDto): Promise<any> {
-    this.logger.log(`Find By Business Type ${reqQuery.businessType} and  ${reqQuery.cityCode}`);
+    this.logger.log(`findByBusinessType ${reqQuery.businessType} and  ${reqQuery.cityCode}`);
 
     return this.establishmentService.findByBusinessType(reqQuery.businessType, reqQuery.cityCode, reqQuery.limit, reqQuery.offset);
   }
@@ -55,7 +55,7 @@ export class EstablishmentController {
   @Get('/businesstype/random')
   @UsePipes(new RegisterValidationPipe())
   async findByBusinessTypeRandom(@Query() reqQuery?: LimitOffsetDto): Promise<any> {
-    this.logger.log(`Find By Random Business Type`);
+    this.logger.log(`findByBusinessTypeRandom`);
 
     return this.establishmentService.findByBusinessTypeRandom(reqQuery.limit, reqQuery.offset);
   }

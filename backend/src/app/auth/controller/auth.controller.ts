@@ -20,7 +20,7 @@ export class AuthController {
   @Get('iam')
   @UseGuards(IamGuard)
   async iam() {
-    this.logger.log('callback');
+    this.logger.log('iam');
     // do nothing
   }
 
@@ -32,8 +32,8 @@ export class AuthController {
    */
   @Get('iam/callback')
   @UseGuards(IamGuard)
-  async callback(@Request() request, @Res() response): Promise<any> {
-    this.logger.log('callback');
+  async iamCallback(@Request() request, @Res() response): Promise<any> {
+    this.logger.log('iamCallback');
 
     if (authConfig.SEND_TOKEN_BY === 'header') {
       response.header(authConfig.TOKEN_HEADER_NAME, request.user.idToken);

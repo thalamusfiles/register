@@ -20,7 +20,7 @@ export class PersonController {
   @Get('/legal')
   @UsePipes(new RegisterValidationPipe())
   async findLegalByDocument(@Query() query?: FindCompanyDto): Promise<any> {
-    this.logger.log(`Find Legal By Document ${query.document}`);
+    this.logger.log(`findLegalByDocument ${query.document}`);
 
     return await this.findPersonByDocumentService.findById(query.document);
   }
@@ -31,8 +31,8 @@ export class PersonController {
   @ApiOperation({ tags: ['Person'], summary: 'Coletar registro aleatório de pessoa jurídica' })
   @Get('/legal/random')
   @UsePipes(new RegisterValidationPipe())
-  async findLegalRandom(): Promise<any> {
-    this.logger.log(`Find Random Legal`);
+  async findLegalByRandom(): Promise<any> {
+    this.logger.log(`findLegalByRandom`);
 
     return await this.findPersonByDocumentService.findLegalRandom();
   }
@@ -44,7 +44,7 @@ export class PersonController {
   @Get('/natural')
   @UsePipes(new RegisterValidationPipe())
   async findNaturalByDocument(@Query() reqQuery?: FindCompanyDto): Promise<any> {
-    this.logger.log(`Find Natural By Document ${reqQuery.document}`);
+    this.logger.log(`findNaturalByDocument ${reqQuery.document}`);
 
     return this.personService.findPartnerByDocument(reqQuery.document);
   }
@@ -55,8 +55,8 @@ export class PersonController {
   @ApiOperation({ tags: ['Person'], summary: 'Coletar registro aleatório de sócio de empresa' })
   @Get('/natural/random')
   @UsePipes(new RegisterValidationPipe())
-  async findNaturalRandom(): Promise<any> {
-    this.logger.log(`Find Random Natural`);
+  async findNaturalByRandom(): Promise<any> {
+    this.logger.log(`findNaturalByRandom`);
 
     return this.personService.findPartnerRandom();
   }

@@ -19,7 +19,7 @@ export class AddressController {
   @Get('/state')
   @UsePipes(new RegisterValidationPipe())
   async findStates(): Promise<any> {
-    this.logger.log(`Find States`);
+    this.logger.log(`findStates`);
 
     return this.addressService.findStates();
   }
@@ -31,7 +31,7 @@ export class AddressController {
   @Get('/city')
   @UsePipes(new RegisterValidationPipe())
   async findCitiesByState(@Query() reqQuery?: FindCitiesByStateDto): Promise<any> {
-    this.logger.log(`Find Cities By State`);
+    this.logger.log(`findCitiesByState`);
 
     return this.addressService.findCitiesByState(reqQuery.stateCode);
   }
