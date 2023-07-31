@@ -1,4 +1,4 @@
-w# LOGS - Registros de logs realizados por este sistema.
+# Registros de logs realizados por este sistema.
 
 O sistema Register realiza log de todos os controladores e serviços sistema.
 
@@ -10,7 +10,7 @@ O log do sistema são agrupados em 3 categorias:
 * Verbobe/Trace: São os logs dos caminhos e operações realizadas durante as operações principais. Ex: log das funções dos serviços.
 * Debug: Log dos dados utilizados durante todo o processo. Ex: log das váriaveis.
 
-Logs do Sistema:
+# Logs do Sistema
 
 * EstablishmentController
 * * EstablishmentController.findByZipcode
