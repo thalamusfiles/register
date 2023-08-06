@@ -72,9 +72,12 @@ export class TypeBusinessTypeCtrl {
 
   @action
   findStates = () => {
-    new AddressDataSource().findState().then((response) => {
-      this.states = response.data;
-    });
+    new AddressDataSource()
+      .findState()
+      .then((response) => {
+        this.states = response.data;
+      })
+      .catch(() => {});
   };
 
   @action
@@ -82,17 +85,23 @@ export class TypeBusinessTypeCtrl {
     if (!stateCode) {
       this.cities = [];
     } else {
-      new AddressDataSource().findCity(stateCode).then((response) => {
-        this.cities = response.data;
-      });
+      new AddressDataSource()
+        .findCity(stateCode)
+        .then((response) => {
+          this.cities = response.data;
+        })
+        .catch(() => {});
     }
   };
 
   @action
   findBusunissType = () => {
-    new TypeKeyValueDataSource().findBRCNAES().then((response) => {
-      this.businessTypes = response.data;
-    });
+    new TypeKeyValueDataSource()
+      .findBRCNAES()
+      .then((response) => {
+        this.businessTypes = response.data;
+      })
+      .catch(() => {});
   };
 
   @action

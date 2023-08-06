@@ -8,6 +8,7 @@ import apiConfigure from './config/api.config';
 import * as serviceWorker from './serviceWorker';
 import UserCtxInstance, { UserProvider } from './store/userContext';
 import routes from './views/routes';
+import { Helmet } from 'react-helmet';
 
 UserCtxInstance.loadUser();
 apiConfigure(UserCtxInstance.token);
@@ -17,6 +18,7 @@ const router = createBaseRouter(createRoutesFromElements(routes));
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.Suspense fallback="loading">
+    <Helmet title="Thalamus Register" />
     <UserProvider value={UserCtxInstance}>
       <RouterProvider router={router} />
     </UserProvider>

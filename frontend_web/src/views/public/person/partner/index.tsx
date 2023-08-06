@@ -7,6 +7,7 @@ import { useI18N } from '../../../../commons/i18';
 import { getLinkTo } from '../../../../commons/route';
 import { notify } from '../../../../components/Notification';
 import { PersonPartnerCtrl, PersonPartnerProvider, usePersonPartnerStore } from './ctrl';
+import { Helmet } from 'react-helmet';
 
 const ctrl = new PersonPartnerCtrl();
 const PartnerPage: React.FC = () => {
@@ -38,6 +39,8 @@ const PartnerPage: React.FC = () => {
 
   return (
     <PersonPartnerProvider value={ctrl}>
+      <Helmet title={__('person.partner.title')} />
+
       <Alert variant="secondary" className="p-4">
         <h2>{__('person.partner.title')}</h2>
         <p>{__('person.partner.description')}</p>

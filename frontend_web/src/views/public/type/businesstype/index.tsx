@@ -7,6 +7,7 @@ import { useI18N } from '../../../../commons/i18';
 import { getLinkTo } from '../../../../commons/route';
 import { notify } from '../../../../components/Notification';
 import { TypeBusinessTypeProvider, TypeBusinessTypeCtrl, useTypeBusinessTypeStore } from './ctrl';
+import { Helmet } from 'react-helmet';
 
 const ctrl = new TypeBusinessTypeCtrl();
 const BusinessTypePage: React.FC = () => {
@@ -31,6 +32,8 @@ const BusinessTypePage: React.FC = () => {
 
   return (
     <TypeBusinessTypeProvider value={ctrl}>
+      <Helmet title={__('type.business.title')} />
+
       <Alert variant="secondary" className="p-4">
         <h2>{__('type.business.title')}</h2>
         <p>{__('type.business.description')}</p>

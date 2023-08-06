@@ -7,6 +7,7 @@ import { useI18N } from '../../../../commons/i18';
 import { getLinkTo } from '../../../../commons/route';
 import { notify } from '../../../../components/Notification';
 import { AddressZipcodeProvider, AddressZipcodeCtrl, useAddressZipcodeStore } from './ctrl';
+import { Helmet } from 'react-helmet';
 
 const ctrl = new AddressZipcodeCtrl();
 const ZipcodePage: React.FC = () => {
@@ -38,6 +39,8 @@ const ZipcodePage: React.FC = () => {
 
   return (
     <AddressZipcodeProvider value={ctrl}>
+      <Helmet title={__('address.zipcode.title')} />
+
       <Alert variant="secondary" className="p-4">
         <h2>{__('address.zipcode.title')}</h2>
         <p>{__('address.zipcode.description')}</p>

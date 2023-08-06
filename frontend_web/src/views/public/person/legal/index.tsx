@@ -7,6 +7,7 @@ import { useI18N } from '../../../../commons/i18';
 import { getLinkTo } from '../../../../commons/route';
 import { notify } from '../../../../components/Notification';
 import { PersonLegalCtrl, PersonLegalProvider, usePersonLegalStore } from './ctrl';
+import { Helmet } from 'react-helmet';
 
 const ctrl = new PersonLegalCtrl();
 const PersonLegalPage: React.FC = () => {
@@ -37,6 +38,8 @@ const PersonLegalPage: React.FC = () => {
 
   return (
     <PersonLegalProvider value={ctrl}>
+      <Helmet title={__('person.legal.title')} />
+
       <Alert variant="secondary" className="p-4">
         <h2>{__('person.legal.title')}</h2>
         <p>{__('person.legal.description')}</p>
