@@ -32,16 +32,15 @@ export class TotalByMonthNatureCtrl {
   };
 
   @action
-  findReportLastMonth = () => {
-    if (this.months) {
-      this.month = this.months[this.months.length - 1];
-      this.findReport([this.month]).then(() => {
-        // Troca para o mês anterior
-        if (!this.response?.length) {
-          this.month = this.months[this.months.length - 2];
-          this.findReport([this.month]);
-        }
-      });
+  findReportLastMonth = (pos = 1) => {
+    if (this.months && pos < 5) {
+      this.month = this.months[this.months.length - pos];
+      if (this.months)
+        this.findReport([this.month]).then(() => {
+          if (!this.response?.length) {
+            this.findReportLastMonth(++pos);
+          }
+        });
     }
   };
 
@@ -49,7 +48,6 @@ export class TotalByMonthNatureCtrl {
   findReport = (months: Array<string>) => {
     this.wanted = false;
     this.response = null;
-
     return new RelEstablishmentDataSource()
       .totalByMonthAndNature(months)
       .then((response) => {

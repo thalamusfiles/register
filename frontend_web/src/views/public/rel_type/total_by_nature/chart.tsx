@@ -13,7 +13,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 const ctrl = new TotalByMonthNatureCtrl();
 const TotalByMonthNatureChartCompProvided: React.FC = () => {
   useEffect(() => {
-    ctrl.fillMonths(3);
+    ctrl.fillMonths(5);
     ctrl.findReportLastMonth();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrl]);
@@ -37,7 +37,7 @@ const TotalByMonthNatureChartComp: React.FC = observer(() => {
 
       <Stack gap={1} className="col-md-8 mx-auto">
         <ButtonGroup>
-          <Button size="sm" variant="outline-info" onClick={() => historyPush('month')}>
+          <Button size="sm" variant="outline-info" onClick={() => historyPush('rel_type_tt_nature')}>
             ...
           </Button>
 

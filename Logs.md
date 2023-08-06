@@ -12,6 +12,8 @@ O log do sistema são agrupados em 3 categorias:
 
 # Logs do Sistema
 
+Logs principais (log/info) realizado pelo sistema
+
 * EstablishmentController
 * * EstablishmentController.findByZipcode
 * * EstablishmentController.findByZipcodeRandom

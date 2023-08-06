@@ -17,4 +17,9 @@ yes | cp -rf ../frontend_web/build/* ../backend/frontend
 cd ../backend/docker
 
 # Inicia a aplicação
-docker-compose --env-file .env.dev up
+
+if test -f ".env"; then
+    docker-compose --env-file .env up
+else
+    docker-compose --env-file .env.dev up
+fi
