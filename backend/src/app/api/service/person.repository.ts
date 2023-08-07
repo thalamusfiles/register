@@ -46,8 +46,8 @@ export class PersonService {
       .select(this.knex.raw(`p.data->>'representativeDoc' as "representativeDoc"`))
       .select(this.knex.raw(`p.data->>'representativeName' as "representativeName"`))
       .from(`${partSchemaName}.${partTableName} as p`)
-      .leftJoin(`${estSchemaName}.${estTableName} as e`, `e.uuid`, `p.establishment_uuid`)
-      .leftJoin(`${persSchemaName}.${persTableName} as pers`, `pers.uuid`, `e.person_uuid`)
+      .leftJoin(`${estSchemaName}.${estTableName} as e`, `e.hash_id`, `p.establishment_hash_id`)
+      .leftJoin(`${persSchemaName}.${persTableName} as pers`, `pers.hash_id`, `e.person_hash_id`)
       .where('p.extra_key', extraKey);
 
     return await query;

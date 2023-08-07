@@ -53,15 +53,14 @@
     },
     {
       "columns": {
-        "uuid": {
-          "name": "uuid",
-          "type": "uuid",
+        "hash_id": {
+          "name": "hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
-          "primary": false,
+          "primary": true,
           "nullable": false,
-          "default": "uuid_generate_v4()",
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
         "created_at": {
           "name": "created_at",
@@ -120,7 +119,7 @@
         {
           "keyName": "resource_pkey",
           "columnNames": [
-            "uuid"
+            "hash_id"
           ],
           "composite": false,
           "primary": true,
@@ -158,15 +157,14 @@
     },
     {
       "columns": {
-        "uuid": {
-          "name": "uuid",
-          "type": "uuid",
+        "hash_id": {
+          "name": "hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
-          "primary": false,
+          "primary": true,
           "nullable": false,
-          "default": "uuid_generate_v4()",
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
         "created_at": {
           "name": "created_at",
@@ -267,7 +265,7 @@
         {
           "keyName": "person_pkey",
           "columnNames": [
-            "uuid"
+            "hash_id"
           ],
           "composite": false,
           "primary": true,
@@ -299,15 +297,14 @@
     },
     {
       "columns": {
-        "uuid": {
-          "name": "uuid",
-          "type": "uuid",
+        "hash_id": {
+          "name": "hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
-          "primary": false,
+          "primary": true,
           "nullable": false,
-          "default": "uuid_generate_v4()",
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
         "created_at": {
           "name": "created_at",
@@ -339,23 +336,23 @@
           "length": 4,
           "mappedType": "string"
         },
-        "resource_uuid": {
-          "name": "resource_uuid",
-          "type": "uuid",
+        "resource_hash_id": {
+          "name": "resource_hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
-        "person_uuid": {
-          "name": "person_uuid",
-          "type": "uuid",
+        "person_hash_id": {
+          "name": "person_hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
         "data": {
           "name": "data",
@@ -381,11 +378,11 @@
       "schema": "public",
       "indexes": [
         {
-          "keyName": "person_resource_resource_country_acronym_resource__13f13_unique",
+          "keyName": "person_resource_resource_country_acronym_resource__ef17e_unique",
           "columnNames": [
             "resource_country_acronym",
-            "resource_uuid",
-            "person_uuid"
+            "resource_hash_id",
+            "person_hash_id"
           ],
           "composite": true,
           "primary": false,
@@ -394,7 +391,7 @@
         {
           "keyName": "person_resource_pkey",
           "columnNames": [
-            "uuid"
+            "hash_id"
           ],
           "composite": false,
           "primary": true,
@@ -415,26 +412,26 @@
           "referencedTableName": "public.resource_country",
           "updateRule": "cascade"
         },
-        "person_resource_resource_uuid_foreign": {
-          "constraintName": "person_resource_resource_uuid_foreign",
+        "person_resource_resource_hash_id_foreign": {
+          "constraintName": "person_resource_resource_hash_id_foreign",
           "columnNames": [
-            "resource_uuid"
+            "resource_hash_id"
           ],
           "localTableName": "public.person_resource",
           "referencedColumnNames": [
-            "uuid"
+            "hash_id"
           ],
           "referencedTableName": "public.resource",
           "updateRule": "cascade"
         },
-        "person_resource_person_uuid_foreign": {
-          "constraintName": "person_resource_person_uuid_foreign",
+        "person_resource_person_hash_id_foreign": {
+          "constraintName": "person_resource_person_hash_id_foreign",
           "columnNames": [
-            "person_uuid"
+            "person_hash_id"
           ],
           "localTableName": "public.person_resource",
           "referencedColumnNames": [
-            "uuid"
+            "hash_id"
           ],
           "referencedTableName": "public.person",
           "updateRule": "cascade"
@@ -443,15 +440,14 @@
     },
     {
       "columns": {
-        "uuid": {
-          "name": "uuid",
-          "type": "uuid",
+        "hash_id": {
+          "name": "hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
-          "primary": false,
+          "primary": true,
           "nullable": false,
-          "default": "uuid_generate_v4()",
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
         "created_at": {
           "name": "created_at",
@@ -483,14 +479,14 @@
           "length": 4,
           "mappedType": "string"
         },
-        "resource_uuid": {
-          "name": "resource_uuid",
-          "type": "uuid",
+        "resource_hash_id": {
+          "name": "resource_hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
         "code": {
           "name": "code",
@@ -517,20 +513,9 @@
       "schema": "address",
       "indexes": [
         {
-          "keyName": "country_resource_country_acronym_resource_uuid_code_unique",
-          "columnNames": [
-            "resource_country_acronym",
-            "resource_uuid",
-            "code"
-          ],
-          "composite": true,
-          "primary": false,
-          "unique": true
-        },
-        {
           "keyName": "country_pkey",
           "columnNames": [
-            "uuid"
+            "hash_id"
           ],
           "composite": false,
           "primary": true,
@@ -558,14 +543,14 @@
           "referencedTableName": "public.resource_country",
           "updateRule": "cascade"
         },
-        "country_resource_uuid_foreign": {
-          "constraintName": "country_resource_uuid_foreign",
+        "country_resource_hash_id_foreign": {
+          "constraintName": "country_resource_hash_id_foreign",
           "columnNames": [
-            "resource_uuid"
+            "resource_hash_id"
           ],
           "localTableName": "address.country",
           "referencedColumnNames": [
-            "uuid"
+            "hash_id"
           ],
           "referencedTableName": "public.resource",
           "updateRule": "cascade"
@@ -574,15 +559,14 @@
     },
     {
       "columns": {
-        "uuid": {
-          "name": "uuid",
-          "type": "uuid",
+        "hash_id": {
+          "name": "hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
-          "primary": false,
+          "primary": true,
           "nullable": false,
-          "default": "uuid_generate_v4()",
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
         "created_at": {
           "name": "created_at",
@@ -614,23 +598,23 @@
           "length": 4,
           "mappedType": "string"
         },
-        "resource_uuid": {
-          "name": "resource_uuid",
-          "type": "uuid",
+        "resource_hash_id": {
+          "name": "resource_hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
-        "person_uuid": {
-          "name": "person_uuid",
-          "type": "uuid",
+        "person_hash_id": {
+          "name": "person_hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
         "extra_key": {
           "name": "extra_key",
@@ -655,11 +639,11 @@
       "schema": "public",
       "indexes": [
         {
-          "keyName": "contact_resource_country_acronym_resource_uuid_per_759d7_unique",
+          "keyName": "contact_resource_country_acronym_resource_hash_id__537f9_unique",
           "columnNames": [
             "resource_country_acronym",
-            "resource_uuid",
-            "person_uuid",
+            "resource_hash_id",
+            "person_hash_id",
             "extra_key"
           ],
           "composite": true,
@@ -669,7 +653,7 @@
         {
           "keyName": "contact_pkey",
           "columnNames": [
-            "uuid"
+            "hash_id"
           ],
           "composite": false,
           "primary": true,
@@ -690,26 +674,26 @@
           "referencedTableName": "public.resource_country",
           "updateRule": "cascade"
         },
-        "contact_resource_uuid_foreign": {
-          "constraintName": "contact_resource_uuid_foreign",
+        "contact_resource_hash_id_foreign": {
+          "constraintName": "contact_resource_hash_id_foreign",
           "columnNames": [
-            "resource_uuid"
+            "resource_hash_id"
           ],
           "localTableName": "public.contact",
           "referencedColumnNames": [
-            "uuid"
+            "hash_id"
           ],
           "referencedTableName": "public.resource",
           "updateRule": "cascade"
         },
-        "contact_person_uuid_foreign": {
-          "constraintName": "contact_person_uuid_foreign",
+        "contact_person_hash_id_foreign": {
+          "constraintName": "contact_person_hash_id_foreign",
           "columnNames": [
-            "person_uuid"
+            "person_hash_id"
           ],
           "localTableName": "public.contact",
           "referencedColumnNames": [
-            "uuid"
+            "hash_id"
           ],
           "referencedTableName": "public.person",
           "updateRule": "cascade"
@@ -718,15 +702,14 @@
     },
     {
       "columns": {
-        "uuid": {
-          "name": "uuid",
-          "type": "uuid",
+        "hash_id": {
+          "name": "hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
-          "primary": false,
+          "primary": true,
           "nullable": false,
-          "default": "uuid_generate_v4()",
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
         "created_at": {
           "name": "created_at",
@@ -758,14 +741,14 @@
           "length": 4,
           "mappedType": "string"
         },
-        "resource_uuid": {
-          "name": "resource_uuid",
-          "type": "uuid",
+        "resource_hash_id": {
+          "name": "resource_hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
         "code": {
           "name": "code",
@@ -792,20 +775,9 @@
       "schema": "address",
       "indexes": [
         {
-          "keyName": "state_resource_country_acronym_resource_uuid_code_unique",
-          "columnNames": [
-            "resource_country_acronym",
-            "resource_uuid",
-            "code"
-          ],
-          "composite": true,
-          "primary": false,
-          "unique": true
-        },
-        {
           "keyName": "state_pkey",
           "columnNames": [
-            "uuid"
+            "hash_id"
           ],
           "composite": false,
           "primary": true,
@@ -833,14 +805,14 @@
           "referencedTableName": "public.resource_country",
           "updateRule": "cascade"
         },
-        "state_resource_uuid_foreign": {
-          "constraintName": "state_resource_uuid_foreign",
+        "state_resource_hash_id_foreign": {
+          "constraintName": "state_resource_hash_id_foreign",
           "columnNames": [
-            "resource_uuid"
+            "resource_hash_id"
           ],
           "localTableName": "address.state",
           "referencedColumnNames": [
-            "uuid"
+            "hash_id"
           ],
           "referencedTableName": "public.resource",
           "updateRule": "cascade"
@@ -849,15 +821,14 @@
     },
     {
       "columns": {
-        "uuid": {
-          "name": "uuid",
-          "type": "uuid",
+        "hash_id": {
+          "name": "hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
-          "primary": false,
+          "primary": true,
           "nullable": false,
-          "default": "uuid_generate_v4()",
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
         "created_at": {
           "name": "created_at",
@@ -889,14 +860,14 @@
           "length": 4,
           "mappedType": "string"
         },
-        "resource_uuid": {
-          "name": "resource_uuid",
-          "type": "uuid",
+        "resource_hash_id": {
+          "name": "resource_hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
         "code": {
           "name": "code",
@@ -908,14 +879,14 @@
           "length": 16,
           "mappedType": "string"
         },
-        "state_uuid": {
-          "name": "state_uuid",
-          "type": "uuid",
+        "state_hash_id": {
+          "name": "state_hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": true,
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
         "name": {
           "name": "name",
@@ -932,20 +903,9 @@
       "schema": "address",
       "indexes": [
         {
-          "keyName": "city_resource_country_acronym_resource_uuid_code_unique",
-          "columnNames": [
-            "resource_country_acronym",
-            "resource_uuid",
-            "code"
-          ],
-          "composite": true,
-          "primary": false,
-          "unique": true
-        },
-        {
           "keyName": "city_pkey",
           "columnNames": [
-            "uuid"
+            "hash_id"
           ],
           "composite": false,
           "primary": true,
@@ -973,26 +933,26 @@
           "referencedTableName": "public.resource_country",
           "updateRule": "cascade"
         },
-        "city_resource_uuid_foreign": {
-          "constraintName": "city_resource_uuid_foreign",
+        "city_resource_hash_id_foreign": {
+          "constraintName": "city_resource_hash_id_foreign",
           "columnNames": [
-            "resource_uuid"
+            "resource_hash_id"
           ],
           "localTableName": "address.city",
           "referencedColumnNames": [
-            "uuid"
+            "hash_id"
           ],
           "referencedTableName": "public.resource",
           "updateRule": "cascade"
         },
-        "city_state_uuid_foreign": {
-          "constraintName": "city_state_uuid_foreign",
+        "city_state_hash_id_foreign": {
+          "constraintName": "city_state_hash_id_foreign",
           "columnNames": [
-            "state_uuid"
+            "state_hash_id"
           ],
           "localTableName": "address.city",
           "referencedColumnNames": [
-            "uuid"
+            "hash_id"
           ],
           "referencedTableName": "address.state",
           "deleteRule": "set null",
@@ -1002,15 +962,14 @@
     },
     {
       "columns": {
-        "uuid": {
-          "name": "uuid",
-          "type": "uuid",
+        "hash_id": {
+          "name": "hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
-          "primary": false,
+          "primary": true,
           "nullable": false,
-          "default": "uuid_generate_v4()",
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
         "created_at": {
           "name": "created_at",
@@ -1042,23 +1001,23 @@
           "length": 4,
           "mappedType": "string"
         },
-        "resource_uuid": {
-          "name": "resource_uuid",
-          "type": "uuid",
+        "resource_hash_id": {
+          "name": "resource_hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
-        "person_uuid": {
-          "name": "person_uuid",
-          "type": "uuid",
+        "person_hash_id": {
+          "name": "person_hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
         "extra_key": {
           "name": "extra_key",
@@ -1069,23 +1028,23 @@
           "nullable": false,
           "mappedType": "string"
         },
-        "country_uuid": {
-          "name": "country_uuid",
-          "type": "uuid",
+        "country_hash_id": {
+          "name": "country_hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": true,
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
-        "city_uuid": {
-          "name": "city_uuid",
-          "type": "uuid",
+        "city_hash_id": {
+          "name": "city_hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": true,
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
         "zipcode": {
           "name": "zipcode",
@@ -1114,6 +1073,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
+          "length": 16,
           "mappedType": "array"
         },
         "data": {
@@ -1130,11 +1090,11 @@
       "schema": "public",
       "indexes": [
         {
-          "keyName": "establishment_resource_country_acronym_resource_uu_d04cc_unique",
+          "keyName": "establishment_resource_country_acronym_resource_ha_12617_unique",
           "columnNames": [
             "resource_country_acronym",
-            "resource_uuid",
-            "person_uuid",
+            "resource_hash_id",
+            "person_hash_id",
             "extra_key"
           ],
           "composite": true,
@@ -1144,7 +1104,7 @@
         {
           "keyName": "establishment_pkey",
           "columnNames": [
-            "uuid"
+            "hash_id"
           ],
           "composite": false,
           "primary": true,
@@ -1165,51 +1125,51 @@
           "referencedTableName": "public.resource_country",
           "updateRule": "cascade"
         },
-        "establishment_resource_uuid_foreign": {
-          "constraintName": "establishment_resource_uuid_foreign",
+        "establishment_resource_hash_id_foreign": {
+          "constraintName": "establishment_resource_hash_id_foreign",
           "columnNames": [
-            "resource_uuid"
+            "resource_hash_id"
           ],
           "localTableName": "public.establishment",
           "referencedColumnNames": [
-            "uuid"
+            "hash_id"
           ],
           "referencedTableName": "public.resource",
           "updateRule": "cascade"
         },
-        "establishment_person_uuid_foreign": {
-          "constraintName": "establishment_person_uuid_foreign",
+        "establishment_person_hash_id_foreign": {
+          "constraintName": "establishment_person_hash_id_foreign",
           "columnNames": [
-            "person_uuid"
+            "person_hash_id"
           ],
           "localTableName": "public.establishment",
           "referencedColumnNames": [
-            "uuid"
+            "hash_id"
           ],
           "referencedTableName": "public.person",
           "updateRule": "cascade"
         },
-        "establishment_country_uuid_foreign": {
-          "constraintName": "establishment_country_uuid_foreign",
+        "establishment_country_hash_id_foreign": {
+          "constraintName": "establishment_country_hash_id_foreign",
           "columnNames": [
-            "country_uuid"
+            "country_hash_id"
           ],
           "localTableName": "public.establishment",
           "referencedColumnNames": [
-            "uuid"
+            "hash_id"
           ],
           "referencedTableName": "address.country",
           "deleteRule": "set null",
           "updateRule": "cascade"
         },
-        "establishment_city_uuid_foreign": {
-          "constraintName": "establishment_city_uuid_foreign",
+        "establishment_city_hash_id_foreign": {
+          "constraintName": "establishment_city_hash_id_foreign",
           "columnNames": [
-            "city_uuid"
+            "city_hash_id"
           ],
           "localTableName": "public.establishment",
           "referencedColumnNames": [
-            "uuid"
+            "hash_id"
           ],
           "referencedTableName": "address.city",
           "deleteRule": "set null",
@@ -1219,15 +1179,14 @@
     },
     {
       "columns": {
-        "uuid": {
-          "name": "uuid",
-          "type": "uuid",
+        "hash_id": {
+          "name": "hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
-          "primary": false,
+          "primary": true,
           "nullable": false,
-          "default": "uuid_generate_v4()",
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
         "created_at": {
           "name": "created_at",
@@ -1259,23 +1218,23 @@
           "length": 4,
           "mappedType": "string"
         },
-        "resource_uuid": {
-          "name": "resource_uuid",
-          "type": "uuid",
+        "resource_hash_id": {
+          "name": "resource_hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
-        "establishment_uuid": {
-          "name": "establishment_uuid",
-          "type": "uuid",
+        "establishment_hash_id": {
+          "name": "establishment_hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
         "extra_key": {
           "name": "extra_key",
@@ -1300,11 +1259,11 @@
       "schema": "public",
       "indexes": [
         {
-          "keyName": "partner_resource_country_acronym_resource_uuid_est_38788_unique",
+          "keyName": "partner_resource_country_acronym_resource_hash_id__8fb37_unique",
           "columnNames": [
             "resource_country_acronym",
-            "resource_uuid",
-            "establishment_uuid",
+            "resource_hash_id",
+            "establishment_hash_id",
             "extra_key"
           ],
           "composite": true,
@@ -1314,7 +1273,7 @@
         {
           "keyName": "partner_pkey",
           "columnNames": [
-            "uuid"
+            "hash_id"
           ],
           "composite": false,
           "primary": true,
@@ -1335,26 +1294,26 @@
           "referencedTableName": "public.resource_country",
           "updateRule": "cascade"
         },
-        "partner_resource_uuid_foreign": {
-          "constraintName": "partner_resource_uuid_foreign",
+        "partner_resource_hash_id_foreign": {
+          "constraintName": "partner_resource_hash_id_foreign",
           "columnNames": [
-            "resource_uuid"
+            "resource_hash_id"
           ],
           "localTableName": "public.partner",
           "referencedColumnNames": [
-            "uuid"
+            "hash_id"
           ],
           "referencedTableName": "public.resource",
           "updateRule": "cascade"
         },
-        "partner_establishment_uuid_foreign": {
-          "constraintName": "partner_establishment_uuid_foreign",
+        "partner_establishment_hash_id_foreign": {
+          "constraintName": "partner_establishment_hash_id_foreign",
           "columnNames": [
-            "establishment_uuid"
+            "establishment_hash_id"
           ],
           "localTableName": "public.partner",
           "referencedColumnNames": [
-            "uuid"
+            "hash_id"
           ],
           "referencedTableName": "public.establishment",
           "updateRule": "cascade"
@@ -1363,15 +1322,14 @@
     },
     {
       "columns": {
-        "uuid": {
-          "name": "uuid",
-          "type": "uuid",
+        "hash_id": {
+          "name": "hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
-          "primary": false,
+          "primary": true,
           "nullable": false,
-          "default": "uuid_generate_v4()",
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
         "created_at": {
           "name": "created_at",
@@ -1403,14 +1361,14 @@
           "length": 4,
           "mappedType": "string"
         },
-        "resource_uuid": {
-          "name": "resource_uuid",
-          "type": "uuid",
+        "resource_hash_id": {
+          "name": "resource_hash_id",
+          "type": "bigint",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "mappedType": "uuid"
+          "mappedType": "bigint"
         },
         "type": {
           "name": "type",
@@ -1454,10 +1412,10 @@
       "schema": "public",
       "indexes": [
         {
-          "keyName": "type_key_value_resource_country_acronym_resource_u_ab2ab_unique",
+          "keyName": "type_key_value_resource_country_acronym_resource_h_2777d_unique",
           "columnNames": [
             "resource_country_acronym",
-            "resource_uuid",
+            "resource_hash_id",
             "type",
             "key"
           ],
@@ -1468,7 +1426,7 @@
         {
           "keyName": "type_key_value_pkey",
           "columnNames": [
-            "uuid"
+            "hash_id"
           ],
           "composite": false,
           "primary": true,
@@ -1489,14 +1447,14 @@
           "referencedTableName": "public.resource_country",
           "updateRule": "cascade"
         },
-        "type_key_value_resource_uuid_foreign": {
-          "constraintName": "type_key_value_resource_uuid_foreign",
+        "type_key_value_resource_hash_id_foreign": {
+          "constraintName": "type_key_value_resource_hash_id_foreign",
           "columnNames": [
-            "resource_uuid"
+            "resource_hash_id"
           ],
           "localTableName": "public.type_key_value",
           "referencedColumnNames": [
-            "uuid"
+            "hash_id"
           ],
           "referencedTableName": "public.resource",
           "updateRule": "cascade"

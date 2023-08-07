@@ -29,15 +29,9 @@ export class Migration20230509115642 extends Migration {
     /**
      * Foreign keys
      */
-    this.addSql(
-      `alter table "resource" add constraint "resource_resource_country_acronym_foreign"
-       foreign key ("resource_country_acronym") references "resource_country" ("acronym") on update cascade;`,
-    );
   }
 
   async down(): Promise<void> {
-    this.addSql('alter table "resource" drop constraint "resource_resource_country_acronym_foreign";');
-
     this.addSql('drop table if exists "resource" cascade;');
 
     this.addSql('drop table if exists "resource_country" cascade;');

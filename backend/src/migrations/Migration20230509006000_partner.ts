@@ -23,18 +23,6 @@ export class Migration20230602183124 extends Migration {
     /**
      * Foreign keys
      */
-    this.addSql(
-      `alter table "partner" add constraint "partner_resource_country_acronym_foreign"
-       foreign key ("resource_country_acronym") references "resource_country" ("acronym") on update cascade;`,
-    );
-    this.addSql(
-      `alter table "partner" add constraint "partner_resource_uuid_foreign"
-       foreign key ("resource_uuid") references "resource" ("uuid") on update cascade;`,
-    );
-    this.addSql(
-      `alter table "partner" add constraint "partner_establishment_uuid_foreign"
-       foreign key ("establishment_uuid") references "establishment" ("uuid") on update cascade;`,
-    );
   }
 
   async down(): Promise<void> {
