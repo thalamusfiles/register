@@ -25,7 +25,7 @@ export class Migration20230509115642 extends Migration {
     /**
      * Foreign keys
      */
-    this.addSql(
+    /*this.addSql(
       `alter table "contact" add constraint "contact_resource_country_acronym_foreign"
        foreign key ("resource_country_acronym") references "resource_country" ("acronym") on update cascade;`,
     );
@@ -36,15 +36,13 @@ export class Migration20230509115642 extends Migration {
     this.addSql(
       `alter table "contact" add constraint "contact_person_uuid_foreign"
        foreign key ("person_uuid") references "person" ("uuid") on update cascade;`,
-    );
+    );*/
   }
 
   async down(): Promise<void> {
-    this.addSql(`alter table "contact" drop constraint "contact_resource_uuid_foreign";`);
-
-    this.addSql(`alter table "contact" drop constraint "contact_resource_country_acronym_foreign";`);
-
-    this.addSql(`alter table "contact" drop constraint "contact_person_uuid_foreign";`);
+    //this.addSql(`alter table "contact" drop constraint "contact_resource_uuid_foreign";`);
+    //this.addSql(`alter table "contact" drop constraint "contact_resource_country_acronym_foreign";`);
+    //this.addSql(`alter table "contact" drop constraint "contact_person_uuid_foreign";`);
 
     this.addSql(`drop table if exists "contact" cascade;`);
   }

@@ -80,7 +80,6 @@ export class Migration20230509115642 extends Migration {
       `alter table "address"."country" add constraint "country_resource_uuid_foreign"
        foreign key ("resource_uuid") references "resource" ("uuid") on update cascade;`,
     );
-
     this.addSql(
       `alter table "address"."city" add constraint "city_resource_country_acronym_foreign"
        foreign key ("resource_country_acronym") references "resource_country" ("acronym") on update cascade;`,
@@ -89,7 +88,6 @@ export class Migration20230509115642 extends Migration {
       `alter table "address"."city" add constraint "city_resource_uuid_foreign"
        foreign key ("resource_uuid") references "resource" ("uuid") on update cascade;`,
     );
-
     this.addSql(
       `alter table "address"."city" add constraint "city_state_uuid_foreign"
        foreign key ("state_uuid") references "address"."state" ("uuid") on update cascade on delete set null;`,
@@ -98,12 +96,10 @@ export class Migration20230509115642 extends Migration {
 
   async down(): Promise<void> {
     this.addSql('alter table "address"."country" drop constraint "country_resource_uuid_foreign";');
-
-    this.addSql('alter table "address"."city" drop constraint "city_resource_uuid_foreign";');
-
     this.addSql('alter table "address"."country" drop constraint "country_resource_country_acronym_foreign";');
-
     this.addSql('alter table "address"."city" drop constraint "city_resource_country_acronym_foreign";');
+    this.addSql('alter table "address"."city" drop constraint "city_resource_uuid_foreign";');
+    this.addSql('alter table "address"."city" drop constraint "city_state_uuid_foreign";');
 
     this.addSql('drop table if exists "address"."country" cascade;');
 
