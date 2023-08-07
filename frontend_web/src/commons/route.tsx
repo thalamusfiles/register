@@ -12,7 +12,7 @@ export type RoutesDefinition = { [key: string]: RouteDefinition };
 let router: RemixRouter;
 export const createBaseRouter = (routes: RouteObject[]): RemixRouter => (router = createBrowserRouter(routes));
 
-export function getLinkTo(owner: RoutesName | string | number, options: { uuid: string } & any = {}): string {
+export function getLinkTo(owner: RoutesName | string | number, options: any = {}): string {
   let push;
   switch (owner as RoutesName) {
     // PUBLIC
@@ -87,7 +87,7 @@ export function getLinkTo(owner: RoutesName | string | number, options: { uuid: 
 
 export function historyPush(
   owner: RoutesName | string | number,
-  options: { uuid?: any; inModal?: boolean; showSave?: boolean; open?: boolean; absolute?: boolean; search?: string } & any = {},
+  options: { inModal?: boolean; showSave?: boolean; open?: boolean; absolute?: boolean; search?: string } & any = {},
 ) {
   // Quando informado número, volta pra páginas anteriores ou posteriores.
   if (typeof owner === 'number') router.navigate(owner);

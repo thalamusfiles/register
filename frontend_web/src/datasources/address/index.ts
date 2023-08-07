@@ -2,8 +2,8 @@ import { AxiosResponse } from 'axios';
 import Apis from '../apis';
 import Endpoints from '../endpoints';
 
-export type StateList = Array<{ uuid: string; code: string; name: string }>;
-export type CityList = Array<{ uuid: string; code: string; name: string }>;
+export type StateList = Array<{ hashId: string; code: string; name: string }>;
+export type CityList = Array<{ hashId: string; code: string; name: string }>;
 
 interface AddressDataSourceI {
   // Busca os estados

@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import Apis from '../apis';
 import Endpoints from '../endpoints';
 
-export type BRCNAEList = Array<{ uuid: string; key: string; value: { description: string } }>;
+export type BRCNAEList = Array<{ hashId: string; key: string; value: { description: string } }>;
 
 interface TypeKeyValueDataSourceI {
   // Busca os estados
