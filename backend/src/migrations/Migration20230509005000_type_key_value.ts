@@ -23,11 +23,16 @@ export class Migration20230531094013 extends Migration {
        unique ("resource_country_acronym", "resource_uuid", "type", "key");`,
     );
 
+    /**
+     * Foreign keys
+     */
     this.addSql(
-      'alter table "type_key_value" add constraint "type_key_value_resource_country_acronym_foreign" foreign key ("resource_country_acronym") references "resource_country" ("acronym") on update cascade;',
+      `alter table "type_key_value" add constraint "type_key_value_resource_country_acronym_foreign"
+       foreign key ("resource_country_acronym") references "resource_country" ("acronym") on update cascade;`,
     );
     this.addSql(
-      'alter table "type_key_value" add constraint "type_key_value_resource_uuid_foreign" foreign key ("resource_uuid") references "resource" ("uuid") on update cascade;',
+      `alter table "type_key_value" add constraint "type_key_value_resource_uuid_foreign"
+       foreign key ("resource_uuid") references "resource" ("uuid") on update cascade;`,
     );
   }
 

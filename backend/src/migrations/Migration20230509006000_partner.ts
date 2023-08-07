@@ -20,6 +20,9 @@ export class Migration20230602183124 extends Migration {
        unique ("resource_country_acronym", "resource_uuid", "establishment_uuid", "extra_key");`,
     );
 
+    /**
+     * Foreign keys
+     */
     this.addSql(
       `alter table "partner" add constraint "partner_resource_country_acronym_foreign"
        foreign key ("resource_country_acronym") references "resource_country" ("acronym") on update cascade;`,

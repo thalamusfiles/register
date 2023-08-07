@@ -24,15 +24,6 @@ export class Migration20230509115642 extends Migration {
        unique ("resource_country_acronym", "resource_uuid", "code");`,
     );
 
-    this.addSql(
-      `alter table "address"."country" add constraint "country_resource_country_acronym_foreign"
-       foreign key ("resource_country_acronym") references "resource_country" ("acronym") on update cascade;`,
-    );
-    this.addSql(
-      `alter table "address"."country" add constraint "country_resource_uuid_foreign"
-       foreign key ("resource_uuid") references "resource" ("uuid") on update cascade;`,
-    );
-
     // State
     this.addSql(
       `create table "address"."state" (
@@ -76,6 +67,18 @@ export class Migration20230509115642 extends Migration {
     this.addSql(
       `alter table "address"."city" add constraint "city_resource_country_acronym_resource_uuid_code_unique"
        unique ("resource_country_acronym", "resource_uuid", "code");`,
+    );
+
+    /**
+     * Foreign keys
+     */
+    this.addSql(
+      `alter table "address"."country" add constraint "country_resource_country_acronym_foreign"
+       foreign key ("resource_country_acronym") references "resource_country" ("acronym") on update cascade;`,
+    );
+    this.addSql(
+      `alter table "address"."country" add constraint "country_resource_uuid_foreign"
+       foreign key ("resource_uuid") references "resource" ("uuid") on update cascade;`,
     );
 
     this.addSql(

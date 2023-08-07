@@ -29,26 +29,25 @@ export class Migration20230509115642 extends Migration {
        unique ("resource_country_acronym", "resource_uuid", "person_uuid", "extra_key");`,
     );
 
+    /**
+     * Foreign keys
+     */
     this.addSql(
       `alter table "establishment" add constraint "establishment_resource_country_acronym_foreign"
        foreign key ("resource_country_acronym") references "resource_country" ("acronym") on update cascade;`,
     );
-
     this.addSql(
       `alter table "establishment" add constraint "establishment_resource_uuid_foreign"
        foreign key ("resource_uuid") references "resource" ("uuid") on update cascade;`,
     );
-
     this.addSql(
       `alter table "establishment" add constraint "establishment_person_uuid_foreign"
        foreign key ("person_uuid") references "person" ("uuid") on update cascade;`,
     );
-
     this.addSql(
       `alter table "establishment" add constraint "establishment_country_uuid_foreign"
        foreign key ("country_uuid") references "address"."country" ("uuid") on update cascade on delete set null;`,
     );
-
     this.addSql(
       `alter table "establishment" add constraint "establishment_city_uuid_foreign"
        foreign key ("city_uuid") references "address"."city" ("uuid") on update cascade on delete set null;`,
