@@ -75,17 +75,33 @@ export class Migration20230807180358 extends Migration {
     this.addSql('alter table "type_key_value" alter column "hash_id" drop default, alter column "resource_hash_id" drop default;');
   }
 
+  async updatePk(): Promise<void> {
+    this.addSql(`update resource set hash_id = hashtextextended('br:' || name, 1);`);
+    this.addSql(`update address.city set hash_id = hashtextextended('br:br_gov_dados:' || code, 1);`);
+    this.addSql(`update address.country set hash_id = hashtextextended('br:br_gov_dados:' || code, 1);`);
+    this.addSql(`update address.state set hash_id = hashtextextended('br:br_gov_dados:' || code, 1);`);
+    this.addSql(`update type_key_value set hash_id = hashtextextended( 'br:br_gov_dados:' || "type"  || ':' || "value" , 1);`);
+    this.addSql(`update person set hash_id = hashtextextended('br:' || person_type || ':' || document_type || ':' || "document" , 1);`);
+    this.addSql(`update person_resource set hash_id = hashtextextended('br:br_gov_dados:' || (select document from person p where p.uuid = person_resource.person_uuid) , 1);`);
+    this.addSql(`update establishment set hash_id = hashtextextended('br:br_gov_dados:' || extra_key, 1);`);
+    this.addSql(`update contact set hash_id = hashtextextended('br:br_gov_dados:' || (select document from person p where p.uuid = contact.person_uuid) || ':' || extra_key, 1);`);
+    this.addSql(`update parter set hash_id = hashtextextended('br:br_gov_dados:' || (select extra_key from establishment e where e.uuid = partner.establishment_uuid) || ':' || extra_key, 1);`);
+  }
+
   async update(): Promise<void> {
-    this.addSql(`update resource set hash_id = hashtextextended(resource_country_acronym || ':' || name, 1);`);
-    this.addSql(`update address.city set hash_id = hashtextextended(resource_country_acronym || ':br_gov_dados:' || code, 1);`);
-    this.addSql(`update address.country set hash_id = hashtextextended(resource_country_acronym || ':br_gov_dados:' || code, 1);`);
-    this.addSql(`update address.state set hash_id = hashtextextended(resource_country_acronym || ':br_gov_dados:' || code, 1);`);
-    this.addSql(`update type_key_value set hash_id = hashtextextended( resource_country_acronym || ':br_gov_dados:' || "type"  || ':' || "value" , 1);`);
-    this.addSql(`update person set hash_id = hashtextextended(resource_country_acronym || ':' || person_type || ':' || document_type || ':' || "document" , 1);`);
-    this.addSql(`update person_resource set hash_id = hashtextextended(resource_country_acronym || ':br_gov_dados:' || (select document from person p where p.uuid = person_resource.person_uuid) , 1);`);
-    this.addSql(`update establishment set hash_id = hashtextextended(resource_country_acronym || ':br_gov_dados:'  || (select document from person p where p.uuid = establishment.person_uuid) || ':' || extra_key, 1);`);
-    this.addSql(`update contact set hash_id = hashtextextended(resource_country_acronym || ':br_gov_dados:' || (select document from person p where p.uuid = contact.person_uuid) || ':' || extra_key, 1);`);
-    this.addSql(`update parter set hash_id = hashtextextended(resource_country_acronym || ':br_gov_dados:' || (select extra_key from establishment e where e.uuid = partner.establishment_uuid) || ':' || extra_key, 1);`);
+    this.addSql(`update "type_key_value" set "resource_hash_id" = hashtextextended('br:br_gov_dados', 1);`);
+    this.addSql(`update "address"."country" set "resource_hash_id" = hashtextextended('br:br_gov_dados', 1);`);
+    this.addSql(`update "address"."state" set "resource_hash_id" = hashtextextended('br:br_gov_dados', 1);`);
+    this.addSql(`update "address"."city" set "resource_hash_id" = hashtextextended('br:br_gov_dados', 1), "state_hash_id" = "";`);
+    this.addSql(`update "person_resource" set "resource_hash_id" = hashtextextended('br:br_gov_dados', 1), "person_hash_id" = (select hashtextextended('br:legal:cnpj:' || "document" , 1) from person p where p.uuid = person_resource.person_uuid);`);
+    this.addSql(`update "contact" set "resource_hash_id" = hashtextextended('br:br_gov_dados', 1), "person_hash_id" = (select hashtextextended('br:legal:cnpj:' || "document" , 1) from person p where p.uuid = contact.person_uuid);`);
+    this.addSql(`
+      update "establishment" set "resource_hash_id" = hashtextextended('br:br_gov_dados', 1), 
+        "person_hash_id" = (select hashtextextended('br:legal:cnpj:' || "document" , 1) from person p where p.uuid = establishment.person_uuid),
+        "country_hash_id" = (select hashtextextended('br:br_gov_dados:' || code, 1) from address.country c where c.uuid = establishment.country_uuid), 
+        "city_hash_id"  = (select hashtextextended('br:br_gov_dados:' || code, 1) from address.city c where c.uuid = establishment.city_uuid)`);
+    this.addSql(`update "partner" set"resource_hash_id" = hashtextextended('br:br_gov_dados', 1), "establishment_hash_id" = (select hashtextextended('br:br_gov_dados:' || extra_key, 1) from establishment e where e.uuid = partner.establishment_uuid);`);
+
   }
 
   async dropColumnUuid() {
