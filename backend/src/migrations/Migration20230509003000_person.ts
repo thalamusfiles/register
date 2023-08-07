@@ -4,7 +4,7 @@ export class Migration20230509115642 extends Migration {
   async up(): Promise<void> {
     this.addSql(
       `create table "person" (
-        "uuid" uuid not null default uuid_generate_v4(), 
+        "hash_id" bigint not null, 
         "created_at" timestamptz(0) not null, 
         "updated_at" timestamptz(0) not null, 
         "resource_country_acronym" varchar(4) not null, 
@@ -14,7 +14,7 @@ export class Migration20230509115642 extends Migration {
         "document" varchar(255) not null, 
         "deleted_at" timestamptz(0) null, 
         
-        constraint "person_pkey" primary key ("uuid"), 
+        constraint "person_pkey" primary key ("hash_id"), 
         constraint person_person_type_check check (person_type IN('legal', 'natural'))
       );`,
     );
@@ -26,22 +26,22 @@ export class Migration20230509115642 extends Migration {
 
     this.addSql(
       `create table "person_resource" (
-        "uuid" uuid not null default uuid_generate_v4(), 
+        "hash_id" bigint not null, 
         "created_at" timestamptz(0) not null, 
         "updated_at" timestamptz(0) not null, 
         "resource_country_acronym" varchar(4) not null, 
-        "resource_uuid" uuid not null, 
-        "person_uuid" uuid not null, 
+        "resource_hash_id" bigint not null, 
+        "person_hash_id" bigint not null, 
         "data" jsonb not null, 
         "deleted_at" timestamptz(0) null, 
         
-        constraint "person_resource_pkey" primary key ("uuid")
+        constraint "person_resource_pkey" primary key ("hash_id")
       );`,
     );
 
     this.addSql(
       `alter table "person_resource" add constraint "person_resource_resource_country_acronym_resource__13f13_unique"
-       unique ("resource_country_acronym", "resource_uuid", "person_uuid");`,
+       unique ("resource_country_acronym", "resource_hash_id", "person_hash_id");`,
     );
 
     /**

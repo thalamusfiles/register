@@ -4,22 +4,22 @@ export class Migration20230509115642 extends Migration {
   async up(): Promise<void> {
     this.addSql(
       `create table "contact" (
-        "uuid" uuid not null default uuid_generate_v4(), 
+        "hash_id" bigint not null, 
         "created_at" timestamptz(0) not null, 
         "updated_at" timestamptz(0) not null, 
         "resource_country_acronym" varchar(4) not null, 
-        "resource_uuid" uuid not null, 
-        "person_uuid" uuid not null, 
+        "resource_hash_id" bigint not null, 
+        "person_hash_id" bigint not null, 
         "extra_key" varchar(255) not null,
         "data" jsonb not null, 
         
-        constraint "contact_pkey" primary key ("uuid")
+        constraint "contact_pkey" primary key ("hash_id")
       );`,
     );
 
     this.addSql(
-      `alter table "contact" add constraint "contact_resource_country_acronym_resource_uuid_per_759d7_unique"
-       unique ("resource_country_acronym", "resource_uuid", "person_uuid", "extra_key");`,
+      `alter table "contact" add constraint "contact_resource_country_acronym_resource_hash_id_per_759d7_unique"
+       unique ("resource_country_acronym", "resource_hash_id", "person_hash_id", "extra_key");`,
     );
 
     /**
