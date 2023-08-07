@@ -77,7 +77,7 @@ export class EstablishmentService {
   async findByBusinessType(businessType: string, cityCode: string, limit: number, offset: number): Promise<any[]> {
     this.logger.verbose(`findByBusinessType ${businessType} and ${cityCode}`);
 
-    const city = await this.cityRepo.findOneOrFail({ code: cityCode }, { fields: ['uuid'] });
+    const city = await this.cityRepo.findOneOrFail({ code: cityCode }, { fields: ['hashId'] });
 
     limit = limit > 1000 ? 1000 : limit;
     offset = offset || 0;
@@ -93,7 +93,7 @@ export class EstablishmentService {
       .select(`pers.name`)
       .from(`${estSchemaName}.${estTableName} as e`)
       .leftJoin(`${persSchemaName}.${persTableName} as pers`, `pers.uuid`, `e.person_uuid`)
-      .where('e.city_uuid', city.uuid)
+      .where('e.city_uuid', city.hashId)
       .andWhere('e.main_activity', businessType)
       .orderBy('pers.name')
       .limit(limit)

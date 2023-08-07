@@ -6,6 +6,8 @@ import { ResourceCountry } from './ResourceCountry';
 @Entity({ schema: 'public', readonly: true })
 @Unique({ properties: ['resourceCountry', 'resource', 'type', 'key'] })
 export class TypeKeyValue extends RegisterBaseEntity {
+  //hashId hashtextextended( resource_country_acronym || ':' || (select name from resource r where r.uuid = type_key_value.resource_uuid)  || ':' || "type"  || ':' || "value" , 1)
+
   @ManyToOne(() => ResourceCountry, { nullable: false })
   resourceCountry?: ResourceCountry;
 

@@ -1,12 +1,13 @@
-import { Check, Entity, ManyToOne, Property, Unique } from '@mikro-orm/core';
+import { Check, Entity, ManyToOne, Property } from '@mikro-orm/core';
 import { RegisterBaseEntity } from '../Base/RegisterBaseEntity';
 import { Resource } from '../Resource';
 import { ResourceCountry } from '../ResourceCountry';
 import { State } from './State';
 
 @Entity({ schema: 'address', readonly: true })
-@Unique({ properties: ['resourceCountry', 'resource', 'code'] })
 export class City extends RegisterBaseEntity {
+  //hashId hashtextextended(resource_country_acronym || ':' || (select name from resource r where r.uuid = city.resource_uuid) || ':' || code, 1)
+
   @ManyToOne(() => ResourceCountry, { nullable: false })
   resourceCountry?: ResourceCountry;
 
