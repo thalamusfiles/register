@@ -9,7 +9,7 @@ export class Migration20230509115642 extends Migration {
       select 
         substring(e."data"->>'beginDate', 1, 6) as begin_date, 
         e.main_activity as main_activity, 
-        count(e.uuid) as total
+        count(e.hash_id) as total
       from establishment e
       group by begin_date, main_activity
       order by begin_date desc, total desc;`,

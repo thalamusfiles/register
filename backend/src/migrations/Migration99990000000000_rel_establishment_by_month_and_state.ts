@@ -8,7 +8,7 @@ export class Migration20230509115642 extends Migration {
       select
         substring(e."data"->>'beginDate', 1, 6) as begin_date, 
         e."data"->>'stateCode' as state_code, 
-        count(e.uuid) as total
+        count(e.hash_id) as total
       from establishment e
       group by begin_date, state_code
       order by begin_date desc, state_code;`,
@@ -22,7 +22,7 @@ export class Migration20230509115642 extends Migration {
       select 
         substring(e."data"->>'beginDate', 1, 6) as begin_date, 
         e."data"->>'stateCode' as state_code, 
-        count(e.uuid) as total
+        count(e.hash_id) as total
       from establishment e
       group by begin_date, state_code
       order by begin_date desc, state_code
