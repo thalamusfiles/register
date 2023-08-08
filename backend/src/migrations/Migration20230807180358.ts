@@ -84,7 +84,7 @@ export class Migration20230807180358 extends Migration {
     this.addSql(`update person set hash_id = hashtextextended('br:' || person_type || ':' || document_type || ':' || "document" , 1);`);
     this.addSql(`update person_resource set hash_id = hashtextextended('br:br_gov_dados:' || (select document from person p where p.uuid = person_resource.person_uuid) , 1);`);
     this.addSql(`update establishment set hash_id = hashtextextended('br:br_gov_dados:' || extra_key, 1);`);
-    this.addSql(`update contact set hash_id = hashtextextended('br:br_gov_dados:' || (select document from person p where p.uuid = contact.person_uuid) || ':' || extra_key, 1);`);
+    this.addSql(`update contact set hash_id = hashtextextended('br:br_gov_dados:' || extra_key, 1);`);
     this.addSql(`update parter set hash_id = hashtextextended('br:br_gov_dados:' || (select extra_key from establishment e where e.uuid = partner.establishment_uuid) || ':' || extra_key, 1);`);
   }
 
