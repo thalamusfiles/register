@@ -1,0 +1,22 @@
+# Sidebar navigation
+
+- label: 'Introdução'
+  link: '/'
+- label: 'Sistema online'
+  link: https://register.thalamus.digital/
+- label: Registros
+  items:
+    - label: 'Empresas e pessoas'
+      link: '/register/person'
+    - label: 'Tipo de empresa'
+      link: '/register/types'
+    - label: 'Endereços'
+      link: '/register/addresses'
+- label: Desenvolvimento
+  items:
+    - label: Api
+      link: /dev/api
+    - label: Autenticação
+      link: /dev/auth
+    - label: 'Github'
+      link: https://github.com/thalamusfiles/register
