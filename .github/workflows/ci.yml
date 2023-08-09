@@ -158,32 +158,32 @@ jobs:
           tag_name: "v${{ needs.upgrade_version.outputs.tag }}"
           files: frontend_web.zip
 
-#  run_build_docs:
-#    runs-on: ubuntu-latest
-#    needs: [upgrade_version]
-#    if: ${{ github.event.inputs.buildDocs == 'true' }}
-#    steps:
-#      - uses: actions/checkout@v2
-#        with:
-#          fetch-depth: 1
-#      # Trocar versão node
-#      - name: Use Node.js 
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: 14.17
-#      # Builda Docs
-#      - name: Build Docs
-#        shell: bash
-#        run: ./bin/local-build-docs.sh
-#      # Compacta Docs
-#      - name: Compact Build Docs
-#        shell: bash
-#        run: zip -r docs docs/public docs/package.json docs/static docs/yarn.lock docs/gatsby-config.js docs/Dockerfile
-#      # Gera o release
-#      - name: Release
-#        uses: softprops/action-gh-release@v1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          tag_name: "v${{ needs.upgrade_version.outputs.tag }}"
-#          files: docs.zip
+  run_build_docs:
+    runs-on: ubuntu-latest
+    needs: [upgrade_version]
+    if: ${{ github.event.inputs.buildDocs == 'true' }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      # Trocar versão node
+      - name: Use Node.js 
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.12
+      # Builda Docs
+      - name: Build Docs
+        shell: bash
+        run: ./bin/local-build-docs.sh
+      # Compacta Docs
+      - name: Compact Build Docs
+        shell: bash
+        run: zip -r docs docs/public docs/package.json docs/static docs/yarn.lock docs/gatsby-config.js docs/Dockerfile
+      # Gera o release
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: "v${{ needs.upgrade_version.outputs.tag }}"
+          files: docs.zip
