@@ -9,8 +9,6 @@ import { ResourceCountry } from './ResourceCountry';
 @Entity({ schema: 'public', readonly: true })
 @Unique({ properties: ['resourceCountry', 'resource', 'person', 'extraKey'] })
 export class Establishment extends RegisterBaseEntity {
-  //hashId hashtextextended(resource_country_acronym || ':'  || resource.name || ':'  extra_key, 1)
-
   @ManyToOne(() => ResourceCountry, { nullable: false })
   resourceCountry?: ResourceCountry;
 

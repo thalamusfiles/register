@@ -5,8 +5,6 @@ import { ResourceCountry } from '../ResourceCountry';
 
 @Entity({ schema: 'address', readonly: true })
 export class State extends RegisterBaseEntity {
-  //hashId hashtextextended(resource_country_acronym || ':' || resource.name || ':' || code, 1)
-
   @ManyToOne(() => ResourceCountry, { nullable: false })
   resourceCountry?: ResourceCountry;
 
