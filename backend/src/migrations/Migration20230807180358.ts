@@ -41,6 +41,7 @@ export class Migration20230807180358 extends Migration {
   }
 
   async dropUniq(): Promise<void> {
+    this.addSql('alter table "person" drop constraint "person_resource_country_acronym_person_type_docume_61d85_unique";');
     this.addSql('alter table "person_resource" drop constraint "person_resource_resource_country_acronym_resource__13f13_unique";');
     this.addSql('alter table "address"."country" drop constraint "country_resource_country_acronym_resource_uuid_code_unique";');
     this.addSql('alter table "contact" drop constraint "contact_resource_country_acronym_resource_uuid_per_759d7_unique";');

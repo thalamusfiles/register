@@ -2,8 +2,6 @@
 
 - label: 'Introdução'
   link: '/'
-- label: 'Sistema online'
-  link: https://register.thalamus.digital/
 - label: Registros
   items:
     - label: 'Empresas e pessoas'
@@ -18,5 +16,9 @@
       link: /dev/api
     - label: Autenticação
       link: /dev/auth
-    - label: 'Github'
+    - label: Sistema
+      link: https://register.thalamus.digital/
+    - label: Swagger
+      link: https://register.thalamus.digital/swagger
+    - label: Github
       link: https://github.com/thalamusfiles/register
