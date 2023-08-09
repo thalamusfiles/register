@@ -1,30 +1,33 @@
-Resource
+# Hahs Ids
+
+Métodos utilizados para gerar os identificadores de registros.
+
+#### Resource
 hashtextextended(resource_country_acronym || ':' || name, 1)
 
-TypeKeyValue
+#### TypeKeyValue
 hashtextextended( resource_country_acronym || ':' || resource.name || ':' || "type"  || ':' || "key" , 1)
 
-Country
+#### Country
 hashtextextended(resource_country_acronym || ':' || resource.name || ':' || code, 1)
 
-State
+#### State
 hashtextextended(resource_country_acronym || ':' || resource.name || ':' || code, 1)
 
-City
+#### City
 hashtextextended(resource_country_acronym || ':' || resource.name || ':' || code, 1)
 
-Person
+#### Person
 hashtextextended(resource_country_acronym || ':' || person_type || ':' || document_type || ':' || "document" , 1),
 
-PersonResource
+#### PersonResource
 hashtextextended(resource_country_acronym || ':' || resource.name || ':'  || person.document , 1)
 
-Establishment
+#### Establishment
 hashtextextended(resource_country_acronym || ':'  || resource.name || ':'  extra_key, 1)
 
-Contact
+#### Contact
 hashtextextended(resource_country_acronym || ':' || resource.name || ':' || extra_key, 1)
 
-Partner
+#### Partner
 hashtextextended(resource_country_acronym || ':' || resource.name || ':' || establishment.extra_key || ':' || extra_key, 1)
-
