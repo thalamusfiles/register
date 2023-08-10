@@ -15,7 +15,7 @@ export class TypeKeyValueService {
     @InjectRepository(TypeKeyValue)
     private readonly typeKeyValueRepo: EntityRepository<TypeKeyValue>,
   ) {
-    this.logger.log('starting');
+    this.logger.log('Starting');
   }
 
   /**

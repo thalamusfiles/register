@@ -4,13 +4,14 @@ import { RegisterValidationPipe } from '../../../commons/validation.pipe';
 import { ApiOperation } from '@nestjs/swagger';
 import { RelEstablishmentService } from '../service/relestablishment.repository';
 import { RelTypeService } from '../service/reltype.repository';
+import productsNames from '../../../config/billing.products';
 
 @Controller('api/rel/establishment')
 export class RelEstablishmentController {
   private readonly logger = new Logger(RelEstablishmentController.name);
 
   constructor(private readonly relEstablishmentService: RelEstablishmentService, private readonly relTypeServiceService: RelTypeService) {
-    this.logger.log('starting');
+    this.logger.log('Starting');
   }
 
   /**
@@ -19,10 +20,10 @@ export class RelEstablishmentController {
   @ApiOperation({ tags: ['Rel'], summary: 'Relatório totalizador de empresas por mes e estado' })
   @Get('/totalbymonthstate')
   @UsePipes(new RegisterValidationPipe())
-  async totalByMonthAndState(@Query() query?: TotalByMonthAndStateDto): Promise<any> {
-    this.logger.log(`totalByMonthAndState ${query.months}`);
+  async totalByMonthAndState(@Query() { months }: TotalByMonthAndStateDto): Promise<any> {
+    this.logger.log(`Total By Month And State ${months}`, { product: productsNames.RelEstabTotalByMonthAndState, params: { months } });
 
-    return await this.relEstablishmentService.totalByMonthAndState(query.months);
+    return await this.relEstablishmentService.totalByMonthAndState(months);
   }
 
   /**
@@ -31,10 +32,13 @@ export class RelEstablishmentController {
   @ApiOperation({ tags: ['Rel'], summary: 'Relatório totalizador de empresas por mes e estado com dados cruzados' })
   @Get('/totalbymonthstate/crosstab')
   @UsePipes(new RegisterValidationPipe())
-  async totalByMonthAndStateCrosstab(@Query() query?: TotalByMonthAndStateDto): Promise<any> {
-    this.logger.log(`totalByMonthAndStateCrosstab ${query.months}`);
+  async totalByMonthAndStateCrosstab(@Query() { months }: TotalByMonthAndStateDto): Promise<any> {
+    this.logger.log(`Total By Month And State Crosstab ${months}`, {
+      product: productsNames.RelEstabTotalByMonthAndStateCrosstab,
+      params: { months },
+    });
 
-    return await this.relEstablishmentService.totalByMonthAndStateCrosstab(query.months);
+    return await this.relEstablishmentService.totalByMonthAndStateCrosstab(months);
   }
 
   /**
@@ -43,10 +47,10 @@ export class RelEstablishmentController {
   @ApiOperation({ tags: ['Rel'], summary: 'Relatório com total de empresas por mes e natureza' })
   @Get('/totalbymonthnature')
   @UsePipes(new RegisterValidationPipe())
-  async totalByMonthAndNature(@Query() query?: TotalByMonthAndTypeDto): Promise<any> {
-    this.logger.log(`totalByMonthAndNature ${query.months}`);
+  async totalByMonthAndNature(@Query() { months }: TotalByMonthAndTypeDto): Promise<any> {
+    this.logger.log(`Total By Month And Nature ${months}`, { product: productsNames.RelEstabTotalByMonthAndNature, params: { months } });
 
-    return await this.relTypeServiceService.totalByMonthAndNature(query.months);
+    return await this.relTypeServiceService.totalByMonthAndNature(months);
   }
 
   /**
@@ -55,9 +59,9 @@ export class RelEstablishmentController {
   @ApiOperation({ tags: ['Rel'], summary: 'Relatório com total de empresas por mes tipo de atividade' })
   @Get('/totalbymonthmainactivity')
   @UsePipes(new RegisterValidationPipe())
-  async totalByMonthAndMainActivity(@Query() query?: TotalByMonthAndTypeDto): Promise<any> {
-    this.logger.log(`totalByMonthAndMainActivity ${query.months}`);
+  async totalByMonthAndMainActivity(@Query() { months }: TotalByMonthAndTypeDto): Promise<any> {
+    this.logger.log(`Total By Month And Main Activity ${months}`, { product: productsNames.RelEstabTotalByMonthAndMainActivity, params: { months } });
 
-    return await this.relTypeServiceService.totalByMonthAndMainActivity(query.months);
+    return await this.relTypeServiceService.totalByMonthAndMainActivity(months);
   }
 }

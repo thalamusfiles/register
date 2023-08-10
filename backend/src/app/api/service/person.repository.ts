@@ -15,7 +15,7 @@ export class PersonService {
     @InjectRepository(Person)
     private readonly personRepo: EntityRepository<Person>,
   ) {
-    this.logger.log('starting');
+    this.logger.log('Starting');
 
     this.knex = (this.personRepo.getEntityManager().getConnection('read') as PostgreSqlConnection).getKnex();
   }

@@ -17,7 +17,7 @@ export class EstablishmentService {
     @InjectRepository(City)
     private readonly cityRepo: EntityRepository<City>,
   ) {
-    this.logger.log('starting');
+    this.logger.log('Starting');
 
     this.knex = (this.establishmentRepo.getEntityManager().getConnection('read') as PostgreSqlConnection).getKnex();
   }

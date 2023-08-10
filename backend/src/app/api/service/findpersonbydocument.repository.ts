@@ -13,7 +13,7 @@ export class FindPersonByDocumentService {
     @InjectRepository(FindPersonByDocument)
     private readonly findPersonByDocumentRepo: EntityRepository<FindPersonByDocument>,
   ) {
-    this.logger.log('starting');
+    this.logger.log('Starting');
 
     this.knex = (this.findPersonByDocumentRepo.getEntityManager().getConnection('read') as PostgreSqlConnection).getKnex();
   }

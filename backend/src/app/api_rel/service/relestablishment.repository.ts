@@ -14,14 +14,14 @@ export class RelEstablishmentService {
     @InjectRepository(RelEstablishmentByMonthAndStateCrossTab)
     private readonly relEstablishmentByMonthAndStateCrossTabRepo: EntityRepository<RelEstablishmentByMonthAndStateCrossTab>,
   ) {
-    this.logger.log('starting');
+    this.logger.log('Starting');
   }
 
   /**
    * Relatório com total de empresas por mes e estado
    */
   async totalByMonthAndState(months: Array<string>): Promise<RelEstablishmentByMonthAndState[]> {
-    this.logger.verbose('Find Total By Month And State');
+    this.logger.verbose('totalByMonthAndState');
 
     const where: FilterQuery<RelEstablishmentByMonthAndState> = {
       beginDate: { $in: months },
@@ -34,7 +34,7 @@ export class RelEstablishmentService {
    * Relatório com total de empresas por mes e estado, cruzando o mes e o estado
    */
   async totalByMonthAndStateCrosstab(months: Array<string>): Promise<RelEstablishmentByMonthAndStateCrossTab[]> {
-    this.logger.verbose('Find Total By Month And State');
+    this.logger.verbose('totalByMonthAndStateCrosstab');
 
     const where: FilterQuery<RelEstablishmentByMonthAndStateCrossTab> = {
       date: { $in: months },

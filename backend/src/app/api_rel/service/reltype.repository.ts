@@ -14,14 +14,14 @@ export class RelTypeService {
     @InjectRepository(RelEstablishmentByMonthAndMainActivity)
     private readonly relEstablishmentByMonthAndActivity: EntityRepository<RelEstablishmentByMonthAndMainActivity>,
   ) {
-    this.logger.log('starting');
+    this.logger.log('Starting');
   }
 
   /**
    * Relatório com total de empresas por mes e natureza
    */
   async totalByMonthAndNature(months: Array<string>): Promise<RelEstablishmentByMonthAndNature[]> {
-    this.logger.verbose('Find Total By Month And Nature');
+    this.logger.verbose('totalByMonthAndNature');
 
     const where: FilterQuery<RelEstablishmentByMonthAndNature> = {
       beginDate: { $in: months },
@@ -34,7 +34,7 @@ export class RelTypeService {
    * Relatório com total de empresas por mes tipo de atividade
    */
   async totalByMonthAndMainActivity(months: Array<string>): Promise<RelEstablishmentByMonthAndMainActivity[]> {
-    this.logger.verbose('Find Total By Month And Main Activity');
+    this.logger.verbose('totalByMonthAndMainActivity');
 
     const where: FilterQuery<RelEstablishmentByMonthAndMainActivity> = {
       beginDate: { $in: months },
