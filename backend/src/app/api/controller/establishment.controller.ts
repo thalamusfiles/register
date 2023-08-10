@@ -20,7 +20,7 @@ export class EstablishmentController {
   @Get('/zipcode')
   @UsePipes(new RegisterValidationPipe())
   async findByZipcode(@Query() { zipcode, limit, offset }: ZipcodeDto): Promise<any> {
-    this.logger.log(`Find By Zipcode ${zipcode}`, { product: productsNames.EstabFindByZipcode, params: { zipcode, limit, offset } });
+    this.logger.log(`Find By Zipcode`, { product: productsNames.EstabFindByZipcode, params: { zipcode, limit, offset } });
 
     return this.establishmentService.findByZipcode(zipcode, limit, offset);
   }

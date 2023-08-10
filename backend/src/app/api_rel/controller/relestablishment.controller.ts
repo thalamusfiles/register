@@ -21,7 +21,7 @@ export class RelEstablishmentController {
   @Get('/totalbymonthstate')
   @UsePipes(new RegisterValidationPipe())
   async totalByMonthAndState(@Query() { months }: TotalByMonthAndStateDto): Promise<any> {
-    this.logger.log(`Total By Month And State ${months}`, { product: productsNames.RelEstabTotalByMonthAndState, params: { months } });
+    this.logger.log(`Total By Month And State`, { product: productsNames.RelEstabTotalByMonthAndState, params: { months } });
 
     return await this.relEstablishmentService.totalByMonthAndState(months);
   }
@@ -33,10 +33,7 @@ export class RelEstablishmentController {
   @Get('/totalbymonthstate/crosstab')
   @UsePipes(new RegisterValidationPipe())
   async totalByMonthAndStateCrosstab(@Query() { months }: TotalByMonthAndStateDto): Promise<any> {
-    this.logger.log(`Total By Month And State Crosstab ${months}`, {
-      product: productsNames.RelEstabTotalByMonthAndStateCrosstab,
-      params: { months },
-    });
+    this.logger.log(`Total By Month And State Crosstab`, { product: productsNames.RelEstabTotalByMonthAndStateCrosstab, params: { months } });
 
     return await this.relEstablishmentService.totalByMonthAndStateCrosstab(months);
   }
@@ -48,7 +45,7 @@ export class RelEstablishmentController {
   @Get('/totalbymonthnature')
   @UsePipes(new RegisterValidationPipe())
   async totalByMonthAndNature(@Query() { months }: TotalByMonthAndTypeDto): Promise<any> {
-    this.logger.log(`Total By Month And Nature ${months}`, { product: productsNames.RelEstabTotalByMonthAndNature, params: { months } });
+    this.logger.log(`Total By Month And Nature`, { product: productsNames.RelEstabTotalByMonthAndNature, params: { months } });
 
     return await this.relTypeServiceService.totalByMonthAndNature(months);
   }
@@ -60,7 +57,7 @@ export class RelEstablishmentController {
   @Get('/totalbymonthmainactivity')
   @UsePipes(new RegisterValidationPipe())
   async totalByMonthAndMainActivity(@Query() { months }: TotalByMonthAndTypeDto): Promise<any> {
-    this.logger.log(`Total By Month And Main Activity ${months}`, { product: productsNames.RelEstabTotalByMonthAndMainActivity, params: { months } });
+    this.logger.log(`Total By Month And Main Activity`, { product: productsNames.RelEstabTotalByMonthAndMainActivity, params: { months } });
 
     return await this.relTypeServiceService.totalByMonthAndMainActivity(months);
   }

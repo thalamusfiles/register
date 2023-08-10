@@ -20,7 +20,7 @@ export class AuthController {
   @Get('iam')
   @UseGuards(IamGuard)
   async iam() {
-    this.logger.log('iam');
+    this.logger.log('IAM Redirect');
     // do nothing
   }
 
@@ -33,7 +33,7 @@ export class AuthController {
   @Get('iam/callback')
   @UseGuards(IamGuard)
   async iamCallback(@Request() request, @Res() response): Promise<any> {
-    this.logger.log('iamCallback');
+    this.logger.log('IAM Callback');
 
     if (authConfig.SEND_TOKEN_BY === 'header') {
       response.header(authConfig.TOKEN_HEADER_NAME, request.user.idToken);
@@ -49,14 +49,13 @@ export class AuthController {
   }
 
   /**
-   * Retorno da chamada do IAM com a chave de autorização
-   * Com a chave de autorização é coletado o token do usuário.
+   * Coleta o token salvo na sessão
    * @param body
    * @returns
    */
   @Get('token')
   async token(@Request() req): Promise<any> {
-    this.logger.log('token');
+    this.logger.log('Get Token');
 
     const idToken = (req.session[cookieConfig.NAME] || {})[authConfig.TOKEN_HEADER_NAME];
 
@@ -75,7 +74,7 @@ export class AuthController {
    */
   @Get('logout')
   async logout(@Request() request, @Res() response): Promise<void> {
-    this.logger.log('logout');
+    this.logger.log('Logout');
 
     request.session.destroy();
 

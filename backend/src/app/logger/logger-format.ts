@@ -17,7 +17,11 @@ const msgParser = printf(({ level, message, label, timestamp, context /*,...rest
 });
 const msgConsoleParser = printf(({ level, message, label, timestamp, context /*, ...rest*/ }) => {
   //timestamp = timestamp.split('T')[1];
-  return `${timestamp} [${label}] ${level}: \x1b[35m${context}\x1b[0m ${message} `;
+  if (typeof context === 'string') {
+    return `${timestamp} [${label}] ${level}: \x1b[35m${context} \x1b[0m${message}`;
+  } else {
+    return `${timestamp} [${label}] ${level}: \x1b[0m${message} \x1b[35m${JSON.stringify(context)} `;
+  }
 });
 
 // Formata o log para salvar em arquivo

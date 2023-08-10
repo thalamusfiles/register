@@ -21,7 +21,7 @@ export class PersonController {
   @Get('/legal')
   @UsePipes(new RegisterValidationPipe())
   async findLegalByDocument(@Query() { document }: FindCompanyDto): Promise<any> {
-    this.logger.log(`Find Legal By Document ${document}`, { product: productsNames.PersonFindLegalByDocument, params: { document } });
+    this.logger.log(`Find Legal By Document`, { product: productsNames.PersonFindLegalByDocument, params: { document } });
 
     return await this.findPersonByDocumentService.findById(document);
   }
@@ -33,7 +33,7 @@ export class PersonController {
   @Get('/legal/random')
   @UsePipes(new RegisterValidationPipe())
   async findLegalByRandom(): Promise<any> {
-    this.logger.log(`Find Legal By Random ${document}`, { product: productsNames.PersonFindLegalByRandom });
+    this.logger.log(`Find Legal By Random`, { product: productsNames.PersonFindLegalByRandom });
 
     return await this.findPersonByDocumentService.findLegalRandom();
   }
@@ -45,7 +45,7 @@ export class PersonController {
   @Get('/natural')
   @UsePipes(new RegisterValidationPipe())
   async findNaturalByDocument(@Query() { document }: FindCompanyDto): Promise<any> {
-    this.logger.log(`Find Natural By Document ${document}`, { product: productsNames.PersonFindNaturalByDocument, params: { document } });
+    this.logger.log(`Find Natural By Document`, { product: productsNames.PersonFindNaturalByDocument, params: { document } });
 
     return this.personService.findPartnerByDocument(document);
   }

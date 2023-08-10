@@ -38,13 +38,6 @@ const createWinstonLogger = (name: string) => {
     const node = logConfig.ELASTICSEARCH_URLS;
     const elasticTransport = new ElasticsearchTransport({
       index: logConfig.ELASTICSEARCH_INDEX,
-      format: {
-        transform: (values: any) => {
-          //console.log({ timestamp: new Date().toISOString(), ...values });
-          return { timestamp: new Date().toISOString(), ...values };
-        },
-      },
-      dataStream: true,
       //level: 'info',
       clientOpts: {
         node,
