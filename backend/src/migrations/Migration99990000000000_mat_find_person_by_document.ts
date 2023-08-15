@@ -52,7 +52,7 @@ export class Migration20230509115642 extends Migration {
             'representativeName', partner."data"->>'representativeName',
             'representativeDoc', partner."data"->>'representativeDoc'
           )) from partner
-          where partner.resource_country_acronym = 'br' and partner.resource_hash_id = r.hash_id and partner.establishment_hash_id = e.hash_id
+          where partner.establishment_hash_id = e.hash_id
         ),
         /*Others*/
         'simples', json_build_object(
@@ -74,8 +74,8 @@ export class Migration20230509115642 extends Migration {
     left join "address".country country on country.hash_id = hashtextextended('br:br_gov_dados:' || nullif(e."data"->>'countryCode', ''), 1)
     left join "address".city city       on city.hash_id = hashtextextended('br:br_gov_dados:' || nullif(e."data"->>'cityCode',''), 1)
     left join type_key_value activity   on activity.hash_id = hashtextextended( 'br:br_gov_dados:cnae:' || e."main_activity" , 1)
-    left join type_key_value reason     on reason.hash_id = hashtextextended( 'br:br_gov_dados:reason:' || e."data"->>'reason' , 1)
-    left join type_key_value nt         on nt.hash_id = hashtextextended( 'br:br_gov_dados:nature:' || pr."data"->>'natureCode' , 1)
+    left join type_key_value reason     on reason.hash_id = hashtextextended( 'br:br_gov_dados:reason:' || (e."data"->>'reason') , 1)
+    left join type_key_value nt         on nt.hash_id = hashtextextended( 'br:br_gov_dados:nature:' || (pr."data"->>'natureCode') , 1)
     where p.person_type = 'legal'`,
     );
 
