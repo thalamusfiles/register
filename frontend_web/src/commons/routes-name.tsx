@@ -5,6 +5,7 @@ export type RoutesName =
   | 'home_public'
   | 'persons'
   | 'person_legal'
+  | 'person_legal_view'
   | 'person_partner'
   | 'types'
   | 'types_businesstype'

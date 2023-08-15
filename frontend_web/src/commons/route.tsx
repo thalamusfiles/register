@@ -32,6 +32,9 @@ export function getLinkTo(owner: RoutesName | string | number, options: any = {}
     case 'person_legal':
       push = '/public/person/legal';
       break;
+    case 'person_legal_view':
+      push = `/public/person/legal/${options.document}`;
+      break;
     case 'person_partner':
       push = '/public/person/partner';
       break;
@@ -108,16 +111,14 @@ export function historyPush(
  * Altera tudo que tem depois do ? na URL.
  * @param params
  */
-export function historyReplace(search: any = {}) {
+export function historyReplace(search: any = {}, route: string | null = null) {
   search = Object.assign({}, search);
 
-  router.navigate(
-    {
-      pathname: router.state.location.pathname,
-      search: qs.stringify(search),
-    },
-    { replace: true },
-  );
+  if (route) {
+    router.navigate(getLinkTo(route, search), { replace: true });
+  } else {
+    router.navigate({ pathname: router.state.location.pathname, search: qs.stringify(search) }, { replace: true });
+  }
 }
 
 /**

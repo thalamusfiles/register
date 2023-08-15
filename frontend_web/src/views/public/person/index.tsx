@@ -29,6 +29,7 @@ const PersonPage: React.FC = () => {
               <br />
               <Routes>
                 <Route path="/legal" element={<PersonLegalPage />} />
+                <Route path="/legal/:document" element={<PersonLegalPage />} />
                 <Route path="/partner" element={<PartnerPage />} />
                 <Route path="/" element={<NoneSelected />} />
               </Routes>

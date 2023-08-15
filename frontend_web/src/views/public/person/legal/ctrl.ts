@@ -15,7 +15,7 @@ export class PersonLegalCtrl {
   // PersonLegal
   @observable document = '';
   @observable wanted: boolean = false;
-  @observable response: PersonFindByDocumentRespDto | null = null;
+  @observable response: PersonFindByDocumentRespDto | null = { brGovDados: { name: 'ihaaa' } } as any;
 
   @action
   handleDocument = (e: any) => {
@@ -25,7 +25,7 @@ export class PersonLegalCtrl {
 
   @action
   findDocument = () => {
-    historyReplace({ document: this.document });
+    historyReplace({ document: this.document }, 'person_legal_view');
 
     this.wanted = false;
     this.response = null;
@@ -63,7 +63,7 @@ export class PersonLegalCtrl {
         this.response = response.data;
         this.document = response.data?.brGovDados?.document as string;
 
-        historyReplace({ document: this.document });
+        historyReplace({ document: this.document }, 'person_legal_view');
       })
       .catch((ex) => {
         this.wanted = true;

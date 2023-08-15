@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { Alert, Button, ButtonGroup, Card, Col, Form, InputGroup, Row } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
-import { useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useI18N } from '../../../../commons/i18';
 import { getLinkTo } from '../../../../commons/route';
 import { notify } from '../../../../components/Notification';
@@ -12,7 +12,7 @@ import { Helmet } from 'react-helmet';
 const ctrl = new PersonLegalCtrl();
 const PersonLegalPage: React.FC = () => {
   const __ = useI18N();
-  const [searchParams] = useSearchParams();
+  const { document } = useParams();
 
   ctrl.notifyExeption = (ex: any) => {
     const status = ex.response?.status;
@@ -26,7 +26,6 @@ const PersonLegalPage: React.FC = () => {
   };
 
   useEffect(() => {
-    const document = searchParams.get('document') as string;
     if (ctrl.document !== document) {
       ctrl.handleDocument({ target: { value: document || '' } });
       if (ctrl.document) {
@@ -38,7 +37,7 @@ const PersonLegalPage: React.FC = () => {
 
   return (
     <PersonLegalProvider value={ctrl}>
-      <Helmet title={__('person.legal.title')} />
+      <HeadTitle />
 
       <Alert variant="secondary" className="p-4">
         <h2>{__('person.legal.title')}</h2>
@@ -58,6 +57,19 @@ const PersonLegalPage: React.FC = () => {
     </PersonLegalProvider>
   );
 };
+
+const HeadTitle: React.FC = observer(() => {
+  const __ = useI18N();
+  const ctrl = usePersonLegalStore();
+  const data = ctrl.response?.brGovDados;
+
+  return (
+    <>
+      {data?.name && <Helmet title={data.name as string} />}
+      {!data?.name && <Helmet title={__('person.legal.title')} />}
+    </>
+  );
+});
 
 const PersonLegalBreadcrum: React.FC = () => {
   const __ = useI18N();
