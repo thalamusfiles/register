@@ -15,10 +15,6 @@ export class Migration20230602183124 extends Migration {
         
         constraint "partner_pkey" primary key ("hash_id"));`,
     );
-    this.addSql(
-      `alter table "partner" add constraint "partner_resource_country_acronym_resource_hash_id_est_38788_unique"
-       unique ("resource_country_acronym", "resource_hash_id", "establishment_hash_id", "extra_key");`,
-    );
 
     /**
      * Foreign keys

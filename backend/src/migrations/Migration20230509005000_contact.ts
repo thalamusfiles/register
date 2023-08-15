@@ -17,11 +17,6 @@ export class Migration20230509115642 extends Migration {
       );`,
     );
 
-    this.addSql(
-      `alter table "contact" add constraint "contact_resource_country_acronym_resource_hash_id_per_759d7_unique"
-       unique ("resource_country_acronym", "resource_hash_id", "person_hash_id", "extra_key");`,
-    );
-
     /**
      * Foreign keys
      */

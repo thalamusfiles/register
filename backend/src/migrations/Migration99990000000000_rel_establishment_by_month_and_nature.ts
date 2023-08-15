@@ -11,10 +11,9 @@ export class Migration20230509115642 extends Migration {
         nt."key" as nature_code, 
         nt."value"->>'description' as nature, 
         count(e.hash_id) as total
-      from person_resource pr cross join resource r
-      inner join establishment e    on e.resource_country_acronym = 'br'  and e.resource_hash_id = r.hash_id  and e.person_hash_id = pr.person_hash_id
-      inner join type_key_value nt  on nt.resource_country_acronym = 'br' and nt.resource_hash_id = r.hash_id and nt."type" = 'nature' and nt.key = pr."data"->>'natureCode'
-      where r."name" = 'br_gov_dados'
+      from person_resource pr
+      inner join establishment e    on e.person_hash_id = pr.person_hash_id
+      inner join type_key_value nt  on nt.hash_id = hashtextextended( 'br:br_gov_dados:nature' || pr."data"->>'natureCode'  || ':' || "key" , 1)
       group by begin_date, nt.hash_id 
       order by begin_date desc, total desc;`,
     );

@@ -20,11 +20,6 @@ export class Migration20230509115642 extends Migration {
     );
 
     this.addSql(
-      `alter table "person" add constraint "person_resource_country_acronym_person_type_docume_61d85_unique"
-       unique ("resource_country_acronym", "person_type", "document_type", "document");`,
-    );
-
-    this.addSql(
       `create table "person_resource" (
         "hash_id" bigint not null, 
         "created_at" timestamptz(0) not null, 
@@ -39,20 +34,14 @@ export class Migration20230509115642 extends Migration {
       );`,
     );
 
-    this.addSql(
-      `alter table "person_resource" add constraint "person_resource_resource_country_acronym_resource__13f13_unique"
-       unique ("resource_country_acronym", "resource_hash_id", "person_hash_id");`,
-    );
-
     /**
      * Foreign keys
      */
   }
 
   async down(): Promise<void> {
+    this.addSql(`drop table if exists "person_resource" cascade;`);
 
     this.addSql(`drop table if exists "person" cascade;`);
-
-    this.addSql(`drop table if exists "person_resource" cascade;`);
   }
 }

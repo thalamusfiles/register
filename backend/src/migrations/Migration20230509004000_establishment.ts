@@ -24,11 +24,6 @@ export class Migration20230509115642 extends Migration {
       );`,
     );
 
-    this.addSql(
-      `alter table "establishment" add constraint "establishment_resource_country_acronym_resource_uu_d04cc_unique"
-       unique ("resource_country_acronym", "resource_hash_id", "person_hash_id", "extra_key");`,
-    );
-
     /**
      * Foreign keys
      */

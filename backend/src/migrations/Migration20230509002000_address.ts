@@ -19,11 +19,6 @@ export class Migration20230509115642 extends Migration {
       );`,
     );
 
-    this.addSql(
-      `alter table "address"."country" add constraint "country_resource_country_acronym_resource_hash_id_code_unique"
-       unique ("resource_country_acronym", "resource_hash_id", "code");`,
-    );
-
     // State
     this.addSql(
       `create table "address"."state" (
@@ -39,11 +34,6 @@ export class Migration20230509115642 extends Migration {
         constraint "state_pkey" primary key ("hash_id"), 
         constraint state_name_check check (LENGTH(name) >= 2)
       );`,
-    );
-
-    this.addSql(
-      `alter table "address"."state" add constraint "state_resource_country_acronym_resource_hash_id_code_unique"
-       unique ("resource_country_acronym", "resource_hash_id", "code");`,
     );
 
     // City
@@ -64,18 +54,12 @@ export class Migration20230509115642 extends Migration {
       );`,
     );
 
-    this.addSql(
-      `alter table "address"."city" add constraint "city_resource_country_acronym_resource_hash_id_code_unique"
-       unique ("resource_country_acronym", "resource_hash_id", "code");`,
-    );
-
     /**
      * Foreign keys
      */
   }
 
   async down(): Promise<void> {
-
     this.addSql('drop table if exists "address"."country" cascade;');
 
     this.addSql('drop table if exists "address"."city" cascade;');

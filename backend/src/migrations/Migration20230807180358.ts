@@ -100,41 +100,41 @@ export class Migration20230807180358 extends Migration {
       update "establishment" set "resource_hash_id" = hashtextextended('br:br_gov_dados', 1), 
         "person_hash_id" = (select hashtextextended('br:legal:cnpj:' || "document" , 1) from person p where p.uuid = establishment.person_uuid),
         "country_hash_id" = (select hashtextextended('br:br_gov_dados:' || code, 1) from address.country c where c.uuid = establishment.country_uuid), 
-        "city_hash_id"  = (select hashtextextended('br:br_gov_dados:' || code, 1) from address.city c where c.uuid = establishment.city_uuid)`);
+        "city_hash_id"  = (select hashtextextended('br:br_gov_dados:' || code, 1) from address.city c where c.uuid = establishment.city_uuid);`);
     this.addSql(`update "partner" set"resource_hash_id" = hashtextextended('br:br_gov_dados', 1), "establishment_hash_id" = (select hashtextextended('br:br_gov_dados:' || extra_key, 1) from establishment e where e.uuid = partner.establishment_uuid);`);
 
   }
 
   async dropColumnUuid() {
-    this.addSql('alter table "resource" drop column "uuid";');
+    //this.addSql('alter table "resource" drop column "uuid";');
     this.addSql('alter table "person" drop column "uuid";');
     this.addSql('alter table "person_resource" drop column "uuid";');
     this.addSql('alter table "person_resource" drop column "resource_uuid";');
     this.addSql('alter table "person_resource" drop column "person_uuid";');
-    this.addSql('alter table "address"."country" drop column "uuid";');
-    this.addSql('alter table "address"."country" drop column "resource_uuid";');
-    this.addSql('alter table "contact" drop column "uuid";');
-    this.addSql('alter table "contact" drop column "resource_uuid";');
-    this.addSql('alter table "contact" drop column "person_uuid";');
-    this.addSql('alter table "address"."state" drop column "uuid";');
-    this.addSql('alter table "address"."state" drop column "resource_uuid";');
-    this.addSql('alter table "address"."city" drop column "uuid";');
-    this.addSql('alter table "address"."city" drop column "resource_uuid";');
-    this.addSql('alter table "address"."city" drop column "state_uuid";');
+    //this.addSql('alter table "address"."country" drop column "uuid";');
+    //this.addSql('alter table "address"."country" drop column "resource_uuid";');
+    //this.addSql('alter table "contact" drop column "uuid";');
+    //this.addSql('alter table "contact" drop column "resource_uuid";');
+    //this.addSql('alter table "contact" drop column "person_uuid";');
+    //this.addSql('alter table "address"."state" drop column "uuid";');
+    //this.addSql('alter table "address"."state" drop column "resource_uuid";');
+    //this.addSql('alter table "address"."city" drop column "uuid";');
+    //this.addSql('alter table "address"."city" drop column "resource_uuid";');
+    //this.addSql('alter table "address"."city" drop column "state_uuid";');
     this.addSql('alter table "establishment" drop column "uuid";');
     this.addSql('alter table "establishment" drop column "resource_uuid";');
     this.addSql('alter table "establishment" drop column "person_uuid";');
     this.addSql('alter table "establishment" drop column "country_uuid";');
     this.addSql('alter table "establishment" drop column "city_uuid";');
-    this.addSql('alter table "partner" drop column "uuid";');
-    this.addSql('alter table "partner" drop column "resource_uuid";');
-    this.addSql('alter table "partner" drop column "establishment_uuid";');
-    this.addSql('alter table "type_key_value" drop column "uuid";');
-    this.addSql('alter table "type_key_value" drop column "resource_uuid";');
+    //this.addSql('alter table "partner" drop column "uuid";');
+    //this.addSql('alter table "partner" drop column "resource_uuid";');
+    //this.addSql('alter table "partner" drop column "establishment_uuid";');
+    //this.addSql('alter table "type_key_value" drop column "uuid";');
+    //this.addSql('alter table "type_key_value" drop column "resource_uuid";');
   }
 
   async addConstraint(): Promise<void> {
-    this.addSql('alter table "resource" add constraint "resource_pkey" primary key ("hash_id");');
+    //this.addSql('alter table "resource" add constraint "resource_pkey" primary key ("hash_id");');
 
     this.addSql('alter table "person" add constraint "person_pkey" primary key ("hash_id");');
 
@@ -143,20 +143,19 @@ export class Migration20230807180358 extends Migration {
     this.addSql('alter table "person_resource" add constraint "person_resource_resource_country_acronym_resource__ef17e_unique" unique ("resource_country_acronym", "resource_hash_id", "person_hash_id");');
     this.addSql('alter table "person_resource" add constraint "person_resource_pkey" primary key ("hash_id");');
 
-    this.addSql('alter table "address"."country" add constraint "country_resource_hash_id_foreign" foreign key ("resource_hash_id") references "resource" ("hash_id") on update cascade;');
-    this.addSql('alter table "address"."country" add constraint "country_pkey" primary key ("hash_id");');
+    //this.addSql('alter table "address"."country" add constraint "country_resource_hash_id_foreign" foreign key ("resource_hash_id") references "resource" ("hash_id") on update cascade;');
+    //this.addSql('alter table "address"."country" add constraint "country_pkey" primary key ("hash_id");');
 
-    this.addSql('alter table "contact" add constraint "contact_resource_hash_id_foreign" foreign key ("resource_hash_id") references "resource" ("hash_id") on update cascade;');
-    this.addSql('alter table "contact" add constraint "contact_person_hash_id_foreign" foreign key ("person_hash_id") references "person" ("hash_id") on update cascade;');
-    this.addSql('alter table "contact" add constraint "contact_resource_country_acronym_resource_hash_id__537f9_unique" unique ("resource_country_acronym", "resource_hash_id", "person_hash_id", "extra_key");');
-    this.addSql('alter table "contact" add constraint "contact_pkey" primary key ("hash_id");');
+    //this.addSql('alter table "contact" add constraint "contact_resource_hash_id_foreign" foreign key ("resource_hash_id") references "resource" ("hash_id") on update cascade;');
+    //this.addSql('alter table "contact" add constraint "contact_person_hash_id_foreign" foreign key ("person_hash_id") references "person" ("hash_id") on update cascade;');
+    //this.addSql('alter table "contact" add constraint "contact_resource_country_acronym_resource_hash_id__537f9_unique" unique ("resource_country_acronym", "resource_hash_id", "person_hash_id", "extra_key");');
+    //this.addSql('alter table "contact" add constraint "contact_pkey" primary key ("hash_id");');
 
-    this.addSql('alter table "address"."state" add constraint "state_resource_hash_id_foreign" foreign key ("resource_hash_id") references "resource" ("hash_id") on update cascade;');
-    this.addSql('alter table "address"."state" add constraint "state_pkey" primary key ("hash_id");');
-
-    this.addSql('alter table "address"."city" add constraint "city_resource_hash_id_foreign" foreign key ("resource_hash_id") references "resource" ("hash_id") on update cascade;');
-    this.addSql('alter table "address"."city" add constraint "city_state_hash_id_foreign" foreign key ("state_hash_id") references "address"."state" ("hash_id") on update cascade on delete set null;');
-    this.addSql('alter table "address"."city" add constraint "city_pkey" primary key ("hash_id");');
+    //this.addSql('alter table "address"."state" add constraint "state_resource_hash_id_foreign" foreign key ("resource_hash_id") references "resource" ("hash_id") on update cascade;');
+    //this.addSql('alter table "address"."state" add constraint "state_pkey" primary key ("hash_id");');
+    //this.addSql('alter table "address"."city" add constraint "city_resource_hash_id_foreign" foreign key ("resource_hash_id") references "resource" ("hash_id") on update cascade;');
+    //this.addSql('alter table "address"."city" add constraint "city_state_hash_id_foreign" foreign key ("state_hash_id") references "address"."state" ("hash_id") on update cascade on delete set null;');
+    //this.addSql('alter table "address"."city" add constraint "city_pkey" primary key ("hash_id");');
 
     this.addSql('alter table "establishment" add constraint "establishment_resource_hash_id_foreign" foreign key ("resource_hash_id") references "resource" ("hash_id") on update cascade;');
     this.addSql('alter table "establishment" add constraint "establishment_person_hash_id_foreign" foreign key ("person_hash_id") references "person" ("hash_id") on update cascade;');
@@ -165,14 +164,14 @@ export class Migration20230807180358 extends Migration {
     this.addSql('alter table "establishment" add constraint "establishment_resource_country_acronym_resource_ha_12617_unique" unique ("resource_country_acronym", "resource_hash_id", "person_hash_id", "extra_key");');
     this.addSql('alter table "establishment" add constraint "establishment_pkey" primary key ("hash_id");');
 
-    this.addSql('alter table "partner" add constraint "partner_resource_hash_id_foreign" foreign key ("resource_hash_id") references "resource" ("hash_id") on update cascade;');
-    this.addSql('alter table "partner" add constraint "partner_establishment_hash_id_foreign" foreign key ("establishment_hash_id") references "establishment" ("hash_id") on update cascade;');
-    this.addSql('alter table "partner" add constraint "partner_resource_country_acronym_resource_hash_id__8fb37_unique" unique ("resource_country_acronym", "resource_hash_id", "establishment_hash_id", "extra_key");');
-    this.addSql('alter table "partner" add constraint "partner_pkey" primary key ("hash_id");');
+    //this.addSql('alter table "partner" add constraint "partner_resource_hash_id_foreign" foreign key ("resource_hash_id") references "resource" ("hash_id") on update cascade;');
+    //this.addSql('alter table "partner" add constraint "partner_establishment_hash_id_foreign" foreign key ("establishment_hash_id") references "establishment" ("hash_id") on update cascade;');
+    //this.addSql('alter table "partner" add constraint "partner_resource_country_acronym_resource_hash_id__8fb37_unique" unique ("resource_country_acronym", "resource_hash_id", "establishment_hash_id", "extra_key");');
+    //this.addSql('alter table "partner" add constraint "partner_pkey" primary key ("hash_id");');
 
-    this.addSql('alter table "type_key_value" add constraint "type_key_value_resource_hash_id_foreign" foreign key ("resource_hash_id") references "resource" ("hash_id") on update cascade;');
-    this.addSql('alter table "type_key_value" add constraint "type_key_value_resource_country_acronym_resource_h_2777d_unique" unique ("resource_country_acronym", "resource_hash_id", "type", "key");');
-    this.addSql('alter table "type_key_value" add constraint "type_key_value_pkey" primary key ("hash_id");');
+    //this.addSql('alter table "type_key_value" add constraint "type_key_value_resource_hash_id_foreign" foreign key ("resource_hash_id") references "resource" ("hash_id") on update cascade;');
+    //this.addSql('alter table "type_key_value" add constraint "type_key_value_resource_country_acronym_resource_h_2777d_unique" unique ("resource_country_acronym", "resource_hash_id", "type", "key");');
+    //this.addSql('alter table "type_key_value" add constraint "type_key_value_pkey" primary key ("hash_id");');
   }
 
   async up(): Promise<void> {}

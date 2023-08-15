@@ -18,8 +18,9 @@ export class Migration20230531094013 extends Migration {
         
         constraint "type_key_value_pkey" primary key ("hash_id"));`,
     );
+
     this.addSql(
-      `alter table "type_key_value" add constraint "type_key_value_resource_country_acronym_resource_u_ab2ab_unique"
+      `alter table "type_key_value" add constraint "type_key_value_resource_country_acronym_resource_h_2777d_unique"
        unique ("resource_country_acronym", "resource_hash_id", "type", "key");`,
     );
 

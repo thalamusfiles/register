@@ -1,4 +1,4 @@
-import { ArrayType, Entity, ManyToOne, Property, Unique } from '@mikro-orm/core';
+import { ArrayType, Entity, ManyToOne, Property } from '@mikro-orm/core';
 import { City } from './Address/City';
 import { Country } from './Address/Country';
 import { RegisterBaseEntity } from './Base/RegisterBaseEntity';
@@ -7,7 +7,6 @@ import { Resource } from './Resource';
 import { ResourceCountry } from './ResourceCountry';
 
 @Entity({ schema: 'public', readonly: true })
-@Unique({ properties: ['resourceCountry', 'resource', 'person', 'extraKey'] })
 export class Establishment extends RegisterBaseEntity {
   @ManyToOne(() => ResourceCountry, { nullable: false })
   resourceCountry?: ResourceCountry;

@@ -67,16 +67,16 @@ export class Migration20230509115642 extends Migration {
         ),
         'reason', reason."value"->>'description'
       ) as "brGovDados"
-    from person p cross join resource r
-    inner join person_resource pr on pr.resource_country_acronym = 'br' and pr.resource_hash_id = r.hash_id and pr.person_hash_id = p.hash_id 
-    inner join establishment e    on e.resource_country_acronym = 'br'  and e.resource_hash_id = r.hash_id and e.person_hash_id = p.hash_id
-    inner join contact c          on c.resource_country_acronym = 'br'  and c.resource_hash_id = r.hash_id and c.person_hash_id = p.hash_id and e.extra_key = c.extra_key
-    left join "address".country country on country.resource_country_acronym = 'br'  and country.resource_hash_id = r.hash_id  and country.code::varchar = e."data"->>'countryCode'
-    left join "address".city city       on city.resource_country_acronym = 'br'     and city.resource_hash_id = r.hash_id     and city.code::varchar =e."data"->>'cityCode'
-    left join type_key_value activity   on activity.resource_country_acronym = 'br' and activity.resource_hash_id = r.hash_id and activity."type" = 'cnae' and activity.key = e."main_activity"
-    left join type_key_value reason     on reason.resource_country_acronym = 'br'   and reason.resource_hash_id = r.hash_id   and reason."type" = 'reason' and reason.key = e."data"->>'reason'
-    left join type_key_value nt         on nt.resource_country_acronym = 'br'       and nt.resource_hash_id = r.hash_id       and nt."type" = 'nature'     and nt.key = pr."data"->>'natureCode'
-    where p.person_type = 'legal' and r."name" = 'br_gov_dados'`,
+    from person p
+    inner join person_resource pr on pr.person_hash_id = p.hash_id 
+    inner join establishment e    on e.person_hash_id = p.hash_id
+    inner join contact c          on c.person_hash_id = p.hash_id and e.extra_key = c.extra_key
+    left join "address".country country on country.hash_id = hashtextextended('br:br_gov_dados:' || nullif(e."data"->>'countryCode', ''), 1)
+    left join "address".city city       on city.hash_id = hashtextextended('br:br_gov_dados:' || nullif(e."data"->>'cityCode',''), 1)
+    left join type_key_value activity   on activity.hash_id = hashtextextended( 'br:br_gov_dados:cnae:' || e."main_activity" , 1)
+    left join type_key_value reason     on reason.hash_id = hashtextextended( 'br:br_gov_dados:reason:' || e."data"->>'reason' , 1)
+    left join type_key_value nt         on nt.hash_id = hashtextextended( 'br:br_gov_dados:nature:' || pr."data"->>'natureCode' , 1)
+    where p.person_type = 'legal'`,
     );
 
     // Cria o indice da tabela materializada
