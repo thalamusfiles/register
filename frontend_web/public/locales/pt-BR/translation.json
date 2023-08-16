@@ -76,12 +76,15 @@
     "person": {
         "legal.title": "Busca por pessoas jurídicas",
         "legal.description": "Consulte informações sobre a pessoa jurídica por meio de seu documento de registro (CNPJ).",
+        "legal.meta": "Encontre informação da empresa pelo CNPJ de todas as empresas brasileiras registradas na Receita Federal. Buscador/Gerador de CNPJ aleatório.",
         "partner.title": "Busca por sócios de empresas",
-        "partner.description": "Consulte informações sobre o sócio da empresa por meio seu documento de registro (CPF/CNPJ)."
+        "partner.description": "Consulte informações sobre o sócio da empresa por meio seu documento de registro (CPF/CNPJ).",
+        "partner.meta":"Encontre qualquer informação dos sócios de todas as empresas brasileiras registradas na Receita Federal. Buscador/Gerador de CPF aleatório."
     },
     "address": {
         "zipcode.title": "Busca por código postal",
-        "zipcode.description": "Consulte empresas cadastradas a partir de seu código postal(CEP)."
+        "zipcode.description": "Consulte empresas cadastradas a partir de seu código postal(CEP).",
+        "zipcode.meta": "Busque empresas por endereço de todas as empresas brasileiras registradas na Receita Federal."
     },
     "report": {
         "business_description": "Relatórios e totalizadores dos registros de empresas e estabelecimentos.",
@@ -100,7 +103,8 @@
     },
     "type": {
         "business.title": "Busca por tipo de empresa",
-        "business.description": "Consulte empresas cadastradas a partir de seu tipo(CNAES, Natureza...)."
+        "business.description": "Consulte empresas cadastradas a partir de seu tipo(CNAES, Natureza...).",
+        "business.meta": "Busque dados de qualquer empresas pelo Tipo e CNAE (Atividade Econômica) de todas as empresas brasileiras registradas na Receita Federal."
     },
     "languages": {
         "pt-BR": "Português (Brasil)"

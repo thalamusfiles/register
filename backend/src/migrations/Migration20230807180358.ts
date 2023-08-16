@@ -121,11 +121,11 @@ export class Migration20230807180358 extends Migration {
     //this.addSql('alter table "address"."city" drop column "uuid";');
     //this.addSql('alter table "address"."city" drop column "resource_uuid";');
     //this.addSql('alter table "address"."city" drop column "state_uuid";');
-    this.addSql('alter table "establishment" drop column "uuid";');
-    this.addSql('alter table "establishment" drop column "resource_uuid";');
-    this.addSql('alter table "establishment" drop column "person_uuid";');
-    this.addSql('alter table "establishment" drop column "country_uuid";');
-    this.addSql('alter table "establishment" drop column "city_uuid";');
+    //this.addSql('alter table "establishment" drop column "uuid";');
+    //this.addSql('alter table "establishment" drop column "resource_uuid";');
+    //this.addSql('alter table "establishment" drop column "person_uuid";');
+    //this.addSql('alter table "establishment" drop column "country_uuid";');
+    //this.addSql('alter table "establishment" drop column "city_uuid";');
     //this.addSql('alter table "partner" drop column "uuid";');
     //this.addSql('alter table "partner" drop column "resource_uuid";');
     //this.addSql('alter table "partner" drop column "establishment_uuid";');
@@ -157,12 +157,12 @@ export class Migration20230807180358 extends Migration {
     //this.addSql('alter table "address"."city" add constraint "city_state_hash_id_foreign" foreign key ("state_hash_id") references "address"."state" ("hash_id") on update cascade on delete set null;');
     //this.addSql('alter table "address"."city" add constraint "city_pkey" primary key ("hash_id");');
 
-    this.addSql('alter table "establishment" add constraint "establishment_resource_hash_id_foreign" foreign key ("resource_hash_id") references "resource" ("hash_id") on update cascade;');
-    this.addSql('alter table "establishment" add constraint "establishment_person_hash_id_foreign" foreign key ("person_hash_id") references "person" ("hash_id") on update cascade;');
-    this.addSql('alter table "establishment" add constraint "establishment_country_hash_id_foreign" foreign key ("country_hash_id") references "address"."country" ("hash_id") on update cascade on delete set null;');
-    this.addSql('alter table "establishment" add constraint "establishment_city_hash_id_foreign" foreign key ("city_hash_id") references "address"."city" ("hash_id") on update cascade on delete set null;');
-    this.addSql('alter table "establishment" add constraint "establishment_resource_country_acronym_resource_ha_12617_unique" unique ("resource_country_acronym", "resource_hash_id", "person_hash_id", "extra_key");');
-    this.addSql('alter table "establishment" add constraint "establishment_pkey" primary key ("hash_id");');
+    //this.addSql('alter table "establishment" add constraint "establishment_resource_hash_id_foreign" foreign key ("resource_hash_id") references "resource" ("hash_id") on update cascade;');
+    //this.addSql('alter table "establishment" add constraint "establishment_person_hash_id_foreign" foreign key ("person_hash_id") references "person" ("hash_id") on update cascade;');
+    //this.addSql('alter table "establishment" add constraint "establishment_country_hash_id_foreign" foreign key ("country_hash_id") references "address"."country" ("hash_id") on update cascade on delete set null;');
+    //this.addSql('alter table "establishment" add constraint "establishment_city_hash_id_foreign" foreign key ("city_hash_id") references "address"."city" ("hash_id") on update cascade on delete set null;');
+    //this.addSql('alter table "establishment" add constraint "establishment_resource_country_acronym_resource_ha_12617_unique" unique ("resource_country_acronym", "resource_hash_id", "person_hash_id", "extra_key");');
+    //this.addSql('alter table "establishment" add constraint "establishment_pkey" primary key ("hash_id");');
 
     //this.addSql('alter table "partner" add constraint "partner_resource_hash_id_foreign" foreign key ("resource_hash_id") references "resource" ("hash_id") on update cascade;');
     //this.addSql('alter table "partner" add constraint "partner_establishment_hash_id_foreign" foreign key ("establishment_hash_id") references "establishment" ("hash_id") on update cascade;');

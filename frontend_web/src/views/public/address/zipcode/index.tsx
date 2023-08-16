@@ -39,7 +39,9 @@ const ZipcodePage: React.FC = () => {
 
   return (
     <AddressZipcodeProvider value={ctrl}>
-      <Helmet title={__('address.zipcode.title')} />
+      <Helmet title={__('address.zipcode.title')} >
+        <meta name="description" content={__('person.zipcode.meta')} />
+      </Helmet>
 
       <Alert variant="secondary" className="p-4">
         <h2>{__('address.zipcode.title')}</h2>

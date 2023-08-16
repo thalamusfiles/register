@@ -66,7 +66,11 @@ const HeadTitle: React.FC = observer(() => {
   return (
     <>
       {data?.name && <Helmet title={data.name as string} />}
-      {!data?.name && <Helmet title={__('person.legal.title')} />}
+      {!data?.name && (
+        <Helmet title={__('person.legal.title')}>
+          <meta name="description" content={__('person.legal.meta')} />
+        </Helmet>
+      )}
     </>
   );
 });

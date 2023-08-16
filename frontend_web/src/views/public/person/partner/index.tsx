@@ -39,7 +39,9 @@ const PartnerPage: React.FC = () => {
 
   return (
     <PersonPartnerProvider value={ctrl}>
-      <Helmet title={__('person.partner.title')} />
+      <Helmet title={__('person.partner.title')}>
+        <meta name="description" content={__('person.partner.meta')} />
+      </Helmet>
 
       <Alert variant="secondary" className="p-4">
         <h2>{__('person.partner.title')}</h2>

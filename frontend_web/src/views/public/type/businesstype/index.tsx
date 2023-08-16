@@ -32,7 +32,9 @@ const BusinessTypePage: React.FC = () => {
 
   return (
     <TypeBusinessTypeProvider value={ctrl}>
-      <Helmet title={__('type.business.title')} />
+      <Helmet title={__('type.business.title')} >
+        <meta name="description" content={__('person.business.meta')} />
+      </Helmet>
 
       <Alert variant="secondary" className="p-4">
         <h2>{__('type.business.title')}</h2>

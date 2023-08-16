@@ -18,7 +18,9 @@ const router = createBaseRouter(createRoutesFromElements(routes));
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.Suspense fallback="loading">
-    <Helmet title="Thalamus Register" />
+    <Helmet title="Thalamus Register">
+      <meta name="description" content="Thalamus Register" />
+    </Helmet>
     <UserProvider value={UserCtxInstance}>
       <RouterProvider router={router} />
     </UserProvider>
