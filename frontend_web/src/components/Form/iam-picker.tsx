@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
 import { toIlikeRegex } from '../../commons/tools';
-import { WmsOptionValue } from './index';
+import { IamOptionValue } from './index';
 
 declare type PickerProps = {
   clearButton?: boolean;
@@ -13,7 +13,7 @@ declare type PickerProps = {
   //Cabeçalho da listagem
   header?: string[];
   //Itens
-  options?: WmsOptionValue[];
+  options?: IamOptionValue[];
   //Texts
   title?: string;
   subtitle?: string;
@@ -25,11 +25,11 @@ declare type PickerProps = {
   onSel?: (value: any | null, row: any, event: any) => void;
 };
 
-export class WmsPicker<T = unknown> extends React.Component<T & PickerProps> {
+export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
   searchInput = React.createRef<HTMLInputElement>();
   state = {
-    contents: [] as WmsOptionValue[],
-    contentsBkp: [] as WmsOptionValue[],
+    contents: [] as IamOptionValue[],
+    contentsBkp: [] as IamOptionValue[],
     //Selecinado
     selected: [] as any[],
     selectedItems: [] as string[][],
@@ -137,7 +137,7 @@ export class WmsPicker<T = unknown> extends React.Component<T & PickerProps> {
     }
   }
 
-  setOptions = (options: WmsOptionValue[]) => {
+  setOptions = (options: IamOptionValue[]) => {
     this.setState({
       contents: options,
     });

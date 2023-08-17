@@ -3,35 +3,35 @@ import { InputGroup } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import { AttributeType, PickerType } from '../../commons/attribute-type';
-import { findWmsFormPlugin } from '../../commons/plugin.component';
+import { findIamFormPlugin } from '../../commons/plugin.component';
 import '../../plugins';
-import { WmsBooleanFormControl } from './wms-boolean-formcontrol';
-import { WmsChoiceFormControl } from './wms-choice-formcontrol';
-import { WmsDateFormControl } from './wms-date-formcontrol';
-import { WmsDateTimeFormControl } from './wms-datetime-formcontrol';
-import { WmsDecimalFormControl, WmsIntegerFormControl } from './wms-number-formcontrol';
-import { WmsTextFormControl } from './wms-text-formcontrol';
-import { WmsTimeFormControl } from './wms-time-formcontrol';
+import { IamBooleanFormControl } from './iam-boolean-formcontrol';
+import { IamChoiceFormControl } from './iam-choice-formcontrol';
+import { IamDateFormControl } from './iam-date-formcontrol';
+import { IamDateTimeFormControl } from './iam-datetime-formcontrol';
+import { IamDecimalFormControl, IamIntegerFormControl } from './iam-number-formcontrol';
+import { IamTextFormControl } from './iam-text-formcontrol';
+import { IamTimeFormControl } from './iam-time-formcontrol';
 
 /**
  * Definição das opções de um campo selecionavel
  */
 
-export type WmsOptionValue = {
+export type IamOptionValue = {
   value: any;
   columns: string[];
 };
-export type WmsFormEvent = React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> | React.SyntheticEvent<any>;
+export type IamFormEvent = React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> | React.SyntheticEvent<any>;
 /**
  * Definição da função chamada ao alterar um formulario
  *
  */
-declare type WmsFormEventHandler = (value: any | null, description: string[] | string | null, event: WmsFormEvent) => void;
+declare type IamFormEventHandler = (value: any | null, description: string[] | string | null, event: IamFormEvent) => void;
 
 /**
  * Propriedades do formulário
  */
-export declare type WmsFormProps = {
+export declare type IamFormProps = {
   type: AttributeType | PickerType;
   name: string;
   title?: string;
@@ -54,50 +54,50 @@ export declare type WmsFormProps = {
   //propriedades do campo selecionável
   multi?: boolean;
   header?: string[];
-  options?: WmsOptionValue[];
+  options?: IamOptionValue[];
   //control
   controlClassName?: string;
 
-  onChange?: WmsFormEventHandler;
+  onChange?: IamFormEventHandler;
 };
 
 export declare type FormGroupProps = {
   append: any;
-} & WmsFormProps;
+} & IamFormProps;
 
-export function WmsFormGroup(props: WmsFormProps) {
+export function IamFormGroup(props: IamFormProps) {
   let Control, Column;
   switch (props.type) {
     case AttributeType.Text:
-      Control = WmsTextFormControl(props);
+      Control = IamTextFormControl(props);
       break;
     case AttributeType.Integer:
-      Control = WmsIntegerFormControl(props);
+      Control = IamIntegerFormControl(props);
       break;
     case AttributeType.Decimal:
-      Control = WmsDecimalFormControl(props);
+      Control = IamDecimalFormControl(props);
       break;
     case AttributeType.Boolean:
-      Control = WmsBooleanFormControl(props);
+      Control = IamBooleanFormControl(props);
       break;
     case AttributeType.MultiChoice:
       props.multi = true;
-      Control = WmsChoiceFormControl(props);
+      Control = IamChoiceFormControl(props);
       break;
     case AttributeType.Choice:
-      Control = WmsChoiceFormControl(props);
+      Control = IamChoiceFormControl(props);
       break;
     case AttributeType.Time:
-      Control = WmsTimeFormControl(props);
+      Control = IamTimeFormControl(props);
       break;
     case AttributeType.DateTime:
-      Control = WmsDateTimeFormControl(props);
+      Control = IamDateTimeFormControl(props);
       break;
     case AttributeType.Date:
-      Control = WmsDateFormControl(props);
+      Control = IamDateFormControl(props);
       break;
     default:
-      Control = findWmsFormPlugin(props.type as PickerType, props);
+      Control = findIamFormPlugin(props.type as PickerType, props);
   }
   Column = props.column ? <Col>{Control}</Col> : Control;
   return (
@@ -118,35 +118,35 @@ export function IamInputGroup(props: FormGroupProps) {
   let Control, Column;
   switch (props.type) {
     case AttributeType.Text:
-      Control = WmsTextFormControl(props);
+      Control = IamTextFormControl(props);
       break;
     case AttributeType.Integer:
-      Control = WmsIntegerFormControl(props);
+      Control = IamIntegerFormControl(props);
       break;
     case AttributeType.Decimal:
-      Control = WmsDecimalFormControl(props);
+      Control = IamDecimalFormControl(props);
       break;
     case AttributeType.Boolean:
-      Control = WmsBooleanFormControl(props);
+      Control = IamBooleanFormControl(props);
       break;
     case AttributeType.MultiChoice:
       props.multi = true;
-      Control = WmsChoiceFormControl(props);
+      Control = IamChoiceFormControl(props);
       break;
     case AttributeType.Choice:
-      Control = WmsChoiceFormControl(props);
+      Control = IamChoiceFormControl(props);
       break;
     case AttributeType.Time:
-      Control = WmsTimeFormControl(props);
+      Control = IamTimeFormControl(props);
       break;
     case AttributeType.DateTime:
-      Control = WmsDateTimeFormControl(props);
+      Control = IamDateTimeFormControl(props);
       break;
     case AttributeType.Date:
-      Control = WmsDateFormControl(props);
+      Control = IamDateFormControl(props);
       break;
     default:
-      Control = findWmsFormPlugin(props.type as PickerType, props);
+      Control = findIamFormPlugin(props.type as PickerType, props);
   }
   Column = props.column ? <Col>{Control}</Col> : Control;
   return (

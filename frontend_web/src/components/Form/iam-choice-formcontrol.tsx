@@ -1,8 +1,8 @@
 import Form from 'react-bootstrap/Form';
-import { WmsFormProps } from './index';
-import { WmsPicker } from './wms-picker';
+import { IamFormProps } from './index';
+import { IamPicker } from './iam-picker';
 
-export function WmsChoiceFormControl(props: WmsFormProps) {
+export function IamChoiceFormControl(props: IamFormProps) {
   let pickerRef: any = null;
   let option = props.description;
   if (!option) {
@@ -14,7 +14,7 @@ export function WmsChoiceFormControl(props: WmsFormProps) {
       <Form.Control autoComplete="off" as="select" name={props.name} value={props.value} onMouseDown={() => pickerRef.show()}>
         <option>{option}</option>
       </Form.Control>
-      <WmsPicker
+      <IamPicker
         onSel={(value: any | null, row: any, event: any) => props.onChange && props.onChange(value, row, event)}
         title={props.title}
         header={props.header}

@@ -2,7 +2,6 @@ import { Migration } from '@mikro-orm/migrations';
 
 export class Migration20230509115642 extends Migration {
   async up(): Promise<void> {
-
     // Cria a tabela materializada de estabelecimentos por mes e estado, com dados formatados
     this.addSql(
       `create materialized view if not exists "materialized".rel_establishment_by_month_and_nature as

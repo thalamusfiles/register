@@ -1,7 +1,7 @@
 import { mount } from 'enzyme';
 import moment from 'moment';
 import { AttributeType } from '../../commons/attribute-type';
-import { WmsFormGroup } from './index';
+import { IamFormGroup } from './index';
 
 describe('WmsFormGroup tests', () => {
   formControlTester({
@@ -73,7 +73,7 @@ function formControlTester(params: FormControlTesterParams) {
     //arrange
     let displayValue = params.value;
     let component = mount(
-      <WmsFormGroup name="test" title="Test" type={params.type} value={params.value} onChange={(value) => (displayValue = value)} />,
+      <IamFormGroup name="test" title="Test" type={params.type} value={params.value} onChange={(value) => (displayValue = value)} />,
     );
 
     //act
@@ -89,7 +89,7 @@ function formControlWithPickerTester(params: FormControlTesterParams) {
     //arrange
     let displayValue = params.value;
     let component = mount(
-      <WmsFormGroup
+      <IamFormGroup
         name="test"
         title="Test"
         type={params.type}

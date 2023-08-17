@@ -3,7 +3,6 @@ import { createContext, useContext } from 'react';
 import { PartnerList } from '../../../../datasources/person';
 import { historyPush } from '../../../../commons/route';
 import { EstablishmentDataSource } from '../../../../datasources/establishment';
-import { AddressDataSource, CityList, StateList } from '../../../../datasources/address';
 import { BRCNAEList, TypeKeyValueDataSource } from '../../../../datasources/typekeyvalue';
 
 export class TypeBusinessTypeCtrl {
@@ -15,11 +14,9 @@ export class TypeBusinessTypeCtrl {
   notifyExeption!: Function;
 
   // PersonPartner
-  @observable states = [] as StateList;
-  @observable cities = [] as CityList;
   @observable businessTypes = [] as BRCNAEList;
-  @observable state = null as string | null;
-  @observable city = null as string | null;
+  @observable state = null as { code: string; name: string } | null;
+  @observable city = null as { code: string; name: string } | null;
   @observable businessType = null as string | null;
   @observable limit = 25;
   @observable offset = 0;
@@ -28,21 +25,18 @@ export class TypeBusinessTypeCtrl {
 
   @action
   init = () => {
-    this.findStates();
     this.findBusunissType();
   };
 
   @action
-  handleState = (e: any) => {
-    this.state = e.target.value;
+  handleState = (value: any) => {
+    this.state = value;
     this.response = null;
-
-    this.findCities(this.state);
   };
 
   @action
-  handleCity = (e: any) => {
-    this.city = e.target.value;
+  handleCity = (value: any) => {
+    this.city = value;
     this.response = null;
   };
 
@@ -71,30 +65,6 @@ export class TypeBusinessTypeCtrl {
   };
 
   @action
-  findStates = () => {
-    new AddressDataSource()
-      .findState()
-      .then((response) => {
-        this.states = response.data;
-      })
-      .catch(() => {});
-  };
-
-  @action
-  findCities = (stateCode: string | null) => {
-    if (!stateCode) {
-      this.cities = [];
-    } else {
-      new AddressDataSource()
-        .findCity(stateCode)
-        .then((response) => {
-          this.cities = response.data;
-        })
-        .catch(() => {});
-    }
-  };
-
-  @action
   findBusunissType = () => {
     new TypeKeyValueDataSource()
       .findBRCNAES()
@@ -110,7 +80,7 @@ export class TypeBusinessTypeCtrl {
     this.response = null;
 
     new EstablishmentDataSource()
-      .findByBusinessType(this.businessType!, this.city!, this.limit, this.offset)
+      .findByBusinessType(this.businessType!, this.city?.code!, this.limit, this.offset)
       .then((response) => {
         this.wanted = true;
         this.response = response.data;

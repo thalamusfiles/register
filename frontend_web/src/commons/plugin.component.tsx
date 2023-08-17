@@ -1,6 +1,6 @@
 //Todo:Mudar nome do arquivo para component.plugin.ts
 import React from 'react';
-import { WmsFormProps } from '../components/Form';
+import { IamFormProps } from '../components/Form';
 import { notify } from '../components/Notification';
 
 /**
@@ -57,39 +57,39 @@ export function findComponents(target: TargetForm | null): PagePluginProps[] {
   }
   if (components[target]) return components[target].components || [];
 
-  notify.info(`WmsFormComponent "${target}" without components.`);
+  notify.info(`IamFormComponent "${target}" without components.`);
   return [];
 }
 
 /**
  * Classe base para formulários useralizáveis
- * @type WmsFormProps define as propriedades que o componente deve aceitar.
+ * @type IamFormProps define as propriedades que o componente deve aceitar.
  */
-export abstract class WmsFormComponent extends React.Component<WmsFormProps> {}
+export abstract class IamFormComponent extends React.Component<IamFormProps> {}
 
 /**
  * Propriedades do form dinâmico
  */
-export interface WMSFormPluginProps {
+export interface IamFormPluginProps {
   name: string;
 }
 
-const wmsFormPlugins: {
+const iamFormPlugins: {
   [key: string]: {
-    component: React.ComponentClass<WmsFormProps>;
+    component: React.ComponentClass<IamFormProps>;
   };
 } = {};
 
 /**
- * Busca os componentes anotados com WmsFormPlugin
- * @type customizableWmsForm
+ * Busca os componentes anotados com IamFormPlugin
+ * @type customizableIamForm
  */
-export function findWmsFormPlugin(name: string, props: WmsFormProps): JSX.Element | null {
-  const formPlugn = wmsFormPlugins[name];
+export function findIamFormPlugin(name: string, props: IamFormProps): JSX.Element | null {
+  const formPlugn = iamFormPlugins[name];
   if (formPlugn) {
     return <formPlugn.component {...props} />;
   }
-  notify.info(`WmsFormPlugin "${name}" not found.`);
+  notify.info(`IamFormPlugin "${name}" not found.`);
   return null;
 }
 
@@ -97,11 +97,11 @@ export function findWmsFormPlugin(name: string, props: WmsFormProps): JSX.Elemen
  * Class decorator utilizado para customizar formulários.
  * @param props define as propriedades que o componente deve aceitar.
  */
-export function WmsFormPlugin(props: WMSFormPluginProps) {
-  return <T extends React.ComponentClass<WmsFormProps>>(target: T): T => {
+export function IamFormPlugin(props: IamFormPluginProps) {
+  return <T extends React.ComponentClass<IamFormProps>>(target: T): T => {
     //Inicializa estrutura do componente
-    if (!wmsFormPlugins[props.name]) {
-      wmsFormPlugins[props.name] = {
+    if (!iamFormPlugins[props.name]) {
+      iamFormPlugins[props.name] = {
         component: target,
       };
     }

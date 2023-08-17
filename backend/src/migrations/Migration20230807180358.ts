@@ -107,10 +107,10 @@ export class Migration20230807180358 extends Migration {
 
   async dropColumnUuid() {
     //this.addSql('alter table "resource" drop column "uuid";');
-    this.addSql('alter table "person" drop column "uuid";');
-    this.addSql('alter table "person_resource" drop column "uuid";');
-    this.addSql('alter table "person_resource" drop column "resource_uuid";');
-    this.addSql('alter table "person_resource" drop column "person_uuid";');
+    //this.addSql('alter table "person" drop column "uuid";');
+    //this.addSql('alter table "person_resource" drop column "uuid";');
+    //this.addSql('alter table "person_resource" drop column "resource_uuid";');
+    //this.addSql('alter table "person_resource" drop column "person_uuid";');
     //this.addSql('alter table "address"."country" drop column "uuid";');
     //this.addSql('alter table "address"."country" drop column "resource_uuid";');
     //this.addSql('alter table "contact" drop column "uuid";');

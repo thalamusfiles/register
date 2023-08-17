@@ -42,6 +42,7 @@
         "no_option_selected": "Selecione uma opção. Click em uma das opções para liberar a funcionalidade."
     },
     "label": {
+        "select": "Selecione",
         "country": "Pais",
         "state": "Estado",
         "city": "Cidade",

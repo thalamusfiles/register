@@ -1,7 +1,7 @@
 import Form from 'react-bootstrap/Form';
-import { WmsFormProps } from './index';
+import { IamFormProps } from './index';
 
-export function WmsBooleanFormControl(props: WmsFormProps) {
+export function IamBooleanFormControl(props: IamFormProps) {
   return (
     <Form.Check
       autoComplete="off"

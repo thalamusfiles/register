@@ -8,6 +8,8 @@ import { getLinkTo } from '../../../../commons/route';
 import { notify } from '../../../../components/Notification';
 import { TypeBusinessTypeProvider, TypeBusinessTypeCtrl, useTypeBusinessTypeStore } from './ctrl';
 import { Helmet } from 'react-helmet';
+import { StatePickerPlugin } from '../../state/state-picker';
+import { CityPickerPlugin } from '../../city/city-picker';
 
 const ctrl = new TypeBusinessTypeCtrl();
 const BusinessTypePage: React.FC = () => {
@@ -32,7 +34,7 @@ const BusinessTypePage: React.FC = () => {
 
   return (
     <TypeBusinessTypeProvider value={ctrl}>
-      <Helmet title={__('type.business.title')} >
+      <Helmet title={__('type.business.title')}>
         <meta name="description" content={__('person.business.meta')} />
       </Helmet>
 
@@ -91,14 +93,7 @@ const BusinessTypeForm: React.FC = observer(() => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.state')}</InputGroup.Text>
-            <Form.Select size="sm" onChange={ctrl.handleState}>
-              <option>Selecione...</option>
-              {ctrl.states.map((state) => (
-                <option key={state.code} value={state.code}>
-                  {state.name}
-                </option>
-              ))}
-            </Form.Select>
+            <StatePickerPlugin name="state" value={ctrl.state?.code} description={ctrl.state?.name || __('label.select')} onSel={ctrl.handleState} />
           </InputGroup>
         </Col>
         <Col md={3}>
@@ -107,14 +102,21 @@ const BusinessTypeForm: React.FC = observer(() => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.city')}</InputGroup.Text>
-            <Form.Select size="sm" onChange={ctrl.handleCity}>
-              <option>Selecione...</option>
+            {/*<Form.Select size="sm" onChange={ctrl.handleCity}>
+              <option>{__('label.select')}</option>
               {ctrl.cities.map((city) => (
                 <option key={city.code} value={city.code}>
                   {city.name}
                 </option>
               ))}
-            </Form.Select>
+            </Form.Select>*/}
+            <CityPickerPlugin
+              name="state"
+              stateCode={ctrl.state?.code}
+              value={ctrl.city?.code}
+              description={ctrl.city?.name || __('label.select')}
+              onSel={ctrl.handleCity}
+            />
           </InputGroup>
         </Col>
         <Col md={3}>
@@ -124,7 +126,7 @@ const BusinessTypeForm: React.FC = observer(() => {
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.business_type')}</InputGroup.Text>
             <Form.Select size="sm" onChange={ctrl.handleBusinessType}>
-              <option>Selecione...</option>
+              <option>{__('label.select')}</option>
               {ctrl.businessTypes.map((type) => (
                 <option key={type.key} value={type.key}>
                   {type.key} - {type.value?.description}

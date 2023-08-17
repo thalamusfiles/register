@@ -3,9 +3,9 @@ import React from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { currentLocale } from '../../commons/i18';
-import { WmsFormProps } from './index';
+import { IamFormProps } from './index';
 
-export function WmsDateTimeFormControl(props: WmsFormProps) {
+export function IamDateTimeFormControl(props: IamFormProps) {
   let selected;
   if (typeof props.value === 'string') {
     selected = moment(props.value).toDate();
