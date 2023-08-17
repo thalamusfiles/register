@@ -25,7 +25,7 @@ export class CityPickerPlugin extends Component<CityProps> {
         <Form.Control autoComplete="off" as="select" name={this.props.name} value={this.props.value} onMouseDown={() => this.pickerRef.show()}>
           <option>{option}</option>
         </Form.Control>
-        <ApplicationPicker
+        <Picker
           onSel={this.props.onSel}
           title={'Selecione o Estado'}
           header={['Nome']}
@@ -37,15 +37,16 @@ export class CityPickerPlugin extends Component<CityProps> {
   }
 }
 
-export class ApplicationPicker extends IamPicker<{ stateCode?: string }> {
+class Picker extends IamPicker<{ stateCode?: string }> {
   stateCode: any;
+  lastSearch?: string;
 
   search = () => {
-    if (this.props.stateCode && this.props.stateCode !== this.stateCode) {
+    if ((this.lastSearch !== this.state.search && this.state.search.length > 3) || this.props.stateCode !== this.stateCode) {
       this.setOptions([]);
 
       new AddressDataSource()
-        .findCity(this.props.stateCode)
+        .findCity(this.props.stateCode, this.state.search)
         .then((response) => {
           const options = response.data.map((result: any) => ({
             value: result,
@@ -58,5 +59,6 @@ export class ApplicationPicker extends IamPicker<{ stateCode?: string }> {
     }
 
     this.stateCode = this.props.stateCode;
+    this.lastSearch = this.state.search;
   };
 }

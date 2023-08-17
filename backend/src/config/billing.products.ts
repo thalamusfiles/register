@@ -5,6 +5,7 @@ const productsNames = {
   EstabFindByZipcodeRandom: 'register.establishment.findByZipcodeRandom',
   EstabFindByBusinessType: 'register.establishment.findByBusinessType',
   EstabFindByBusinessTypeRandom: 'register.establishment.findByBusinessTypeRandom',
+  ContactFindNaturalByRandom: 'register.contact.find',
   PersonFindLegalByDocument: 'register.person.findByZipcode',
   PersonFindLegalByRandom: 'register.person.findLegalByRandom',
   PersonFindNaturalByDocument: 'register.person.findNaturalByDocument',

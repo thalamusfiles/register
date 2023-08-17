@@ -3,7 +3,6 @@ import { createContext, useContext } from 'react';
 import { PartnerList } from '../../../../datasources/person';
 import { historyPush } from '../../../../commons/route';
 import { EstablishmentDataSource } from '../../../../datasources/establishment';
-import { BRCNAEList, TypeKeyValueDataSource } from '../../../../datasources/typekeyvalue';
 
 export class TypeBusinessTypeCtrl {
   constructor() {
@@ -14,19 +13,16 @@ export class TypeBusinessTypeCtrl {
   notifyExeption!: Function;
 
   // PersonPartner
-  @observable businessTypes = [] as BRCNAEList;
   @observable state = null as { code: string; name: string } | null;
   @observable city = null as { code: string; name: string } | null;
-  @observable businessType = null as string | null;
+  @observable businessType = null as { key: string; value: { description: string } } | null;
   @observable limit = 25;
   @observable offset = 0;
   @observable wanted: boolean = false;
   @observable response: PartnerList | null = null;
 
   @action
-  init = () => {
-    this.findBusunissType();
-  };
+  init = () => {};
 
   @action
   handleState = (value: any) => {
@@ -41,8 +37,8 @@ export class TypeBusinessTypeCtrl {
   };
 
   @action
-  handleBusinessType = (e: any) => {
-    this.businessType = e.target.value;
+  handleBusinessType = (value: any) => {
+    this.businessType = value;
     this.response = null;
   };
 
@@ -65,22 +61,12 @@ export class TypeBusinessTypeCtrl {
   };
 
   @action
-  findBusunissType = () => {
-    new TypeKeyValueDataSource()
-      .findBRCNAES()
-      .then((response) => {
-        this.businessTypes = response.data;
-      })
-      .catch(() => {});
-  };
-
-  @action
   findDocument = () => {
     this.wanted = false;
     this.response = null;
 
     new EstablishmentDataSource()
-      .findByBusinessType(this.businessType!, this.city?.code!, this.limit, this.offset)
+      .findByBusinessType(this.businessType?.key!, this.city?.code!, this.limit, this.offset)
       .then((response) => {
         this.wanted = true;
         this.response = response.data;

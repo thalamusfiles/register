@@ -1,4 +1,4 @@
-import { EntityRepository } from '@mikro-orm/core';
+import { EntityRepository, FilterQuery } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable, Logger } from '@nestjs/common';
 import { City } from '../../../model/Address/City';
@@ -35,12 +35,21 @@ export class AddressService {
   /**
    * Busca cidades
    */
-  async findCitiesByState(stateCode): Promise<City[]> {
+  async findCitiesByState(stateCode: string, nameLike: string): Promise<City[]> {
     this.logger.verbose('findCitiesByState');
 
-    const resourceCountry = await this.getResourceRef('br');
+    const where: FilterQuery<City> = {
+      resourceCountry: await this.getResourceRef('br'),
+    };
 
-    return this.cityRepo.find({ resourceCountry, state: { code: stateCode.toUpperCase() } }, { fields: ['code', 'name'], orderBy: { name: 'ASC' } });
+    if (stateCode) {
+      //where.state = { code: stateCode.toUpperCase() };
+    }
+    if (nameLike?.replace(/[% ]/g, '').length) {
+      where.name = { $like: `%${nameLike.replace(' ', '%').toUpperCase().trim()}%` };
+    }
+
+    return this.cityRepo.find(where, { fields: ['code', 'name'], orderBy: { name: 'ASC' } });
   }
 
   private async getResourceRef(acronym: string) {

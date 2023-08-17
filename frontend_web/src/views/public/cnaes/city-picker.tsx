@@ -1,16 +1,16 @@
 import { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import { IamPicker } from '../../../components/Form/iam-picker';
-import { AddressDataSource } from '../../../datasources/address';
+import { BRCNAEList, TypeKeyValueDataSource } from '../../../datasources/typekeyvalue';
 
-declare type StateProps = {
+declare type CnaeProps = {
   name: string;
   value?: string;
   description?: string;
   onSel: (value: any | null, row: any, event: any) => void;
 };
 
-export class StatePickerPlugin extends Component<StateProps> {
+export class CnaePickerPlugin extends Component<CnaeProps> {
   pickerRef: any = null;
 
   render() {
@@ -24,26 +24,29 @@ export class StatePickerPlugin extends Component<StateProps> {
         <Form.Control autoComplete="off" as="select" name={this.props.name} value={this.props.value} onMouseDown={() => this.pickerRef.show()}>
           <option>{option}</option>
         </Form.Control>
-        <Picker onSel={this.props.onSel} title={'Selecione o Estado'} header={['Nome']} ref={(ref) => (this.pickerRef = ref)} />
+        <Picker onSel={this.props.onSel} title={'Selecione o Estado'} header={['CNAE', 'Descrição']} ref={(ref) => (this.pickerRef = ref)} />
       </>
     );
   }
 }
 
 class Picker extends IamPicker {
-  componentDidMount() {
-    super.componentDidMount();
+  stateCode: any;
 
-    new AddressDataSource()
-      .findState()
+  search = () => {
+    this.setOptions([]);
+
+    new TypeKeyValueDataSource()
+      .findBRCNAES()
       .then((response) => {
-        const options = response.data.map((result: any) => ({
+        const businessTypes = response.data as BRCNAEList;
+        const options = businessTypes.map((result: any) => ({
           value: result,
-          columns: [result.name],
+          columns: [result.key, result.value?.description],
         }));
 
         this.setOptions(options);
       })
       .catch(() => {});
-  }
+  };
 }

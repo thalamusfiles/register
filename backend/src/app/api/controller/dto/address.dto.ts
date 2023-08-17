@@ -1,13 +1,20 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsOptional, IsString, Length } from 'class-validator';
 
 // DTO find User
 @Exclude()
 export class FindCitiesByStateDto {
-  @ApiProperty({ description: 'Informe um documento para busca' })
+  @ApiProperty({ description: 'Informe a sigla do estado' })
   @Expose()
   @IsString()
-  @IsNotEmpty()
-  stateCode!: string;
+  @Length(2)
+  @IsOptional()
+  stateCode?: string;
+
+  @ApiProperty({ description: 'Informe o nome da cidade' })
+  @Expose()
+  @IsString()
+  @Length(4)
+  nameLike?: string;
 }

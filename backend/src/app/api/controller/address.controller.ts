@@ -31,9 +31,9 @@ export class AddressController {
   @ApiOperation({ tags: ['Cities'], summary: 'Coletar registro de cidades de determinado estado' })
   @Get('/city')
   @UsePipes(new RegisterValidationPipe())
-  async findCitiesByState(@Query() { stateCode }: FindCitiesByStateDto): Promise<any> {
+  async findCitiesByState(@Query() { stateCode, nameLike }: FindCitiesByStateDto): Promise<any> {
     this.logger.log(`Find Cities By State`, { product: productsNames.AddressFindCitiesByState, params: { stateCode } });
 
-    return this.addressService.findCitiesByState(stateCode);
+    return this.addressService.findCitiesByState(stateCode, nameLike);
   }
 }

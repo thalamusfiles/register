@@ -10,6 +10,7 @@ import { TypeBusinessTypeProvider, TypeBusinessTypeCtrl, useTypeBusinessTypeStor
 import { Helmet } from 'react-helmet';
 import { StatePickerPlugin } from '../../state/state-picker';
 import { CityPickerPlugin } from '../../city/city-picker';
+import { CnaePickerPlugin } from '../../cnaes/city-picker';
 
 const ctrl = new TypeBusinessTypeCtrl();
 const BusinessTypePage: React.FC = () => {
@@ -117,14 +118,12 @@ const BusinessTypeForm: React.FC = observer(() => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.business_type')}</InputGroup.Text>
-            <Form.Select size="sm" onChange={ctrl.handleBusinessType}>
-              <option>{__('label.select')}</option>
-              {ctrl.businessTypes.map((type) => (
-                <option key={type.key} value={type.key}>
-                  {type.key} - {type.value?.description}
-                </option>
-              ))}
-            </Form.Select>
+            <CnaePickerPlugin
+              name="state"
+              value={ctrl.businessType?.key}
+              description={ctrl.businessType?.key || __('label.select')}
+              onSel={ctrl.handleBusinessType}
+            />
           </InputGroup>
         </Col>
       </Row>

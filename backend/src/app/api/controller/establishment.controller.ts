@@ -45,7 +45,6 @@ export class EstablishmentController {
   @UsePipes(new RegisterValidationPipe())
   async findByBusinessType(@Query() { businessType, cityCode, limit, offset }: BusinessTypeDto): Promise<any> {
     this.logger.log(`Find By Business Type`, { product: productsNames.EstabFindByBusinessType, params: { businessType, cityCode, limit, offset } });
-    this.logger.log(`findByBusinessType ${businessType} and  ${cityCode}`);
 
     return this.establishmentService.findByBusinessType(businessType, cityCode, limit, offset);
   }

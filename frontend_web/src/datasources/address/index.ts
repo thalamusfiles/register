@@ -10,7 +10,7 @@ interface AddressDataSourceI {
   findState(): Promise<AxiosResponse<StateList>>;
 
   // Busca os estados
-  findCity(stateCode: string): Promise<AxiosResponse<CityList>>;
+  findCity(stateCode: string | undefined, nameLike: string): Promise<AxiosResponse<CityList>>;
 }
 
 export class AddressDataSource implements AddressDataSourceI {
@@ -18,9 +18,9 @@ export class AddressDataSource implements AddressDataSourceI {
     return await Apis.ApiAddress.get(`${Endpoints.eAddressState}`);
   }
 
-  async findCity(stateCode: string): Promise<AxiosResponse<CityList>> {
+  async findCity(stateCode: string | undefined, nameLike: string): Promise<AxiosResponse<CityList>> {
     return await Apis.ApiAddress.get(`${Endpoints.eAddressCity}`, {
-      params: { stateCode },
+      params: { stateCode, nameLike },
     });
   }
 }
