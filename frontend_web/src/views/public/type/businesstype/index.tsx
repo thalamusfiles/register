@@ -102,14 +102,6 @@ const BusinessTypeForm: React.FC = observer(() => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.city')}</InputGroup.Text>
-            {/*<Form.Select size="sm" onChange={ctrl.handleCity}>
-              <option>{__('label.select')}</option>
-              {ctrl.cities.map((city) => (
-                <option key={city.code} value={city.code}>
-                  {city.name}
-                </option>
-              ))}
-            </Form.Select>*/}
             <CityPickerPlugin
               name="state"
               stateCode={ctrl.state?.code}
