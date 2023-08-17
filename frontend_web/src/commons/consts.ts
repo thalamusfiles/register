@@ -32,6 +32,7 @@ export const IconsDef = {
   // Apis
   attachment: 'file' as IconName,
   user: ['user', 'building'] as Array<IconName>,
+  contact: 'address-book' as IconName,
   personLegal: 'building' as IconName,
   personNatural: 'user' as IconName,
   partner: 'handshake' as IconName,

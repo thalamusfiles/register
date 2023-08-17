@@ -105,7 +105,7 @@ export class TypeBusinessTypeCtrl {
   handleOpenPersonLegal = (event: any, document: string) => {
     event.preventDefault();
 
-    historyPush('person_legal', { open: true, search: { document } });
+    historyPush('person_legal_view', { open: true, document });
 
     return false;
   };

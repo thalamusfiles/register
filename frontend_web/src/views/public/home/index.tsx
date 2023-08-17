@@ -57,6 +57,18 @@ const Person: React.FC = () => {
           </Card.Body>
         </TCard>
 
+        <TCard title={__('menu.contact')} subtitle={__('menu.freemium')} faicon={IconsDef.contact}>
+          <Card.Body>
+            <Card.Text>{__('home.contact_description')}</Card.Text>
+            <Button size="sm" onClick={() => historyPush('contact')} variant="outline-primary">
+              {__('action.access')}
+            </Button>
+          </Card.Body>
+        </TCard>
+      </Stack>
+      <br />
+
+      <Stack direction="horizontal" gap={3}>
         <TCard title={__('menu.partners')} subtitle={__('menu.freemium')} faicon={IconsDef.partner}>
           <Card.Body>
             <Card.Text>{__('home.partner_description')}</Card.Text>
@@ -66,7 +78,6 @@ const Person: React.FC = () => {
           </Card.Body>
         </TCard>
       </Stack>
-
       <br />
     </>
   );

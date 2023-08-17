@@ -1,5 +1,6 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
+  faAddressBook,
   faArrowLeft,
   faBan,
   faBars,
@@ -113,5 +114,6 @@ library.add(
   faChartBar,
   faChartSimple,
   faChartLine,
-  faTableCells
+  faTableCells,
+  faAddressBook
 );

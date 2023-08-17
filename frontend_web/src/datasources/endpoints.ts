@@ -22,6 +22,11 @@ class EndpointsConfigure {
   eEstablishmentBusinessType = `/businesstype`;
   eEstablishmentBusinessTypeRandom = `/businesstype/random`;
 
+  // API Contact
+  eContact = null as string | null;
+  eContactFind = `/`;
+  eContactFindRandom = `/random`;
+
   // API Person
   eAddress = null as string | null;
   eAddressState = `/state`;
@@ -47,6 +52,7 @@ class EndpointsConfigure {
     const ePerson = `${baseEndpoint}/api/person`;
     const eAddress = `${baseEndpoint}/api/address`;
     const eEstablishment = `${baseEndpoint}/api/establishment`;
+    const eContact = `${baseEndpoint}/api/contact`;
     const eTypeKeyValue = `${baseEndpoint}/api/keyvalue`;
     // API Relatórios
     const eRelEstablishment = `${baseEndpoint}/api/rel/establishment`;
@@ -58,6 +64,7 @@ class EndpointsConfigure {
     this.eAuth = eAuth;
     this.eAddress = eAddress;
     this.eEstablishment = eEstablishment;
+    this.eContact = eContact;
     this.eTypeKeyValue = eTypeKeyValue;
     this.eRelEstablishment = eRelEstablishment;
   };

@@ -33,10 +33,13 @@ export function getLinkTo(owner: RoutesName | string | number, options: any = {}
       push = '/public/person/legal';
       break;
     case 'person_legal_view':
-      push = `/public/person/legal/${options.document}`;
+      push = `/public/person/legal/${options.document.replace(/[\\.\\/\\-]/g, '')}`;
       break;
     case 'person_partner':
       push = '/public/person/partner';
+      break;
+    case 'contact':
+      push = '/public/person/contact';
       break;
     case 'types':
       push = '/public/types';

@@ -6,6 +6,7 @@ import { historyPush } from '../../../commons/route';
 import TCardTile from '../../../components/Card/card-tile';
 import DeveloperGuide from '../../cards/developer-guide';
 import SideBarHome from '../home/sidebarhome';
+import ContactPage, { ContactBreadcrum } from './contact';
 import PersonLegalPage, { PersonLegalBreadcrum } from './legal';
 import PartnerPage, { PartnerBreadcrum } from './partner';
 
@@ -14,6 +15,7 @@ const PersonPage: React.FC = () => {
     <Container fluid>
       <Routes>
         <Route path="/legal/*" element={<PersonLegalBreadcrum />} />
+        <Route path="/contact" element={<ContactBreadcrum />} />
         <Route path="/partner" element={<PartnerBreadcrum />} />
         <Route path="/" element={<PersonBreadcrum />} />
       </Routes>
@@ -30,6 +32,7 @@ const PersonPage: React.FC = () => {
               <Routes>
                 <Route path="/legal" element={<PersonLegalPage />} />
                 <Route path="/legal/:document" element={<PersonLegalPage />} />
+                <Route path="/contact" element={<ContactPage />} />
                 <Route path="/partner" element={<PartnerPage />} />
                 <Route path="/" element={<NoneSelected />} />
               </Routes>
@@ -59,6 +62,7 @@ const PersonHeader: React.FC = () => {
   const __ = useI18N();
   const location = useLocation();
   const hasLegalRoute = location.pathname.includes('legal');
+  const hasContactRoute = location.pathname.includes('contact');
   const hasPartnerRoute = location.pathname.includes('partner');
 
   return (
@@ -72,6 +76,13 @@ const PersonHeader: React.FC = () => {
           subtitle={__('menu.freemium')}
           faicon={IconsDef.personLegal}
           onClick={() => historyPush('person_legal')}
+        />
+        <TCardTile
+          variant={hasContactRoute ? 'info' : ''}
+          title={__('menu.contact')}
+          subtitle={__('menu.freemium')}
+          faicon={IconsDef.contact}
+          onClick={() => historyPush('contact')}
         />
         <TCardTile
           variant={hasPartnerRoute ? 'info' : ''}

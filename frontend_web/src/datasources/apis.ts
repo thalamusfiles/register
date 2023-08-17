@@ -8,6 +8,7 @@ class RegisterApisConfigure {
   ApiAddress!: AxiosInstance;
   ApiTypeKeyValue!: AxiosInstance;
   ApiEstablishment!: AxiosInstance;
+  ApiContact!: AxiosInstance;
   ApiRelEstablishment!: AxiosInstance;
 
   /**
@@ -49,6 +50,11 @@ class RegisterApisConfigure {
 
     this.ApiEstablishment = this.axiosStart({
       baseURL: Endpoint.eEstablishment!,
+      timeout: Endpoint.timeout,
+    });
+
+    this.ApiContact = this.axiosStart({
+      baseURL: Endpoint.eContact!,
       timeout: Endpoint.timeout,
     });
 

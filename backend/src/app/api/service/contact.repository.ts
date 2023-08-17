@@ -43,9 +43,11 @@ export class ContactService {
     offset = offset || 0;
 
     const query = this.knex
-      .select('e.extra_key')
-      .select('p."name"')
-      .select(`c.data->'phone' as phone, c.data->'email' as email, c.data->'fax' as fax`)
+      .select('e.extra_key as document')
+      .select('p.name')
+      .select(this.knex.raw("c.data->'phone' as phone"))
+      .select(this.knex.raw("c.data->'email' as email"))
+      .select(this.knex.raw("c.data->'fax' as fax"))
       .from(`${this.estTableName} as e`)
       .innerJoin(`${this.contTableName} as c`, `c.person_hash_id`, `e.person_hash_id`)
       .innerJoin(`${this.persTableName} as p`, `p.hash_id`, `e.person_hash_id`)
