@@ -92,7 +92,7 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
   };
 
   show = () => {
-    this.searchInput.current?.focus();
+    setTimeout(() => this.searchInput.current?.focus(), 300);
 
     if (this.search) {
       this.search();
@@ -190,7 +190,7 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
     const { contents } = this.state;
 
     return (
-      <Modal show={this.state.modalVisible} toggle={this.toggle} size='lg'>
+      <Modal show={this.state.modalVisible} toggle={this.toggle} size="lg">
         <Modal.Header>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>

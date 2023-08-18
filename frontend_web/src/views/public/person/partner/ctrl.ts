@@ -20,7 +20,6 @@ export class PersonPartnerCtrl {
   @action
   handleDocument = (e: any) => {
     this.document = e.target.value;
-    this.response = null;
   };
 
   @action

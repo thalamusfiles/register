@@ -27,19 +27,16 @@ export class ContactCtrl {
   @action
   handleState = (value: any) => {
     this.state = value;
-    this.response = null;
   };
 
   @action
   handleCity = (value: any) => {
     this.city = value;
-    this.response = null;
   };
 
   @action
   handleBusinessType = (value: any) => {
     this.businessType = value;
-    this.response = null;
   };
 
   @action
@@ -48,7 +45,6 @@ export class ContactCtrl {
     if (isNaN(this.limit)) {
       this.limit = 0;
     }
-    this.response = null;
   };
 
   @action
@@ -57,7 +53,6 @@ export class ContactCtrl {
     if (isNaN(this.offset)) {
       this.offset = 0;
     }
-    this.response = null;
   };
 
   @action
@@ -93,6 +88,9 @@ export class ContactCtrl {
       .then((response) => {
         this.wanted = true;
         this.response = response.data;
+        if (this.response.length) {
+          this.businessType = { key: this.response[0].main_activity, value: this.response[0].main_activity };
+        }
       })
       .catch((ex) => {
         this.wanted = true;

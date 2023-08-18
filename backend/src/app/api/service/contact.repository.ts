@@ -43,6 +43,7 @@ export class ContactService {
     offset = offset || 0;
 
     const query = this.knex
+      .select('e.main_activity')
       .select('e.extra_key as document')
       .select('p.name')
       .select(this.knex.raw("c.data->'phone' as phone"))

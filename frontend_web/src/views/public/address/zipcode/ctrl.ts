@@ -23,7 +23,6 @@ export class AddressZipcodeCtrl {
   @action
   handleDocument = (e: any) => {
     this.zipcode = e.target.value;
-    this.response = null;
   };
 
   @action
@@ -32,7 +31,6 @@ export class AddressZipcodeCtrl {
     if (isNaN(this.limit)) {
       this.limit = 0;
     }
-    this.response = null;
   };
 
   @action
@@ -41,7 +39,6 @@ export class AddressZipcodeCtrl {
     if (isNaN(this.offset)) {
       this.offset = 0;
     }
-    this.response = null;
   };
 
   @action

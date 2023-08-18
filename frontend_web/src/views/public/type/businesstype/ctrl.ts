@@ -27,19 +27,16 @@ export class TypeBusinessTypeCtrl {
   @action
   handleState = (value: any) => {
     this.state = value;
-    this.response = null;
   };
 
   @action
   handleCity = (value: any) => {
     this.city = value;
-    this.response = null;
   };
 
   @action
   handleBusinessType = (value: any) => {
     this.businessType = value;
-    this.response = null;
   };
 
   @action
@@ -48,7 +45,6 @@ export class TypeBusinessTypeCtrl {
     if (isNaN(this.limit)) {
       this.limit = 0;
     }
-    this.response = null;
   };
 
   @action
@@ -57,7 +53,6 @@ export class TypeBusinessTypeCtrl {
     if (isNaN(this.offset)) {
       this.offset = 0;
     }
-    this.response = null;
   };
 
   @action

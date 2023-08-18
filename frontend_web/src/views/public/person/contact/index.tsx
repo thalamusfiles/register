@@ -170,6 +170,7 @@ const ContactPrettyResult: React.FC = observer(() => {
       <Table>
         <thead>
           <tr>
+            <td>Cnae</td>
             <td>Doc</td>
             <td>Nome</td>
             <td>Telefone</td>
@@ -191,6 +192,7 @@ const ContactPrettyResult: React.FC = observer(() => {
           {ctrl.response &&
             ctrl.response.map((resp, idx) => (
               <tr key={idx}>
+                <td>{resp.main_activity}</td>
                 <td>
                   <Link to="#" onClick={(e) => ctrl.handleOpenPersonLegal(e, resp.document)} style={{ whiteSpace: 'nowrap' }}>
                     {resp.document}
