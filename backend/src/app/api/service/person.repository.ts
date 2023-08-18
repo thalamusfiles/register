@@ -11,6 +11,10 @@ export class PersonService {
   private readonly logger = new Logger(PersonService.name);
   private readonly knex: Knex;
 
+  private readonly partTableName;
+  private readonly estTableName;
+  private readonly persTableName;
+
   constructor(
     @InjectRepository(Person)
     private readonly personRepo: EntityRepository<Person>,
@@ -18,6 +22,10 @@ export class PersonService {
     this.logger.log('Starting');
 
     this.knex = (this.personRepo.getEntityManager().getConnection('read') as PostgreSqlConnection).getKnex();
+
+    this.partTableName = this.personRepo.getEntityManager().getMetadata().get(Partner.name).tableName;
+    this.estTableName = this.personRepo.getEntityManager().getMetadata().get(Establishment.name).tableName;
+    this.persTableName = this.personRepo.getEntityManager().getMetadata().get(Person.name).tableName;
   }
 
   /**
@@ -31,13 +39,6 @@ export class PersonService {
       extraKey = `***${extraKey.substring(3, 9)}**`;
     }
 
-    const partSchemaName = this.personRepo.getEntityManager().getMetadata().get(Partner.name).schema;
-    const partTableName = this.personRepo.getEntityManager().getMetadata().get(Partner.name).tableName;
-    const estSchemaName = this.personRepo.getEntityManager().getMetadata().get(Establishment.name).schema;
-    const estTableName = this.personRepo.getEntityManager().getMetadata().get(Establishment.name).tableName;
-    const persSchemaName = this.personRepo.getEntityManager().getMetadata().get(Person.name).schema;
-    const persTableName = this.personRepo.getEntityManager().getMetadata().get(Person.name).tableName;
-
     const query = this.knex
       .select('e.extra_key as document')
       .select(`pers.name`)
@@ -45,27 +46,25 @@ export class PersonService {
       .select(this.knex.raw(`p.data->>'partnerDoc' as "partnerDoc"`))
       .select(this.knex.raw(`p.data->>'representativeDoc' as "representativeDoc"`))
       .select(this.knex.raw(`p.data->>'representativeName' as "representativeName"`))
-      .from(`${partSchemaName}.${partTableName} as p`)
-      .leftJoin(`${estSchemaName}.${estTableName} as e`, `e.hash_id`, `p.establishment_hash_id`)
-      .leftJoin(`${persSchemaName}.${persTableName} as pers`, `pers.hash_id`, `e.person_hash_id`)
+      .from(`${this.partTableName} as p`)
+      .leftJoin(`${this.estTableName} as e`, `e.hash_id`, `p.establishment_hash_id`)
+      .leftJoin(`${this.persTableName} as pers`, `pers.hash_id`, `e.person_hash_id`)
       .where('p.extra_key', extraKey);
 
     return await query;
   }
 
   /**
-   * Busca registro de sócios
+   * Busca registro de sócios aleatório
    */
   async findPartnerRandom(): Promise<any> {
     this.logger.verbose('findPartnerRandom');
 
-    const schemaName = this.personRepo.getEntityManager().getMetadata().get(Partner.name).schema;
-    const tableName = this.personRepo.getEntityManager().getMetadata().get(Partner.name).tableName;
     const randomize = 'TABLESAMPLE SYSTEM (1)';
 
     const query = this.knex
       .select('extra_key')
-      .from(this.knex.raw(`${schemaName}.${tableName} ${randomize}`))
+      .from(this.knex.raw(`${this.partTableName} ${randomize}`))
       .limit(1)
       .first();
 

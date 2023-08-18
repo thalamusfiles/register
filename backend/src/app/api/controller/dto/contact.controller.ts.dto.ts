@@ -1,9 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
-import { IsString, IsNotEmpty, IsNumberString } from 'class-validator';
+import { IsString, IsNotEmpty } from 'class-validator';
+import { LimitOffsetDto } from './limitoffset.dto';
 
 @Exclude()
-export class ContactDto {
+export class ContactDto extends LimitOffsetDto {
   @ApiProperty({ description: 'Informe o código da cidade para busca' })
   @Expose()
   @IsString()
@@ -15,16 +16,4 @@ export class ContactDto {
   @IsString()
   @IsNotEmpty()
   businessType!: string;
-
-  @ApiProperty({ description: 'Informe o limite de resultados' })
-  @Expose()
-  @IsNumberString()
-  @IsNotEmpty()
-  limit!: number;
-
-  @ApiProperty({ description: 'Informe o offset do limite de resultados' })
-  @Expose()
-  @IsNumberString()
-  @IsNotEmpty()
-  offset!: number;
 }

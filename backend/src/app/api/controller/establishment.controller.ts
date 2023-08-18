@@ -1,9 +1,10 @@
 import { Controller, Get, Logger, Query, UsePipes } from '@nestjs/common';
 import { RegisterValidationPipe } from '../../../commons/validation.pipe';
 import { ApiOperation } from '@nestjs/swagger';
-import { BusinessTypeDto, ZipcodeDto, LimitOffsetDto } from './dto/establishment.controller.ts.dto';
+import { BusinessTypeDto, ZipcodeDto } from './dto/establishment.controller.ts.dto';
 import { EstablishmentService } from '../service/establishment.repository';
 import productsNames from '../../../config/billing.products';
+import { LimitOffsetDto } from './dto/limitoffset.dto';
 
 @Controller('api/establishment')
 export class EstablishmentController {
@@ -55,9 +56,9 @@ export class EstablishmentController {
   @ApiOperation({ tags: ['Establishment'], summary: 'Coletar registro aleatório de estabelecimentos comerciais pelo tipo de empresa' })
   @Get('/businesstype/random')
   @UsePipes(new RegisterValidationPipe())
-  async findByBusinessTypeRandom(@Query() reqQuery?: LimitOffsetDto): Promise<any> {
-    this.logger.log(`Find By Business Type Random`, { product: productsNames.EstabFindByBusinessTypeRandom });
+  async findByBusinessTypeRandom(@Query() { limit, offset }: LimitOffsetDto): Promise<any> {
+    this.logger.log(`Find By Business Type Random`, { product: productsNames.EstabFindByBusinessTypeRandom, params: { limit, offset } });
 
-    return this.establishmentService.findByBusinessTypeRandom(reqQuery.limit, reqQuery.offset);
+    return this.establishmentService.findByBusinessTypeRandom(limit, offset);
   }
 }

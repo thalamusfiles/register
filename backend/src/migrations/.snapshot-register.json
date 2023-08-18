@@ -251,18 +251,6 @@
       "schema": "public",
       "indexes": [
         {
-          "keyName": "person_resource_country_acronym_person_type_docume_61d85_unique",
-          "columnNames": [
-            "resource_country_acronym",
-            "person_type",
-            "document_type",
-            "document"
-          ],
-          "composite": true,
-          "primary": false,
-          "unique": true
-        },
-        {
           "keyName": "person_pkey",
           "columnNames": [
             "hash_id"
@@ -377,17 +365,6 @@
       "name": "person_resource",
       "schema": "public",
       "indexes": [
-        {
-          "keyName": "person_resource_resource_country_acronym_resource__ef17e_unique",
-          "columnNames": [
-            "resource_country_acronym",
-            "resource_hash_id",
-            "person_hash_id"
-          ],
-          "composite": true,
-          "primary": false,
-          "unique": true
-        },
         {
           "keyName": "person_resource_pkey",
           "columnNames": [
@@ -638,18 +615,6 @@
       "name": "contact",
       "schema": "public",
       "indexes": [
-        {
-          "keyName": "contact_resource_country_acronym_resource_hash_id__537f9_unique",
-          "columnNames": [
-            "resource_country_acronym",
-            "resource_hash_id",
-            "person_hash_id",
-            "extra_key"
-          ],
-          "composite": true,
-          "primary": false,
-          "unique": true
-        },
         {
           "keyName": "contact_pkey",
           "columnNames": [
@@ -1090,18 +1055,6 @@
       "schema": "public",
       "indexes": [
         {
-          "keyName": "establishment_resource_country_acronym_resource_ha_12617_unique",
-          "columnNames": [
-            "resource_country_acronym",
-            "resource_hash_id",
-            "person_hash_id",
-            "extra_key"
-          ],
-          "composite": true,
-          "primary": false,
-          "unique": true
-        },
-        {
           "keyName": "establishment_pkey",
           "columnNames": [
             "hash_id"
@@ -1258,18 +1211,6 @@
       "name": "partner",
       "schema": "public",
       "indexes": [
-        {
-          "keyName": "partner_resource_country_acronym_resource_hash_id__8fb37_unique",
-          "columnNames": [
-            "resource_country_acronym",
-            "resource_hash_id",
-            "establishment_hash_id",
-            "extra_key"
-          ],
-          "composite": true,
-          "primary": false,
-          "unique": true
-        },
         {
           "keyName": "partner_pkey",
           "columnNames": [

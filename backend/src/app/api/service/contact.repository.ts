@@ -6,12 +6,12 @@ import { City } from '../../../model/Address/City';
 import { Contact } from '../../../model/Contact';
 import { Establishment } from '../../../model/Establishment';
 import { Person } from '../../../model/Person';
-import { TypeKeyValue } from '../../../model/TypeKeyValue';
 
 @Injectable()
 export class ContactService {
   private readonly logger = new Logger(ContactService.name);
   private readonly knex: Knex;
+
   private readonly contTableName;
   private readonly persTableName;
   private readonly estTableName;
@@ -34,7 +34,7 @@ export class ContactService {
   /**
    * Busca contatos
    */
-  async findContacts(businessType: string, cityCode: string, limit: number, offset: number): Promise<TypeKeyValue[]> {
+  async findContacts(businessType: string, cityCode: string, limit: number, offset: number): Promise<Contact[]> {
     this.logger.verbose(`findContacts ${businessType} and ${cityCode}`);
 
     const city = await this.cityRepo.findOneOrFail({ code: cityCode }, { fields: ['hashId'] });
@@ -58,5 +58,28 @@ export class ContactService {
       .offset(offset);
 
     return await query;
+  }
+
+  /**
+   * Busca registro de contatos aleatório
+   */
+  async findContactsRandom(limit: number, offset: number): Promise<Contact[]> {
+    this.logger.verbose('findContactsRandom');
+
+    const randomize = 'TABLESAMPLE SYSTEM (1)';
+
+    const query = this.knex
+      .select('city_hash_id')
+      .select('main_activity')
+      .from(this.knex.raw(`${this.estTableName} ${randomize}`))
+      .limit(1)
+      .first();
+
+    const rs = await query;
+    const { main_activity, city_hash_id } = rs;
+
+    const city = await this.cityRepo.findOneOrFail({ hashId: city_hash_id }, { fields: ['code'] });
+
+    return this.findContacts(main_activity, city.code, limit, offset);
   }
 }

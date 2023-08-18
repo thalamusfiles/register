@@ -10,9 +10,8 @@ import { City } from '../../../model/Address/City';
 export class EstablishmentService {
   private readonly logger = new Logger(EstablishmentService.name);
   private readonly knex: Knex;
-  private readonly estSchemaName;
+
   private readonly estTableName;
-  private readonly persSchemaName;
   private readonly persTableName;
 
   constructor(
@@ -25,9 +24,7 @@ export class EstablishmentService {
 
     this.knex = (this.establishmentRepo.getEntityManager().getConnection('read') as PostgreSqlConnection).getKnex();
 
-    this.estSchemaName = this.establishmentRepo.getEntityManager().getMetadata().get(Establishment.name).schema;
     this.estTableName = this.establishmentRepo.getEntityManager().getMetadata().get(Establishment.name).tableName;
-    this.persSchemaName = this.establishmentRepo.getEntityManager().getMetadata().get(Person.name).schema;
     this.persTableName = this.establishmentRepo.getEntityManager().getMetadata().get(Person.name).tableName;
   }
 
@@ -45,8 +42,8 @@ export class EstablishmentService {
       .select('zipcode')
       .select('e.extra_key as document')
       .select(`pers.name`)
-      .from(`${this.estSchemaName}.${this.estTableName} as e`)
-      .leftJoin(`${this.persSchemaName}.${this.persTableName} as pers`, `pers.hash_id`, `e.person_hash_id`)
+      .from(`${this.estTableName} as e`)
+      .leftJoin(`${this.persTableName} as pers`, `pers.hash_id`, `e.person_hash_id`)
       .where('e.zipcode', zipcode)
       .orderBy('pers.name')
       .limit(limit)
@@ -64,7 +61,7 @@ export class EstablishmentService {
 
     const query = this.knex
       .select('zipcode')
-      .from(this.knex.raw(`${this.estSchemaName}.${this.estTableName} ${randomize}`))
+      .from(this.knex.raw(`$${this.estTableName} ${randomize}`))
       .limit(1)
       .first();
 
@@ -88,8 +85,8 @@ export class EstablishmentService {
       .select('e.main_activity as businesstype')
       .select('e.extra_key as document')
       .select(`pers.name`)
-      .from(`${this.estSchemaName}.${this.estTableName} as e`)
-      .leftJoin(`${this.persSchemaName}.${this.persTableName} as pers`, `pers.hash_id`, `e.person_hash_id`)
+      .from(`${this.estTableName} as e`)
+      .leftJoin(`${this.persTableName} as pers`, `pers.hash_id`, `e.person_hash_id`)
       .where('e.city_hash_id', city.hashId)
       .andWhere('e.main_activity', businessType)
       .orderBy('pers.name')
@@ -110,7 +107,7 @@ export class EstablishmentService {
     const query = this.knex
       .select('main_activity')
       .select(this.knex.raw(`data->>'cityCode' as "cityCode"`))
-      .from(this.knex.raw(`${this.estSchemaName}.${this.estTableName} ${randomize}`))
+      .from(this.knex.raw(`${this.estTableName} ${randomize}`))
       .limit(1)
       .first();
 
