@@ -190,7 +190,7 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
     const { contents } = this.state;
 
     return (
-      <Modal show={this.state.modalVisible} toggle={this.toggle}>
+      <Modal show={this.state.modalVisible} toggle={this.toggle} size='lg'>
         <Modal.Header>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
@@ -203,9 +203,9 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
             </Form.Group>
           )}
           <p>
-            <small>Click on the line to select the item.</small>
+            <small>Clique no item da lista para selecionar o item.</small>
           </p>
-          <div style={{ minHeight: '200px', maxHeight: '300px', overflow: 'scroll' }}>
+          <div style={{ minHeight: '300px', maxHeight: '500px', overflow: 'scroll' }}>
             <Table responsive>
               {header && (
                 <thead>

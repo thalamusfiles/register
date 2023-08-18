@@ -19,7 +19,7 @@ export class TypeKeyValue extends RegisterBaseEntity {
   key!: string;
 
   @Property({ type: 'json', nullable: false })
-  value!: string;
+  value!: { description: string };
 
   @Property({ nullable: true })
   deletedAt?: Date;

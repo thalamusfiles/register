@@ -43,7 +43,7 @@ export class AddressService {
     };
 
     if (stateCode) {
-      //where.state = { code: stateCode.toUpperCase() };
+      where.state = { code: stateCode.toUpperCase() };
     }
     if (nameLike?.replace(/[% ]/g, '').length) {
       where.name = { $like: `%${nameLike.replace(' ', '%').toUpperCase().trim()}%` };

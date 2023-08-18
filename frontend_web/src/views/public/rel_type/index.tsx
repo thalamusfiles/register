@@ -1,4 +1,4 @@
-import { Breadcrumb, Col, Container, Row, Stack } from 'react-bootstrap';
+import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { IconsDef } from '../../../commons/consts';
 import { useI18N } from '../../../commons/i18';
@@ -26,7 +26,7 @@ const RelTypePage: React.FC = () => {
           <Row>
             <Col md={12} lg={8}>
               <RelTypeHeader />
-              <br />
+
               <Routes>
                 <Route path="/total_month_nature" element={<TotalByMonthNaturePage />} />
                 <Route path="/total_month_activity" element={<TotalByMonthActivityPage />} />
@@ -67,23 +67,27 @@ const RelTypeHeader: React.FC = () => {
         {__('menu.reports')} - {__('menu.type')}
       </h1>
       <p>{__('report.type_description')}</p>
-      <Stack direction="horizontal" gap={3}>
-        <TCardTile
-          variant={ttMMNature ? 'info' : ''}
-          title={__('menu.tt_month_nature')}
-          subtitle={''}
-          faicon={IconsDef.reports}
-          onClick={() => historyPush('rel_type_tt_nature')}
-        />
 
-        <TCardTile
-          variant={ttMMActivity ? 'info' : ''}
-          title={__('menu.tt_month_activity')}
-          subtitle={''}
-          faicon={IconsDef.reports}
-          onClick={() => historyPush('rel_type_tt_activity')}
-        />
-      </Stack>
+      <Row>
+        <Col md="4">
+          <TCardTile
+            variant={ttMMNature ? 'info' : ''}
+            title={__('menu.tt_month_nature')}
+            subtitle={''}
+            faicon={IconsDef.reports}
+            onClick={() => historyPush('rel_type_tt_nature')}
+          />
+        </Col>
+        <Col md="4">
+          <TCardTile
+            variant={ttMMActivity ? 'info' : ''}
+            title={__('menu.tt_month_activity')}
+            subtitle={''}
+            faicon={IconsDef.reports}
+            onClick={() => historyPush('rel_type_tt_activity')}
+          />
+        </Col>
+      </Row>
     </>
   );
 };

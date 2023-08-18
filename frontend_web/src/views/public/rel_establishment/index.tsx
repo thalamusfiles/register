@@ -1,4 +1,4 @@
-import { Breadcrumb, Col, Container, Row, Stack } from 'react-bootstrap';
+import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { IconsDef } from '../../../commons/consts';
 import { useI18N } from '../../../commons/i18';
@@ -26,7 +26,7 @@ const RelEstablishmentPage: React.FC = () => {
           <Row>
             <Col md={12} lg={8}>
               <RelEstablishmentHeader />
-              <br />
+
               <Routes>
                 <Route path="/total_month_state" element={<TotalByMonthStatePage />} />
                 <Route path="/total_month_state_history" element={<TotalByMonthStateHistoryPage />} />
@@ -67,23 +67,27 @@ const RelEstablishmentHeader: React.FC = () => {
         {__('menu.reports')} - {__('menu.business')}
       </h1>
       <p>{__('report.business_description')}</p>
-      <Stack direction="horizontal" gap={3}>
-        <TCardTile
-          variant={ttMMStRoute ? 'info' : ''}
-          title={__('menu.tt_month_state')}
-          subtitle={''}
-          faicon={IconsDef.reports}
-          onClick={() => historyPush('rel_estab_tt_month_state')}
-        />
 
-        <TCardTile
-          variant={ttMMStCumRoute ? 'info' : ''}
-          title={__('menu.tt_month_state_history')}
-          subtitle={''}
-          faicon={IconsDef.chartBar}
-          onClick={() => historyPush('rel_estab_tt_month_state_history')}
-        />
-      </Stack>
+      <Row>
+        <Col md="4">
+          <TCardTile
+            variant={ttMMStRoute ? 'info' : ''}
+            title={__('menu.tt_month_state')}
+            subtitle={''}
+            faicon={IconsDef.reports}
+            onClick={() => historyPush('rel_estab_tt_month_state')}
+          />
+        </Col>
+        <Col md="4">
+          <TCardTile
+            variant={ttMMStCumRoute ? 'info' : ''}
+            title={__('menu.tt_month_state_history')}
+            subtitle={''}
+            faicon={IconsDef.chartBar}
+            onClick={() => historyPush('rel_estab_tt_month_state_history')}
+          />
+        </Col>
+      </Row>
     </>
   );
 };

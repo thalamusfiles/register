@@ -1,4 +1,4 @@
-import { Breadcrumb, Col, Container, Row, Stack } from 'react-bootstrap';
+import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { IconsDef } from '../../../commons/consts';
 import { useI18N } from '../../../commons/i18';
@@ -24,7 +24,7 @@ const TypePage: React.FC = () => {
           <Row>
             <Col md={12} lg={8}>
               <TypeHeader />
-              <br />
+
               <Routes>
                 <Route path="/businesstype" element={<BusinessTypePage />} />
                 <Route path="/" element={<NoneSelected />} />
@@ -60,15 +60,17 @@ const TypeHeader: React.FC = () => {
     <>
       <h1>{__('menu.type')}</h1>
       <p>{__('home.type_description')}</p>
-      <Stack direction="horizontal" gap={3}>
-        <TCardTile
-          variant={businesstypeRoute ? 'info' : ''}
-          title={__('menu.business_type')}
-          subtitle={__('menu.freemium')}
-          faicon={IconsDef.zipcode}
-          onClick={() => historyPush('types_businesstype')}
-        />
-      </Stack>
+      <Row>
+        <Col>
+          <TCardTile
+            variant={businesstypeRoute ? 'info' : ''}
+            title={__('menu.business_type')}
+            subtitle={__('menu.freemium')}
+            faicon={IconsDef.zipcode}
+            onClick={() => historyPush('types_businesstype')}
+          />
+        </Col>
+      </Row>
     </>
   );
 };

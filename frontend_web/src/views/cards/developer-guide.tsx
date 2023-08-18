@@ -22,7 +22,6 @@ const DeveloperGuide: React.FC = () => {
           </Button>
         </Card.Body>
       </TCard>
-      <br />
 
       <TCard title={__('card.swagger')} subtitle={__('card.swagger_subtitle')} faicon={IconsDef.swagger} border="info">
         <Card.Body>
@@ -32,7 +31,6 @@ const DeveloperGuide: React.FC = () => {
           </Button>
         </Card.Body>
       </TCard>
-      <br />
     </>
   );
 };

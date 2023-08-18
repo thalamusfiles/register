@@ -1,4 +1,4 @@
-import { Breadcrumb, Col, Container, Row, Stack } from 'react-bootstrap';
+import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { IconsDef } from '../../../commons/consts';
 import { useI18N } from '../../../commons/i18';
@@ -28,7 +28,7 @@ const PersonPage: React.FC = () => {
           <Row>
             <Col md={12} lg={8}>
               <PersonHeader />
-              <br />
+
               <Routes>
                 <Route path="/legal" element={<PersonLegalPage />} />
                 <Route path="/legal/:document" element={<PersonLegalPage />} />
@@ -69,29 +69,36 @@ const PersonHeader: React.FC = () => {
     <>
       <h1>{__('menu.persons')}</h1>
       <p>{__('home.persons_description')}</p>
-      <Stack direction="horizontal" gap={3}>
-        <TCardTile
-          variant={hasLegalRoute ? 'info' : ''}
-          title={__('menu.person_legal')}
-          subtitle={__('menu.freemium')}
-          faicon={IconsDef.personLegal}
-          onClick={() => historyPush('person_legal')}
-        />
-        <TCardTile
-          variant={hasContactRoute ? 'info' : ''}
-          title={__('menu.contact')}
-          subtitle={__('menu.freemium')}
-          faicon={IconsDef.contact}
-          onClick={() => historyPush('contact')}
-        />
-        <TCardTile
-          variant={hasPartnerRoute ? 'info' : ''}
-          title={__('menu.partners')}
-          subtitle={__('menu.freemium')}
-          faicon={IconsDef.partner}
-          onClick={() => historyPush('person_partner')}
-        />
-      </Stack>
+
+      <Row>
+        <Col md="4">
+          <TCardTile
+            variant={hasLegalRoute ? 'info' : ''}
+            title={__('menu.person_legal')}
+            subtitle={__('menu.freemium')}
+            faicon={IconsDef.personLegal}
+            onClick={() => historyPush('person_legal')}
+          />
+        </Col>
+        <Col md="4">
+          <TCardTile
+            variant={hasContactRoute ? 'info' : ''}
+            title={__('menu.contact')}
+            subtitle={__('menu.freemium')}
+            faicon={IconsDef.contact}
+            onClick={() => historyPush('contact')}
+          />
+        </Col>
+        <Col md="4">
+          <TCardTile
+            variant={hasPartnerRoute ? 'info' : ''}
+            title={__('menu.partners')}
+            subtitle={__('menu.freemium')}
+            faicon={IconsDef.partner}
+            onClick={() => historyPush('person_partner')}
+          />
+        </Col>
+      </Row>
     </>
   );
 };

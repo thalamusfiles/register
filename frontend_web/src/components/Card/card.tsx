@@ -14,7 +14,7 @@ type TCardProps = PropsWithChildren<{
 
 const TCard: React.FC<TCardProps> = (props: TCardProps) => {
   return (
-    <Card style={{ width: '18rem' }} bg={props.bg} border={props.border} text={props.text}>
+    <Card style={{ width: '18rem', marginBottom: '1rem' }} bg={props.bg} border={props.border} text={props.text}>
       <Card.Header>
         <Card.Title className={'float-end'}>{props.faicon && <FontAwesomeIcon icon={props.faicon} size="2x" />}</Card.Title>
         <Card.Title>{props.title}</Card.Title>

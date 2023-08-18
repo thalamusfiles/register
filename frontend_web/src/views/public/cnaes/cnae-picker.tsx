@@ -31,22 +31,25 @@ export class CnaePickerPlugin extends Component<CnaeProps> {
 }
 
 class Picker extends IamPicker {
-  stateCode: any;
+  lastSearch?: string;
 
   search = () => {
-    this.setOptions([]);
+    if (this.lastSearch !== this.state.search) {
+      this.setOptions([]);
 
-    new TypeKeyValueDataSource()
-      .findBRCNAES()
-      .then((response) => {
-        const businessTypes = response.data as BRCNAEList;
-        const options = businessTypes.map((result: any) => ({
-          value: result,
-          columns: [result.key, result.value?.description],
-        }));
+      new TypeKeyValueDataSource()
+        .findBRCNAES(this.state.search)
+        .then((response) => {
+          const businessTypes = response.data as BRCNAEList;
+          const options = businessTypes.map((result: any) => ({
+            value: result,
+            columns: [result.key, result.value?.description],
+          }));
 
-        this.setOptions(options);
-      })
-      .catch(() => {});
+          this.setOptions(options);
+        })
+        .catch(() => {});
+    }
+    this.lastSearch = this.state.search;
   };
 }

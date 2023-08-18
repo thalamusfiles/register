@@ -10,7 +10,7 @@ import { ContactProvider, ContactCtrl, useTypeBusinessTypeStore } from './ctrl';
 import { Helmet } from 'react-helmet';
 import { StatePickerPlugin } from '../../state/state-picker';
 import { CityPickerPlugin } from '../../city/city-picker';
-import { CnaePickerPlugin } from '../../cnaes/city-picker';
+import { CnaePickerPlugin } from '../../cnaes/cnae-picker';
 
 const ctrl = new ContactCtrl();
 const ContactPage: React.FC = () => {

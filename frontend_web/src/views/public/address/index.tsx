@@ -1,4 +1,4 @@
-import { Breadcrumb, Col, Container, Row, Stack } from 'react-bootstrap';
+import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { IconsDef } from '../../../commons/consts';
 import { useI18N } from '../../../commons/i18';
@@ -24,7 +24,7 @@ const AddressPage: React.FC = () => {
           <Row>
             <Col md={12} lg={8}>
               <AddressHeader />
-              <br />
+
               <Routes>
                 <Route path="/zipcode" element={<ZipcodePage />} />
                 <Route path="/" element={<NoneSelected />} />
@@ -60,15 +60,17 @@ const AddressHeader: React.FC = () => {
     <>
       <h1>{__('menu.address')}</h1>
       <p>{__('home.address_description')}</p>
-      <Stack direction="horizontal" gap={3}>
-        <TCardTile
-          variant={hasZipcodeRoute ? 'info' : ''}
-          title={__('menu.establishments')}
-          subtitle={__('menu.freemium')}
-          faicon={IconsDef.zipcode}
-          onClick={() => historyPush('addresses_zipcode')}
-        />
-      </Stack>
+      <Row>
+        <Col>
+          <TCardTile
+            variant={hasZipcodeRoute ? 'info' : ''}
+            title={__('menu.establishments')}
+            subtitle={__('menu.freemium')}
+            faicon={IconsDef.zipcode}
+            onClick={() => historyPush('addresses_zipcode')}
+          />
+        </Col>
+      </Row>
     </>
   );
 };

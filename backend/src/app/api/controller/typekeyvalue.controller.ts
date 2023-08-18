@@ -1,8 +1,9 @@
-import { Controller, Get, Logger, UsePipes } from '@nestjs/common';
+import { Controller, Get, Logger, Query, UsePipes } from '@nestjs/common';
 import { RegisterValidationPipe } from '../../../commons/validation.pipe';
 import { ApiOperation } from '@nestjs/swagger';
 import { TypeKeyValueService } from '../service/typekeyvalue.repository';
 import productsNames from '../../../config/billing.products';
+import { FindCnaesDto } from './dto/typekeyvalue.dto';
 
 @Controller('api/keyvalue')
 export class TypeKeyValueController {
@@ -18,9 +19,9 @@ export class TypeKeyValueController {
   @ApiOperation({ tags: ['KeyValue'], summary: 'Coletar registro de estados' })
   @Get('/br/cnae')
   @UsePipes(new RegisterValidationPipe())
-  async findBRCNAES(): Promise<any> {
-    this.logger.log(`Find BR CNAES`, { product: productsNames.TypeKeyValueFindBRCNAES });
+  async findBRCNAES(@Query() { codeOrDescriptionLike }: FindCnaesDto): Promise<any> {
+    this.logger.log(`Find BR CNAES`, { product: productsNames.TypeKeyValueFindBRCNAES, params: { codeOrDescriptionLike } });
 
-    return this.typeKeyValueService.findBRCNAES();
+    return this.typeKeyValueService.findBRCNAES(codeOrDescriptionLike);
   }
 }

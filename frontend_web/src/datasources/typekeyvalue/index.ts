@@ -6,11 +6,13 @@ export type BRCNAEList = Array<{ hashId: string; key: string; value: { descripti
 
 interface TypeKeyValueDataSourceI {
   // Busca os estados
-  findBRCNAES(): Promise<AxiosResponse<BRCNAEList>>;
+  findBRCNAES(codeOrDescriptionLike: string): Promise<AxiosResponse<BRCNAEList>>;
 }
 
 export class TypeKeyValueDataSource implements TypeKeyValueDataSourceI {
-  async findBRCNAES(): Promise<AxiosResponse<BRCNAEList>> {
-    return await Apis.ApiTypeKeyValue.get(`${Endpoints.eTypeKeyValueBrCnae}`);
+  async findBRCNAES(codeOrDescriptionLike: string): Promise<AxiosResponse<BRCNAEList>> {
+    return await Apis.ApiTypeKeyValue.get(`${Endpoints.eTypeKeyValueBrCnae}`, {
+      params: { codeOrDescriptionLike },
+    });
   }
 }

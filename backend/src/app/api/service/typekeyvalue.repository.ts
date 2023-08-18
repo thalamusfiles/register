@@ -1,4 +1,4 @@
-import { EntityRepository } from '@mikro-orm/core';
+import { EntityRepository, FilterQuery } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable, Logger } from '@nestjs/common';
 import { ResourceCountry } from '../../../model/ResourceCountry';
@@ -7,7 +7,7 @@ import { TypeKeyValue } from '../../../model/TypeKeyValue';
 @Injectable()
 export class TypeKeyValueService {
   private readonly logger = new Logger(TypeKeyValueService.name);
-  private resourceContry: ResourceCountry;
+  private resourceContry: Record<string, ResourceCountry> = {};
 
   constructor(
     @InjectRepository(ResourceCountry)
@@ -21,17 +21,28 @@ export class TypeKeyValueService {
   /**
    * Busca estados
    */
-  async findBRCNAES(): Promise<TypeKeyValue[]> {
+  async findBRCNAES(codeOrDescriptionLike: string): Promise<TypeKeyValue[]> {
     this.logger.verbose('findStates');
 
-    await this.getResourceRef();
+    const whereAnds: FilterQuery<TypeKeyValue> = [{ resourceCountry: await this.getResourceRef('br') }, { type: 'cnae' }];
 
-    return this.typeKeyValueRepo.find({ resourceCountry: this.resourceContry, type: 'cnae' }, { fields: ['key', 'value'] });
+    if (codeOrDescriptionLike?.replace(/[% ]/g, '').length) {
+      whereAnds.push({
+        $or: [
+          //
+          { key: { $like: `%${codeOrDescriptionLike.replace(' ', '%').toUpperCase().trim()}%` } },
+          { value: { description: { $ilike: `%${codeOrDescriptionLike.replace(' ', '%').toUpperCase().trim()}%` } } },
+        ],
+      });
+    }
+
+    return this.typeKeyValueRepo.find({ $and: whereAnds }, { fields: ['key', 'value'] });
   }
 
-  private async getResourceRef() {
-    if (!this.resourceContry) {
-      this.resourceContry = await this.resourceCountry.findOneOrFail({ acronym: 'br' });
+  private async getResourceRef(acronym: string) {
+    if (!this.resourceContry[acronym]) {
+      this.resourceContry[acronym] = await this.resourceCountry.findOneOrFail({ acronym });
     }
+    return this.resourceContry[acronym];
   }
 }

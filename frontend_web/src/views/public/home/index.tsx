@@ -1,4 +1,4 @@
-import { Button, Card, Stack } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -47,38 +47,41 @@ const Person: React.FC = () => {
       <h1>{__('menu.persons')}</h1>
       <p>{__('home.persons_description')}</p>
 
-      <Stack direction="horizontal" gap={3}>
-        <TCard title={__('menu.person_legal')} subtitle={__('menu.freemium')} faicon={IconsDef.personLegal}>
-          <Card.Body>
-            <Card.Text>{__('home.person_legal_description')}</Card.Text>
-            <Button size="sm" onClick={() => historyPush('person_legal')} variant="outline-primary">
-              {__('action.access')}
-            </Button>
-          </Card.Body>
-        </TCard>
+      <Row>
+        <Col>
+          <TCard title={__('menu.person_legal')} subtitle={__('menu.freemium')} faicon={IconsDef.personLegal}>
+            <Card.Body>
+              <Card.Text>{__('home.person_legal_description')}</Card.Text>
+              <Button size="sm" onClick={() => historyPush('person_legal')} variant="outline-primary">
+                {__('action.access')}
+              </Button>
+            </Card.Body>
+          </TCard>
+        </Col>
+        <Col>
+          <TCard title={__('menu.contact')} subtitle={__('menu.freemium')} faicon={IconsDef.contact}>
+            <Card.Body>
+              <Card.Text>{__('home.contact_description')}</Card.Text>
+              <Button size="sm" onClick={() => historyPush('contact')} variant="outline-primary">
+                {__('action.access')}
+              </Button>
+            </Card.Body>
+          </TCard>
+        </Col>
+      </Row>
 
-        <TCard title={__('menu.contact')} subtitle={__('menu.freemium')} faicon={IconsDef.contact}>
-          <Card.Body>
-            <Card.Text>{__('home.contact_description')}</Card.Text>
-            <Button size="sm" onClick={() => historyPush('contact')} variant="outline-primary">
-              {__('action.access')}
-            </Button>
-          </Card.Body>
-        </TCard>
-      </Stack>
-      <br />
-
-      <Stack direction="horizontal" gap={3}>
-        <TCard title={__('menu.partners')} subtitle={__('menu.freemium')} faicon={IconsDef.partner}>
-          <Card.Body>
-            <Card.Text>{__('home.partner_description')}</Card.Text>
-            <Button size="sm" onClick={() => historyPush('person_partner')} variant="outline-primary">
-              {__('action.access')}
-            </Button>
-          </Card.Body>
-        </TCard>
-      </Stack>
-      <br />
+      <Row>
+        <Col>
+          <TCard title={__('menu.partners')} subtitle={__('menu.freemium')} faicon={IconsDef.partner}>
+            <Card.Body>
+              <Card.Text>{__('home.partner_description')}</Card.Text>
+              <Button size="sm" onClick={() => historyPush('person_partner')} variant="outline-primary">
+                {__('action.access')}
+              </Button>
+            </Card.Body>
+          </TCard>
+        </Col>
+      </Row>
     </>
   );
 };
@@ -90,20 +93,20 @@ const Type: React.FC = () => {
       <h1>{__('menu.type')}</h1>
       <p>{__('home.type_description')}</p>
 
-      <Stack direction="horizontal" gap={3}>
-        <TCard title={__('menu.business_type')} subtitle={__('menu.freemium')} faicon={IconsDef.zipcode}>
-          <Card.Body style={{ height: 80 }}>
-            <Card.Text>{__('home.business_type_description')}</Card.Text>
-          </Card.Body>
-          <Card.Body>
-            <Button size="sm" onClick={() => historyPush('types_businesstype')} variant="outline-primary">
-              {__('action.access')}
-            </Button>
-          </Card.Body>
-        </TCard>
-      </Stack>
-
-      <br />
+      <Row>
+        <Col>
+          <TCard title={__('menu.business_type')} subtitle={__('menu.freemium')} faicon={IconsDef.zipcode}>
+            <Card.Body style={{ height: 80 }}>
+              <Card.Text>{__('home.business_type_description')}</Card.Text>
+            </Card.Body>
+            <Card.Body>
+              <Button size="sm" onClick={() => historyPush('types_businesstype')} variant="outline-primary">
+                {__('action.access')}
+              </Button>
+            </Card.Body>
+          </TCard>
+        </Col>
+      </Row>
     </>
   );
 };
@@ -115,18 +118,20 @@ const Address: React.FC = () => {
       <h1>{__('menu.address')}</h1>
       <p>{__('home.address_description')}</p>
 
-      <Stack direction="horizontal" gap={3}>
-        <TCard title={__('menu.establishments')} subtitle={__('menu.freemium')} faicon={IconsDef.zipcode}>
-          <Card.Body style={{ height: 80 }}>
-            <Card.Text>{__('home.establishments_description')}</Card.Text>
-          </Card.Body>
-          <Card.Body>
-            <Button size="sm" onClick={() => historyPush('addresses_zipcode')} variant="outline-primary">
-              {__('action.access')}
-            </Button>
-          </Card.Body>
-        </TCard>
-      </Stack>
+      <Row>
+        <Col>
+          <TCard title={__('menu.establishments')} subtitle={__('menu.freemium')} faicon={IconsDef.zipcode}>
+            <Card.Body style={{ height: 80 }}>
+              <Card.Text>{__('home.establishments_description')}</Card.Text>
+            </Card.Body>
+            <Card.Body>
+              <Button size="sm" onClick={() => historyPush('addresses_zipcode')} variant="outline-primary">
+                {__('action.access')}
+              </Button>
+            </Card.Body>
+          </TCard>
+        </Col>
+      </Row>
     </>
   );
 };
