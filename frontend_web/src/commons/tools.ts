@@ -1,3 +1,17 @@
+import * as XLSX from 'xlsx';
+
+export const exportXLS = (contents: Array<any>, filename: string) => {
+  const ws = XLSX.utils.json_to_sheet(contents);
+  const wb = { Sheets: { data: ws }, SheetNames: ['data'] };
+  XLSX.writeFile(wb, filename + '.xlsx');
+};
+
+export const importarXLS = (data: any, headerAsColumn: boolean = true, type: 'binary' = 'binary') => {
+  var workbook = XLSX.read(data, { type: type });
+  var sheet_name_list = workbook.SheetNames;
+  return XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]], headerAsColumn ? undefined : { header: 1 });
+};
+
 const ACCENT_STRINGS = 'ŠŒŽšœžŸ¥µÀÁÂÃÄÅÆÇÈÉÊËẼÌÍÎÏĨÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëẽìíîïĩðñòóôõöøùúûüýÿ';
 const NO_ACCENT_STRINGS = 'SOZsozYYuAAAAAAACEEEEEIIIIIDNOOOOOOUUUUYsaaaaaaaceeeeeiiiiionoooooouuuuyy';
 const FROM = decodeURIComponent(ACCENT_STRINGS).split('');
@@ -19,24 +33,4 @@ export const toIlikeRegex = (text: string, toregexp: boolean = true): string | R
   });
 
   return toregexp ? new RegExp(`.*${text}.*`, 'i') : `/.*${text}.*/i`;
-};
-
-/**
- * Coleta as informações do objeto conforme o caminho informato
- * @param objectArray
- * @param path
- * @returns
- */
-export const flatFromPath = (objectArray: any | any[], path: string[]): any => {
-  const nextPath = path.shift()!;
-  const data = objectArray[nextPath];
-  if (Array.isArray(data)) {
-    return data.map((rowData) => flatFromPath(rowData, path)).flat();
-  } else {
-    if (path.length) {
-      return flatFromPath(data, path);
-    } else {
-      return data;
-    }
-  }
 };

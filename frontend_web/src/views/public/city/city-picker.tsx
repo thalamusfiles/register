@@ -27,7 +27,7 @@ export class CityPickerPlugin extends Component<CityProps> {
         </Form.Control>
         <Picker
           onSel={this.props.onSel}
-          title={'Selecione o Estado'}
+          title={'Selecione a Cidade'}
           header={['Nome']}
           stateCode={this.props.stateCode}
           ref={(ref) => (this.pickerRef = ref)}

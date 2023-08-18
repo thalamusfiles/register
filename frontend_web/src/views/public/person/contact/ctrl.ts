@@ -3,6 +3,7 @@ import { createContext, useContext } from 'react';
 import { PartnerList } from '../../../../datasources/person';
 import { historyPush } from '../../../../commons/route';
 import { ContactDataSource } from '../../../../datasources/contact';
+import { exportXLS } from '../../../../commons/tools';
 
 export class ContactCtrl {
   constructor() {
@@ -98,6 +99,15 @@ export class ContactCtrl {
 
         this.notifyExeption(ex);
       });
+  };
+
+  @action
+  exportXLS = () => {
+    if (this.response) {
+      this.wanted = false;
+      exportXLS(this.response, 'thalamus_register_contact');
+      this.wanted = true;
+    }
   };
 
   handleOpenPersonLegal = (event: any, document: string) => {

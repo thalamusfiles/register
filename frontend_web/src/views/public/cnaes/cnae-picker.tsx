@@ -24,7 +24,7 @@ export class CnaePickerPlugin extends Component<CnaeProps> {
         <Form.Control autoComplete="off" as="select" name={this.props.name} value={this.props.value} onMouseDown={() => this.pickerRef.show()}>
           <option>{option}</option>
         </Form.Control>
-        <Picker onSel={this.props.onSel} title={'Selecione o Estado'} header={['CNAE', 'Descrição']} ref={(ref) => (this.pickerRef = ref)} />
+        <Picker onSel={this.props.onSel} title={'Selecione o CNAE'} header={['CNAE', 'Descrição']} ref={(ref) => (this.pickerRef = ref)} />
       </>
     );
   }

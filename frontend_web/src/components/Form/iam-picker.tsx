@@ -135,6 +135,7 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
         contents: props.options,
       };
     }
+    return null;
   }
 
   setOptions = (options: IamOptionValue[]) => {
@@ -190,7 +191,7 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
     const { contents } = this.state;
 
     return (
-      <Modal show={this.state.modalVisible} toggle={this.toggle} size="lg">
+      <Modal show={this.state.modalVisible} size="lg">
         <Modal.Header>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
