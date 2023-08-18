@@ -197,9 +197,9 @@ const ContactPrettyResult: React.FC = observer(() => {
                   </Link>
                 </td>
                 <td>{resp.name}</td>
-                <td>{resp.phone}</td>
-                <td>{resp.email}</td>
-                <td>{resp.fax}</td>
+                <td>{resp.phone?.join(', ')}</td>
+                <td>{resp.email?.join(', ')}</td>
+                <td>{resp.fax?.join(', ')}</td>
               </tr>
             ))}
         </tbody>

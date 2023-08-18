@@ -19,6 +19,8 @@ export class Migration20230602183124 extends Migration {
     /**
      * Foreign keys
      */
+
+    this.addSql('create index partner_establishment_hash_id_idx on "partner" using hash (establishment_hash_id);');
   }
 
   async down(): Promise<void> {

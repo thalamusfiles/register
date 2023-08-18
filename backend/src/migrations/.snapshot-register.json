@@ -366,6 +366,16 @@
       "schema": "public",
       "indexes": [
         {
+          "keyName": "person_resource_person_hash_id_index",
+          "columnNames": [
+            "person_hash_id"
+          ],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "expression": "create index person_resource_person_hash_id_idx on \"person_resource\" using hash (person_hash_id);"
+        },
+        {
           "keyName": "person_resource_pkey",
           "columnNames": [
             "hash_id"
@@ -615,6 +625,16 @@
       "name": "contact",
       "schema": "public",
       "indexes": [
+        {
+          "keyName": "contact_person_hash_id_index",
+          "columnNames": [
+            "person_hash_id"
+          ],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "expression": "create index contact_person_hash_id_idx on \"contact\" using hash (person_hash_id);"
+        },
         {
           "keyName": "contact_pkey",
           "columnNames": [
@@ -1055,6 +1075,16 @@
       "schema": "public",
       "indexes": [
         {
+          "keyName": "establishment_person_hash_id_index",
+          "columnNames": [
+            "person_hash_id"
+          ],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "expression": "create index establishment_person_hash_id_idx on \"establishment\" using hash (person_hash_id);"
+        },
+        {
           "keyName": "establishment_pkey",
           "columnNames": [
             "hash_id"
@@ -1211,6 +1241,16 @@
       "name": "partner",
       "schema": "public",
       "indexes": [
+        {
+          "keyName": "partner_establishment_hash_id_index",
+          "columnNames": [
+            "establishment_hash_id"
+          ],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "expression": "create index partner_establishment_hash_id_idx on \"contact\" using hash (establishment_hash_id);"
+        },
         {
           "keyName": "partner_pkey",
           "columnNames": [

@@ -1,4 +1,4 @@
-import { ArrayType, Entity, ManyToOne, Property } from '@mikro-orm/core';
+import { ArrayType, Entity, Index, ManyToOne, Property } from '@mikro-orm/core';
 import { City } from './Address/City';
 import { Country } from './Address/Country';
 import { RegisterBaseEntity } from './Base/RegisterBaseEntity';
@@ -7,6 +7,7 @@ import { Resource } from './Resource';
 import { ResourceCountry } from './ResourceCountry';
 
 @Entity({ schema: 'public', readonly: true })
+@Index({ properties: ['person'], expression: 'create index establishment_person_hash_id_idx on "establishment" using hash (person_hash_id)' })
 export class Establishment extends RegisterBaseEntity {
   @ManyToOne(() => ResourceCountry, { nullable: false })
   resourceCountry?: ResourceCountry;

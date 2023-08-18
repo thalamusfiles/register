@@ -25,12 +25,13 @@ export class Migration20230509115642 extends Migration {
     );
 
     /**
-     * Foreign keys
+     * Foreign keys and index
      */
+
+    this.addSql('create index establishment_person_hash_id_idx on "establishment" using hash (person_hash_id);;');
   }
 
   async down(): Promise<void> {
-
     this.addSql(`drop table if exists "establishment" cascade;`);
   }
 }
