@@ -23,7 +23,7 @@ export class PersonController {
   async findLegalByDocument(@Query() { document }: FindCompanyDto): Promise<any> {
     this.logger.log(`Find Legal By Document`, { product: productsNames.PersonFindLegalByDocument, params: { document } });
 
-    return await this.findPersonByDocumentService.findById(document);
+    return await this.findPersonByDocumentService.findLegalByDocument(document);
   }
 
   /**

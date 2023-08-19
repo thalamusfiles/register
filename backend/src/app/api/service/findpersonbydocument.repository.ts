@@ -1,8 +1,9 @@
-import { EntityRepository } from '@mikro-orm/core';
+import { EntityRepository, FilterQuery } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable, Logger } from '@nestjs/common';
 import { Knex, PostgreSqlConnection } from '@mikro-orm/postgresql';
 import FindPersonByDocument from '../../../model/Materialized/FindPersonByDocument';
+import { Establishment } from '../../../model/Establishment';
 
 @Injectable()
 export class FindPersonByDocumentService {
@@ -21,14 +22,18 @@ export class FindPersonByDocumentService {
   /**
    * Busca registro de empresas
    */
-  async findById(document: string): Promise<FindPersonByDocument> {
-    this.logger.verbose('Find by Id');
+  async findLegalByDocument(document: string): Promise<FindPersonByDocument> {
+    this.logger.verbose(`Find legal by document ${document}`);
 
-    const where = {
-      key: `br:cnpj:${document.replace(/\./g, '')}`,
-    };
+    document = document.replace(/\./g, '');
 
-    return await this.findPersonByDocumentRepo.findOneOrFail(where);
+    return await this.findPersonByDocumentRepo.findOneOrFail(
+      {},
+      {
+        fields: ['key', 'brGovDados'],
+        filters: { document: { document } },
+      },
+    );
   }
 
   /**
@@ -37,16 +42,17 @@ export class FindPersonByDocumentService {
   async findLegalRandom(): Promise<any> {
     this.logger.log(`Find Random Legal`);
 
-    const schemaName = this.findPersonByDocumentRepo.getEntityManager().getMetadata().get(FindPersonByDocument.name).schema;
-    const tableName = this.findPersonByDocumentRepo.getEntityManager().getMetadata().get(FindPersonByDocument.name).tableName;
+    const tableName = this.findPersonByDocumentRepo.getEntityManager().getMetadata().get(Establishment.name).tableName;
     const randomize = 'TABLESAMPLE SYSTEM (1)';
 
     const query = this.knex
-      .select('*')
-      .from(this.knex.raw(`${schemaName}.${tableName} ${randomize}`))
+      .select('extra_key')
+      .from(this.knex.raw(`${tableName} ${randomize}`))
       .limit(1)
       .first();
 
-    return await query;
+    const rs = await query;
+
+    return this.findLegalByDocument(rs.extra_key);
   }
 }

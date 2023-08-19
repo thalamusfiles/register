@@ -7,8 +7,9 @@ export class Migration20230509115642 extends Migration {
 
     // Cria a tabela materializada
     this.addSql(
-      `create materialized view if not exists "materialized".find_person_by_document as
+      `create or replace view "materialized".find_person_by_document as
        select 
+       e.hash_id,
       'br:cnpj:' || (select a[1] || '/' || lpad(a[2], 4, '0') || '-' || lpad(a[3], 2, '0') from REGEXP_MATCHES(e.extra_key, '(.*)/(\d+)-(.*)') a) as key,
       json_build_object(
         'documentType', p.document_type,
@@ -67,10 +68,10 @@ export class Migration20230509115642 extends Migration {
         ),
         'reason', reason."value"->>'description'
       ) as "brGovDados"
-    from person p
-    inner join person_resource pr on pr.person_hash_id = p.hash_id 
-    inner join establishment e    on e.person_hash_id = p.hash_id
-    inner join contact c          on c.person_hash_id = p.hash_id and e.extra_key = c.extra_key
+    from establishment e
+    inner join person p           on p.hash_id = e.person_hash_id
+    inner join person_resource pr on pr.person_hash_id = e.person_hash_id
+    left join contact c           on c.person_hash_id = e.person_hash_id and e.extra_key = c.extra_key
     left join "address".country country on country.hash_id = hashtextextended('br:br_gov_dados:' || nullif(e."data"->>'countryCode', ''), 1)
     left join "address".city city       on city.hash_id = hashtextextended('br:br_gov_dados:' || nullif(e."data"->>'cityCode',''), 1)
     left join type_key_value activity   on activity.hash_id = hashtextextended( 'br:br_gov_dados:cnae:' || e."main_activity" , 1)
