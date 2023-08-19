@@ -1,5 +1,4 @@
-import { Entity, ManyToOne, Property } from '@mikro-orm/core';
-import { TypeKeyValue } from '../TypeKeyValue';
+import { Entity, Property } from '@mikro-orm/core';
 
 @Entity({
   schema: 'materialized',
@@ -14,8 +13,8 @@ export default class RelEstablishmentByMonthAndNature {
   @Property()
   natureCode?: string;
 
-  @ManyToOne(() => TypeKeyValue)
-  nature?: TypeKeyValue;
+  @Property()
+  nature?: string;
 
   @Property()
   total?: number;
