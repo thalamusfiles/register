@@ -61,7 +61,7 @@ export class EstablishmentService {
 
     const query = this.knex
       .select('zipcode')
-      .from(this.knex.raw(`$${this.estTableName} ${randomize}`))
+      .from(this.knex.raw(`${this.estTableName} ${randomize}`))
       .limit(1)
       .first();
 
