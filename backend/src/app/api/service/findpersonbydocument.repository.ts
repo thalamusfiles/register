@@ -1,4 +1,4 @@
-import { EntityRepository, FilterQuery, NotFoundError } from '@mikro-orm/core';
+import { EntityRepository, NotFoundError } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable, Logger } from '@nestjs/common';
 import { Knex, PostgreSqlConnection } from '@mikro-orm/postgresql';
@@ -10,7 +10,7 @@ export class FindPersonByDocumentService {
   private readonly logger = new Logger(FindPersonByDocumentService.name);
   private readonly knex: Knex;
 
-  private readonly cnpjRegex = /(\d{8})(\d{4})(\d{2})/;
+  private readonly cnpjRegex = /(\d{7,8})(\d{4})(\d{2})/;
 
   constructor(
     @InjectRepository(FindPersonByDocument)
