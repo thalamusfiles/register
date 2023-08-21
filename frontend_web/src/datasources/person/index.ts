@@ -4,7 +4,7 @@ import Endpoints from '../endpoints';
 
 export type PersonFindByDocumentRespDto = {
   key: string;
-  brGovDados: Record<string, string | number>;
+  brGovDados: Record<string, string | number | Array<string>>;
 };
 export type PartnerList = Array<any>;
 

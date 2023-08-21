@@ -68,7 +68,9 @@
         "json": "JSON",
         "xls": "XLS",
         "table": "Tabela",
-        "valid": "Válido"
+        "valid": "Válido",
+        "naturePerson": "Pessoa Física",
+        "protectedInfo": "Informação protegida"
     },
     "action": {
         "access": "Acessar",

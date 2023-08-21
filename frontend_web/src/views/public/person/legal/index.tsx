@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
-import { Alert, Button, ButtonGroup, Card, Col, Form, InputGroup, Row } from 'react-bootstrap';
+import { Alert, Badge, Button, ButtonGroup, Card, Col, Form, InputGroup, OverlayTrigger, Popover, Row } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { useParams } from 'react-router-dom';
 import { useI18N } from '../../../../commons/i18';
@@ -161,7 +161,7 @@ const PersonPrettyResult: React.FC = observer(() => {
               Tipo de documento
             </Form.Label>
             <Col sm="8">
-              <Form.Control plaintext readOnly defaultValue={data?.documentType} />
+              <Form.Control plaintext readOnly defaultValue={(data?.documentType as string)?.toLocaleUpperCase()} />
             </Col>
           </Form.Group>
 
@@ -180,6 +180,7 @@ const PersonPrettyResult: React.FC = observer(() => {
             </Form.Label>
             <Col sm="8">
               <Form.Control plaintext readOnly defaultValue={data?.name} />
+              {data?.naturePerson && <Badge>{__('label.naturePerson')}</Badge>}
             </Col>
           </Form.Group>
 
@@ -204,6 +205,15 @@ const PersonPrettyResult: React.FC = observer(() => {
 
           <Form.Group as={Row}>
             <Form.Label column sm="4">
+              Atividades secundárias
+            </Form.Label>
+            <Col sm="8">
+              <Form.Control plaintext readOnly defaultValue={(data?.otherActivities as Array<string>)?.join(', ')} />
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Row}>
+            <Form.Label column sm="4">
               Tipo de empresa <br />
               Atividade principal
             </Form.Label>
@@ -220,11 +230,52 @@ const PersonPrettyResult: React.FC = observer(() => {
               <Form.Control plaintext readOnly defaultValue={data?.email} />
             </Col>
           </Form.Group>
+
+          <Form.Group as={Row}>
+            <Form.Label column sm="4">
+              Telefone
+            </Form.Label>
+            <Col sm="8">
+              <Form.Control plaintext readOnly defaultValue={data?.phone} />
+              {data?.naturePerson && <ProtectedInfoBadge __={__} />}
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Row}>
+            <Form.Label column sm="4">
+              Endereço
+            </Form.Label>
+            <Col sm="8">
+              <Form.Control
+                plaintext
+                readOnly
+                defaultValue={`${data?.zipcode || ''} - ${data?.publicPlaceCode || ''} ${data?.publicPlace || ''} ${data?.number || ''} ${
+                  data?.complement || ''
+                } ${data?.neighborhood || ''} ${data?.cityName || ''} ${data?.stateCode}`}
+              />
+              {data?.naturePerson && <ProtectedInfoBadge __={__} />}
+            </Col>
+          </Form.Group>
         </Form>
       )}
     </>
   );
 });
+
+const ProtectedInfoBadge: React.FC<{ __: Function }> = ({ __ }: any) => {
+  return (
+    <OverlayTrigger trigger="click" placement="right" overlay={ProtectedInfoPopover}>
+      <Badge bg="warning">{__('label.protectedInfo')}</Badge>
+    </OverlayTrigger>
+  );
+};
+
+const ProtectedInfoPopover = (
+  <Popover>
+    <Popover.Header as="h3">Informação protegida</Popover.Header>
+    <Popover.Body>O Telefone e complemento dos endereços das pessoas físicas não estão disponíveis via API.</Popover.Body>
+  </Popover>
+);
 
 const PersonLegalResult: React.FC = observer(() => {
   const ctrl = usePersonLegalStore();
