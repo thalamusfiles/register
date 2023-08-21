@@ -84,6 +84,16 @@ const ZipcodeForm: React.FC = observer(() => {
 
   return (
     <Form>
+      {!!ctrl.erroMessages?.length && (
+        <Alert variant="danger">
+          {ctrl.erroMessages.map((msg) => (
+            <>
+              {__(msg)} <br />
+            </>
+          ))}
+        </Alert>
+      )}
+
       <Row className="align-items-center">
         <Col md={4}>
           <Form.Label htmlFor="country" visuallyHidden>
@@ -91,7 +101,8 @@ const ZipcodeForm: React.FC = observer(() => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.country')}</InputGroup.Text>
-            <Form.Control id="country" placeholder={__('country.brazil')} disabled />
+            <Form.Control id="country" placeholder={__('country.brazil')} disabled isValid={!!ctrl.erroMessages.length} />
+            <Form.Control.Feedback type="valid">{__('label.valid')}</Form.Control.Feedback>
           </InputGroup>
         </Col>
         <Col md={4}>
@@ -100,7 +111,8 @@ const ZipcodeForm: React.FC = observer(() => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.zipcode')}</InputGroup.Text>
-            <Form.Control id="document" value={ctrl.zipcode} onChange={ctrl.handleDocument} />
+            <Form.Control id="document" value={ctrl.zipcode} onChange={ctrl.handleDocument} isInvalid={!!ctrl.erros?.zipcode} />
+            <Form.Control.Feedback type="invalid">{ctrl.erros?.zipcode?.map(__)}</Form.Control.Feedback>
           </InputGroup>
         </Col>
       </Row>
@@ -111,8 +123,16 @@ const ZipcodeForm: React.FC = observer(() => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.limit.offset')}</InputGroup.Text>
-            <Form.Control id="document" value={ctrl.limit} onChange={ctrl.handleLimit} />
-            <Form.Control id="document" value={ctrl.offset} onChange={ctrl.handleOffset} />
+            <Form.Control
+              id="document"
+              value={ctrl.limit}
+              onChange={ctrl.handleLimit}
+              isValid={!!ctrl.erroMessages.length && !ctrl.erros?.limit}
+              isInvalid={!!ctrl.erros?.limit}
+            />
+            <Form.Control id="document" value={ctrl.offset} onChange={ctrl.handleOffset} isValid={!!ctrl.erroMessages.length && !ctrl.erros?.limit} />
+            <Form.Control.Feedback type="valid">{__('label.valid')}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{ctrl.erros?.limit?.map(__)}</Form.Control.Feedback>
           </InputGroup>
         </Col>
         <Col>

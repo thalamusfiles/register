@@ -8,6 +8,7 @@ declare type StateProps = {
   value?: string;
   description?: string;
   onSel: (value: any | null, row: any, event: any) => void;
+  isValid?: boolean;
 };
 
 export class StatePickerPlugin extends Component<StateProps> {
@@ -21,7 +22,14 @@ export class StatePickerPlugin extends Component<StateProps> {
     }
     return (
       <>
-        <Form.Control autoComplete="off" as="select" name={this.props.name} value={this.props.value} onMouseDown={() => this.pickerRef.show()}>
+        <Form.Control
+          autoComplete="off"
+          as="select"
+          name={this.props.name}
+          value={this.props.value}
+          onMouseDown={() => this.pickerRef.show()}
+          isValid={this.props.isValid}
+        >
           <option>{option}</option>
         </Form.Control>
         <Picker onSel={this.props.onSel} title={'Selecione o Estado'} header={['Nome']} ref={(ref) => (this.pickerRef = ref)} />

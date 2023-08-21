@@ -9,6 +9,8 @@ declare type CityProps = {
   stateCode?: string;
   description?: string;
   onSel: (value: any | null, row: any, event: any) => void;
+  isValid?: boolean;
+  isInvalid?: boolean;
 };
 
 export class CityPickerPlugin extends Component<CityProps> {
@@ -22,12 +24,21 @@ export class CityPickerPlugin extends Component<CityProps> {
     }
     return (
       <>
-        <Form.Control autoComplete="off" as="select" name={this.props.name} value={this.props.value} onMouseDown={() => this.pickerRef.show()}>
+        <Form.Control
+          autoComplete="off"
+          as="select"
+          name={this.props.name}
+          value={this.props.value}
+          onMouseDown={() => this.pickerRef.show()}
+          isValid={this.props.isValid}
+          isInvalid={this.props.isInvalid}
+        >
           <option>{option}</option>
         </Form.Control>
         <Picker
           onSel={this.props.onSel}
           title={'Selecione a Cidade'}
+          subtitle={'Informar o nome da cidade (min 4 dígitos) no campo busca, para liberar a seleção de cidades.'}
           header={['Nome']}
           stateCode={this.props.stateCode}
           ref={(ref) => (this.pickerRef = ref)}

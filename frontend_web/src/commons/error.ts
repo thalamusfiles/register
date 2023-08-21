@@ -5,7 +5,6 @@ import { FormExceptionError } from './types/FormExceptionError';
 type GetFormExceptionErrosOptions = {
   splitByConstraints?: boolean;
   ignoreKindsToMessage?: string[];
-  removeEntityPrefix?: boolean;
 };
 
 export type Erros = [string[], ErrorRecord];
@@ -19,7 +18,7 @@ type ErrosObject = Erros | ErrosAsList;
  */
 export const getFormExceptionErrosToObject = (
   responseData: any,
-  { splitByConstraints, ignoreKindsToMessage, removeEntityPrefix }: GetFormExceptionErrosOptions = {},
+  { splitByConstraints, ignoreKindsToMessage }: GetFormExceptionErrosOptions = {},
 ): ErrosObject => {
   const messages: Array<string> = [];
   const erros: ErrorRecord | ErrorListRecord = {};
@@ -31,9 +30,6 @@ export const getFormExceptionErrosToObject = (
 
       // Percorre os erros e monta o objeto de retorno;
       for (let { kind, error, constraints } of respErros) {
-        if (removeEntityPrefix) {
-          kind = kind.replace('entity.', '');
-        }
         if (splitByConstraints) {
           const constraintErros: string[] = constraints?.map((value) => `${kind}.${value}`) || [error];
           // Só adiciona se tiver constraint

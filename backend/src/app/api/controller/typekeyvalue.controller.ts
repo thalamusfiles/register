@@ -19,9 +19,9 @@ export class TypeKeyValueController {
   @ApiOperation({ tags: ['KeyValue'], summary: 'Coletar registro de estados' })
   @Get('/br/cnae')
   @UsePipes(new RegisterValidationPipe())
-  async findBRCNAES(@Query() { codeOrDescriptionLike }: FindCnaesDto): Promise<any> {
+  async findBRCNAES(@Query() { codeOrDescriptionLike, limit }: FindCnaesDto): Promise<any> {
     this.logger.log(`Find BR CNAES`, { product: productsNames.TypeKeyValueFindBRCNAES, params: { codeOrDescriptionLike } });
 
-    return this.typeKeyValueService.findBRCNAES(codeOrDescriptionLike);
+    return this.typeKeyValueService.findBRCNAES(codeOrDescriptionLike, limit);
   }
 }

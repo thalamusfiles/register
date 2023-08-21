@@ -1,4 +1,4 @@
-import { EntityRepository, FilterQuery } from '@mikro-orm/core';
+import { EntityRepository, FilterQuery, NotFoundError } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable, Logger } from '@nestjs/common';
 import { Knex, PostgreSqlConnection } from '@mikro-orm/postgresql';
@@ -28,6 +28,7 @@ export class FindPersonByDocumentService {
     this.logger.verbose(`Find legal by document ${document}`);
 
     document = this.formatDocumentToSearch('cnpj', document);
+    if (!document) throw new NotFoundError('');
 
     return await this.findPersonByDocumentRepo.findOneOrFail(
       {},
@@ -61,9 +62,10 @@ export class FindPersonByDocumentService {
   formatDocumentToSearch(type: string, document: string): string {
     switch (type) {
       case 'cnpj':
-      default:
         const mathces = document.replace(/[\.\/-]/g, '').match(this.cnpjRegex);
-        return `${mathces[1]}/${mathces[2]}-${mathces[3]}`;
+        if (mathces) return `${mathces[1]}/${mathces[2]}-${mathces[3]}`;
+      default:
     }
+    return null;
   }
 }

@@ -21,7 +21,7 @@ export class TypeKeyValueService {
   /**
    * Busca estados
    */
-  async findBRCNAES(codeOrDescriptionLike: string): Promise<TypeKeyValue[]> {
+  async findBRCNAES(codeOrDescriptionLike: string, limit: number): Promise<TypeKeyValue[]> {
     this.logger.verbose('findStates');
 
     const whereAnds: FilterQuery<TypeKeyValue> = [{ resourceCountry: await this.getResourceRef('br') }, { type: 'cnae' }];
@@ -36,7 +36,7 @@ export class TypeKeyValueService {
       });
     }
 
-    return this.typeKeyValueRepo.find({ $and: whereAnds }, { fields: ['key', 'value'] });
+    return this.typeKeyValueRepo.find({ $and: whereAnds }, { fields: ['key', 'value'], limit });
   }
 
   private async getResourceRef(acronym: string) {

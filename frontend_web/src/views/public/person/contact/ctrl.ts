@@ -4,6 +4,8 @@ import { PartnerList } from '../../../../datasources/person';
 import { historyPush } from '../../../../commons/route';
 import { ContactDataSource } from '../../../../datasources/contact';
 import { exportXLS } from '../../../../commons/tools';
+import { ErrosAsList, getFormExceptionErrosToObject } from '../../../../commons/error';
+import type { ErrorListRecord } from '../../../../commons/types/ErrorListRecord';
 
 export class ContactCtrl {
   constructor() {
@@ -21,6 +23,10 @@ export class ContactCtrl {
   @observable offset = 0;
   @observable waiting: boolean | null = null;
   @observable response: PartnerList | null = null;
+
+  // Erros
+  @observable erroMessages: string[] = [];
+  @observable erros: ErrorListRecord = {};
 
   @action
   init = () => {};
@@ -59,6 +65,8 @@ export class ContactCtrl {
   @action
   findDocument = () => {
     this.waiting = true;
+    this.erroMessages = [];
+    this.erros = {};
 
     new ContactDataSource()
       .find(this.businessType?.key!, this.city?.code!, this.limit, this.offset)
@@ -69,6 +77,9 @@ export class ContactCtrl {
       .catch((ex) => {
         this.waiting = false;
         this.response = null;
+
+        const data = ex.response.data;
+        [this.erroMessages, this.erros] = getFormExceptionErrosToObject(data, { splitByConstraints: true }) as ErrosAsList;
 
         this.notifyExeption(ex);
       });
@@ -81,6 +92,8 @@ export class ContactCtrl {
     this.businessType = null;
 
     this.waiting = true;
+    this.erroMessages = [];
+    this.erros = {};
 
     new ContactDataSource()
       .findRandom(this.limit, this.offset)

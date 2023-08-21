@@ -1,4 +1,13 @@
 {
+    "document.isNotEmpty": "Campo documento obrigatório.",
+    "cityCode.isNotEmpty":"Campo cidade obrigatório.",
+    "cityCode.isString":"",
+    "businessType.isNotEmpty":"Campo tipo de empresa obrigatório.",
+    "businessType.isString":"",
+    "limit.minLength": "Limite deve ser maior ou igual a 10.",
+    "limit.maxLength": "Limite deve ser menor ou igual a 9999.",
+    "zipcode.isNotEmpty": "Campo código postal obrigatório.",
+
     "menu": {
         "brand": "Register",
         "home": "Início",
@@ -58,7 +67,8 @@
         "formated": "Formatado",
         "json": "JSON",
         "xls": "XLS",
-        "table": "Tabela"
+        "table": "Tabela",
+        "valid": "Válido"
     },
     "action": {
         "access": "Acessar",

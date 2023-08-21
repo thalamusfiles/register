@@ -8,6 +8,8 @@ declare type CnaeProps = {
   value?: string;
   description?: string;
   onSel: (value: any | null, row: any, event: any) => void;
+  isValid?: boolean;
+  isInvalid?: boolean;
 };
 
 export class CnaePickerPlugin extends Component<CnaeProps> {
@@ -21,7 +23,15 @@ export class CnaePickerPlugin extends Component<CnaeProps> {
     }
     return (
       <>
-        <Form.Control autoComplete="off" as="select" name={this.props.name} value={this.props.value} onMouseDown={() => this.pickerRef.show()}>
+        <Form.Control
+          autoComplete="off"
+          as="select"
+          name={this.props.name}
+          value={this.props.value}
+          onMouseDown={() => this.pickerRef.show()}
+          isValid={this.props.isValid}
+          isInvalid={this.props.isInvalid}
+        >
           <option>{option}</option>
         </Form.Control>
         <Picker onSel={this.props.onSel} title={'Selecione o CNAE'} header={['CNAE', 'Descrição']} ref={(ref) => (this.pickerRef = ref)} />

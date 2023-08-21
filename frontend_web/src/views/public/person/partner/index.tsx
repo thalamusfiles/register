@@ -84,6 +84,16 @@ const PartnerForm: React.FC = observer(() => {
 
   return (
     <Form>
+      {!!ctrl.erroMessages?.length && (
+        <Alert variant="danger">
+          {ctrl.erroMessages.map((msg) => (
+            <>
+              {__(msg)} <br />
+            </>
+          ))}
+        </Alert>
+      )}
+
       <Row className="align-items-center">
         <Col xs="auto">
           <Form.Label htmlFor="country" visuallyHidden>
@@ -91,7 +101,8 @@ const PartnerForm: React.FC = observer(() => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.country')}</InputGroup.Text>
-            <Form.Control id="country" placeholder={__('country.brazil')} disabled />
+            <Form.Control id="country" placeholder={__('country.brazil')} disabled isValid={!!ctrl.erroMessages.length} />
+            <Form.Control.Feedback type="valid">{__('label.valid')}</Form.Control.Feedback>
           </InputGroup>
         </Col>
         <Col xs="auto">
@@ -100,22 +111,28 @@ const PartnerForm: React.FC = observer(() => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.partner_doc')}</InputGroup.Text>
-            <Form.Control id="document" value={ctrl.document} onChange={ctrl.handleDocument} />
+            <Form.Control id="document" value={ctrl.document} onChange={ctrl.handleDocument} isInvalid={!!ctrl.erros?.document} />
+            <Form.Control.Feedback type="invalid">{ctrl.erros?.document?.map(__)}</Form.Control.Feedback>
           </InputGroup>
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <ButtonGroup className="float-end">
-            <Button type="button" className="mb-2" disabled={!!ctrl.waiting} onClick={ctrl.findDocument}>
-              {__('action.search')}
-            </Button>
-            <Button type="button" className="mb-2" variant="outline-primary" disabled={!!ctrl.waiting} onClick={ctrl.findDocumentRandom}>
-              {__('action.random_search')}
-            </Button>
-          </ButtonGroup>
-        </Col>
-      </Row>
+      <Alert variant="warning">
+        <Row>
+          <Col md={5}>
+            <p>Servico desabilitado para manutenção. Previsão de retorno para <strong>outubro de 2023</strong>.</p>
+          </Col>
+          <Col>
+            <ButtonGroup className="float-end">
+              <Button type="button" className="mb-2" disabled={!!ctrl.waiting || true} onClick={ctrl.findDocument}>
+                {__('action.search')}
+              </Button>
+              <Button type="button" className="mb-2" variant="outline-primary" disabled={!!ctrl.waiting || true} onClick={ctrl.findDocumentRandom}>
+                {__('action.random_search')}
+              </Button>
+            </ButtonGroup>
+          </Col>
+        </Row>
+      </Alert>
     </Form>
   );
 });

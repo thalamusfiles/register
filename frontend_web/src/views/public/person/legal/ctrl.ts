@@ -1,5 +1,7 @@
 import { action, makeObservable, observable } from 'mobx';
 import { createContext, useContext } from 'react';
+import { ErrosAsList, getFormExceptionErrosToObject } from '../../../../commons/error';
+import type { ErrorListRecord } from '../../../../commons//types/ErrorListRecord';
 import { historyReplace } from '../../../../commons/route';
 import { thalamusData } from '../../../../config/thalamus.data';
 import { PersonDataSource, PersonFindByDocumentRespDto } from '../../../../datasources/person';
@@ -17,6 +19,10 @@ export class PersonLegalCtrl {
   @observable waiting: boolean | null = null;
   @observable response: PersonFindByDocumentRespDto | null = null;
 
+  // Erros
+  @observable erroMessages: string[] = [];
+  @observable erros: ErrorListRecord = {};
+
   @action
   handleDocument = (e: any) => {
     this.document = e.target.value;
@@ -27,6 +33,8 @@ export class PersonLegalCtrl {
     historyReplace({ document: this.document }, 'person_legal_view');
 
     this.waiting = true;
+    this.erroMessages = [];
+    this.erros = {};
 
     new PersonDataSource()
       .findLegalByDocument(this.document!)
@@ -37,6 +45,9 @@ export class PersonLegalCtrl {
       .catch((ex) => {
         this.waiting = false;
         this.response = null;
+
+        const data = ex.response.data;
+        [this.erroMessages, this.erros] = getFormExceptionErrosToObject(data, { splitByConstraints: true }) as ErrosAsList;
 
         this.notifyExeption(ex);
       });
@@ -51,7 +62,10 @@ export class PersonLegalCtrl {
     }
 
     this.document = '';
+
     this.waiting = true;
+    this.erroMessages = [];
+    this.erros = {};
 
     new PersonDataSource()
       .findLegalRandom()

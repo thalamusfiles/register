@@ -3,6 +3,8 @@ import { createContext, useContext } from 'react';
 import { PartnerList } from '../../../../datasources/person';
 import { historyPush } from '../../../../commons/route';
 import { EstablishmentDataSource } from '../../../../datasources/establishment';
+import { ErrosAsList, getFormExceptionErrosToObject } from '../../../../commons/error';
+import type { ErrorListRecord } from '../../../../commons/types/ErrorListRecord';
 
 export class TypeBusinessTypeCtrl {
   constructor() {
@@ -20,6 +22,10 @@ export class TypeBusinessTypeCtrl {
   @observable offset = 0;
   @observable waiting: boolean | null = null;
   @observable response: PartnerList | null = null;
+
+  // Erros
+  @observable erroMessages: string[] = [];
+  @observable erros: ErrorListRecord = {};
 
   @action
   init = () => {};
@@ -58,6 +64,8 @@ export class TypeBusinessTypeCtrl {
   @action
   findDocument = () => {
     this.waiting = true;
+    this.erroMessages = [];
+    this.erros = {};
 
     new EstablishmentDataSource()
       .findByBusinessType(this.businessType?.key!, this.city?.code!, this.limit, this.offset)
@@ -68,6 +76,9 @@ export class TypeBusinessTypeCtrl {
       .catch((ex) => {
         this.waiting = false;
         this.response = null;
+
+        const data = ex.response.data;
+        [this.erroMessages, this.erros] = getFormExceptionErrosToObject(data, { splitByConstraints: true }) as ErrosAsList;
 
         this.notifyExeption(ex);
       });
@@ -80,6 +91,9 @@ export class TypeBusinessTypeCtrl {
     this.businessType = null;
 
     this.waiting = true;
+    this.erroMessages = [];
+    this.erros = {};
+
     new EstablishmentDataSource()
       .findByBusinessTypeRandom(this.limit, this.offset)
       .then((response) => {

@@ -3,6 +3,8 @@ import { createContext, useContext } from 'react';
 import { historyReplace } from '../../../../commons/route';
 import { PartnerList, PersonDataSource } from '../../../../datasources/person';
 import { historyPush } from '../../../../commons/route';
+import { type ErrorListRecord } from '../../../../commons/types/ErrorListRecord';
+import { ErrosAsList, getFormExceptionErrosToObject } from '../../../../commons/error';
 
 export class PersonPartnerCtrl {
   constructor() {
@@ -17,6 +19,10 @@ export class PersonPartnerCtrl {
   @observable waiting: boolean | null = null;
   @observable response: PartnerList | null = null;
 
+  // Erros
+  @observable erroMessages: string[] = [];
+  @observable erros: ErrorListRecord = {};
+
   @action
   handleDocument = (e: any) => {
     this.document = e.target.value;
@@ -27,6 +33,8 @@ export class PersonPartnerCtrl {
     historyReplace({ document: this.document });
 
     this.waiting = true;
+    this.erroMessages = [];
+    this.erros = {};
 
     new PersonDataSource()
       .findNaturalByDocument(this.document!)
@@ -38,6 +46,9 @@ export class PersonPartnerCtrl {
         this.waiting = false;
         this.response = null;
 
+        const data = ex.response.data;
+        [this.erroMessages, this.erros] = getFormExceptionErrosToObject(data, { splitByConstraints: true }) as ErrosAsList;
+
         this.notifyExeption(ex);
       });
   };
@@ -45,7 +56,10 @@ export class PersonPartnerCtrl {
   @action
   findDocumentRandom = () => {
     this.document = '';
+
     this.waiting = true;
+    this.erroMessages = [];
+    this.erros = {};
 
     new PersonDataSource()
       .findNaturalRandom()

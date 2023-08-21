@@ -80,6 +80,19 @@ const BusinessTypeForm: React.FC = observer(() => {
 
   return (
     <Form>
+      {!!ctrl.erroMessages?.length && (
+        <Alert variant="danger">
+          {ctrl.erroMessages
+            .map(__)
+            .filter((value) => value)
+            .map((msg) => (
+              <>
+                {msg} <br />
+              </>
+            ))}
+        </Alert>
+      )}
+
       <Row className="align-items-center">
         <Col md={3}>
           <Form.Label htmlFor="country" visuallyHidden>
@@ -87,7 +100,8 @@ const BusinessTypeForm: React.FC = observer(() => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.country')}</InputGroup.Text>
-            <Form.Control id="country" placeholder={__('country.brazil')} disabled />
+            <Form.Control id="country" placeholder={__('country.brazil')} disabled isValid={!!ctrl.erroMessages.length} />
+            <Form.Control.Feedback type="valid">{__('label.valid')}</Form.Control.Feedback>
           </InputGroup>
         </Col>
         <Col md={3}>
@@ -96,7 +110,14 @@ const BusinessTypeForm: React.FC = observer(() => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.state')}</InputGroup.Text>
-            <StatePickerPlugin name="state" value={ctrl.state?.code} description={ctrl.state?.name || __('label.select')} onSel={ctrl.handleState} />
+            <StatePickerPlugin
+              name="state"
+              value={ctrl.state?.code}
+              description={ctrl.state?.name || __('label.select')}
+              onSel={ctrl.handleState}
+              isValid={!!ctrl.erroMessages.length}
+            />
+            <Form.Control.Feedback type="valid">{__('label.valid')}</Form.Control.Feedback>
           </InputGroup>
         </Col>
         <Col md={3}>
@@ -111,7 +132,11 @@ const BusinessTypeForm: React.FC = observer(() => {
               value={ctrl.city?.code}
               description={ctrl.city?.name || __('label.select')}
               onSel={ctrl.handleCity}
+              isValid={!!ctrl.erroMessages.length && !ctrl.erros?.cityCode}
+              isInvalid={!!ctrl.erros?.cityCode}
             />
+            <Form.Control.Feedback type="valid">{__('label.valid')}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{ctrl.erros?.cityCode?.map(__)}</Form.Control.Feedback>
           </InputGroup>
         </Col>
         <Col md={3}>
@@ -125,7 +150,11 @@ const BusinessTypeForm: React.FC = observer(() => {
               value={ctrl.businessType?.key}
               description={ctrl.businessType?.key || __('label.select')}
               onSel={ctrl.handleBusinessType}
+              isValid={!!ctrl.erroMessages.length && !ctrl.erros?.businessType}
+              isInvalid={!!ctrl.erros?.businessType}
             />
+            <Form.Control.Feedback type="valid">{__('label.valid')}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{ctrl.erros?.businessType?.map(__)}</Form.Control.Feedback>
           </InputGroup>
         </Col>
       </Row>
@@ -136,8 +165,16 @@ const BusinessTypeForm: React.FC = observer(() => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.limit.offset')}</InputGroup.Text>
-            <Form.Control id="document" value={ctrl.limit} onChange={ctrl.handleLimit} />
-            <Form.Control id="document" value={ctrl.offset} onChange={ctrl.handleOffset} />
+            <Form.Control
+              id="document"
+              value={ctrl.limit}
+              onChange={ctrl.handleLimit}
+              isValid={!!ctrl.erroMessages.length && !ctrl.erros?.limit}
+              isInvalid={!!ctrl.erros?.limit}
+            />
+            <Form.Control id="document" value={ctrl.offset} onChange={ctrl.handleOffset} isValid={!!ctrl.erroMessages.length && !ctrl.erros?.limit} />
+            <Form.Control.Feedback type="valid">{__('label.valid')}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{ctrl.erros?.limit?.map(__)}</Form.Control.Feedback>
           </InputGroup>
         </Col>
         <Col>
@@ -173,7 +210,7 @@ const BusinessTypePrettyResult: React.FC = observer(() => {
           </tr>
         </thead>
         <tbody>
-        {ctrl.waiting === null && (
+          {ctrl.waiting === null && (
             <tr>
               <td colSpan={6}>{__('msg.enter_filter')}</td>
             </tr>

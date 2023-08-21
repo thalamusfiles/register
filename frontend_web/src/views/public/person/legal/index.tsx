@@ -93,6 +93,16 @@ const PersonLegaForm: React.FC = observer(() => {
 
   return (
     <Form>
+      {!!ctrl.erroMessages?.length && (
+        <Alert variant="danger">
+          {ctrl.erroMessages.map((msg) => (
+            <>
+              {__(msg)} <br />
+            </>
+          ))}
+        </Alert>
+      )}
+
       <Row className="align-items-center">
         <Col xs="auto">
           <Form.Label htmlFor="country" visuallyHidden>
@@ -100,7 +110,8 @@ const PersonLegaForm: React.FC = observer(() => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.country')}</InputGroup.Text>
-            <Form.Control id="country" placeholder={__('country.brazil')} disabled />
+            <Form.Control id="country" placeholder={__('country.brazil')} disabled isValid={!!ctrl.erroMessages.length} />
+            <Form.Control.Feedback type="valid">{__('label.valid')}</Form.Control.Feedback>
           </InputGroup>
         </Col>
         <Col xs="auto">
@@ -109,10 +120,12 @@ const PersonLegaForm: React.FC = observer(() => {
           </Form.Label>
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.business_doc')}</InputGroup.Text>
-            <Form.Control id="document" value={ctrl.document} onChange={ctrl.handleDocument} />
+            <Form.Control id="document" value={ctrl.document} onChange={ctrl.handleDocument} isInvalid={!!ctrl.erros?.document} />
+            <Form.Control.Feedback type="invalid">{ctrl.erros?.document?.map(__)}</Form.Control.Feedback>
           </InputGroup>
         </Col>
       </Row>
+
       <Row>
         <Col>
           <ButtonGroup className="float-end">

@@ -101,10 +101,10 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
     this.setState({ modalVisible: true });
   };
 
-  filter = (item: any) => {
+  filter = (item: IamOptionValue) => {
     if (this.state.search === '') return true;
 
-    const linha = (item.cols || []).join('');
+    const linha = (item.columns || []).join('');
     let contain = true;
     for (const regexp of this.state.searchRegexps) {
       contain = contain && regexp.test(linha);
@@ -199,7 +199,7 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
           {subtitle && <p>{subtitle}</p>}
           {placeholder !== false && (
             <Form.Group>
-              <Form.Label>{placeholder || 'Search'}</Form.Label>
+              <Form.Label>{placeholder || 'Buscar por'}</Form.Label>
               <Form.Control type="text" autoFocus defaultValue={this.state.search} onChange={this.searchChange} ref={this.searchInput} />
             </Form.Group>
           )}

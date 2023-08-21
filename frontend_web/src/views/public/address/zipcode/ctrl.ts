@@ -4,6 +4,8 @@ import { historyReplace } from '../../../../commons/route';
 import { PartnerList } from '../../../../datasources/person';
 import { historyPush } from '../../../../commons/route';
 import { EstablishmentDataSource } from '../../../../datasources/establishment';
+import type { ErrorListRecord } from '../../../../commons/types/ErrorListRecord';
+import { ErrosAsList, getFormExceptionErrosToObject } from '../../../../commons/error';
 
 export class AddressZipcodeCtrl {
   constructor() {
@@ -19,6 +21,10 @@ export class AddressZipcodeCtrl {
   @observable offset = 0;
   @observable waiting: boolean | null = null;
   @observable response: PartnerList | null = null;
+
+  // Erros
+  @observable erroMessages: string[] = [];
+  @observable erros: ErrorListRecord = {};
 
   @action
   handleDocument = (e: any) => {
@@ -46,6 +52,8 @@ export class AddressZipcodeCtrl {
     historyReplace({ document: this.zipcode });
 
     this.waiting = true;
+    this.erroMessages = [];
+    this.erros = {};
 
     new EstablishmentDataSource()
       .findByZipcode(this.zipcode, this.limit, this.offset)
@@ -57,6 +65,9 @@ export class AddressZipcodeCtrl {
         this.waiting = false;
         this.response = null;
 
+        const data = ex.response.data;
+        [this.erroMessages, this.erros] = getFormExceptionErrosToObject(data, { splitByConstraints: true }) as ErrosAsList;
+
         this.notifyExeption(ex);
       });
   };
@@ -64,7 +75,10 @@ export class AddressZipcodeCtrl {
   @action
   findDocumentRandom = () => {
     this.zipcode = '';
+
     this.waiting = true;
+    this.erroMessages = [];
+    this.erros = {};
 
     new EstablishmentDataSource()
       .findByZipcodeRandom(this.limit, this.offset)
