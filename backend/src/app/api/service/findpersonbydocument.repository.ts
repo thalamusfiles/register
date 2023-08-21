@@ -10,6 +10,8 @@ export class FindPersonByDocumentService {
   private readonly logger = new Logger(FindPersonByDocumentService.name);
   private readonly knex: Knex;
 
+  private readonly cnpjRegex = /(\d{8})(\d{4})(\d{2})/;
+
   constructor(
     @InjectRepository(FindPersonByDocument)
     private readonly findPersonByDocumentRepo: EntityRepository<FindPersonByDocument>,
@@ -25,7 +27,7 @@ export class FindPersonByDocumentService {
   async findLegalByDocument(document: string): Promise<FindPersonByDocument> {
     this.logger.verbose(`Find legal by document ${document}`);
 
-    document = document.replace(/\./g, '');
+    document = this.formatDocumentToSearch('cnpj', document);
 
     return await this.findPersonByDocumentRepo.findOneOrFail(
       {},
@@ -54,5 +56,14 @@ export class FindPersonByDocumentService {
     const rs = await query;
 
     return this.findLegalByDocument(rs.extra_key);
+  }
+
+  formatDocumentToSearch(type: string, document: string): string {
+    switch (type) {
+      case 'cnpj':
+      default:
+        const mathces = document.replace(/[\.\/-]/g, '').match(this.cnpjRegex);
+        return `${mathces[1]}/${mathces[2]}-${mathces[3]}`;
+    }
   }
 }

@@ -14,8 +14,8 @@ export class PersonLegalCtrl {
 
   // PersonLegal
   @observable document = '';
-  @observable wanted: boolean = false;
-  @observable response: PersonFindByDocumentRespDto | null = { brGovDados: { name: 'ihaaa' } } as any;
+  @observable waiting: boolean | null = null;
+  @observable response: PersonFindByDocumentRespDto | null = null;
 
   @action
   handleDocument = (e: any) => {
@@ -26,17 +26,16 @@ export class PersonLegalCtrl {
   findDocument = () => {
     historyReplace({ document: this.document }, 'person_legal_view');
 
-    this.wanted = false;
-    this.response = null;
+    this.waiting = true;
 
     new PersonDataSource()
       .findLegalByDocument(this.document!)
       .then((response) => {
-        this.wanted = true;
+        this.waiting = false;
         this.response = response.data;
       })
       .catch((ex) => {
-        this.wanted = true;
+        this.waiting = false;
         this.response = null;
 
         this.notifyExeption(ex);
@@ -52,20 +51,19 @@ export class PersonLegalCtrl {
     }
 
     this.document = '';
-    this.wanted = false;
-    this.response = null;
+    this.waiting = true;
 
     new PersonDataSource()
       .findLegalRandom()
       .then((response) => {
-        this.wanted = true;
+        this.waiting = false;
         this.response = response.data;
         this.document = response.data?.brGovDados?.document as string;
 
         historyReplace({ document: this.document }, 'person_legal_view');
       })
       .catch((ex) => {
-        this.wanted = true;
+        this.waiting = false;
         this.response = null;
 
         this.notifyExeption(ex);

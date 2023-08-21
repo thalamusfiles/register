@@ -19,7 +19,7 @@ export class ContactCtrl {
   @observable businessType = null as { key: string; value: { description: string } } | null;
   @observable limit = 25;
   @observable offset = 0;
-  @observable wanted: boolean = false;
+  @observable waiting: boolean | null = null;
   @observable response: PartnerList | null = null;
 
   @action
@@ -58,17 +58,16 @@ export class ContactCtrl {
 
   @action
   findDocument = () => {
-    this.wanted = false;
-    this.response = null;
+    this.waiting = true;
 
     new ContactDataSource()
       .find(this.businessType?.key!, this.city?.code!, this.limit, this.offset)
       .then((response) => {
-        this.wanted = true;
+        this.waiting = false;
         this.response = response.data;
       })
       .catch((ex) => {
-        this.wanted = true;
+        this.waiting = false;
         this.response = null;
 
         this.notifyExeption(ex);
@@ -81,20 +80,19 @@ export class ContactCtrl {
     this.city = null;
     this.businessType = null;
 
-    this.wanted = false;
-    this.response = null;
+    this.waiting = true;
 
     new ContactDataSource()
       .findRandom(this.limit, this.offset)
       .then((response) => {
-        this.wanted = true;
+        this.waiting = false;
         this.response = response.data;
         if (this.response.length) {
           this.businessType = { key: this.response[0].main_activity, value: this.response[0].main_activity };
         }
       })
       .catch((ex) => {
-        this.wanted = true;
+        this.waiting = false;
         this.response = null;
 
         this.notifyExeption(ex);
@@ -104,9 +102,9 @@ export class ContactCtrl {
   @action
   exportXLS = () => {
     if (this.response) {
-      this.wanted = false;
+      this.waiting = true;
       exportXLS(this.response, 'thalamus_register_contact');
-      this.wanted = true;
+      this.waiting = false;
     }
   };
 

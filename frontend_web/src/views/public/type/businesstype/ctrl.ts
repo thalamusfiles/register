@@ -18,7 +18,7 @@ export class TypeBusinessTypeCtrl {
   @observable businessType = null as { key: string; value: { description: string } } | null;
   @observable limit = 25;
   @observable offset = 0;
-  @observable wanted: boolean = false;
+  @observable waiting: boolean | null = null;
   @observable response: PartnerList | null = null;
 
   @action
@@ -57,17 +57,16 @@ export class TypeBusinessTypeCtrl {
 
   @action
   findDocument = () => {
-    this.wanted = false;
-    this.response = null;
+    this.waiting = true;
 
     new EstablishmentDataSource()
       .findByBusinessType(this.businessType?.key!, this.city?.code!, this.limit, this.offset)
       .then((response) => {
-        this.wanted = true;
+        this.waiting = false;
         this.response = response.data;
       })
       .catch((ex) => {
-        this.wanted = true;
+        this.waiting = false;
         this.response = null;
 
         this.notifyExeption(ex);
@@ -80,17 +79,15 @@ export class TypeBusinessTypeCtrl {
     this.city = null;
     this.businessType = null;
 
-    this.wanted = false;
-    this.response = null;
-
+    this.waiting = true;
     new EstablishmentDataSource()
       .findByBusinessTypeRandom(this.limit, this.offset)
       .then((response) => {
-        this.wanted = true;
+        this.waiting = false;
         this.response = response.data;
       })
       .catch((ex) => {
-        this.wanted = true;
+        this.waiting = false;
         this.response = null;
 
         this.notifyExeption(ex);

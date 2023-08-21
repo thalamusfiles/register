@@ -8,6 +8,7 @@ import { getLinkTo } from '../../../../commons/route';
 import { notify } from '../../../../components/Notification';
 import { PersonLegalCtrl, PersonLegalProvider, usePersonLegalStore } from './ctrl';
 import { Helmet } from 'react-helmet';
+import SpinnerLoader from '../../../../components/Loader';
 
 const ctrl = new PersonLegalCtrl();
 const PersonLegalPage: React.FC = () => {
@@ -115,17 +116,10 @@ const PersonLegaForm: React.FC = observer(() => {
       <Row>
         <Col>
           <ButtonGroup className="float-end">
-            <Button type="button" className="mb-2" onClick={ctrl.findDocument}>
+            <Button type="button" className="mb-2" disabled={!!ctrl.waiting} onClick={ctrl.findDocument}>
               {__('action.search')}
             </Button>
-            <Button
-              type="button"
-              className="mb-2"
-              variant="outline-primary"
-              onClick={() => {
-                ctrl.findDocumentRandom();
-              }}
-            >
+            <Button type="button" className="mb-2" variant="outline-primary" disabled={!!ctrl.waiting} onClick={ctrl.findDocumentRandom}>
               {__('action.random_search')}
             </Button>
           </ButtonGroup>
@@ -142,9 +136,11 @@ const PersonPrettyResult: React.FC = observer(() => {
   const data = ctrl.response?.brGovDados;
   return (
     <>
-      <h2>{__('label.result')}</h2>
-      {!ctrl.wanted && <p>{__('msg.enter_filter')}</p>}
-      {ctrl.wanted && !ctrl.response && <p>{__('msg.register_not_found')}</p>}
+      <h2>
+        {__('label.result')} <SpinnerLoader show={!!ctrl.waiting} />
+      </h2>
+      {ctrl.waiting === null && <p>{__('msg.enter_filter')}</p>}
+      {ctrl.waiting === false && !ctrl.response && <p>{__('msg.register_not_found')}</p>}
       {ctrl.response && (
         <Form>
           <Form.Group as={Row}>
@@ -226,8 +222,8 @@ const PersonLegalResult: React.FC = observer(() => {
       <h2>{__('label.json_result')}</h2>
       <Card bg="dark" text="light">
         <Card.Body>
-          {!ctrl.wanted && <p>{__('msg.enter_filter')}</p>}
-          {ctrl.wanted && !ctrl.response && <p>{__('msg.register_not_found')}</p>}
+          {ctrl.waiting === null && <p>{__('msg.enter_filter')}</p>}
+          {ctrl.waiting === false && !ctrl.response && <p>{__('msg.register_not_found')}</p>}
           {ctrl.response && <pre>{JSON.stringify(ctrl.response, null, 2)}</pre>}
         </Card.Body>
       </Card>

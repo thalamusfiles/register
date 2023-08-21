@@ -8,6 +8,8 @@ import { getLinkTo } from '../../../../commons/route';
 import { notify } from '../../../../components/Notification';
 import { PersonPartnerCtrl, PersonPartnerProvider, usePersonPartnerStore } from './ctrl';
 import { Helmet } from 'react-helmet';
+import SpinnerLoader from '../../../../components/Loader';
+import classNames from 'classnames';
 
 const ctrl = new PersonPartnerCtrl();
 const PartnerPage: React.FC = () => {
@@ -105,17 +107,10 @@ const PartnerForm: React.FC = observer(() => {
       <Row>
         <Col>
           <ButtonGroup className="float-end">
-            <Button type="button" className="mb-2" onClick={ctrl.findDocument}>
+            <Button type="button" className="mb-2" disabled={!!ctrl.waiting} onClick={ctrl.findDocument}>
               {__('action.search')}
             </Button>
-            <Button
-              type="button"
-              className="mb-2"
-              variant="outline-primary"
-              onClick={() => {
-                ctrl.findDocumentRandom();
-              }}
-            >
+            <Button type="button" className="mb-2" variant="outline-primary" disabled={!!ctrl.waiting} onClick={ctrl.findDocumentRandom}>
               {__('action.random_search')}
             </Button>
           </ButtonGroup>
@@ -131,8 +126,10 @@ const PartnerPrettyResult: React.FC = observer(() => {
 
   return (
     <>
-      <h2>{__('label.result')}</h2>
-      <Table>
+      <h2>
+        {__('label.result')} <SpinnerLoader show={!!ctrl.waiting} />
+      </h2>
+      <Table className={classNames({ blur: ctrl.waiting })}>
         <thead>
           <tr>
             <td>Sócio Doc</td>
@@ -144,12 +141,12 @@ const PartnerPrettyResult: React.FC = observer(() => {
           </tr>
         </thead>
         <tbody>
-          {!ctrl.wanted && (
+          {ctrl.waiting === null && (
             <tr>
               <td colSpan={6}>{__('msg.enter_filter')}</td>
             </tr>
           )}
-          {ctrl.wanted && !ctrl.response && (
+          {ctrl.waiting === false && !ctrl.response && (
             <tr>
               <td colSpan={6}>{__('msg.register_not_found')}</td>
             </tr>
@@ -184,8 +181,8 @@ const PartnerResult: React.FC = observer(() => {
       <h2>{__('label.json_result')}</h2>
       <Card bg="dark" text="light">
         <Card.Body>
-          {!ctrl.wanted && <p>{__('msg.enter_filter')}</p>}
-          {ctrl.wanted && !ctrl.response && <p>{__('msg.register_not_found')}</p>}
+          {ctrl.waiting === null && <p>{__('msg.enter_filter')}</p>}
+          {ctrl.waiting === false && !ctrl.response && <p>{__('msg.register_not_found')}</p>}
           {ctrl.response && <pre>{JSON.stringify(ctrl.response, null, 2)}</pre>}
         </Card.Body>
       </Card>

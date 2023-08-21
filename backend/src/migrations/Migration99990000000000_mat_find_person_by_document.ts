@@ -69,8 +69,8 @@ export class Migration20230509115642 extends Migration {
         'reason', reason."value"->>'description'
       ) as "brGovDados"
     from establishment e
-    inner join person p           on p.hash_id = e.person_hash_id
-    inner join person_resource pr on pr.person_hash_id = e.person_hash_id
+    left join person p           on p.hash_id = e.person_hash_id
+    left join person_resource pr on pr.person_hash_id = e.person_hash_id
     left join contact c           on c.person_hash_id = e.person_hash_id and e.extra_key = c.extra_key
     left join "address".country country on country.hash_id = hashtextextended('br:br_gov_dados:' || nullif(e."data"->>'countryCode', ''), 1)
     left join "address".city city       on city.hash_id = hashtextextended('br:br_gov_dados:' || nullif(e."data"->>'cityCode',''), 1)

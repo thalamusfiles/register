@@ -14,7 +14,7 @@ export class PersonPartnerCtrl {
 
   // PersonPartner
   @observable document = '';
-  @observable wanted: boolean = false;
+  @observable waiting: boolean | null = null;
   @observable response: PartnerList | null = null;
 
   @action
@@ -26,17 +26,16 @@ export class PersonPartnerCtrl {
   findDocument = () => {
     historyReplace({ document: this.document });
 
-    this.wanted = false;
-    this.response = null;
+    this.waiting = true;
 
     new PersonDataSource()
       .findNaturalByDocument(this.document!)
       .then((response) => {
-        this.wanted = true;
+        this.waiting = false;
         this.response = response.data;
       })
       .catch((ex) => {
-        this.wanted = true;
+        this.waiting = false;
         this.response = null;
 
         this.notifyExeption(ex);
@@ -46,20 +45,19 @@ export class PersonPartnerCtrl {
   @action
   findDocumentRandom = () => {
     this.document = '';
-    this.wanted = false;
-    this.response = null;
+    this.waiting = true;
 
     new PersonDataSource()
       .findNaturalRandom()
       .then((response) => {
-        this.wanted = true;
+        this.waiting = false;
         this.response = response.data;
         this.document = response.data[0]?.partnerDoc as string;
 
         historyReplace({ document: this.document });
       })
       .catch((ex) => {
-        this.wanted = true;
+        this.waiting = false;
         this.response = null;
 
         this.notifyExeption(ex);

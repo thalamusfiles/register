@@ -17,7 +17,7 @@ export class AddressZipcodeCtrl {
   @observable zipcode = '';
   @observable limit = 25;
   @observable offset = 0;
-  @observable wanted: boolean = false;
+  @observable waiting: boolean | null = null;
   @observable response: PartnerList | null = null;
 
   @action
@@ -45,17 +45,16 @@ export class AddressZipcodeCtrl {
   findDocument = () => {
     historyReplace({ document: this.zipcode });
 
-    this.wanted = false;
-    this.response = null;
+    this.waiting = true;
 
     new EstablishmentDataSource()
       .findByZipcode(this.zipcode, this.limit, this.offset)
       .then((response) => {
-        this.wanted = true;
+        this.waiting = false;
         this.response = response.data;
       })
       .catch((ex) => {
-        this.wanted = true;
+        this.waiting = false;
         this.response = null;
 
         this.notifyExeption(ex);
@@ -65,20 +64,19 @@ export class AddressZipcodeCtrl {
   @action
   findDocumentRandom = () => {
     this.zipcode = '';
-    this.wanted = false;
-    this.response = null;
+    this.waiting = true;
 
     new EstablishmentDataSource()
       .findByZipcodeRandom(this.limit, this.offset)
       .then((response) => {
-        this.wanted = true;
+        this.waiting = false;
         this.response = response.data;
         this.zipcode = response.data[0]?.zipcode;
 
         historyReplace({ document: this.zipcode });
       })
       .catch((ex) => {
-        this.wanted = true;
+        this.waiting = false;
         this.response = null;
 
         this.notifyExeption(ex);

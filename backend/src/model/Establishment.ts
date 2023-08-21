@@ -11,7 +11,7 @@ import { ResourceCountry } from './ResourceCountry';
 @Index({ properties: ['zipcode'], expression: 'CREATE INDEX establishment_zipcode_idx ON establishment USING hash (zipcode)' })
 @Index({
   properties: ['city', 'mainActivity'],
-  expression: 'create index establishment_city_main_activity_idx on "establishment" using hash (city_hash_id, main_activity)',
+  expression: 'create index establishment_city_main_activity_idx on "establishment" using btree (city_hash_id, main_activity)',
 })
 export class Establishment extends RegisterBaseEntity {
   @ManyToOne(() => ResourceCountry, { nullable: false })
