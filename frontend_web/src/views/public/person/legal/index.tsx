@@ -90,7 +90,6 @@ const PersonLegalBreadcrum: React.FC = () => {
 const PersonLegaForm: React.FC = observer(() => {
   const ctrl = usePersonLegalStore();
   const __ = useI18N();
-
   return (
     <Form>
       {!!ctrl.erroMessages?.length && (
@@ -146,7 +145,7 @@ const PersonPrettyResult: React.FC = observer(() => {
   const ctrl = usePersonLegalStore();
   const __ = useI18N();
 
-  const data = ctrl.response?.brGovDados;
+  const data = ctrl.response?.brGovDados || {};
   return (
     <>
       <h2>
@@ -161,7 +160,7 @@ const PersonPrettyResult: React.FC = observer(() => {
               Tipo de documento
             </Form.Label>
             <Col sm="8">
-              <Form.Control plaintext readOnly defaultValue={(data?.documentType as string)?.toLocaleUpperCase()} />
+              <Form.Control plaintext readOnly value={(data.documentType as string)?.toLocaleUpperCase()} />
             </Col>
           </Form.Group>
 
@@ -170,7 +169,7 @@ const PersonPrettyResult: React.FC = observer(() => {
               Documento
             </Form.Label>
             <Col sm="8">
-              <Form.Control plaintext readOnly defaultValue={data?.document} />
+              <Form.Control plaintext readOnly value={data.document} />
             </Col>
           </Form.Group>
 
@@ -179,8 +178,8 @@ const PersonPrettyResult: React.FC = observer(() => {
               Nome
             </Form.Label>
             <Col sm="8">
-              <Form.Control plaintext readOnly defaultValue={data?.name} />
-              {data?.naturePerson && <Badge>{__('label.naturePerson')}</Badge>}
+              <Form.Control plaintext readOnly value={data.name} />
+              {data.naturePerson && <Badge>{__('label.naturePerson')}</Badge>}
             </Col>
           </Form.Group>
 
@@ -189,7 +188,7 @@ const PersonPrettyResult: React.FC = observer(() => {
               Nome fantasia
             </Form.Label>
             <Col sm="8">
-              <Form.Control plaintext readOnly defaultValue={data?.fantasyName} />
+              <Form.Control plaintext readOnly value={data.fantasyName} />
             </Col>
           </Form.Group>
 
@@ -199,7 +198,7 @@ const PersonPrettyResult: React.FC = observer(() => {
               Código atividade
             </Form.Label>
             <Col sm="8">
-              <Form.Control plaintext readOnly defaultValue={data?.mainActivity} />
+              <Form.Control plaintext readOnly value={data.mainActivity} />
             </Col>
           </Form.Group>
 
@@ -208,7 +207,7 @@ const PersonPrettyResult: React.FC = observer(() => {
               Atividades secundárias
             </Form.Label>
             <Col sm="8">
-              <Form.Control plaintext readOnly defaultValue={(data?.otherActivities as Array<string>)?.join(', ')} />
+              <Form.Control plaintext readOnly value={(data.otherActivities as Array<string>)?.join(', ')} />
             </Col>
           </Form.Group>
 
@@ -218,7 +217,7 @@ const PersonPrettyResult: React.FC = observer(() => {
               Atividade principal
             </Form.Label>
             <Col sm="8">
-              <Form.Control plaintext readOnly defaultValue={data?.mainActivityDescription} />
+              <Form.Control plaintext readOnly value={data.mainActivityDescription} />
             </Col>
           </Form.Group>
 
@@ -227,7 +226,7 @@ const PersonPrettyResult: React.FC = observer(() => {
               E-mail
             </Form.Label>
             <Col sm="8">
-              <Form.Control plaintext readOnly defaultValue={data?.email} />
+              <Form.Control plaintext readOnly value={data.email} />
             </Col>
           </Form.Group>
 
@@ -236,8 +235,8 @@ const PersonPrettyResult: React.FC = observer(() => {
               Telefone
             </Form.Label>
             <Col sm="8">
-              <Form.Control plaintext readOnly defaultValue={data?.phone} />
-              {data?.naturePerson && <ProtectedInfoBadge __={__} />}
+              <Form.Control plaintext readOnly value={data.phone} />
+              {data.naturePerson && <ProtectedInfoBadge __={__} />}
             </Col>
           </Form.Group>
 
@@ -249,11 +248,11 @@ const PersonPrettyResult: React.FC = observer(() => {
               <Form.Control
                 plaintext
                 readOnly
-                defaultValue={`${data?.zipcode || ''} - ${data?.publicPlaceCode || ''} ${data?.publicPlace || ''} ${data?.number || ''} ${
-                  data?.complement || ''
-                } ${data?.neighborhood || ''} ${data?.cityName || ''} ${data?.stateCode}`}
+                value={`${data.zipcode || ''} - ${data.publicPlaceCode || ''} ${data.publicPlace || ''} ${data.number || ''} ${
+                  data.complement || ''
+                } ${data.neighborhood || ''} ${data.cityName || ''} ${data.stateCode}`}
               />
-              {data?.naturePerson && <ProtectedInfoBadge __={__} />}
+              {data.naturePerson && <ProtectedInfoBadge __={__} />}
             </Col>
           </Form.Group>
         </Form>
