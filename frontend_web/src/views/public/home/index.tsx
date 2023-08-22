@@ -48,7 +48,7 @@ const Person: React.FC = () => {
       <p>{__('home.persons_description')}</p>
 
       <Row>
-        <Col>
+        <Col className="d-flex justify-content-center" xll={6}>
           <TCard title={__('menu.person_legal')} subtitle={__('menu.freemium')} faicon={IconsDef.personLegal}>
             <Card.Body>
               <Card.Text>{__('home.person_legal_description')}</Card.Text>
@@ -58,7 +58,7 @@ const Person: React.FC = () => {
             </Card.Body>
           </TCard>
         </Col>
-        <Col>
+        <Col className="d-flex justify-content-center" xll={6}>
           <TCard title={__('menu.contact')} subtitle={__('menu.freemium')} faicon={IconsDef.contact}>
             <Card.Body>
               <Card.Text>{__('home.contact_description')}</Card.Text>
@@ -71,7 +71,7 @@ const Person: React.FC = () => {
       </Row>
 
       <Row>
-        <Col>
+        <Col className="d-flex justify-content-center" xll={6}>
           <TCard title={__('menu.partners')} subtitle={__('menu.freemium')} faicon={IconsDef.partner}>
             <Card.Body>
               <Card.Text>{__('home.partner_description')}</Card.Text>
@@ -81,6 +81,7 @@ const Person: React.FC = () => {
             </Card.Body>
           </TCard>
         </Col>
+        <Col sm={6}></Col>
       </Row>
     </>
   );
@@ -94,7 +95,7 @@ const Type: React.FC = () => {
       <p>{__('home.type_description')}</p>
 
       <Row>
-        <Col>
+        <Col className="d-flex justify-content-center" xll={6}>
           <TCard title={__('menu.business_type')} subtitle={__('menu.freemium')} faicon={IconsDef.zipcode}>
             <Card.Body style={{ height: 80 }}>
               <Card.Text>{__('home.business_type_description')}</Card.Text>
@@ -106,6 +107,7 @@ const Type: React.FC = () => {
             </Card.Body>
           </TCard>
         </Col>
+        <Col sm={6}></Col>
       </Row>
     </>
   );
@@ -119,7 +121,7 @@ const Address: React.FC = () => {
       <p>{__('home.address_description')}</p>
 
       <Row>
-        <Col>
+        <Col className="d-flex justify-content-center" xll={6}>
           <TCard title={__('menu.establishments')} subtitle={__('menu.freemium')} faicon={IconsDef.zipcode}>
             <Card.Body style={{ height: 80 }}>
               <Card.Text>{__('home.establishments_description')}</Card.Text>
@@ -131,6 +133,7 @@ const Address: React.FC = () => {
             </Card.Body>
           </TCard>
         </Col>
+        <Col sm={6}></Col>
       </Row>
     </>
   );

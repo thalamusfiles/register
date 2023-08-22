@@ -1,4 +1,4 @@
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, Col, Row } from 'react-bootstrap';
 import { IconsDef } from '../../commons/consts';
 import { useI18N } from '../../commons/i18';
 import { historyPush } from '../../commons/route';
@@ -13,24 +13,28 @@ const DeveloperGuide: React.FC = () => {
     <>
       <h1>{__('card.developer_guide')}</h1>
       <p>{__('card.developer_guide_description')}</p>
-
-      <TCard title={__('card.docs')} subtitle={__('card.docs_subtitle')} faicon={IconsDef.docs} bg="info" text="white">
-        <Card.Body>
-          <Card.Text>{__('card.docs_description')}</Card.Text>
-          <Button size="sm" onClick={() => historyPush(docUrl, { open: true })} variant="secondary">
-            {__('action.access')}
-          </Button>
-        </Card.Body>
-      </TCard>
-
-      <TCard title={__('card.swagger')} subtitle={__('card.swagger_subtitle')} faicon={IconsDef.swagger} border="info">
-        <Card.Body>
-          <Card.Text>{__('card.swagger_description')}</Card.Text>
-          <Button size="sm" onClick={() => historyPush('/swagger', { open: true })} variant="outline-info">
-            {__('action.access')}
-          </Button>
-        </Card.Body>
-      </TCard>
+      <Row>
+        <Col className="d-flex justify-content-center" xll={6}>
+          <TCard title={__('card.docs')} subtitle={__('card.docs_subtitle')} faicon={IconsDef.docs} bg="info" text="white">
+            <Card.Body>
+              <Card.Text>{__('card.docs_description')}</Card.Text>
+              <Button size="sm" onClick={() => historyPush(docUrl, { open: true })} variant="secondary">
+                {__('action.access')}
+              </Button>
+            </Card.Body>
+          </TCard>
+        </Col>
+        <Col className="d-flex justify-content-center" xll={6}>
+          <TCard title={__('card.swagger')} subtitle={__('card.swagger_subtitle')} faicon={IconsDef.swagger} border="info">
+            <Card.Body>
+              <Card.Text>{__('card.swagger_description')}</Card.Text>
+              <Button size="sm" onClick={() => historyPush('/swagger', { open: true })} variant="outline-info">
+                {__('action.access')}
+              </Button>
+            </Card.Body>
+          </TCard>
+        </Col>
+      </Row>
     </>
   );
 };

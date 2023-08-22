@@ -95,7 +95,7 @@ const PartnerForm: React.FC = observer(() => {
       )}
 
       <Row className="align-items-center">
-        <Col xs="auto">
+        <Col md={4}>
           <Form.Label htmlFor="country" visuallyHidden>
             {__('country.brazil')}
           </Form.Label>
@@ -105,7 +105,7 @@ const PartnerForm: React.FC = observer(() => {
             <Form.Control.Feedback type="valid">{__('label.valid')}</Form.Control.Feedback>
           </InputGroup>
         </Col>
-        <Col xs="auto">
+        <Col md={4}>
           <Form.Label htmlFor="document" visuallyHidden>
             {__('label.partner_doc')}
           </Form.Label>
@@ -119,7 +119,9 @@ const PartnerForm: React.FC = observer(() => {
       <Alert variant="warning">
         <Row>
           <Col md={5}>
-            <p>Servico desabilitado para manutenção. Previsão de retorno para <strong>outubro de 2023</strong>.</p>
+            <p>
+              Servico desabilitado para manutenção. Previsão de retorno para <strong>outubro de 2023</strong>.
+            </p>
           </Col>
           <Col>
             <ButtonGroup className="float-end">

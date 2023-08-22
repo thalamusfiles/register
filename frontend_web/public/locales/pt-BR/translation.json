@@ -13,6 +13,8 @@
         "home": "Início",
         "login": "Entrar",
         "logout": "Sair",
+        "aplications": "Aplicações",
+        "profile": "Perfil",
         "language": "Idioma",
         "portuguese": "Português (Brasil)",
         "apis": "APIs",
@@ -23,6 +25,7 @@
         "contact": "Contatos",
         "partners": "Sócios",
         "help": "Ajuda",
+        "alert": "Alertas",
         "freemium": "Freemium",
         "establishments": "Estabelecimentos",
         "business_type": "Tipo de empresa",
@@ -34,8 +37,8 @@
         "tt_month_activity": "Total por atividade"
     },
     "card": {
-        "developer_guide": "Guia para desenvolvedores",
-        "developer_guide_description": "Acesse o manual das APIs e realize testes de integração para a sua ferramenta.",
+        "developer_guide": "Guia Desenvolvedores",
+        "developer_guide_description": "Acesse aos manuais e realize testes online.",
         "docs": "Documentação",
         "docs_subtitle": "Api, autenticação, FAQ...",
         "docs_description": "Manuais do usuário e do desenvolvedor de como utilizar a API Register em sua aplicação.",

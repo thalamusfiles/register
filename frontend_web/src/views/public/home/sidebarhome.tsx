@@ -10,7 +10,7 @@ import { getLinkTo } from '../../../commons/route';
 const SideBarHome: React.FC = () => {
   const __ = useI18N();
   return (
-    <div className="sidebar">
+    <div className="sidebar d-none d-lg-block">
       <div className="title">{__('menu.apis')}</div>
       <SideBarAction faicon={IconsDef.user} title={__('menu.persons')} link={getLinkTo('persons')} />
       <SideBarAction faicon={IconsDef.zipcode} title={__('menu.type')} link={getLinkTo('types')} />

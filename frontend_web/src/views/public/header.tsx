@@ -6,6 +6,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import * as json from '../../../package.json';
+import { IconsDef } from '../../commons/consts';
 import { useI18N } from '../../commons/i18';
 import { getLinkTo, historyPush } from '../../commons/route';
 import ThalamusLinksMenu from '../../components/NavBar/thalamus-links-menu';
@@ -35,6 +36,10 @@ const Header: React.FC = () => {
             <Nav.Link href="/">{__('menu.home')}</Nav.Link>
           </Nav>
 
+          <Nav className="me-auto d-lg-none">
+            <ModulesNav />
+          </Nav>
+
           <Nav className="me-end">
             <Nav.Link href={docUrl} target="_blanck">
               <FontAwesomeIcon className="text-warning" icon={'question-circle'} /> {__('menu.help')}
@@ -56,12 +61,44 @@ const Header: React.FC = () => {
   );
 };
 
+const ModulesNav: React.FC = () => {
+  const __ = useI18N();
+  return (
+    <>
+      <Nav.Link href={getLinkTo('persons')}>
+        <FontAwesomeIcon icon={IconsDef.user[0]} /> {__('menu.persons')}
+      </Nav.Link>
+      <Nav.Link href={getLinkTo('types')}>
+        <FontAwesomeIcon icon={IconsDef.zipcode} /> {__('menu.type')}
+      </Nav.Link>
+      <Nav.Link href={getLinkTo('addresses')}>
+        <FontAwesomeIcon icon={IconsDef.zipcode} /> {__('menu.address')}
+      </Nav.Link>
+      <div className="navbar-spacer" />
+
+      <Nav.Link href={getLinkTo('rel_estab')}>
+        <FontAwesomeIcon icon={IconsDef.reports} /> {__('menu.business')}
+      </Nav.Link>
+      <Nav.Link href={getLinkTo('rel_type')}>
+        <FontAwesomeIcon icon={IconsDef.reports} /> {__('menu.type')}
+      </Nav.Link>
+      <div className="navbar-spacer" />
+    </>
+  );
+};
+
 const UserDropdown: React.FC = observer(() => {
   const __ = useI18N();
   const context = useUserStore();
 
   return (
-    <NavDropdown title={<FontAwesomeIcon icon={'user-circle'} />}>
+    <NavDropdown
+      title={
+        <>
+          <FontAwesomeIcon icon={'user-circle'} /> <span className="d-lg-none">{__('menu.profile')}</span>
+        </>
+      }
+    >
       {context?.user?.sub ? (
         <>
           <NavDropdown.Item onClick={() => historyPush(thalamusLinks.IAM_ACCOUNT.link, { open: true })}>{context?.user.name}</NavDropdown.Item>
@@ -75,13 +112,15 @@ const UserDropdown: React.FC = observer(() => {
 });
 
 const NotificationBell: React.FC = () => {
+  const __ = useI18N();
   const notify = useNotificationStore();
   return (
-    <Nav.Link className="text-info" onClick={() => notify!.showAll()}>
-      <span className="fa-layers fa-fw">
+    <Nav.Link onClick={() => notify!.showAll()}>
+      <span className="fa-layers fa-fw text-info">
         <FontAwesomeIcon icon={'bell'} />
         {notify?.amount && <span className="fa-layers-counter">{notify?.amount}</span>}
       </span>
+      <span className="d-lg-none">{__('menu.alert')}</span>
     </Nav.Link>
   );
 };
