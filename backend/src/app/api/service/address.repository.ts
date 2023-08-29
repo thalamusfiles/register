@@ -43,7 +43,9 @@ export class AddressService {
     };
 
     if (stateCode) {
-      where.state = { code: stateCode.toUpperCase() };
+      where.state = {
+        $or: [{ code: stateCode.toUpperCase() }, { code: { $exists: false } }],
+      };
     }
     if (nameLike?.replace(/[% ]/g, '').length) {
       where.name = { $like: `%${nameLike.replace(' ', '%').toUpperCase().trim()}%` };

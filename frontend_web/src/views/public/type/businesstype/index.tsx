@@ -159,12 +159,12 @@ const BusinessTypeForm: React.FC = observer(() => {
         </Col>
       </Row>
       <Row>
-        <Col md={4}>
+        <Col md={5}>
           <Form.Label htmlFor="document" visuallyHidden>
-            {__('label.limit.offset')}
+            {__('label.pager.limit')}
           </Form.Label>
           <InputGroup className="mb-2">
-            <InputGroup.Text>{__('label.limit.offset')}</InputGroup.Text>
+            <InputGroup.Text>{__('label.pager.limit')}</InputGroup.Text>
             <Form.Control
               id="document"
               value={ctrl.limit}
@@ -172,7 +172,8 @@ const BusinessTypeForm: React.FC = observer(() => {
               isValid={!!ctrl.erroMessages.length && !ctrl.erros?.limit}
               isInvalid={!!ctrl.erros?.limit}
             />
-            <Form.Control id="document" value={ctrl.offset} onChange={ctrl.handleOffset} isValid={!!ctrl.erroMessages.length && !ctrl.erros?.limit} />
+            <InputGroup.Text>{__('label.pager.offset')}</InputGroup.Text>
+            <Form.Control id="document" value={ctrl.page} onChange={ctrl.handlePage} isValid={!!ctrl.erroMessages.length && !ctrl.erros?.limit} />
             <Form.Control.Feedback type="valid">{__('label.valid')}</Form.Control.Feedback>
             <Form.Control.Feedback type="invalid">{ctrl.erros?.limit?.map(__)}</Form.Control.Feedback>
           </InputGroup>

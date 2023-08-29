@@ -20,7 +20,7 @@ export class ContactCtrl {
   @observable city = null as { code: string; name: string } | null;
   @observable businessType = null as { key: string; value: { description: string } } | null;
   @observable limit = 25;
-  @observable offset = 0;
+  @observable page = 1;
   @observable waiting: boolean | null = null;
   @observable response: PartnerList | null = null;
 
@@ -55,10 +55,10 @@ export class ContactCtrl {
   };
 
   @action
-  handleOffset = (e: any) => {
-    this.offset = parseInt(e.target.value);
-    if (isNaN(this.offset)) {
-      this.offset = 0;
+  handlePage = (e: any) => {
+    this.page = parseInt(e.target.value);
+    if (isNaN(this.page)) {
+      this.page = 0;
     }
   };
 
@@ -69,7 +69,7 @@ export class ContactCtrl {
     this.erros = {};
 
     new ContactDataSource()
-      .find(this.businessType?.key!, this.city?.code!, this.limit, this.offset)
+      .find(this.businessType?.key!, this.city?.code!, this.limit, this.page - 1)
       .then((response) => {
         this.waiting = false;
         this.response = response.data;
@@ -96,7 +96,7 @@ export class ContactCtrl {
     this.erros = {};
 
     new ContactDataSource()
-      .findRandom(this.limit, this.offset)
+      .findRandom(this.limit, this.page - 1)
       .then((response) => {
         this.waiting = false;
         this.response = response.data;

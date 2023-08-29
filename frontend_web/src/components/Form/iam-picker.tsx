@@ -96,6 +96,10 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
 
     if (this.search) {
       this.search();
+    } else if (this.state.contentsBkp.length) {
+      this.setState({
+        contents: this.state.contentsBkp,
+      });
     }
 
     this.setState({ modalVisible: true });

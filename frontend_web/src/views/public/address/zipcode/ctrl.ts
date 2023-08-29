@@ -18,7 +18,7 @@ export class AddressZipcodeCtrl {
   // PersonPartner
   @observable zipcode = '';
   @observable limit = 25;
-  @observable offset = 0;
+  @observable page = 1;
   @observable waiting: boolean | null = null;
   @observable response: PartnerList | null = null;
 
@@ -40,10 +40,10 @@ export class AddressZipcodeCtrl {
   };
 
   @action
-  handleOffset = (e: any) => {
-    this.offset = parseInt(e.target.value);
-    if (isNaN(this.offset)) {
-      this.offset = 0;
+  handlePage = (e: any) => {
+    this.page = parseInt(e.target.value);
+    if (isNaN(this.page)) {
+      this.page = 0;
     }
   };
 
@@ -56,7 +56,7 @@ export class AddressZipcodeCtrl {
     this.erros = {};
 
     new EstablishmentDataSource()
-      .findByZipcode(this.zipcode, this.limit, this.offset)
+      .findByZipcode(this.zipcode, this.limit, this.page - 1)
       .then((response) => {
         this.waiting = false;
         this.response = response.data;
@@ -81,7 +81,7 @@ export class AddressZipcodeCtrl {
     this.erros = {};
 
     new EstablishmentDataSource()
-      .findByZipcodeRandom(this.limit, this.offset)
+      .findByZipcodeRandom(this.limit, this.page - 1)
       .then((response) => {
         this.waiting = false;
         this.response = response.data;

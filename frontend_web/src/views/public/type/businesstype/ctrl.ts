@@ -19,7 +19,7 @@ export class TypeBusinessTypeCtrl {
   @observable city = null as { code: string; name: string } | null;
   @observable businessType = null as { key: string; value: { description: string } } | null;
   @observable limit = 25;
-  @observable offset = 0;
+  @observable page = 1;
   @observable waiting: boolean | null = null;
   @observable response: PartnerList | null = null;
 
@@ -54,10 +54,10 @@ export class TypeBusinessTypeCtrl {
   };
 
   @action
-  handleOffset = (e: any) => {
-    this.offset = parseInt(e.target.value);
-    if (isNaN(this.offset)) {
-      this.offset = 0;
+  handlePage = (e: any) => {
+    this.page = parseInt(e.target.value);
+    if (isNaN(this.page)) {
+      this.page = 0;
     }
   };
 
@@ -68,7 +68,7 @@ export class TypeBusinessTypeCtrl {
     this.erros = {};
 
     new EstablishmentDataSource()
-      .findByBusinessType(this.businessType?.key!, this.city?.code!, this.limit, this.offset)
+      .findByBusinessType(this.businessType?.key!, this.city?.code!, this.limit, this.page - 1)
       .then((response) => {
         this.waiting = false;
         this.response = response.data;
@@ -95,7 +95,7 @@ export class TypeBusinessTypeCtrl {
     this.erros = {};
 
     new EstablishmentDataSource()
-      .findByBusinessTypeRandom(this.limit, this.offset)
+      .findByBusinessTypeRandom(this.limit, this.page - 1)
       .then((response) => {
         this.waiting = false;
         this.response = response.data;
