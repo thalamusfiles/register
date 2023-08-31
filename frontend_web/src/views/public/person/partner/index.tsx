@@ -116,25 +116,19 @@ const PartnerForm: React.FC = observer(() => {
           </InputGroup>
         </Col>
       </Row>
-      <Alert variant="warning">
-        <Row>
-          <Col md={5}>
-            <p>
-              Servico desabilitado para manutenção. Previsão de retorno para <strong>outubro de 2023</strong>.
-            </p>
-          </Col>
-          <Col>
-            <ButtonGroup className="float-end">
-              <Button type="button" className="mb-2" disabled={!!ctrl.waiting || true} onClick={ctrl.findDocument}>
-                {__('action.search')}
-              </Button>
-              <Button type="button" className="mb-2" variant="outline-primary" disabled={!!ctrl.waiting || true} onClick={ctrl.findDocumentRandom}>
-                {__('action.random_search')}
-              </Button>
-            </ButtonGroup>
-          </Col>
-        </Row>
-      </Alert>
+
+      <Row>
+        <Col>
+          <ButtonGroup className="float-end">
+            <Button type="button" className="mb-2" disabled={!!ctrl.waiting} onClick={ctrl.findDocument}>
+              {__('action.search')}
+            </Button>
+            <Button type="button" className="mb-2" variant="outline-primary" disabled={!!ctrl.waiting} onClick={ctrl.findDocumentRandom}>
+              {__('action.random_search')}
+            </Button>
+          </ButtonGroup>
+        </Col>
+      </Row>
     </Form>
   );
 });

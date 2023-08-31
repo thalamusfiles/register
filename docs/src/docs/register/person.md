@@ -10,7 +10,7 @@ A ferramenta também possuí buscas de registros aleatórios, em cada API, afim 
 
 ## Busca de Empresa por CNPJ
 
-Por meio de um CNPJ é possível consultar os dados de empresas registrodos nas seguintes base de dados:
+Por meio de um CNPJ é possível consultar os dados de empresas registrodas nas seguintes base de dados:
 * Receita Federal do Brasil
 
 ## Busca de Sócios por CNPJ ou CPF

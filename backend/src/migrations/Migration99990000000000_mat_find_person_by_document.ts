@@ -3,7 +3,7 @@ import { Migration } from '@mikro-orm/migrations';
 export class Migration20230509115642 extends Migration {
   async up(): Promise<void> {
     // Dropa a tabale materializada anterior
-    this.addSql('drop materialized view if exists "materialized".find_person_by_document');
+    //this.addSql('drop materialized view if exists "materialized".find_person_by_document');
 
     // Cria a tabela materializada
     this.addSql(
@@ -81,10 +81,11 @@ export class Migration20230509115642 extends Migration {
     );
 
     // Cria o indice da tabela materializada
-    this.addSql('create index find_person_by_document_key_unique on "materialized".find_person_by_document(key);');
+    //this.addSql('create index find_person_by_document_key_unique on "materialized".find_person_by_document(key);');
   }
 
   async down(): Promise<void> {
-    this.addSql('drop materialized view if exists "materialized".find_person_by_document');
+    //this.addSql('drop materialized view if exists "materialized".find_person_by_document');
+    this.addSql('drop view "materialized".find_person_by_document');
   }
 }
