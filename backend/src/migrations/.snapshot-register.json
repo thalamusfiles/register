@@ -373,7 +373,7 @@
           "composite": false,
           "primary": false,
           "unique": false,
-          "expression": "create index person_resource_person_hash_id_idx on \"person_resource\" using hash (person_hash_id);"
+          "expression": "create index person_resource_person_hash_id_idx on \"person_resource\" using hash (person_hash_id)"
         },
         {
           "keyName": "person_resource_pkey",
@@ -633,7 +633,7 @@
           "composite": false,
           "primary": false,
           "unique": false,
-          "expression": "create index contact_person_hash_id_idx on \"contact\" using hash (person_hash_id);"
+          "expression": "create index contact_person_hash_id_idx on \"contact\" using hash (person_hash_id)"
         },
         {
           "keyName": "contact_pkey",
@@ -1075,6 +1075,27 @@
       "schema": "public",
       "indexes": [
         {
+          "keyName": "establishment_city_hash_id_main_activity_index",
+          "columnNames": [
+            "city_hash_id",
+            "main_activity"
+          ],
+          "composite": true,
+          "primary": false,
+          "unique": false,
+          "expression": "create index establishment_city_main_activity_idx on \"establishment\" using btree (city_hash_id, main_activity)"
+        },
+        {
+          "keyName": "establishment_zipcode_index",
+          "columnNames": [
+            "zipcode"
+          ],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "expression": "CREATE INDEX establishment_zipcode_idx ON establishment USING hash (zipcode)"
+        },
+        {
           "keyName": "establishment_person_hash_id_index",
           "columnNames": [
             "person_hash_id"
@@ -1082,7 +1103,7 @@
           "composite": false,
           "primary": false,
           "unique": false,
-          "expression": "create index establishment_person_hash_id_idx on \"establishment\" using hash (person_hash_id);"
+          "expression": "CREATE INDEX establishment_person_hash_id_idx ON \"establishment\" USING hash (person_hash_id)"
         },
         {
           "keyName": "establishment_pkey",
@@ -1242,6 +1263,16 @@
       "schema": "public",
       "indexes": [
         {
+          "keyName": "partner_extra_key_index",
+          "columnNames": [
+            "extra_key"
+          ],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "expression": "create index partner_extra_key_idx on \"partner\" USING hash (extra_key)"
+        },
+        {
           "keyName": "partner_establishment_hash_id_index",
           "columnNames": [
             "establishment_hash_id"
@@ -1249,7 +1280,7 @@
           "composite": false,
           "primary": false,
           "unique": false,
-          "expression": "create index partner_establishment_hash_id_idx on \"contact\" using hash (establishment_hash_id);"
+          "expression": "create index partner_establishment_hash_id_idx on \"partner\" (establishment_hash_id)"
         },
         {
           "keyName": "partner_pkey",
