@@ -21,7 +21,7 @@ const authConfig = {
   // Oauth scope
   OAUTH_SCOPE: 'iam_all',
   // Identificação do Cliente
-  CLIENT_ID: '33333333-0000-0000-0000-000000000001',
+  CLIENT_ID: 'ada56e83-7f4b-41c8-8645-1c918320c580',
   CLIENT_SECRET: process.env.OAUTH_URL || defaultAuthConfig.CLIENT_SECRET,
 };
 

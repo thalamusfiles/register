@@ -28,7 +28,9 @@ export class Migration20230509115642 extends Migration {
      * Foreign keys and index
      */
 
-    this.addSql('create index establishment_person_hash_id_idx on "establishment" using hash (person_hash_id);;');
+    this.addSql('create index establishment_person_hash_id_idx on "establishment" using hash (person_hash_id);');
+    this.addSql('CREATE INDEX establishment_zipcode_idx ON establishment USING hash (zipcode);');
+    this.addSql('create index establishment_city_main_activity_idx on "establishment" using btree (city_hash_id, main_activity);');
   }
 
   async down(): Promise<void> {

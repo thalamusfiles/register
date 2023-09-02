@@ -26,7 +26,7 @@ export class Migration20230509115642 extends Migration {
        'sizeCode', pr."data"->>'sizeCode',
        'natureCode', pr."data"->>'natureCode',
        'nature', nt."value"->>'description',
-       'naturePerson', pr."data"->>'natureCode' in ('2135'),
+       'naturePerson', pr."data"->>'natureCode' in ('2135') or not exists(select 1 from partner where partner.establishment_hash_id = e.hash_id limit 1),
        'status', e."data"->>'status',
        'statusDate', e."data"->>'statusDate',
        /*Address*/
