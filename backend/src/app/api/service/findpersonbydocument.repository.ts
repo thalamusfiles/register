@@ -55,8 +55,10 @@ export class FindPersonByDocumentService {
       .first();
 
     const rs = await query;
-
-    return this.findLegalByDocument(rs.extra_key);
+    if (rs) {
+      return this.findLegalByDocument(rs.extra_key);
+    }
+    return null;
   }
 
   formatDocumentToSearch(type: string, document: string): string {

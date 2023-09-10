@@ -206,6 +206,7 @@ const BusinessTypePrettyResult: React.FC = observer(() => {
         <thead>
           <tr>
             <td>Tipo de empresa / Atividade principal</td>
+            <td>Outras atividades</td>
             <td>Empresa Doc</td>
             <td>Empresa</td>
           </tr>
@@ -224,7 +225,8 @@ const BusinessTypePrettyResult: React.FC = observer(() => {
           {ctrl.response &&
             ctrl.response.map((resp, idx) => (
               <tr key={idx}>
-                <td>{resp.businesstype}</td>
+                <td>{resp.main_activity}</td>
+                <td>{resp.other_activities}</td>
                 <td>
                   <Link to="#" onClick={(e) => ctrl.handleOpenPersonLegal(e, resp.document)} style={{ whiteSpace: 'nowrap' }}>
                     {resp.document}

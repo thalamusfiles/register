@@ -12,6 +12,7 @@ async function bootstrap() {
     logger: createNestLogger(),
   });
 
+  // Swagger
   const config = new DocumentBuilder().setTitle('Thalamus Register Swagger').setDescription('All endpoints are available on swagger ').build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
@@ -35,6 +36,7 @@ async function bootstrap() {
     }),
   );
 
+  // Cors
   if (!registerConfig.PRODCTION_MODE) {
     app.enableCors({
       origin: registerConfig.DEV_URL,

@@ -66,8 +66,10 @@ export class EstablishmentService {
       .first();
 
     const zipcode = (await query).zipcode;
-
-    return this.findByZipcode(zipcode, limit, offset);
+    if (zipcode) {
+      return this.findByZipcode(zipcode, limit, offset);
+    }
+    return null;
   }
 
   /**
@@ -82,7 +84,8 @@ export class EstablishmentService {
     offset = offset || 0;
 
     const query = this.knex
-      .select('e.main_activity as businesstype')
+      .select('e.main_activity')
+      .select('e.other_activities')
       .select('e.extra_key as document')
       .select(`pers.name`)
       .from(`${this.estTableName} as e`)
@@ -112,9 +115,12 @@ export class EstablishmentService {
       .first();
 
     const rs = await query;
-    const businessType = rs.main_activity;
-    const cityCode = rs.cityCode;
+    if (rs) {
+      const businessType = rs.main_activity;
+      const cityCode = rs.cityCode;
 
-    return this.findByBusinessType(businessType, cityCode, limit, offset);
+      return this.findByBusinessType(businessType, cityCode, limit, offset);
+    }
+    return null;
   }
 }

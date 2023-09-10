@@ -68,8 +68,10 @@ export class PersonService {
       .limit(1)
       .first();
 
-    const extraKey = (await query).extra_key;
-
-    return this.findPartnerByDocument(extraKey);
+    const rs = await query;
+    if (rs) {
+      return this.findPartnerByDocument(rs.extra_key);
+    }
+    return null;
   }
 }

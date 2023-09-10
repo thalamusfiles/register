@@ -77,10 +77,13 @@ export class ContactService {
       .first();
 
     const rs = await query;
-    const { main_activity, city_hash_id } = rs;
 
-    const city = await this.cityRepo.findOneOrFail({ hashId: city_hash_id }, { fields: ['code'] });
+    if (rs) {
+      const { main_activity, city_hash_id } = rs;
+      const city = await this.cityRepo.findOneOrFail({ hashId: city_hash_id }, { fields: ['code'] });
 
-    return this.findContacts(main_activity, city.code, limit, offset);
+      return this.findContacts(main_activity, city.code, limit, offset);
+    }
+    return null;
   }
 }
