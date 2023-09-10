@@ -3,6 +3,7 @@ import { createLogger, transports } from 'winston';
 import { ElasticsearchTransport } from 'winston-elasticsearch';
 import logConfig from '../../config/log.config';
 import { loggerFormat, loggerFormatConsole } from './logger-format';
+import EasyLoggerTransport from './easylogger.transport';
 
 /**
  * Cria o logger do Wiston
@@ -45,6 +46,16 @@ const createWinstonLogger = (name: string) => {
       },
     });
     transps.push(elasticTransport);
+  }
+
+  // Transporte para EasyLogger
+  if (logConfig.EASYLOGGER_URLS) {
+    const easyLoggerTransport = new EasyLoggerTransport({
+      endpoint: logConfig.EASYLOGGER_URLS,
+      index: logConfig.ELASTICSEARCH_INDEX,
+    });
+
+    transps.push(easyLoggerTransport);
   }
 
   const logger = createLogger({

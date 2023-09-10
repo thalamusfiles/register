@@ -37,11 +37,14 @@ services:
       ELASTICSEARCH_USER: ${ELASTICSEARCH_USER}
       ELASTICSEARCH_PASS: ${ELASTICSEARCH_PASS}
       ELASTICSEARCH_INDEX: ${ELASTICSEARCH_INDEX}
+      EASYLOGGER_URLS: ${EASYLOGGER_URLS}
+      EASYLOGGER_INDEX: ${EASYLOGGER_INDEX}
     volumes:
       - "../:/var/www/app"
       - "/var/www/app/node_modules"
     networks:
       - docker_iam_backend-net
+      - docker_easylog_backend-net
       - register_backend-net
     depends_on:
       - register_db
@@ -52,6 +55,8 @@ services:
 
 networks:
   docker_iam_backend-net:
+    external: true
+  docker_easylog_backend-net:
     external: true
   register_backend-net:
     driver: bridge
