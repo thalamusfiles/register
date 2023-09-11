@@ -52,7 +52,7 @@ const createWinstonLogger = (name: string) => {
   if (logConfig.EASYLOGGER_URLS) {
     const easyLoggerTransport = new EasyLoggerTransport({
       endpoint: logConfig.EASYLOGGER_URLS,
-      index: logConfig.ELASTICSEARCH_INDEX,
+      index: logConfig.EASYLOGGER_INDEX,
     });
 
     transps.push(easyLoggerTransport);

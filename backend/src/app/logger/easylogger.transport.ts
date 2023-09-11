@@ -1,19 +1,19 @@
 import * as TransportStream from 'winston-transport';
 import * as http from 'http';
 import * as https from 'https';
+import { URL } from 'url';
 
 export default class EasyLoggerTransport extends TransportStream {
   isSSL: boolean;
-  endpoint: string;
+  endpoint: URL;
   index: string;
 
   constructor(props: { endpoint: string; index: string } & TransportStream.TransportStreamOptions) {
     super(props);
 
-    this.endpoint = props.endpoint;
+    this.endpoint = new URL(props.endpoint);
     this.index = props.index;
-
-    this.isSSL = this.endpoint.startsWith('https');
+    this.isSSL = props.endpoint.startsWith('https');
   }
 
   log(info: any, next: () => void): void {
@@ -21,41 +21,52 @@ export default class EasyLoggerTransport extends TransportStream {
       { level: info.level, message: info.message },
       typeof info.context === 'object' ? info.context : { context: info.context },
     );
+    const postData = JSON.stringify(data);
 
-    if (this.isSSL) {
-      this.sendHttps(data);
-    } else {
-      this.sendHttp(data);
+    try {
+      const options = this.requestOptions(postData);
+      if (this.isSSL) {
+        this.sendHttps(options, postData);
+      } else {
+        this.sendHttp(options, postData);
+      }
+    } catch (ex) {
+      console.error(ex);
     }
-
     next();
   }
 
-  async sendHttp(data: any): Promise<void> {
-    const postData = JSON.stringify(data);
+  requestOptions(postData: string): https.RequestOptions | http.RequestOptions {
+    const path = `${this.endpoint.pathname}/${this.index}`;
 
-    const req = https.request({
-      hostname: this.endpoint,
+    return {
+      hostname: this.endpoint.hostname,
+      port: this.endpoint.port,
+      path,
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
         'Content-Length': postData.length,
       },
+    };
+  }
+
+  async sendHttp(options: http.RequestOptions, postData: any): Promise<void> {
+    const req = http.request(options, (res) => {
+      res.on('data', (d) => {
+        process.stdout.write(d);
+      });
     });
 
     req.write(postData);
     req.end();
   }
-  async sendHttps(data: any): Promise<void> {
-    const postData = JSON.stringify(data);
 
-    const req = http.request({
-      hostname: this.endpoint,
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Content-Length': postData.length,
-      },
+  async sendHttps(options: https.RequestOptions, postData: any): Promise<void> {
+    const req = https.request(options, (res) => {
+      res.on('data', (d) => {
+        process.stdout.write(d);
+      });
     });
 
     req.write(postData);
