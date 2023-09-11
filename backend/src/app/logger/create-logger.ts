@@ -50,12 +50,27 @@ const createWinstonLogger = (name: string) => {
 
   // Transporte para EasyLogger
   if (logConfig.EASYLOGGER_URLS) {
-    const easyLoggerTransport = new EasyLoggerTransport({
-      endpoint: logConfig.EASYLOGGER_URLS,
-      index: logConfig.EASYLOGGER_INDEX,
-    });
+    if (logConfig.EASYLOGGER_INDEX) {
+      const easyLoggerTransport = new EasyLoggerTransport({
+        endpoint: logConfig.EASYLOGGER_URLS,
+        index: logConfig.EASYLOGGER_INDEX,
+      });
 
-    transps.push(easyLoggerTransport);
+      transps.push(easyLoggerTransport);
+    }
+
+    // Transporte com filtro de produto
+    if (logConfig.EASYLOGGER_PRODUCT_INDEX) {
+      const easyLoggerTransport = new EasyLoggerTransport({
+        endpoint: logConfig.EASYLOGGER_URLS,
+        index: logConfig.EASYLOGGER_PRODUCT_INDEX,
+        filter: (info: any) => {
+          return !!info?.product;
+        },
+      });
+
+      transps.push(easyLoggerTransport);
+    }
   }
 
   const logger = createLogger({

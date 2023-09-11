@@ -25,6 +25,7 @@ const logConfig = {
   // Salvar no EasyLogger
   EASYLOGGER_URLS: (process.env.EASYLOGGER_URLS || false) as string | false,
   EASYLOGGER_INDEX: process.env.EASYLOGGER_INDEX,
+  EASYLOGGER_PRODUCT_INDEX: process.env.EASYLOGGER_PRODUCT_INDEX,
 };
 
 export default logConfig;

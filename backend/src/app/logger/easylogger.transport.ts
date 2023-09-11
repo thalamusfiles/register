@@ -7,13 +7,15 @@ export default class EasyLoggerTransport extends TransportStream {
   isSSL: boolean;
   endpoint: URL;
   index: string;
+  filter?: (info: any) => boolean;
 
-  constructor(props: { endpoint: string; index: string } & TransportStream.TransportStreamOptions) {
+  constructor(props: { endpoint: string; index: string; filter?: (info: any) => boolean } & TransportStream.TransportStreamOptions) {
     super(props);
 
     this.endpoint = new URL(props.endpoint);
     this.index = props.index;
     this.isSSL = props.endpoint.startsWith('https');
+    this.filter = props.filter;
   }
 
   log(info: any, next: () => void): void {
@@ -21,18 +23,22 @@ export default class EasyLoggerTransport extends TransportStream {
       { level: info.level, message: info.message },
       typeof info.context === 'object' ? info.context : { context: info.context },
     );
-    const postData = JSON.stringify(data);
 
     try {
-      const options = this.requestOptions(postData);
-      if (this.isSSL) {
-        this.sendHttps(options, postData);
-      } else {
-        this.sendHttp(options, postData);
+      if (!this.filter || this.filter(data)) {
+        const postData = JSON.stringify(data);
+        const options = this.requestOptions(postData);
+
+        if (this.isSSL) {
+          this.sendHttps(options, postData);
+        } else {
+          this.sendHttp(options, postData);
+        }
       }
     } catch (ex) {
       console.error(ex);
     }
+
     next();
   }
 
@@ -52,22 +58,14 @@ export default class EasyLoggerTransport extends TransportStream {
   }
 
   async sendHttp(options: http.RequestOptions, postData: any): Promise<void> {
-    const req = http.request(options, (res) => {
-      res.on('data', (d) => {
-        process.stdout.write(d);
-      });
-    });
+    const req = http.request(options);
 
     req.write(postData);
     req.end();
   }
 
   async sendHttps(options: https.RequestOptions, postData: any): Promise<void> {
-    const req = https.request(options, (res) => {
-      res.on('data', (d) => {
-        process.stdout.write(d);
-      });
-    });
+    const req = https.request(options);
 
     req.write(postData);
     req.end();
