@@ -19,9 +19,6 @@ export class PersonResource extends RegisterBaseEntity {
   @ManyToOne(() => Person, { nullable: false })
   person!: Person;
 
-  @Property({ type: 'json', nullable: false })
-  data!: string;
-
   @Property({ nullable: true })
   deletedAt?: Date;
 

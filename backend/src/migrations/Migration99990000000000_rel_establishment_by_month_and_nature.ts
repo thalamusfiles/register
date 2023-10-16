@@ -11,7 +11,7 @@ export class Migration20230509115642 extends Migration {
         count(e.hash_id) as total
       from person_resource pr
       inner join establishment e    on e.person_hash_id = pr.person_hash_id
-      inner join type_key_value nt  on nt.hash_id = hashtextextended( 'br:br_gov_dados:nature:' || (pr."data"->>'natureCode') , 1)
+      inner join type_key_value nt  on nt.hash_id = hashtextextended( 'br:br_gov_dados:nature:' || (pr."nature_code") , 1)
       group by begin_date, nature_hash_id
       order by begin_date desc, total desc;`,
     );

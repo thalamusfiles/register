@@ -17,33 +17,33 @@ export class Migration20230509115642 extends Migration {
        'document', (select a[1] || '/' || lpad(a[2], 4, '0') || '-' || lpad(a[3], 2, '0') from REGEXP_MATCHES(e.extra_key, '(.*)/(\d+)-(.*)') a),
        'name', p."name",
        'fantasyName', e."data"->>'name',
-       'captal', pr."data"->>'capital',
+       'captal', pr."capital",
        /**/
        'mainActivity', e."main_activity",
        'mainActivityDescription', activity."value"->>'description',
        'otherActivities', e."other_activities",
        /*status*/
-       'sizeCode', pr."data"->>'sizeCode',
-       'natureCode', pr."data"->>'natureCode',
+       'sizeCode', pr."size_code",
+       'natureCode', pr."nature_code",
        'nature', nt."value"->>'description',
-       'naturePerson', pr."data"->>'natureCode' in ('2135') or not exists(select 1 from partner where partner.establishment_hash_id = e.hash_id limit 1),
+       'naturePerson', pr."nature_code" in ('2135') or not exists(select 1 from partner where partner.establishment_hash_id = e.hash_id limit 1),
        'status', e."data"->>'status',
        'statusDate', e."data"->>'statusDate',
        /*Address*/
-       'zipcode', case when pr."data"->>'natureCode' in ('2135') then null else e."data"->>'zipcode' end,
+       'zipcode', case when pr."nature_code" in ('2135') then null else e."data"->>'zipcode' end,
        'countryCode', e."data"->>'countryCode',
        'countryName', country."name",
        'stateCode', e."data"->>'stateCode',
        'cityCode', e."data"->>'cityCode',
-       'cityName', case when pr."data"->>'natureCode' in ('2135') then null else city."name" end,
-       'complement', case when pr."data"->>'natureCode' in ('2135') then null else e."data"->>'complement' end,
-       'publicPlaceCode', case when pr."data"->>'natureCode' in ('2135') then null else e."data"->>'publicPlaceCode' end,
-       'publicPlace', case when pr."data"->>'natureCode' in ('2135') then null else e."data"->>'publicPlace' end,
-       'neighborhood', case when pr."data"->>'natureCode' in ('2135') then null else e."data"->>'neighborhood' end,
-       'number', case when pr."data"->>'natureCode' in ('2135') then null else e."data"->>'number' end,
+       'cityName', case when pr."nature_code" in ('2135') then null else city."name" end,
+       'complement', case when pr."nature_code" in ('2135') then null else e."data"->>'complement' end,
+       'publicPlaceCode', case when pr."nature_code" in ('2135') then null else e."data"->>'publicPlaceCode' end,
+       'publicPlace', case when pr."nature_code" in ('2135') then null else e."data"->>'publicPlace' end,
+       'neighborhood', case when pr."nature_code" in ('2135') then null else e."data"->>'neighborhood' end,
+       'number', case when pr."nature_code" in ('2135') then null else e."data"->>'number' end,
        /*Contact*/
-       'fax', case when pr."data"->>'natureCode' in ('2135') then null else c."data"->>'fax' end,
-       'phone', case when pr."data"->>'natureCode' in ('2135') then null else c."data"->>'phone' end,
+       'fax', case when pr."nature_code" in ('2135') then null else c."data"->>'fax' end,
+       'phone', case when pr."nature_code" in ('2135') then null else c."data"->>'phone' end,
        'email', c."data"->>'email',
        /*Partner*/
        'partners', (select
@@ -77,7 +77,7 @@ export class Migration20230509115642 extends Migration {
    left join "address".city city       on city.hash_id = hashtextextended('br:br_gov_dados:' || nullif(e."data"->>'cityCode',''), 1)
    left join type_key_value activity   on activity.hash_id = hashtextextended( 'br:br_gov_dados:cnae:' || e."main_activity" , 1)
    left join type_key_value reason     on reason.hash_id = hashtextextended( 'br:br_gov_dados:reason:' || (e."data"->>'reason') , 1)
-   left join type_key_value nt         on nt.hash_id = hashtextextended( 'br:br_gov_dados:nature:' || (pr."data"->>'natureCode') , 1);`,
+   left join type_key_value nt         on nt.hash_id = hashtextextended( 'br:br_gov_dados:nature:' || (pr."nature_code") , 1);`,
     );
 
     // Cria o indice da tabela materializada
