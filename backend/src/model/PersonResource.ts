@@ -24,4 +24,19 @@ export class PersonResource extends RegisterBaseEntity {
 
   @Property({ nullable: true })
   deletedAt?: Date;
+
+  @Property({ nullable: true, length: 16 })
+  ente: string;
+
+  @Property({ nullable: true, columnType: 'numeric(15,3)' })
+  capital: number;
+
+  @Property({ nullable: true, columnType: 'int' })
+  sizeCode: number;
+
+  @Property({ nullable: true, columnType: 'int' })
+  natureCode: number;
+
+  @Property({ nullable: true, columnType: 'int' })
+  qualificationCode: number;
 }

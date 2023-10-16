@@ -29,6 +29,11 @@ export class Migration20230509115642 extends Migration {
         "person_hash_id" bigint not null, 
         "data" jsonb not null, 
         "deleted_at" timestamptz(0) null, 
+        "ente" varchar(16) null, 
+        "capital" numeric(15,3) null, 
+        "size_code" int null, 
+        "nature_code" int null, 
+        "qualification_code" int null,
         
         constraint "person_resource_pkey" primary key ("hash_id")
       );`,

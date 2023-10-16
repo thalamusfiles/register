@@ -360,6 +360,54 @@
           "nullable": true,
           "length": 6,
           "mappedType": "datetime"
+        },
+        "ente": {
+          "name": "ente",
+          "type": "varchar(16)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 16,
+          "mappedType": "string"
+        },
+        "capital": {
+          "name": "capital",
+          "type": "numeric(15,3)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "precision": 15,
+          "scale": 3,
+          "mappedType": "decimal"
+        },
+        "size_code": {
+          "name": "size_code",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "integer"
+        },
+        "nature_code": {
+          "name": "nature_code",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "integer"
+        },
+        "qualification_code": {
+          "name": "qualification_code",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "integer"
         }
       },
       "name": "person_resource",

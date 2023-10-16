@@ -20,7 +20,7 @@ async function bootstrap() {
   // Filtro de exceção do ORM
   app.useGlobalFilters(new NotFoundExceptionFilter());
 
-  // somewhere in your initialization file
+  // Sessão
   app.use(
     session({
       secret: cookieConfig.SECRET,
