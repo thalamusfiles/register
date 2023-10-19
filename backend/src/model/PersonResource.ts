@@ -22,7 +22,7 @@ export class PersonResource extends RegisterBaseEntity {
   @Property({ nullable: true })
   deletedAt?: Date;
 
-  @Property({ nullable: true, length: 16 })
+  @Property({ nullable: true, length: 64 })
   ente: string;
 
   @Property({ nullable: true, columnType: 'numeric(15,3)' })

@@ -1,4 +1,4 @@
-import { Entity, Index, ManyToOne, Property } from '@mikro-orm/core';
+import { ArrayType, Entity, Index, ManyToOne, Property } from '@mikro-orm/core';
 import { RegisterBaseEntity } from './Base/RegisterBaseEntity';
 import { Person } from './Person';
 import { Resource } from './Resource';
@@ -19,6 +19,12 @@ export class Contact extends RegisterBaseEntity {
   @Property({ nullable: false })
   extraKey!: string;
 
-  @Property({ type: 'json', nullable: false })
-  data!: string;
+  @Property({ type: ArrayType, columnType: 'varchar(64) []', length: 64, nullable: true })
+  fax!: string;
+
+  @Property({ type: ArrayType, columnType: 'varchar(64) []', length: 64, nullable: true })
+  email!: string;
+
+  @Property({ type: ArrayType, columnType: 'varchar(64) []', length: 64, nullable: true })
+  phone!: string[];
 }

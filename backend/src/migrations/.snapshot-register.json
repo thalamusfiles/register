@@ -342,15 +342,6 @@
           "nullable": false,
           "mappedType": "bigint"
         },
-        "data": {
-          "name": "data",
-          "type": "jsonb",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "json"
-        },
         "deleted_at": {
           "name": "deleted_at",
           "type": "timestamptz(0)",
@@ -363,12 +354,12 @@
         },
         "ente": {
           "name": "ente",
-          "type": "varchar(16)",
+          "type": "varchar(64)",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": true,
-          "length": 16,
+          "length": 64,
           "mappedType": "string"
         },
         "capital": {
@@ -668,6 +659,36 @@
           "primary": false,
           "nullable": false,
           "mappedType": "json"
+        },
+        "fax": {
+          "name": "fax",
+          "type": "varchar(64) []",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 64,
+          "mappedType": "array"
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(64) []",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 64,
+          "mappedType": "array"
+        },
+        "phone": {
+          "name": "phone",
+          "type": "varchar(64) []",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 64,
+          "mappedType": "array"
         }
       },
       "name": "contact",

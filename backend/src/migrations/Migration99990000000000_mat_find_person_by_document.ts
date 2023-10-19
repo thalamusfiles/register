@@ -42,9 +42,9 @@ export class Migration20230509115642 extends Migration {
        'neighborhood', case when pr."nature_code" in ('2135') then null else e."data"->>'neighborhood' end,
        'number', case when pr."nature_code" in ('2135') then null else e."data"->>'number' end,
        /*Contact*/
-       'fax', case when pr."nature_code" in ('2135') then null else c."data"->>'fax' end,
-       'phone', case when pr."nature_code" in ('2135') then null else c."data"->>'phone' end,
-       'email', c."data"->>'email',
+       'fax', case when pr."nature_code" in ('2135') then null else c.fax end,
+       'phone', case when pr."nature_code" in ('2135') then null else c.phone end,
+       'email', c.email,
        /*Partner*/
        'partners', (select
          json_agg(json_build_object(

@@ -11,8 +11,10 @@ export class Migration20230509115642 extends Migration {
         "resource_hash_id" bigint not null, 
         "person_hash_id" bigint not null, 
         "extra_key" varchar(255) not null,
-        "data" jsonb not null, 
-        
+        "fax" varchar(64) [] null, 
+        "email" varchar(64) [] null, 
+        "phone" varchar(64) [] null
+
         constraint "contact_pkey" primary key ("hash_id")
       );`,
     );
