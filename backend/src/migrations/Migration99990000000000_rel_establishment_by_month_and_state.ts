@@ -6,8 +6,8 @@ export class Migration20230509115642 extends Migration {
     this.addSql(
       `create materialized view if not exists "materialized".rel_establishment_by_month_and_state as
       select
-        substring(e."data"->>'beginDate', 1, 6) as begin_date, 
-        e."data"->>'stateCode' as state_code, 
+        e.begin_date as begin_date, 
+        e.state_code as state_code, 
         count(e.hash_id) as total
       from establishment e
       group by begin_date, state_code
@@ -20,8 +20,8 @@ export class Migration20230509115642 extends Migration {
       select * from
       crosstab($$
       select 
-        substring(e."data"->>'beginDate', 1, 6) as begin_date, 
-        e."data"->>'stateCode' as state_code, 
+        e.begin_date as begin_date, 
+        e.state_code as state_code, 
         count(e.hash_id) as total
       from establishment e
       group by begin_date, state_code

@@ -6,7 +6,7 @@ export class Migration20230509115642 extends Migration {
     this.addSql(
       `create materialized view if not exists "materialized".rel_establishment_by_month_and_nature as
       select 
-        substring(e."data"->>'beginDate', 1, 6) as begin_date,
+        e.begin_date as begin_date,
         nt.hash_id as nature_hash_id, 
         count(e.hash_id) as total
       from person_resource pr

@@ -1121,14 +1121,158 @@
           "length": 16,
           "mappedType": "array"
         },
-        "data": {
-          "name": "data",
-          "type": "jsonb",
+        "name": {
+          "name": "name",
+          "type": "varchar(256)",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
-          "mappedType": "json"
+          "nullable": true,
+          "length": 256,
+          "mappedType": "string"
+        },
+        "number": {
+          "name": "number",
+          "type": "varchar(32)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 32,
+          "mappedType": "string"
+        },
+        "reason": {
+          "name": "reason",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "integer"
+        },
+        "status": {
+          "name": "status",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "integer"
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "boolean"
+        },
+        "begin_date": {
+          "name": "begin_date",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "integer"
+        },
+        "state_code": {
+          "name": "state_code",
+          "type": "varchar(16)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 16,
+          "mappedType": "string"
+        },
+        "complement": {
+          "name": "complement",
+          "type": "varchar(256)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 256,
+          "mappedType": "string"
+        },
+        "is_especial": {
+          "name": "is_especial",
+          "type": "varchar(128)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 128,
+          "mappedType": "string"
+        },
+        "status_date": {
+          "name": "status_date",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "integer"
+        },
+        "country_code": {
+          "name": "country_code",
+          "type": "varchar(4)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 4,
+          "mappedType": "string"
+        },
+        "public_place": {
+          "name": "public_place",
+          "type": "varchar(256)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 256,
+          "mappedType": "string"
+        },
+        "is_subsidiary": {
+          "name": "is_subsidiary",
+          "type": "boolean",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "boolean"
+        },
+        "neighborhood": {
+          "name": "neighborhood",
+          "type": "varchar(256)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 256,
+          "mappedType": "string"
+        },
+        "is_especial_date": {
+          "name": "is_especial_date",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "integer"
+        },
+        "public_place_code": {
+          "name": "public_place_code",
+          "type": "varchar(64)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 64,
+          "mappedType": "string"
         }
       },
       "name": "establishment",
@@ -1309,23 +1453,14 @@
           "nullable": false,
           "mappedType": "string"
         },
-        "data": {
-          "name": "data",
-          "type": "jsonb",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "json"
-        },
         "partner": {
           "name": "partner",
-          "type": "varchar(128)",
+          "type": "varchar(256)",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
-          "length": 128,
+          "nullable": true,
+          "length": 256,
           "mappedType": "string"
         },
         "age_group": {
@@ -1334,7 +1469,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "mappedType": "integer"
         },
         "begin_date": {
@@ -1343,7 +1478,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "mappedType": "integer"
         },
         "partner_tp": {
@@ -1352,7 +1487,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "mappedType": "integer"
         },
         "partner_doc": {
@@ -1361,7 +1496,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "length": 32,
           "mappedType": "string"
         },
@@ -1371,7 +1506,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "length": 4,
           "mappedType": "string"
         },
@@ -1381,7 +1516,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "mappedType": "integer"
         },
         "representative_doc": {
@@ -1390,18 +1525,18 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "length": 32,
           "mappedType": "string"
         },
         "representative_name": {
           "name": "representative_name",
-          "type": "varchar(128)",
+          "type": "varchar(256)",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
-          "length": 128,
+          "nullable": true,
+          "length": 256,
           "mappedType": "string"
         },
         "representative_qualification": {
@@ -1410,7 +1545,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "mappedType": "integer"
         }
       },
