@@ -20,6 +20,33 @@ export class Partner extends RegisterBaseEntity {
   @Property({ nullable: false })
   extraKey!: string;
 
-  @Property({ type: 'json', nullable: false })
-  data!: string;
+  @Property({ length: 256, nullable: true })
+  partner: string;
+
+  @Property({ nullable: true })
+  ageGroup: number;
+
+  @Property({ nullable: true })
+  beginDate: number;
+
+  @Property({ nullable: true })
+  partnerTp: number;
+
+  @Property({ length: 32, nullable: true })
+  partnerDoc: string;
+
+  @Property({ length: 4, nullable: true })
+  countryCode: any;
+
+  @Property({ nullable: true })
+  qualification: number;
+
+  @Property({ length: 32, nullable: true })
+  representativeDoc: string;
+
+  @Property({ length: 256, nullable: true })
+  representativeName: string;
+
+  @Property({ nullable: true })
+  representativeQualification: number;
 }

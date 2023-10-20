@@ -48,24 +48,24 @@ export class Migration20230509115642 extends Migration {
        /*Partner*/
        'partners', (select
          json_agg(json_build_object(
-           'partner', partner."data"->>'partner',
-           'partnerDoc', partner."data"->>'partnerDoc',
-           'partnerTp', partner."data"->>'partnerTp',
-           'representativeName', partner."data"->>'representativeName',
-           'representativeDoc', partner."data"->>'representativeDoc'
+           'partner', partner.partner,
+           'partnerDoc', partner.partner_doc,
+           'partnerTp', partner.partner_tp,
+           'representativeName', partner.representative_name,
+           'representativeDoc', partner.representative_doc
          )) from partner
          where partner.establishment_hash_id = e.hash_id
        ),
        /*Others*/
        'simples', json_build_object(
-         'is', pr."data"->>'isSimple',
-         'createdAt', pr."data"->>'simpleCreatedAt',
-         'deletedAt', pr."data"->>'simpleDeletedAt'
+         'is', pr.is_simple,
+         'createdAt', pr.simple_created_at,
+         'deletedAt', pr.simple_deleted_at
        ),
        'MEI', json_build_object(
-         'is', pr."data"->>'isMEI',
-         'createdAt', pr."data"->>'MEICreatedAt',
-         'deletedAt', pr."data"->>'MEIDeletedAt'
+         'is', pr.is_mei,
+         'createdAt', pr.mei_created_at,
+         'deletedAt', pr.mei_deleted_at
        ),
        'reason', reason."value"->>'description'
      ) as "brGovDados"

@@ -651,15 +651,6 @@
           "nullable": false,
           "mappedType": "string"
         },
-        "data": {
-          "name": "data",
-          "type": "jsonb",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "json"
-        },
         "fax": {
           "name": "fax",
           "type": "varchar(64) []",
@@ -1326,6 +1317,101 @@
           "primary": false,
           "nullable": false,
           "mappedType": "json"
+        },
+        "partner": {
+          "name": "partner",
+          "type": "varchar(128)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 128,
+          "mappedType": "string"
+        },
+        "age_group": {
+          "name": "age_group",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "begin_date": {
+          "name": "begin_date",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "partner_tp": {
+          "name": "partner_tp",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "partner_doc": {
+          "name": "partner_doc",
+          "type": "varchar(32)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 32,
+          "mappedType": "string"
+        },
+        "country_code": {
+          "name": "country_code",
+          "type": "varchar(4)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 4,
+          "mappedType": "string"
+        },
+        "qualification": {
+          "name": "qualification",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "representative_doc": {
+          "name": "representative_doc",
+          "type": "varchar(32)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 32,
+          "mappedType": "string"
+        },
+        "representative_name": {
+          "name": "representative_name",
+          "type": "varchar(128)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 128,
+          "mappedType": "string"
+        },
+        "representative_qualification": {
+          "name": "representative_qualification",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
         }
       },
       "name": "partner",

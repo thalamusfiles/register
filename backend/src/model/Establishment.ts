@@ -41,6 +41,51 @@ export class Establishment extends RegisterBaseEntity {
   @Property({ type: ArrayType, length: 16, nullable: false })
   otherActivities?: string[];
 
-  @Property({ type: 'json', nullable: false })
-  data!: string;
+  @Property({ nullable: true, length: 256 })
+  name: string;
+
+  @Property({ nullable: true, length: 32 })
+  number: string;
+
+  @Property({ nullable: true })
+  reason: number;
+
+  @Property({ nullable: true })
+  status: number;
+
+  @Property({ nullable: true })
+  isActive: boolean;
+
+  @Property({ nullable: true })
+  beginDate: number;
+
+  @Property({ nullable: true, length: 16 })
+  stateCode: string;
+
+  @Property({ nullable: true, length: 256 })
+  complement: string;
+
+  @Property({ nullable: true, length: 128 })
+  isEspecial: string;
+
+  @Property({ nullable: true })
+  statusDate: number;
+
+  @Property({ nullable: true, length: 4 })
+  countryCode: string;
+
+  @Property({ nullable: true, length: 256 })
+  publicPlace: string;
+
+  @Property({ nullable: true })
+  isSubsidiary: boolean;
+
+  @Property({ nullable: true, length: 256 })
+  neighborhood: string;
+
+  @Property({ nullable: true })
+  isEspecialDate: number;
+
+  @Property({ nullable: true, length: 64 })
+  publicPlaceCode: string;
 }

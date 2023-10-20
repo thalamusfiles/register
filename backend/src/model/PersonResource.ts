@@ -36,4 +36,11 @@ export class PersonResource extends RegisterBaseEntity {
 
   @Property({ nullable: true, columnType: 'int' })
   qualificationCode: number;
+
+  //isSimple
+  //simpleCreatedAt
+  //simpleDeletedAt
+  //isMei
+  //meiCreatedAt
+  //meiDeletedAt
 }
