@@ -21,10 +21,18 @@ import { EstablishmentService } from './service/establishment.repository';
 import { FindPersonByDocumentService } from './service/findpersonbydocument.repository';
 import { PersonService } from './service/person.repository';
 import { TypeKeyValueService } from './service/typekeyvalue.repository';
+import { JwtModule } from '@nestjs/jwt';
+import authConfig from 'src/config/auth.config';
+import { AccessStrategy } from '../auth/passaport/access.strategy';
 
 @Module({
-  imports: [MikroOrmModule.forFeature([ResourceCountry, State, City, TypeKeyValue, FindPersonByDocument, Person, Partner, Establishment, Contact])],
+  imports: [
+    //
+    JwtModule.register({ secret: authConfig.CLIENT_SECRET }),
+    MikroOrmModule.forFeature([ResourceCountry, State, City, TypeKeyValue, FindPersonByDocument, Person, Partner, Establishment, Contact]),
+  ],
   providers: [
+    AccessStrategy,
     //
     FindPersonByDocumentService,
     PersonService,
