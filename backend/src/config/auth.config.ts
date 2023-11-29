@@ -6,23 +6,19 @@ const defaultAuthConfig = {
 };
 
 const authConfig = {
-  // Definição de como enviar o ID Token para o frontend
-  SEND_TOKEN_BY: registerConfig.PRODCTION_MODE ? 'header' : 'session',
   //
   TOKEN_HEADER_NAME: 'x-access-token',
   // URL de autenticação do sistema.
   OAUTH_URL: process.env.OAUTH_URL || defaultAuthConfig.OAUTH_URL,
-  // URL de autenticação do sistema.
-  OAUTH_AUTHORIZE: '/oauth2/authorize',
-  // URL de autenticação do sistema.
-  OAUTH_TOKEN: '/oauth2/token',
-  // Oauth scope
-  OAUTH_CALLBACK: registerConfig.PRODCTION_MODE ? '/auth/iam/callback' : `http://localhost:${registerConfig.PORT}/auth/iam/callback`,
   // Oauth scope
   OAUTH_SCOPE: 'iam_all',
+  // Oauth callback
+  OAUTH_CALLBACK: registerConfig.PRODCTION_MODE
+    ? 'http://register.thalamus.digital/auth/iam/callback'
+    : `http://localhost:${registerConfig.PORT}/auth/iam/callback`,
   // Identificação do Cliente
   CLIENT_ID: 'ada56e83-7f4b-41c8-8645-1c918320c580',
-  CLIENT_SECRET: process.env.OAUTH_URL || defaultAuthConfig.CLIENT_SECRET,
+  CLIENT_SECRET: process.env.CLIENT_SECRET || defaultAuthConfig.CLIENT_SECRET,
 };
 
 export default authConfig;

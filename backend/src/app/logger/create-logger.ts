@@ -1,6 +1,5 @@
 import { WinstonModule } from 'nest-winston';
 import { createLogger, transports } from 'winston';
-import { ElasticsearchTransport } from 'winston-elasticsearch';
 import logConfig from '../../config/log.config';
 import { loggerFormat, loggerFormatConsole } from './logger-format';
 import EasyLoggerTransport from './easylogger.transport';
@@ -32,20 +31,6 @@ const createWinstonLogger = (name: string) => {
         filename: `${logConfig.FOLDER_PATH}/${name}.log`,
       }),
     );
-  }
-
-  // Transporte para ElasticSearch
-  if (logConfig.ELASTICSEARCH_URLS) {
-    const node = logConfig.ELASTICSEARCH_URLS;
-    const elasticTransport = new ElasticsearchTransport({
-      index: logConfig.ELASTICSEARCH_INDEX,
-      //level: 'info',
-      clientOpts: {
-        node,
-        auth: { username: logConfig.ELASTICSEARCH_USER, password: logConfig.ELASTICSEARCH_PASS },
-      },
-    });
-    transps.push(elasticTransport);
   }
 
   // Transporte para EasyLogger

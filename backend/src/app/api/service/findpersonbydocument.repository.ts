@@ -58,7 +58,7 @@ export class FindPersonByDocumentService {
     if (rs) {
       return this.findLegalByDocument(rs.extra_key);
     }
-    return null;
+    throw new NotFoundError('');
   }
 
   formatDocumentToSearch(type: string, document: string): string {

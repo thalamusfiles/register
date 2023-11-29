@@ -4,12 +4,15 @@ import { ApiOperation } from '@nestjs/swagger';
 import { AddressService } from '../service/address.repository';
 import { FindCitiesByStateDto } from './dto/address.dto';
 import productsNames from '../../../config/billing.products';
+import { BaseController } from './base.controller';
 
 @Controller('api/address')
-export class AddressController {
-  private readonly logger = new Logger(AddressController.name);
+export class AddressController extends BaseController {
+  protected readonly logger = new Logger(AddressController.name);
 
   constructor(private readonly addressService: AddressService) {
+    super();
+
     this.logger.log('Starting');
   }
 
@@ -20,9 +23,9 @@ export class AddressController {
   @Get('/state')
   @UsePipes(new RegisterValidationPipe())
   async findStates(): Promise<any> {
-    this.logger.log(`Find States`, { product: productsNames.AddressFindStates });
+    const resp = this.addressService.findStates();
 
-    return this.addressService.findStates();
+    return this.logBeforeReturn(resp, `Find States`, { product: productsNames.AddressFindStates });
   }
 
   /**
@@ -32,8 +35,8 @@ export class AddressController {
   @Get('/city')
   @UsePipes(new RegisterValidationPipe())
   async findCitiesByState(@Query() { stateCode, nameLike }: FindCitiesByStateDto): Promise<any> {
-    this.logger.log(`Find Cities By State`, { product: productsNames.AddressFindCitiesByState, params: { stateCode } });
+    const resp = this.addressService.findCitiesByState(stateCode, nameLike);
 
-    return this.addressService.findCitiesByState(stateCode, nameLike);
+    return this.logBeforeReturn(resp, `Find Cities By State`, { product: productsNames.AddressFindCitiesByState, params: { stateCode } });
   }
 }

@@ -7,6 +7,7 @@ import PersonPage from './person';
 import RelEstablishmentPage from './rel_establishment';
 import RelTypePage from './rel_type';
 import TypePage from './type';
+import TokenLoad from './token-load';
 
 /**
  * Definições das rotas.
@@ -30,6 +31,8 @@ export const routes: RoutesDefinition = {
 export default function PublicRoutes() {
   return (
     <Routes>
+      <Route path="/app/tokenload" element={<TokenLoad />} index />
+
       {Object.values(routes).map((route, idx) => (
         <Route index={route.index} path={route.path.concat('/*')} element={<route.component />} key={idx} />
       ))}

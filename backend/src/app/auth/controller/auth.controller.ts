@@ -35,17 +35,13 @@ export class AuthController {
   async iamCallback(@Request() request, @Res() response): Promise<any> {
     this.logger.log('IAM Callback');
 
-    if (authConfig.SEND_TOKEN_BY === 'header') {
-      response.header(authConfig.TOKEN_HEADER_NAME, request.user.idToken);
+    if (request.session[cookieConfig.NAME]) {
+      request.session[cookieConfig.NAME][authConfig.TOKEN_HEADER_NAME] = request.user.idToken;
     } else {
-      if (request.session[cookieConfig.NAME]) {
-        request.session[cookieConfig.NAME][authConfig.TOKEN_HEADER_NAME] = request.user.idToken;
-      } else {
-        request.session[cookieConfig.NAME] = { [authConfig.TOKEN_HEADER_NAME]: request.user.idToken };
-      }
+      request.session[cookieConfig.NAME] = { [authConfig.TOKEN_HEADER_NAME]: request.user.idToken };
     }
 
-    return response.redirect(registerConfig.PRODCTION_MODE ? '/' : `${registerConfig.DEV_URL}/`);
+    return response.redirect((registerConfig.PRODCTION_MODE ? '' : registerConfig.DEV_URL) + '/public/app/tokenload');
   }
 
   /**

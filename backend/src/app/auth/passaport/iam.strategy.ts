@@ -1,13 +1,18 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, Client, Issuer, TokenSet } from 'openid-client';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import authConfig from '../../../config/auth.config';
 import cookieConfig from '../../../config/cookie.config';
 import { IAMInfo } from './iam.info';
 
 export const buildIamOpenIdClient = async (): Promise<Client | null> => {
-  const TrustIssuer = await Issuer.discover(`${authConfig.OAUTH_URL}`).catch(() => null);
-  if (!TrustIssuer) return null;
+  const TrustIssuer = await Issuer.discover(authConfig.OAUTH_URL).catch(() => null);
+  if (!TrustIssuer) {
+    Logger.error('Comunicação com IAM não iniciada:' + authConfig.OAUTH_URL);
+    return null;
+  } else {
+    Logger.log('IAM - Auth endpoint: ' + TrustIssuer.authorization_endpoint);
+  }
 
   const client = new TrustIssuer.Client({
     authorization_signed_response_alg: 'HS256', //TODO: implementar RS256

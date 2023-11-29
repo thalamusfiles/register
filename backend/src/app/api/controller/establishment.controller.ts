@@ -5,12 +5,15 @@ import { BusinessTypeDto, ZipcodeDto } from './dto/establishment.controller.ts.d
 import { EstablishmentService } from '../service/establishment.repository';
 import productsNames from '../../../config/billing.products';
 import { LimitOffsetDto } from './dto/limitoffset.dto';
+import { BaseController } from './base.controller';
 
 @Controller('api/establishment')
-export class EstablishmentController {
-  private readonly logger = new Logger(EstablishmentController.name);
+export class EstablishmentController extends BaseController {
+  protected readonly logger = new Logger(EstablishmentController.name);
 
   constructor(private readonly establishmentService: EstablishmentService) {
+    super();
+
     this.logger.log('Starting');
   }
 
@@ -21,9 +24,9 @@ export class EstablishmentController {
   @Get('/zipcode')
   @UsePipes(new RegisterValidationPipe())
   async findByZipcode(@Query() { zipcode, limit, offset }: ZipcodeDto): Promise<any> {
-    this.logger.log(`Find By Zipcode`, { product: productsNames.EstabFindByZipcode, params: { zipcode, limit, offset } });
+    const resp = this.establishmentService.findByZipcode(zipcode, limit, offset);
 
-    return this.establishmentService.findByZipcode(zipcode, limit, offset);
+    return this.logBeforeReturn(resp, `Find By Zipcode`, { product: productsNames.EstabFindByZipcode, params: { zipcode, limit, offset } });
   }
 
   /**
@@ -33,9 +36,9 @@ export class EstablishmentController {
   @Get('/zipcode/random')
   @UsePipes(new RegisterValidationPipe())
   async findByZipcodeRandom(@Query() reqQuery?: LimitOffsetDto): Promise<any> {
-    this.logger.log(`Find By Zipcode Random`, { product: productsNames.EstabFindByZipcodeRandom });
+    const resp = this.establishmentService.findByZipcodeRandom(reqQuery.limit, reqQuery.offset);
 
-    return this.establishmentService.findByZipcodeRandom(reqQuery.limit, reqQuery.offset);
+    return this.logBeforeReturn(resp, `Find By Zipcode Random`, { product: productsNames.EstabFindByZipcodeRandom });
   }
 
   /**
@@ -45,9 +48,12 @@ export class EstablishmentController {
   @Get('/businesstype')
   @UsePipes(new RegisterValidationPipe())
   async findByBusinessType(@Query() { businessType, cityCode, limit, offset }: BusinessTypeDto): Promise<any> {
-    this.logger.log(`Find By Business Type`, { product: productsNames.EstabFindByBusinessType, params: { businessType, cityCode, limit, offset } });
+    const resp = this.establishmentService.findByBusinessType(businessType, cityCode, limit, offset);
 
-    return this.establishmentService.findByBusinessType(businessType, cityCode, limit, offset);
+    return this.logBeforeReturn(resp, `Find By Business Type`, {
+      product: productsNames.EstabFindByBusinessType,
+      params: { businessType, cityCode, limit, offset },
+    });
   }
 
   /**
@@ -57,8 +63,11 @@ export class EstablishmentController {
   @Get('/businesstype/random')
   @UsePipes(new RegisterValidationPipe())
   async findByBusinessTypeRandom(@Query() { limit, offset }: LimitOffsetDto): Promise<any> {
-    this.logger.log(`Find By Business Type Random`, { product: productsNames.EstabFindByBusinessTypeRandom, params: { limit, offset } });
+    const resp = this.establishmentService.findByBusinessTypeRandom(limit, offset);
 
-    return this.establishmentService.findByBusinessTypeRandom(limit, offset);
+    return this.logBeforeReturn(resp, `Find By Business Type Random`, {
+      product: productsNames.EstabFindByBusinessTypeRandom,
+      params: { limit, offset },
+    });
   }
 }

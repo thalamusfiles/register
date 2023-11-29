@@ -5,12 +5,15 @@ import { ApiOperation } from '@nestjs/swagger';
 import { FindPersonByDocumentService } from '../service/findpersonbydocument.repository';
 import { PersonService } from '../service/person.repository';
 import productsNames from '../../../config/billing.products';
+import { BaseController } from './base.controller';
 
 @Controller('api/person')
-export class PersonController {
-  private readonly logger = new Logger(PersonController.name);
+export class PersonController extends BaseController {
+  protected readonly logger = new Logger(PersonController.name);
 
   constructor(private readonly findPersonByDocumentService: FindPersonByDocumentService, private readonly personService: PersonService) {
+    super();
+
     this.logger.log('Starting');
   }
 
@@ -21,9 +24,9 @@ export class PersonController {
   @Get('/legal')
   @UsePipes(new RegisterValidationPipe())
   async findLegalByDocument(@Query() { document }: FindCompanyDto): Promise<any> {
-    this.logger.log(`Find Legal By Document`, { product: productsNames.PersonFindLegalByDocument, params: { document } });
+    const resp = await this.findPersonByDocumentService.findLegalByDocument(document);
 
-    return await this.findPersonByDocumentService.findLegalByDocument(document);
+    return this.logBeforeReturn(resp, `Find Legal By Document`, { product: productsNames.PersonFindLegalByDocument, params: { document } });
   }
 
   /**
@@ -33,9 +36,9 @@ export class PersonController {
   @Get('/legal/random')
   @UsePipes(new RegisterValidationPipe())
   async findLegalByRandom(): Promise<any> {
-    this.logger.log(`Find Legal By Random`, { product: productsNames.PersonFindLegalByRandom });
+    const resp = await this.findPersonByDocumentService.findLegalRandom();
 
-    return await this.findPersonByDocumentService.findLegalRandom();
+    return this.logBeforeReturn(resp, `Find Legal By Random`, { product: productsNames.PersonFindLegalByRandom });
   }
 
   /**
@@ -45,9 +48,9 @@ export class PersonController {
   @Get('/natural')
   @UsePipes(new RegisterValidationPipe())
   async findNaturalByDocument(@Query() { document }: FindCompanyDto): Promise<any> {
-    this.logger.log(`Find Natural By Document`, { product: productsNames.PersonFindNaturalByDocument, params: { document } });
+    const resp = this.personService.findPartnerByDocument(document);
 
-    return this.personService.findPartnerByDocument(document);
+    return this.logBeforeReturn(resp, `Find Natural By Document`, { product: productsNames.PersonFindNaturalByDocument, params: { document } });
   }
 
   /**
@@ -57,8 +60,8 @@ export class PersonController {
   @Get('/natural/random')
   @UsePipes(new RegisterValidationPipe())
   async findNaturalByRandom(): Promise<any> {
-    this.logger.log(`Find Natural By Random`, { product: productsNames.PersonFindNaturalByRandom });
+    const resp = this.personService.findPartnerRandom();
 
-    return this.personService.findPartnerRandom();
+    return this.logBeforeReturn(resp, `Find Natural By Random`, { product: productsNames.PersonFindNaturalByRandom });
   }
 }

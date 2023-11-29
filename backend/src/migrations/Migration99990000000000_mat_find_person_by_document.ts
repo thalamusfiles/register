@@ -34,7 +34,7 @@ export class Migration20230509115642 extends Migration {
        'countryCode', e.country_code,
        'countryName', country."name",
        'stateCode', e.state_code,
-       'cityCode', e.city_code,
+       'cityCode', city.code,
        'cityName', case when pr."nature_code" in ('2135') then null else city."name" end,
        'complement', case when pr."nature_code" in ('2135') then null else e.complement end,
        'publicPlaceCode', case when pr."nature_code" in ('2135') then null else e.public_place_code end,
@@ -57,7 +57,7 @@ export class Migration20230509115642 extends Migration {
          where partner.establishment_hash_id = e.hash_id
        ),
        /*Others*/
-       'simples', json_build_object(
+       /*'simples', json_build_object(
          'is', pr.is_simple,
          'createdAt', pr.simple_created_at,
          'deletedAt', pr.simple_deleted_at
@@ -66,7 +66,7 @@ export class Migration20230509115642 extends Migration {
          'is', pr.is_mei,
          'createdAt', pr.mei_created_at,
          'deletedAt', pr.mei_deleted_at
-       ),
+       ),*/
        'reason', reason."value"->>'description'
      ) as "brGovDados"
    from establishment e
@@ -74,7 +74,7 @@ export class Migration20230509115642 extends Migration {
    left join person_resource pr on pr.person_hash_id = e.person_hash_id
    left join contact c           on c.person_hash_id = e.person_hash_id and e.extra_key = c.extra_key
    left join "address".country country on country.hash_id = hashtextextended('br:br_gov_dados:' || nullif(e.country_code, ''), 1)
-   left join "address".city city       on city.hash_id = hashtextextended('br:br_gov_dados:' || nullif(e.city_code,''), 1)
+   left join "address".city city       on city.hash_id = e.city_hash_id
    left join type_key_value activity   on activity.hash_id = hashtextextended( 'br:br_gov_dados:cnae:' || e."main_activity" , 1)
    left join type_key_value reason     on reason.hash_id = hashtextextended( 'br:br_gov_dados:reason:' || (e.reason) , 1)
    left join type_key_value nt         on nt.hash_id = hashtextextended( 'br:br_gov_dados:nature:' || (pr."nature_code") , 1);`,

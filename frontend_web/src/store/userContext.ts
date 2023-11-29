@@ -5,6 +5,7 @@ import { localStorageDef } from '../commons/consts';
 import { historyPush } from '../commons/route';
 import Storage from '../commons/storage';
 import { AuthDataSource } from '../datasources/auth';
+import apiConfigure from '../config/api.config';
 
 type AccessUserInfo = { iat: number; sub: string; name: string; aud: string };
 
@@ -54,8 +55,7 @@ export class Ctx {
         new AuthDataSource()
           .getToken()
           .then((resp) => {
-            this.token = resp.data.idToken;
-            this.user = resp.data.userInfo;
+            this.saveUser(resp.data.userInfo, resp.data.idToken, null);
           })
           .catch((error) => {
             console.error(error);
@@ -65,6 +65,8 @@ export class Ctx {
   }
 
   @action saveUser(user: any, token: string | null, expiresIn: number | null) {
+    const isDiff = this.token !== token;
+
     Storage.setItem(localStorageDef.userContextKey, user);
     Storage.setItem(localStorageDef.tokenKey, token);
     Storage.setItem(localStorageDef.expiresIn, expiresIn);
@@ -72,6 +74,11 @@ export class Ctx {
     this.user = user;
     this.token = token;
     this.expiresIn = expiresIn;
+
+    // Atualiza a chave de autorização se foi auterado.
+    if (isDiff) {
+      apiConfigure(this.token);
+    }
   }
 }
 

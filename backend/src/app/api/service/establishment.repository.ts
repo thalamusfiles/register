@@ -1,4 +1,4 @@
-import { EntityRepository } from '@mikro-orm/core';
+import { EntityRepository, NotFoundError } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable, Logger } from '@nestjs/common';
 import { Knex, PostgreSqlConnection } from '@mikro-orm/postgresql';
@@ -65,11 +65,11 @@ export class EstablishmentService {
       .limit(1)
       .first();
 
-    const zipcode = (await query).zipcode;
+    const zipcode = (await query)?.zipcode;
     if (zipcode) {
       return this.findByZipcode(zipcode, limit, offset);
     }
-    return null;
+    throw new NotFoundError('');
   }
 
   /**
@@ -121,6 +121,6 @@ export class EstablishmentService {
 
       return this.findByBusinessType(businessType, cityCode, limit, offset);
     }
-    return null;
+    throw new NotFoundError('');
   }
 }

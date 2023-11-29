@@ -5,12 +5,15 @@ import productsNames from '../../../config/billing.products';
 import { ContactDto } from './dto/contact.controller.ts.dto';
 import { ContactService } from '../service/contact.repository';
 import { LimitOffsetDto } from './dto/limitoffset.dto';
+import { BaseController } from './base.controller';
 
 @Controller('api/contact')
-export class ContactController {
-  private readonly logger = new Logger(ContactController.name);
+export class ContactController extends BaseController {
+  protected readonly logger = new Logger(ContactController.name);
 
   constructor(private readonly contactService: ContactService) {
+    super();
+
     this.logger.log('Starting');
   }
 
@@ -21,9 +24,9 @@ export class ContactController {
   @Get('/')
   @UsePipes(new RegisterValidationPipe())
   async find(@Query() { businessType, cityCode, limit, offset }: ContactDto): Promise<any> {
-    this.logger.log(`Find`, { product: productsNames.ContactFind, params: { businessType, cityCode, limit, offset } });
+    const resp = this.contactService.findContacts(businessType, cityCode, limit, offset);
 
-    return this.contactService.findContacts(businessType, cityCode, limit, offset);
+    return this.logBeforeReturn(resp, `Find`, { product: productsNames.ContactFind, params: { businessType, cityCode, limit, offset } });
   }
 
   /**
@@ -33,8 +36,8 @@ export class ContactController {
   @Get('/random')
   @UsePipes(new RegisterValidationPipe())
   async findByBusinessTypeRandom(@Query() { limit, offset }: LimitOffsetDto): Promise<any> {
-    this.logger.log(`Find Random`, { product: productsNames.ContactFindRandom, params: { limit, offset } });
+    const resp = this.contactService.findContactsRandom(limit, offset);
 
-    return this.contactService.findContactsRandom(limit, offset);
+    return this.logBeforeReturn(resp, `Find Random`, { product: productsNames.ContactFindRandom, params: { limit, offset } });
   }
 }
