@@ -11,10 +11,10 @@ type TCardTileProps = {
 
 const TCardTile: React.FC<TCardTileProps> = (props: TCardTileProps) => {
   return (
-    <Card style={{ width: '18rem', marginBottom: '1rem' }} className="pointer" onClick={() => props.onClick()} border={props.variant}>
+    <Card style={{ marginBottom: '1rem' }} className="pointer" onClick={() => props.onClick()} border={props.variant}>
       <Card.Header>
         <Card.Title className={'float-end text-' + props.variant}>{props.faicon && <FontAwesomeIcon icon={props.faicon} size="2x" />}</Card.Title>
-        <Card.Title>{props.title}</Card.Title>
+        <Card.Title className='text-truncate'>{props.title}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{props.subtitle}</Card.Subtitle>
       </Card.Header>
     </Card>

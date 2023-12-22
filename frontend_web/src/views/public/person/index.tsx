@@ -21,7 +21,7 @@ const PersonPage: React.FC = () => {
       </Routes>
 
       <Row>
-        <Col md={2}>
+        <Col md={2} className="d-none d-lg-block">
           <SideBarHome />
         </Col>
         <Col>

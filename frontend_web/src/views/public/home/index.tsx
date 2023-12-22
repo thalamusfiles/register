@@ -16,7 +16,7 @@ const Home: React.FC = () => {
   return (
     <Container fluid>
       <Row>
-        <Col md={{ span: 2 }}>
+        <Col md={2} className="d-none d-lg-block">
           <SideBarHome />
         </Col>
         <Col>
