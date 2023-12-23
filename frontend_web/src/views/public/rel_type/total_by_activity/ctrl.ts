@@ -54,7 +54,7 @@ export class TotalByMonthActivityCtrl {
       .totalByMonthAndMainActivity(months)
       .then((response) => {
         this.wanted = true;
-        this.response = response.data.sort((l, r) => r.total - l.total);
+        this.response = response?.data.sort((l, r) => r.total - l.total);
         this.responseChart = this.response.filter((_, idx) => idx < 35);
       })
       .catch((ex) => {

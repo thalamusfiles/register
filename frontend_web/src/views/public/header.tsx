@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -41,18 +41,18 @@ const Header: React.FC = () => {
           </Nav>
 
           <Nav className="me-end">
+            <Button variant="outline-info" size="sm" onClick={() => historyPush('/swagger', { open: true })}>
+              <FontAwesomeIcon icon={IconsDef.swagger} /> {__('card.swagger')}
+            </Button>
             <Nav.Link href={docUrl} target="_blanck">
-              <FontAwesomeIcon className="text-warning" icon={'question-circle'} /> {__('menu.help')}
+              <FontAwesomeIcon className="text-info" icon={'question-circle'} /> {__('menu.help')}
             </Nav.Link>
-
             <NotificationProvider value={NotificationValue}>
               <NotificationBell />
             </NotificationProvider>
             <div className="navbar-spacer" />
-
             <ThalamusLinksMenu />
             <div className="navbar-spacer" />
-
             <UserDropdown />
           </Nav>
         </Navbar.Collapse>
@@ -68,11 +68,11 @@ const ModulesNav: React.FC = () => {
       <Nav.Link href={getLinkTo('persons')}>
         <FontAwesomeIcon icon={IconsDef.user[0]} /> {__('menu.persons')}
       </Nav.Link>
+      <Nav.Link href={getLinkTo('addresses')}>
+        <FontAwesomeIcon icon={IconsDef.zipcode} /> {__('menu.persons_by_address')}
+      </Nav.Link>
       <Nav.Link href={getLinkTo('types')}>
         <FontAwesomeIcon icon={IconsDef.zipcode} /> {__('menu.type')}
-      </Nav.Link>
-      <Nav.Link href={getLinkTo('addresses')}>
-        <FontAwesomeIcon icon={IconsDef.zipcode} /> {__('menu.address')}
       </Nav.Link>
       <div className="navbar-spacer" />
 
@@ -116,7 +116,7 @@ const NotificationBell: React.FC = () => {
   const notify = useNotificationStore();
   return (
     <Nav.Link onClick={() => notify!.showAll()}>
-      <span className="fa-layers fa-fw text-info">
+      <span className="fa-layers fa-fw text-warning">
         <FontAwesomeIcon icon={'bell'} />
         {notify?.amount && <span className="fa-layers-counter">{notify?.amount}</span>}
       </span>

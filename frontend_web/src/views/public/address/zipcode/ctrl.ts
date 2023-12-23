@@ -27,6 +27,13 @@ export class AddressZipcodeCtrl {
   @observable erros: ErrorListRecord = {};
 
   @action
+  handleClear = () => {
+    this.zipcode = '';
+    this.page = 1;
+    this.response = null;
+  };
+
+  @action
   handleDocument = (e: any) => {
     this.zipcode = e.target.value;
   };
@@ -59,13 +66,13 @@ export class AddressZipcodeCtrl {
       .findByZipcode(this.zipcode, this.limit, this.page - 1)
       .then((response) => {
         this.waiting = false;
-        this.response = response.data;
+        this.response = response?.data;
       })
       .catch((ex) => {
         this.waiting = false;
         this.response = null;
 
-        const data = ex.response.data;
+        const data = ex.response?.data;
         [this.erroMessages, this.erros] = getFormExceptionErrosToObject(data, { splitByConstraints: true }) as ErrosAsList;
 
         this.notifyExeption(ex);
@@ -84,8 +91,8 @@ export class AddressZipcodeCtrl {
       .findByZipcodeRandom(this.limit, this.page - 1)
       .then((response) => {
         this.waiting = false;
-        this.response = response.data;
-        this.zipcode = response.data[0]?.zipcode;
+        this.response = response?.data;
+        this.zipcode = response?.data[0]?.zipcode;
 
         historyReplace({ document: this.zipcode });
       })

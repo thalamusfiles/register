@@ -22,7 +22,7 @@ const TypePage: React.FC = () => {
         </Col>
         <Col>
           <Row>
-            <Col md={12} lg={8}>
+            <Col md={12} lg={9}>
               <TypeHeader />
 
               <Routes>

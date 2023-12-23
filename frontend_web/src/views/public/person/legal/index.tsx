@@ -135,6 +135,10 @@ const PersonLegaForm: React.FC = observer(() => {
               {__('action.random_search')}
             </Button>
           </ButtonGroup>
+
+          <Button type="button" className="mb-2" variant="outline-secondary" disabled={!!ctrl.waiting} onClick={ctrl.handleClear}>
+            {__('action.clearform')}
+          </Button>
         </Col>
       </Row>
     </Form>

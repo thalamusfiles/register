@@ -72,7 +72,7 @@ const ZipcodeBreadcrum: React.FC = () => {
   return (
     <Breadcrumb>
       <Breadcrumb.Item href="/">{__('menu.home')}</Breadcrumb.Item>
-      <Breadcrumb.Item href={getLinkTo('addresse')}>{__('menu.address')}</Breadcrumb.Item>
+      <Breadcrumb.Item href={getLinkTo('addresse')}>{__('menu.persons_by_address')}</Breadcrumb.Item>
       <Breadcrumb.Item active>{__('menu.establishments')}</Breadcrumb.Item>
     </Breadcrumb>
   );
@@ -145,6 +145,9 @@ const ZipcodeForm: React.FC = observer(() => {
               {__('action.random_search')}
             </Button>
           </ButtonGroup>
+          <Button type="button" className="mb-2" variant="outline-secondary" disabled={!!ctrl.waiting} onClick={ctrl.handleClear}>
+            {__('action.clearform')}
+          </Button>
         </Col>
       </Row>
     </Form>

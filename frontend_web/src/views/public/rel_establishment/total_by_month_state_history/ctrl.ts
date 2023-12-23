@@ -33,7 +33,7 @@ export class TotalByMonthStateHistoryCtrl {
       .totalByMonthAndStateCrosstab(this.months)
       .then((response) => {
         this.wanted = true;
-        this.response = response.data;
+        this.response = response?.data;
       })
       .catch((ex) => {
         this.wanted = true;

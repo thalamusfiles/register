@@ -22,7 +22,7 @@ const AddressPage: React.FC = () => {
         </Col>
         <Col>
           <Row>
-            <Col md={12} lg={8}>
+            <Col md={12} lg={9}>
               <AddressHeader />
 
               <Routes>
@@ -46,7 +46,7 @@ const AddressBreadcrum: React.FC = () => {
   return (
     <Breadcrumb>
       <Breadcrumb.Item href="/">{__('menu.home')}</Breadcrumb.Item>
-      <Breadcrumb.Item active>{__('menu.address')}</Breadcrumb.Item>
+      <Breadcrumb.Item active>{__('menu.persons_by_address')}</Breadcrumb.Item>
     </Breadcrumb>
   );
 };
@@ -58,7 +58,7 @@ const AddressHeader: React.FC = () => {
 
   return (
     <>
-      <h1>{__('menu.address')}</h1>
+      <h1>{__('menu.persons_by_address')}</h1>
       <p>{__('home.address_description')}</p>
       <Row>
         <Col>

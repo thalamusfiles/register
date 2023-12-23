@@ -50,7 +50,7 @@ class Picker extends IamPicker {
       new TypeKeyValueDataSource()
         .findBRCNAES(this.state.search)
         .then((response) => {
-          const businessTypes = response.data as BRCNAEList;
+          const businessTypes = response?.data as BRCNAEList;
           const options = businessTypes.map((result: any) => ({
             value: result,
             columns: [result.key, result.value?.description],

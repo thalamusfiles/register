@@ -117,7 +117,7 @@ const Address: React.FC = () => {
   const __ = useI18N();
   return (
     <>
-      <h1>{__('menu.address')}</h1>
+      <h1>{__('menu.persons_by_address')}</h1>
       <p>{__('home.address_description')}</p>
 
       <Row>

@@ -59,7 +59,7 @@ class Picker extends IamPicker<{ stateCode?: string }> {
       new AddressDataSource()
         .findCity(this.props.stateCode, this.state.search)
         .then((response) => {
-          const options = response.data.map((result: any) => ({
+          const options = response?.data.map((result: any) => ({
             value: result,
             columns: [result.name],
           }));

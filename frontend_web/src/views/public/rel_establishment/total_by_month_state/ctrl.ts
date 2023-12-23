@@ -53,7 +53,7 @@ export class TotalByMonthStateCtrl {
       .totalByMonthAndState(months)
       .then((response) => {
         this.wanted = true;
-        this.response = response.data.sort((l, r) => r.total - l.total);
+        this.response = response?.data.sort((l, r) => r.total - l.total);
       })
       .catch((ex) => {
         this.wanted = true;

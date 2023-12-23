@@ -24,6 +24,12 @@ export class PersonLegalCtrl {
   @observable erros: ErrorListRecord = {};
 
   @action
+  handleClear = () => {
+    this.document = '';
+    this.response = null;
+  };
+
+  @action
   handleDocument = (e: any) => {
     this.document = e.target.value;
   };
@@ -40,13 +46,13 @@ export class PersonLegalCtrl {
       .findLegalByDocument(this.document!)
       .then((response) => {
         this.waiting = false;
-        this.response = response.data;
+        this.response = response?.data;
       })
       .catch((ex) => {
         this.waiting = false;
         this.response = null;
 
-        const data = ex.response.data;
+        const data = ex.response?.data;
         [this.erroMessages, this.erros] = getFormExceptionErrosToObject(data, { splitByConstraints: true }) as ErrosAsList;
 
         this.notifyExeption(ex);
@@ -71,8 +77,8 @@ export class PersonLegalCtrl {
       .findLegalRandom()
       .then((response) => {
         this.waiting = false;
-        this.response = response.data;
-        this.document = response.data?.brGovDados?.document as string;
+        this.response = response?.data;
+        this.document = response?.data?.brGovDados?.document as string;
 
         historyReplace({ document: this.document }, 'person_legal_view');
       })

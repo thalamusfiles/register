@@ -24,7 +24,7 @@ const RelTypePage: React.FC = () => {
         </Col>
         <Col>
           <Row>
-            <Col md={12} lg={8}>
+            <Col md={12} lg={9}>
               <RelTypeHeader />
 
               <Routes>

@@ -20,8 +20,8 @@
         "apis": "APIs",
         "persons": "Empresas e pessoas",
         "type": "Tipo de empresa",
-        "address": "Endereços",
-        "person_legal": "Pessoas jurídicas",
+        "persons_by_address": "Empresas por endereço",
+        "person_legal": "Pessoa jurídica",
         "contact": "Contatos",
         "partners": "Sócios",
         "help": "Ajuda",
@@ -79,6 +79,7 @@
     "action": {
         "access": "Acessar",
         "search": "Procurar",
+        "clearform": "Limpar Formulário",
         "random_search": "Busca aleatória",
         "show_more": "Ver mais"
     },

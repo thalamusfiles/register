@@ -45,7 +45,7 @@ class Picker extends IamPicker {
     new AddressDataSource()
       .findState()
       .then((response) => {
-        const options = response.data.map((result: any) => ({
+        const options = response?.data.map((result: any) => ({
           value: result,
           columns: [result.name],
         }));

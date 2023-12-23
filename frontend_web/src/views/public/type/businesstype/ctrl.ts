@@ -31,6 +31,15 @@ export class TypeBusinessTypeCtrl {
   init = () => {};
 
   @action
+  handleClear = () => {
+    this.state = null;
+    this.city = null;
+    this.businessType = null;
+    this.page = 1;
+    this.response = null;
+  };
+
+  @action
   handleState = (value: any) => {
     this.state = value;
   };
@@ -71,13 +80,13 @@ export class TypeBusinessTypeCtrl {
       .findByBusinessType(this.businessType?.key!, this.city?.code!, this.limit, this.page - 1)
       .then((response) => {
         this.waiting = false;
-        this.response = response.data;
+        this.response = response?.data;
       })
       .catch((ex) => {
         this.waiting = false;
         this.response = null;
 
-        const data = ex.response.data;
+        const data = ex.response?.data;
         [this.erroMessages, this.erros] = getFormExceptionErrosToObject(data, { splitByConstraints: true }) as ErrosAsList;
 
         this.notifyExeption(ex);
@@ -98,7 +107,7 @@ export class TypeBusinessTypeCtrl {
       .findByBusinessTypeRandom(this.limit, this.page - 1)
       .then((response) => {
         this.waiting = false;
-        this.response = response.data;
+        this.response = response?.data;
       })
       .catch((ex) => {
         this.waiting = false;
