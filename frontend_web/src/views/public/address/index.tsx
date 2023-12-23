@@ -64,7 +64,7 @@ const AddressHeader: React.FC = () => {
         <Col>
           <TCardTile
             variant={hasZipcodeRoute ? 'info' : ''}
-            title={__('menu.establishments')}
+            title={__('menu.establishments_by_zipcode')}
             subtitle={__('menu.freemium')}
             faicon={IconsDef.zipcode}
             onClick={() => historyPush('addresses_zipcode')}

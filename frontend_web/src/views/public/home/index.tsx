@@ -122,7 +122,7 @@ const Address: React.FC = () => {
 
       <Row>
         <Col className="d-flex justify-content-center" xll={6}>
-          <TCard title={__('menu.establishments')} subtitle={__('menu.freemium')} faicon={IconsDef.zipcode}>
+          <TCard title={__('menu.establishments_by_zipcode')} subtitle={__('menu.freemium')} faicon={IconsDef.zipcode}>
             <Card.Body style={{ height: 80 }}>
               <Card.Text>{__('home.establishments_description')}</Card.Text>
             </Card.Body>
