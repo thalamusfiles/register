@@ -213,21 +213,23 @@ const ContactPrettyResult: React.FC = observer(() => {
           <tr>
             <td>Empresa Doc</td>
             <td>Empresa</td>
+            <td>Sócio</td>
             <td>Telefone</td>
             <td>E-mail</td>
             <td>Fax</td>
             <td>Cnae</td>
+            <td>Zipcode</td>
           </tr>
         </thead>
         <tbody>
           {ctrl.waiting === null && (
             <tr>
-              <td colSpan={6}>{__('msg.enter_filter')}</td>
+              <td colSpan={8}>{__('msg.enter_filter')}</td>
             </tr>
           )}
           {ctrl.waiting === false && !ctrl.response && (
             <tr>
-              <td colSpan={6}>{__('msg.register_not_found')}</td>
+              <td colSpan={8}>{__('msg.register_not_found')}</td>
             </tr>
           )}
           {ctrl.response &&
@@ -239,10 +241,15 @@ const ContactPrettyResult: React.FC = observer(() => {
                   </Link>
                 </td>
                 <td>{resp.name}</td>
+                <td>
+                  {resp.partner}
+                  {!!resp.representative_name && ` (${resp.representative_name})`}
+                </td>
                 <td>{resp.phone?.join(', ')}</td>
                 <td>{resp.email?.join(', ')}</td>
                 <td>{resp.fax?.join(', ')}</td>
-                <td>{resp.main_activity}</td>
+                <td>{resp.main_activity}</td>{/*resp.other_activities*/}
+                <td>{resp.zipcode}</td>
               </tr>
             ))}
         </tbody>

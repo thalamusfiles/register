@@ -6,6 +6,7 @@ import { City } from '../../../model/Address/City';
 import { Contact } from '../../../model/Contact';
 import { Establishment } from '../../../model/Establishment';
 import { Person } from '../../../model/Person';
+import { Partner } from '../../../model/Partner';
 
 @Injectable()
 export class ContactService {
@@ -15,6 +16,7 @@ export class ContactService {
   private readonly contTableName;
   private readonly persTableName;
   private readonly estTableName;
+  private readonly partTableName;
 
   constructor(
     @InjectRepository(Contact)
@@ -29,12 +31,13 @@ export class ContactService {
     this.contTableName = this.contactRepo.getEntityManager().getMetadata().get(Contact.name).tableName;
     this.persTableName = this.contactRepo.getEntityManager().getMetadata().get(Person.name).tableName;
     this.estTableName = this.contactRepo.getEntityManager().getMetadata().get(Establishment.name).tableName;
+    this.partTableName = this.contactRepo.getEntityManager().getMetadata().get(Partner.name).tableName;
   }
 
   /**
    * Busca contatos
    */
-  async findContacts(businessType: string, cityCode: string, limit: number, offset: number): Promise<Contact[]> {
+  async findContacts(businessType: string, cityCode: string, limit: number, offset: number): Promise<any[]> {
     this.logger.verbose(`findContacts ${businessType} and ${cityCode}`);
 
     const city = await this.cityRepo.findOneOrFail({ code: cityCode }, { fields: ['hashId'] });
@@ -43,18 +46,23 @@ export class ContactService {
     offset = offset || 0;
 
     const query = this.knex
-      .select('e.main_activity')
-      .select('e.extra_key as document')
-      .select('p.name')
-      .select('c.phone')
-      .select('c.email')
-      .select('c.fax')
-      .from(`${this.estTableName} as e`)
-      .innerJoin(`${this.contTableName} as c`, `c.person_hash_id`, `e.person_hash_id`)
-      .innerJoin(`${this.persTableName} as p`, `p.hash_id`, `e.person_hash_id`)
-      .where('e.city_hash_id', city.hashId)
-      .andWhere('e.main_activity', businessType)
-      .orderBy('p.name')
+      .select('est.extra_key as document')
+      .select('est.zipcode')
+      .select('est.main_activity')
+      .select('est.other_activities')
+      .select('pers.name')
+      .select('cont.phone')
+      .select('cont.email')
+      .select('cont.fax')
+      .select(`part.partner`)
+      .select(`part.representative_name`)
+      .from(`${this.estTableName} as est`)
+      .leftJoin(`${this.persTableName} as pers`, `pers.hash_id`, `est.person_hash_id`)
+      .leftJoin(`${this.contTableName} as cont`, `cont.person_hash_id`, `est.person_hash_id`)
+      .leftJoin(`${this.partTableName} as part`, `part.establishment_hash_id`, `est.hash_id`)
+      .where('est.city_hash_id', city.hashId)
+      .andWhere('est.main_activity', businessType)
+      .orderBy('pers.name')
       .limit(limit)
       .offset(offset);
 

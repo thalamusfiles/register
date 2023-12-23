@@ -5,6 +5,8 @@ import { Knex, PostgreSqlConnection } from '@mikro-orm/postgresql';
 import { Establishment } from '../../../model/Establishment';
 import { Person } from '../../../model/Person';
 import { City } from '../../../model/Address/City';
+import { Contact } from 'src/model/Contact';
+import { Partner } from 'src/model/Partner';
 
 @Injectable()
 export class EstablishmentService {
@@ -13,6 +15,8 @@ export class EstablishmentService {
 
   private readonly estTableName;
   private readonly persTableName;
+  private readonly contTableName;
+  private readonly partTableName;
 
   constructor(
     @InjectRepository(Establishment)
@@ -26,6 +30,8 @@ export class EstablishmentService {
 
     this.estTableName = this.establishmentRepo.getEntityManager().getMetadata().get(Establishment.name).tableName;
     this.persTableName = this.establishmentRepo.getEntityManager().getMetadata().get(Person.name).tableName;
+    this.contTableName = this.establishmentRepo.getEntityManager().getMetadata().get(Contact.name).tableName;
+    this.partTableName = this.establishmentRepo.getEntityManager().getMetadata().get(Partner.name).tableName;
   }
 
   /**
@@ -39,12 +45,21 @@ export class EstablishmentService {
     offset = offset || 0;
 
     const query = this.knex
-      .select('zipcode')
-      .select('e.extra_key as document')
+      .select('est.extra_key as document')
+      .select('est.zipcode')
+      .select('est.main_activity')
+      .select('est.other_activities')
       .select(`pers.name`)
-      .from(`${this.estTableName} as e`)
-      .leftJoin(`${this.persTableName} as pers`, `pers.hash_id`, `e.person_hash_id`)
-      .where('e.zipcode', zipcode)
+      .select('cont.phone')
+      .select('cont.email')
+      .select('cont.fax')
+      .select(`part.partner`)
+      .select(`part.representative_name`)
+      .from(`${this.estTableName} as est`)
+      .leftJoin(`${this.persTableName} as pers`, `pers.hash_id`, `est.person_hash_id`)
+      .leftJoin(`${this.contTableName} as cont`, `cont.person_hash_id`, `est.person_hash_id`)
+      .leftJoin(`${this.partTableName} as part`, `part.establishment_hash_id`, `est.hash_id`)
+      .where('est.zipcode', zipcode)
       .orderBy('pers.name')
       .limit(limit)
       .offset(offset);
