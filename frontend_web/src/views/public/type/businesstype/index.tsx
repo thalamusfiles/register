@@ -54,6 +54,9 @@ const BusinessTypePage: React.FC = () => {
         <Nav.Item>
           <Nav.Link eventKey="json">{__('label.json')}</Nav.Link>
         </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={ctrl.exportXLS}>{__('label.xls')}</Nav.Link>
+        </Nav.Item>
       </Nav>
       <br />
 

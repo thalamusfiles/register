@@ -211,12 +211,12 @@ const ContactPrettyResult: React.FC = observer(() => {
       <Table className={classNames({ blur: ctrl.waiting })}>
         <thead>
           <tr>
-            <td>Cnae</td>
-            <td>Doc</td>
-            <td>Nome</td>
+            <td>Empresa Doc</td>
+            <td>Empresa</td>
             <td>Telefone</td>
             <td>E-mail</td>
             <td>Fax</td>
+            <td>Cnae</td>
           </tr>
         </thead>
         <tbody>
@@ -233,7 +233,6 @@ const ContactPrettyResult: React.FC = observer(() => {
           {ctrl.response &&
             ctrl.response.map((resp, idx) => (
               <tr key={idx}>
-                <td>{resp.main_activity}</td>
                 <td>
                   <Link to="#" onClick={(e) => ctrl.handleOpenPersonLegal(e, resp.document)} style={{ whiteSpace: 'nowrap' }}>
                     {resp.document}
@@ -243,6 +242,7 @@ const ContactPrettyResult: React.FC = observer(() => {
                 <td>{resp.phone?.join(', ')}</td>
                 <td>{resp.email?.join(', ')}</td>
                 <td>{resp.fax?.join(', ')}</td>
+                <td>{resp.main_activity}</td>
               </tr>
             ))}
         </tbody>

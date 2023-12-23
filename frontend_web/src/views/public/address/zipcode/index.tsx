@@ -58,6 +58,9 @@ const ZipcodePage: React.FC = () => {
         <Nav.Item>
           <Nav.Link eventKey="json">{__('label.json')}</Nav.Link>
         </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={ctrl.exportXLS}>{__('label.xls')}</Nav.Link>
+        </Nav.Item>
       </Nav>
       <br />
 
@@ -73,7 +76,7 @@ const ZipcodeBreadcrum: React.FC = () => {
     <Breadcrumb>
       <Breadcrumb.Item href="/">{__('menu.home')}</Breadcrumb.Item>
       <Breadcrumb.Item href={getLinkTo('addresse')}>{__('menu.persons_by_address')}</Breadcrumb.Item>
-      <Breadcrumb.Item active>{__('menu.establishments_by_zipcode')}</Breadcrumb.Item>
+      <Breadcrumb.Item active>{__('menu.establishments')}</Breadcrumb.Item>
     </Breadcrumb>
   );
 };

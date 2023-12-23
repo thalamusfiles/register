@@ -23,8 +23,8 @@ const Home: React.FC = () => {
           <Row>
             <Col xs={12} lg={5}>
               <Person />
+              <ByAddress />
               <Type />
-              <Address />
             </Col>
             <Col lg={3}>
               <DeveloperGuide />
@@ -113,7 +113,7 @@ const Type: React.FC = () => {
   );
 };
 
-const Address: React.FC = () => {
+const ByAddress: React.FC = () => {
   const __ = useI18N();
   return (
     <>

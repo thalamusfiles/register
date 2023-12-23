@@ -58,6 +58,9 @@ const PartnerPage: React.FC = () => {
         <Nav.Item>
           <Nav.Link eventKey="json">{__('label.json')}</Nav.Link>
         </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={ctrl.exportXLS}>{__('label.xls')}</Nav.Link>
+        </Nav.Item>
       </Nav>
       <br />
 
@@ -148,12 +151,12 @@ const PartnerPrettyResult: React.FC = observer(() => {
       <Table className={classNames({ blur: ctrl.waiting })}>
         <thead>
           <tr>
+            <td>Empresa Doc</td>
+            <td>Empresa</td>
             <td>Sócio Doc</td>
             <td>Sócio</td>
             <td>Representante Doc</td>
             <td>Representante</td>
-            <td>Empresa Doc</td>
-            <td>Empresa</td>
           </tr>
         </thead>
         <tbody>
@@ -170,16 +173,16 @@ const PartnerPrettyResult: React.FC = observer(() => {
           {ctrl.response &&
             ctrl.response.map((resp, idx) => (
               <tr key={idx}>
-                <td>{resp.partnerDoc}</td>
-                <td>{resp.partner}</td>
-                <td>{resp.representativeName ? resp.representativeDoc : null}</td>
-                <td>{resp.representativeName}</td>
                 <td>
                   <Link to="#" onClick={(e) => ctrl.handleOpenPersonLegal(e, resp.document)} style={{ whiteSpace: 'nowrap' }}>
                     {resp.document}
                   </Link>
                 </td>
                 <td>{resp.name}</td>
+                <td>{resp.partnerDoc}</td>
+                <td>{resp.partner}</td>
+                <td>{resp.representativeName ? resp.representativeDoc : null}</td>
+                <td>{resp.representativeName}</td>
               </tr>
             ))}
         </tbody>

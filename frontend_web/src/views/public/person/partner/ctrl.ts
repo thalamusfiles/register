@@ -4,6 +4,7 @@ import { historyReplace } from '../../../../commons/route';
 import { PartnerList, PersonDataSource } from '../../../../datasources/person';
 import { historyPush } from '../../../../commons/route';
 import { type ErrorListRecord } from '../../../../commons/types/ErrorListRecord';
+import { exportXLS } from '../../../../commons/tools';
 import { ErrosAsList, getFormExceptionErrosToObject } from '../../../../commons/error';
 
 export class PersonPartnerCtrl {
@@ -82,6 +83,15 @@ export class PersonPartnerCtrl {
 
         this.notifyExeption(ex);
       });
+  };
+
+  @action
+  exportXLS = () => {
+    if (this.response) {
+      this.waiting = true;
+      exportXLS(this.response, 'thalamus_register_contact');
+      this.waiting = false;
+    }
   };
 
   handleOpenPersonLegal = (event: any, document: string) => {

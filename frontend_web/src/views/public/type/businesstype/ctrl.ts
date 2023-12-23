@@ -4,6 +4,7 @@ import { PartnerList } from '../../../../datasources/person';
 import { historyPush } from '../../../../commons/route';
 import { EstablishmentDataSource } from '../../../../datasources/establishment';
 import { ErrosAsList, getFormExceptionErrosToObject } from '../../../../commons/error';
+import { exportXLS } from '../../../../commons/tools';
 import type { ErrorListRecord } from '../../../../commons/types/ErrorListRecord';
 
 export class TypeBusinessTypeCtrl {
@@ -115,6 +116,15 @@ export class TypeBusinessTypeCtrl {
 
         this.notifyExeption(ex);
       });
+  };
+
+  @action
+  exportXLS = () => {
+    if (this.response) {
+      this.waiting = true;
+      exportXLS(this.response, 'thalamus_register_contact');
+      this.waiting = false;
+    }
   };
 
   handleOpenPersonLegal = (event: any, document: string) => {

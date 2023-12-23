@@ -22,7 +22,8 @@ export class Migration20230602183124 extends Migration {
         "representative_name" varchar(256) null, 
         "representative_qualification" int null,
         
-        constraint "partner_pkey" primary key ("hash_id"));`,
+        constraint "partner_pkey" primary key ("hash_id")
+      );`,
     );
 
     /**

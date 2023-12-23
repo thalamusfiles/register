@@ -42,14 +42,14 @@ export class PersonService {
     const query = this.knex
       .select('e.extra_key as document')
       .select(`pers.name`)
-      .select(this.knex.raw(`p.data->>'partner' as partner`))
-      .select(this.knex.raw(`p.data->>'partnerDoc' as "partnerDoc"`))
-      .select(this.knex.raw(`p.data->>'representative_doc' as "representativeDoc"`))
-      .select(this.knex.raw(`p.data->>'representative_name' as "representativeName"`))
-      .from(`${this.partTableName} as p`)
-      .leftJoin(`${this.estTableName} as e`, `e.hash_id`, `p.establishment_hash_id`)
+      .select(this.knex.raw(`part.partner as partner`))
+      .select(this.knex.raw(`part.partner_doc as "partnerDoc"`))
+      .select(this.knex.raw(`part.representative_doc as "representativeDoc"`))
+      .select(this.knex.raw(`part.representative_name as "representativeName"`))
+      .from(`${this.partTableName} as part`)
+      .leftJoin(`${this.estTableName} as e`, `e.hash_id`, `part.establishment_hash_id`)
       .leftJoin(`${this.persTableName} as pers`, `pers.hash_id`, `e.person_hash_id`)
-      .where('p.extra_key', extraKey);
+      .where('part.extra_key', extraKey);
 
     return await query;
   }
