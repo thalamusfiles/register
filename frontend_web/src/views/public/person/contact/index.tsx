@@ -150,11 +150,11 @@ const ContactForm: React.FC = observer(() => {
             <InputGroup.Text>{__('label.business_type')}</InputGroup.Text>
             <CnaePickerPlugin
               name="state"
-              value={ctrl.businessType?.key}
-              description={ctrl.businessType?.key || __('label.select')}
+              description={ctrl.businessType?.map((x) => x.key).join(',  ') || __('label.select')}
               onSel={ctrl.handleBusinessType}
               isValid={!!ctrl.erroMessages.length && !ctrl.erros?.businessType}
               isInvalid={!!ctrl.erros?.businessType}
+              multi
             />
             <Form.Control.Feedback type="valid">{__('label.valid')}</Form.Control.Feedback>
             <Form.Control.Feedback type="invalid">{ctrl.erros?.businessType?.map(__)}</Form.Control.Feedback>

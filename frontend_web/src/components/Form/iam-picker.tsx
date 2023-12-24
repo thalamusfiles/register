@@ -5,6 +5,8 @@ import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
 import { toIlikeRegex } from '../../commons/tools';
 import { IamOptionValue } from './index';
+import { IconsDef } from '../../commons/consts';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 declare type PickerProps = {
   clearButton?: boolean;
@@ -148,7 +150,7 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
     });
   };
 
-  onSel = (value: any, item: string[], event: any) => {
+  onSel = (value: any, columns: string[], event: any) => {
     if (this.props.multi) {
       const { selected, selectedItems } = this.state;
       const pos = selected.findIndex((x: any) => x === value);
@@ -157,7 +159,7 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
         selectedItems.splice(pos, 1);
       } else {
         selected.push(value);
-        selectedItems.push(item);
+        selectedItems.push(columns);
       }
 
       this.setState({
@@ -167,7 +169,7 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
     } else {
       this.close();
       if (this.props.onSel) {
-        this.props.onSel(value, item, event);
+        this.props.onSel(value, columns, event);
       }
     }
   };
@@ -190,9 +192,16 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
     }
   };
 
+  isSelected = (item: IamOptionValue) => {
+    const hasId = item.value.id !== undefined;
+    return hasId //
+      ? this.state.selected.findIndex((sel: any) => sel.id === item.value.id) !== -1
+      : this.state.selected.includes(item.value);
+  };
+
   render() {
     const { onAdd, addText, multi, header, title, subtitle, footertitle, placeholder } = this.props;
-    const { contents } = this.state;
+    const { selectedItems, contents } = this.state;
 
     return (
       <Modal show={this.state.modalVisible} size="lg">
@@ -223,10 +232,7 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
               )}
               <tbody>
                 {contents.map((item, key) => {
-                  const hasId = item.value.id !== undefined;
-                  const selected = hasId
-                    ? this.state.selected.findIndex((sel: any) => sel.id === item.value.id) !== -1
-                    : this.state.selected.includes(item.value);
+                  const selected = multi && this.isSelected(item);
                   return (
                     <tr key={key} onClick={(event) => this.onSel(item.value, item.columns, event)}>
                       {item.columns.map((col, key) => {
@@ -240,6 +246,22 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
             </Table>
           </div>
         </Modal.Body>
+        {multi && (
+          <Modal.Footer>
+            {selectedItems.map((columns, key) => (
+              <Button
+                style={{ maxWidth: '9rem' }}
+                className="text-truncate"
+                variant="outline-primary"
+                size="sm"
+                key={key}
+                onClick={(event) => this.onSel(this.state.selected[key], columns, event)}
+              >
+                <FontAwesomeIcon icon={IconsDef.close} /> {columns.join(', ')}
+              </Button>
+            ))}
+          </Modal.Footer>
+        )}
         {footertitle && (
           <Modal.Footer>
             <small>{footertitle}</small>

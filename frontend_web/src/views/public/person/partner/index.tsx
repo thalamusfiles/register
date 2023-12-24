@@ -179,10 +179,10 @@ const PartnerPrettyResult: React.FC = observer(() => {
                   </Link>
                 </td>
                 <td>{resp.name}</td>
-                <td>{resp.partnerDoc}</td>
+                <td>{resp.partner_doc}</td>
                 <td>{resp.partner}</td>
-                <td>{resp.representativeName ? resp.representativeDoc : null}</td>
-                <td>{resp.representativeName}</td>
+                <td>{resp.representative_doc}</td>
+                <td>{resp.representative_name}</td>
               </tr>
             ))}
         </tbody>

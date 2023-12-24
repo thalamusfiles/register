@@ -18,7 +18,7 @@ export class ContactCtrl {
   // PersonPartner
   @observable state = null as { code: string; name: string } | null;
   @observable city = null as { code: string; name: string } | null;
-  @observable businessType = null as { key: string; value: { description: string } } | null;
+  @observable businessType = null as { key: string; value: { description: string } }[] | null;
   @observable limit = 25;
   @observable page = 1;
   @observable waiting: boolean | null = null;
@@ -51,7 +51,7 @@ export class ContactCtrl {
   };
 
   @action
-  handleBusinessType = (value: any) => {
+  handleBusinessType = (value: any[]) => {
     this.businessType = value;
   };
 
@@ -78,7 +78,7 @@ export class ContactCtrl {
     this.erros = {};
 
     new ContactDataSource()
-      .find(this.businessType?.key!, this.city?.code!, this.limit, this.page - 1)
+      .find(this.businessType?.map((x) => x.key)!, this.city?.code!, this.limit, this.page - 1)
       .then((response) => {
         this.waiting = false;
         this.response = response?.data;
@@ -110,7 +110,7 @@ export class ContactCtrl {
         this.waiting = false;
         this.response = response?.data;
         if (this.response.length) {
-          this.businessType = { key: this.response[0].main_activity, value: this.response[0].main_activity };
+          this.businessType = [{ key: this.response[0].main_activity, value: this.response[0].main_activity }];
         }
       })
       .catch((ex) => {

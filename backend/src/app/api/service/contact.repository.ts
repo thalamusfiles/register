@@ -37,7 +37,7 @@ export class ContactService {
   /**
    * Busca contatos
    */
-  async findContacts(businessType: string, cityCode: string, limit: number, offset: number): Promise<any[]> {
+  async findContacts(businessType: string[], cityCode: string, limit: number, offset: number): Promise<any[]> {
     this.logger.verbose(`findContacts ${businessType} and ${cityCode}`);
 
     const city = await this.cityRepo.findOneOrFail({ code: cityCode }, { fields: ['hashId'] });
@@ -61,7 +61,7 @@ export class ContactService {
       .leftJoin(`${this.contTableName} as cont`, `cont.person_hash_id`, `est.person_hash_id`)
       .leftJoin(`${this.partTableName} as part`, `part.establishment_hash_id`, `est.hash_id`)
       .where('est.city_hash_id', city.hashId)
-      .andWhere('est.main_activity', businessType)
+      .whereIn('est.main_activitys', businessType)
       .orderBy('pers.name')
       .limit(limit)
       .offset(offset);
@@ -90,7 +90,7 @@ export class ContactService {
       const { main_activity, city_hash_id } = rs;
       const city = await this.cityRepo.findOneOrFail({ hashId: city_hash_id }, { fields: ['code'] });
 
-      return this.findContacts(main_activity, city.code, limit, offset);
+      return this.findContacts([main_activity], city.code, limit, offset);
     }
     return null;
   }
