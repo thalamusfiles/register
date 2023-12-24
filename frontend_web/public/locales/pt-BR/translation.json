@@ -28,7 +28,6 @@
         "alert": "Alertas",
         "freemium": "Freemium",
         "establishments_by_zipcode": "Por código postal",
-        "business_type": "Tipo de empresa",
         "reports": "Relatórios",
         "business": "Empresas",
         "tt_month_state": "Total por mês e estado",
@@ -86,13 +85,11 @@
     "home": {
         "by_adress": "Buscar por endereço",
         "persons_description": "Registros relacionados a pessoas físicas e jurídicas.",
-        "type_description": "Registros relacionados ao tipo da empresa. ",
         "address_description": "Registros relacionados a estabelecimentos. ",
         "person_legal_description": "Consulte informações sobre a pessoa jurídica por meio de seu documento de registro (CNPJ).",
-        "contact_description": "Consulte telefone, e-mail e fax das pessoas jurídica de determinada localidade e tipo de negócio.",
+        "contact_description": "Consulte contato de empresas, telefone, e-mail e fax das pessoas jurídica de determinada localidade e tipo de negócio (CNAES, Natureza...).",
         "partner_description": "Consulte informações sobre o sócio da empresa por meio seu documento de registro (CPF/CNPJ).",
-        "establishments_description": "Consulte a lista de empresas localizadas em determinado endereço.",
-        "business_type_description": "Consulte a lista de empresas por meio do tipo de negócio (CNAES, Natureza...)."
+        "establishments_description": "Consulte a lista de empresas localizadas em determinado endereço."
     },
     "person": {
         "legal.title": "Busca por pessoas jurídicas",

@@ -71,9 +71,6 @@ const ModulesNav: React.FC = () => {
       <Nav.Link href={getLinkTo('addresses')}>
         <FontAwesomeIcon icon={IconsDef.zipcode} /> {__('menu.persons_by_address')}
       </Nav.Link>
-      <Nav.Link href={getLinkTo('types')}>
-        <FontAwesomeIcon icon={IconsDef.zipcode} /> {__('menu.type')}
-      </Nav.Link>
       <div className="navbar-spacer" />
 
       <Nav.Link href={getLinkTo('rel_estab')}>

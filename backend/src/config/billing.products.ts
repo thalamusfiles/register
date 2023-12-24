@@ -3,8 +3,8 @@ const productsNames = {
   AddressFindCitiesByState: 'register.address.findCitiesByState',
   EstabFindByZipcode: 'register.establishment.findByZipcode',
   EstabFindByZipcodeRandom: 'register.establishment.findByZipcodeRandom',
-  EstabFindByBusinessType: 'register.establishment.findByBusinessType',
-  EstabFindByBusinessTypeRandom: 'register.establishment.findByBusinessTypeRandom',
+  //EstabFindByBusinessType: 'register.establishment.findByBusinessType', // TODO: Removido
+  //EstabFindByBusinessTypeRandom: 'register.establishment.findByBusinessTypeRandom', // TODO: Removido
   ContactFind: 'register.contact.find',
   ContactFindRandom: 'register.contact.findRandom',
   PersonFindLegalByDocument: 'register.person.findByZipcode',

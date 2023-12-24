@@ -9,7 +9,6 @@ export type RoutesName =
   | 'person_partner'
   | 'contact'
   | 'types'
-  | 'types_businesstype'
   | 'addresses'
   | 'addresses_zipcode'
   | 'rel_estab'

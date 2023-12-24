@@ -24,7 +24,6 @@ const Home: React.FC = () => {
             <Col xs={12} lg={5}>
               <Person />
               <ByAddress />
-              <Type />
             </Col>
             <Col lg={3}>
               <DeveloperGuide />
@@ -76,32 +75,6 @@ const Person: React.FC = () => {
             <Card.Body>
               <Card.Text>{__('home.partner_description')}</Card.Text>
               <Button size="sm" onClick={() => historyPush('person_partner')} variant="outline-primary">
-                {__('action.access')}
-              </Button>
-            </Card.Body>
-          </TCard>
-        </Col>
-        <Col sm={6}></Col>
-      </Row>
-    </>
-  );
-};
-
-const Type: React.FC = () => {
-  const __ = useI18N();
-  return (
-    <>
-      <h1>{__('menu.type')}</h1>
-      <p>{__('home.type_description')}</p>
-
-      <Row>
-        <Col className="d-flex justify-content-center" xll={6}>
-          <TCard title={__('menu.business_type')} subtitle={__('menu.freemium')} faicon={IconsDef.zipcode}>
-            <Card.Body style={{ height: 80 }}>
-              <Card.Text>{__('home.business_type_description')}</Card.Text>
-            </Card.Body>
-            <Card.Body>
-              <Button size="sm" onClick={() => historyPush('types_businesstype')} variant="outline-primary">
                 {__('action.access')}
               </Button>
             </Card.Body>

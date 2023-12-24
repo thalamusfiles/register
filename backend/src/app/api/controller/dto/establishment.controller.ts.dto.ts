@@ -11,18 +11,3 @@ export class ZipcodeDto extends LimitOffsetDto {
   @IsNotEmpty()
   zipcode!: string;
 }
-
-@Exclude()
-export class BusinessTypeDto extends LimitOffsetDto {
-  @ApiProperty({ description: 'Informe o código da cidade para busca' })
-  @Expose()
-  @IsString()
-  @IsNotEmpty()
-  cityCode!: string;
-
-  @ApiProperty({ description: 'Informe o tipo de negócio (CNAE)' })
-  @Expose()
-  @IsString()
-  @IsNotEmpty()
-  businessType!: string;
-}

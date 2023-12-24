@@ -44,9 +44,6 @@ export function getLinkTo(owner: RoutesName | string | number, options: any = {}
     case 'types':
       push = '/public/types';
       break;
-    case 'types_businesstype':
-      push = '/public/types/businesstype';
-      break;
     case 'addresses':
       push = '/public/addresses';
       break;

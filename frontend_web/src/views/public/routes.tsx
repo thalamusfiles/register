@@ -6,7 +6,6 @@ import Home from './home';
 import PersonPage from './person';
 import RelEstablishmentPage from './rel_establishment';
 import RelTypePage from './rel_type';
-import TypePage from './type';
 import TokenLoad from './token-load';
 
 /**
@@ -18,7 +17,6 @@ export const routes: RoutesDefinition = {
   home: { path: '/home', component: Home, index: true },
   // Apis
   person: { path: '/person', component: PersonPage, index: true },
-  type: { path: '/types', component: TypePage, index: true },
   addresses: { path: '/addresses', component: AddressPage, index: true },
   // Rels
   rel_establishment: { path: '/rel/establishment', component: RelEstablishmentPage, index: true },
