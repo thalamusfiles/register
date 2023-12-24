@@ -206,7 +206,11 @@ const ZipcodePrettyResult: React.FC = observer(() => {
                 <td>{resp.phone?.join(', ')}</td>
                 <td>{resp.email?.join(', ')}</td>
                 <td>{resp.fax?.join(', ')}</td>
-                <td>{resp.main_activity}</td>{/*resp.other_activities*/}
+                <td>
+                  <strong>{resp.main_activity}</strong>
+                  <br />
+                  {resp.other_activities?.join(', ')}
+                </td>
                 <td>{resp.zipcode}</td>
               </tr>
             ))}
