@@ -4,6 +4,7 @@
     "cityCode.isString":"",
     "businessType.isNotEmpty":"Campo tipo de empresa obrigatório.",
     "businessType.isString":"",
+    "businessType.isArray":"",
     "limit.minLength": "Limite deve ser maior ou igual a 10.",
     "limit.maxLength": "Limite deve ser menor ou igual a 9999.",
     "zipcode.isNotEmpty": "Campo código postal obrigatório.",

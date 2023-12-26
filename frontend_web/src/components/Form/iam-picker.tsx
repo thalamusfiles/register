@@ -268,7 +268,7 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
           </Modal.Footer>
         )}
         <Modal.Footer>
-          {this.props.clearButton && <Button onClick={(e: any) => this.removeSer(e)}>Remove selection</Button>}
+          {this.props.clearButton && <Button onClick={(e: any) => this.removeSer(e)}>Remover seleção</Button>}
           {onAdd && (
             <Button
               onClick={(e) => {
@@ -286,7 +286,7 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
               this.close();
             }}
           >
-            Close
+            Fechar
           </Button>
           {multi && (
             <Button
@@ -295,7 +295,7 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
                 this.confirmSel(e);
               }}
             >
-              Select
+              Selecionar
             </Button>
           )}
         </Modal.Footer>
