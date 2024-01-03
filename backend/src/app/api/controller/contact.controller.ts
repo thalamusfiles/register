@@ -36,7 +36,7 @@ export class ContactController extends BaseController {
   /**
    * Busca registro de empresas
    */
-  @ApiOperation({ tags: ['Establishment'], summary: 'Coletar registro aleatório de estabelecimentos comerciais pelo tipo de empresa' })
+  @ApiOperation({ tags: ['Contact'], summary: 'Coletar registro aleatório de contatos' })
   @Get('/random')
   @UsePipes(new RegisterValidationPipe())
   async findByBusinessTypeRandom(@Query() { limit, offset }: LimitOffsetDto, @Request() request?: RequestInfo): Promise<any> {

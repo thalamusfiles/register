@@ -33,7 +33,13 @@ export class Migration20230509115642 extends Migration {
         "size_code" int null, 
         "nature_code" int null, 
         "qualification_code" int null,
-        
+        "is_simple" boolean null,
+        "simple_created_at" int null,
+        "simple_deleted_at" int null, 
+        "is_mei" boolean null,
+        "mei_created_at" int null, 
+        "mei_deleted_at" int null, 
+
         constraint "person_resource_pkey" primary key ("hash_id")
       );`,
     );

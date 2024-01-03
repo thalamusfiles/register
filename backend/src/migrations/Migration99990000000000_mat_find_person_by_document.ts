@@ -57,7 +57,7 @@ export class Migration20230509115642 extends Migration {
          where partner.establishment_hash_id = e.hash_id
        ),
        /*Others*/
-       /*'simples', json_build_object(
+       'simples', json_build_object(
          'is', pr.is_simple,
          'createdAt', pr.simple_created_at,
          'deletedAt', pr.simple_deleted_at
@@ -66,7 +66,7 @@ export class Migration20230509115642 extends Migration {
          'is', pr.is_mei,
          'createdAt', pr.mei_created_at,
          'deletedAt', pr.mei_deleted_at
-       ),*/
+       ),
        'reason', reason."value"->>'description'
      ) as "brGovDados"
    from establishment e
