@@ -53,7 +53,7 @@ export class PersonService {
       .where('part.extra_key', document);
 
     if (isCNPJ) {
-      this.knex.orWhere('part.', this.knex.raw(establishmentHashIdWhere(document)));
+      query.orWhere('part.establishment_hash_id', this.knex.raw(establishmentHashIdWhere(document)));
     }
 
     return await query;
