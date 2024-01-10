@@ -3,7 +3,7 @@ import { Entity, Property } from '@mikro-orm/core';
 @Entity({
   schema: 'materialized',
   readonly: true,
-  expression: `select begin_date, state_code, total from "materialized".rel_establishment_by_month_and_state`,
+  expression: `select begin_date, state_code, total, total_mei from "materialized".rel_establishment_by_month_and_state`,
 })
 export default class RelEstablishmentByMonthAndState {
   @Property()
@@ -14,4 +14,7 @@ export default class RelEstablishmentByMonthAndState {
 
   @Property()
   total?: number;
+
+  @Property()
+  totalMei?: number;
 }

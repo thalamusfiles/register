@@ -12,7 +12,7 @@ export class Migration20230509115642 extends Migration {
         "person_hash_id" bigint not null, 
         "extra_key" varchar(255) not null,
         "fax" varchar(64) [] null, 
-        "email" varchar(64) [] null, 
+        "email" varchar(96) [] null, 
         "phone" varchar(64) [] null
 
         constraint "contact_pkey" primary key ("hash_id")
@@ -23,7 +23,7 @@ export class Migration20230509115642 extends Migration {
      * Foreign keys and index
      */
 
-    this.addSql('create index contact_person_hash_id_idx on "contact" using hash (person_hash_id);;');
+    this.addSql('CREATE INDEX concurrently contact_person_hash_id_idx on "contact" using hash (person_hash_id);');
   }
 
   async down(): Promise<void> {

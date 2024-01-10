@@ -30,8 +30,8 @@ export class Migration20230602183124 extends Migration {
      * Foreign keys
      */
 
-    this.addSql('create index partner_establishment_hash_id_idx on "partner" using hash (establishment_hash_id);');
-    this.addSql('create index partner_extra_key_idx on "partner" USING hash (extra_key);');
+    this.addSql('CREATE INDEX concurrently partner_establishment_hash_id_idx on "partner" using hash (establishment_hash_id);');
+    this.addSql('CREATE INDEX concurrently partner_extra_key_idx on "partner" USING hash (extra_key);');
   }
 
   async down(): Promise<void> {

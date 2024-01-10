@@ -73,7 +73,7 @@ export class PersonPartnerCtrl {
       .then((response) => {
         this.waiting = false;
         this.response = response?.data;
-        this.document = response?.data[0]?.partnerDoc as string;
+        this.document = response?.data[0]?.partner_doc as string;
 
         historyReplace({ document: this.document });
       })

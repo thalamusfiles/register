@@ -6,10 +6,12 @@ export class Migration20230509115642 extends Migration {
     this.addSql(
       `create materialized view if not exists "materialized".rel_establishment_by_month_and_state as
       select
-        e.begin_date as begin_date, 
-        e.state_code as state_code, 
-        count(e.hash_id) as total
+        cast(e.begin_date as varchar(6)) as begin_date, 
+        e.state_code as state_code,
+        count(e.hash_id) filter (where not (pr.is_mei is true or pr."nature_code" in ('2135') or not exists(select 1 from partner where partner.establishment_hash_id = e.hash_id limit 1))) total,
+        count(e.hash_id) filter (where pr.is_mei is true or pr."nature_code" in ('2135') or not exists(select 1 from partner where partner.establishment_hash_id = e.hash_id limit 1)) total_mei
       from establishment e
+      left join person_resource pr on pr.person_hash_id = e.person_hash_id
       group by begin_date, state_code
       order by begin_date desc, state_code;`,
     );
@@ -19,13 +21,8 @@ export class Migration20230509115642 extends Migration {
       `create materialized view if not exists "materialized".rel_establishment_by_month_and_state_crosstab as
       select * from
       crosstab($$
-      select 
-        e.begin_date as begin_date, 
-        e.state_code as state_code, 
-        count(e.hash_id) as total
-      from establishment e
-      group by begin_date, state_code
-      order by begin_date desc, state_code
+      select begin_date, state_code, total
+      from "materialized".rel_establishment_by_month_and_state
       $$,
       $$
       select s.code from address.state s where resource_country_acronym = 'br' order by s.code
