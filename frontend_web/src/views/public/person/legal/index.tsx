@@ -168,16 +168,6 @@ const PersonPrettyResult: React.FC = observer(() => {
 
           <Form.Group as={Row}>
             <Form.Label column sm="4">
-              Nome
-            </Form.Label>
-            <Col sm="8">
-              <Form.Control plaintext readOnly value={data.name} />
-              {data.naturePerson && <Badge>{__('label.naturePerson')}</Badge>}
-            </Col>
-          </Form.Group>
-
-          <Form.Group as={Row}>
-            <Form.Label column sm="4">
               Nome fantasia
             </Form.Label>
             <Col sm="8">
@@ -187,33 +177,43 @@ const PersonPrettyResult: React.FC = observer(() => {
 
           <Form.Group as={Row}>
             <Form.Label column sm="4">
-              Código tipo <br />
-              Código atividade
+              Razão Social
             </Form.Label>
             <Col sm="8">
-              <Form.Control plaintext readOnly value={data.mainActivity} />
+              <Form.Control plaintext readOnly value={data.name} />
+              {data.naturePerson && <Badge>{__('label.naturePerson')}</Badge>}
             </Col>
           </Form.Group>
 
           <Form.Group as={Row}>
             <Form.Label column sm="4">
-              Atividades secundárias
+              Natureza jurídica
+            </Form.Label>
+            <Col sm="8">
+              <Form.Control plaintext readOnly value={`${data.natureCode || ''} - ${data.nature || ''}`} />
+            </Col>
+          </Form.Group>
+
+          <h3>Atividade:</h3>
+          <Form.Group as={Row}>
+            <Form.Label column sm="4">
+              Principal
+            </Form.Label>
+            <Col sm="8">
+              <Form.Control plaintext readOnly value={`${data.mainActivity || ''} - ${data.mainActivityDescription || ''}`} />
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Row}>
+            <Form.Label column sm="4">
+              Secundárias
             </Form.Label>
             <Col sm="8">
               <Form.Control plaintext readOnly value={(data.otherActivities as Array<string>)?.join(', ')} />
             </Col>
           </Form.Group>
 
-          <Form.Group as={Row}>
-            <Form.Label column sm="4">
-              Tipo de empresa <br />
-              Atividade principal
-            </Form.Label>
-            <Col sm="8">
-              <Form.Control plaintext readOnly value={data.mainActivityDescription} />
-            </Col>
-          </Form.Group>
-
+          <h3>Contato:</h3>
           <Form.Group as={Row}>
             <Form.Label column sm="4">
               E-mail
@@ -233,6 +233,25 @@ const PersonPrettyResult: React.FC = observer(() => {
             </Col>
           </Form.Group>
 
+          <h3>Endereço:</h3>
+          <Form.Group as={Row}>
+            <Form.Label column sm="4">
+              Estado
+            </Form.Label>
+            <Col sm="8">
+              <Form.Control plaintext readOnly value={data.stateCode} />
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Row}>
+            <Form.Label column sm="4">
+              Cidade
+            </Form.Label>
+            <Col sm="8">
+              <Form.Control plaintext readOnly value={data.cityName} />
+            </Col>
+          </Form.Group>
+
           <Form.Group as={Row}>
             <Form.Label column sm="4">
               Endereço
@@ -243,7 +262,7 @@ const PersonPrettyResult: React.FC = observer(() => {
                 readOnly
                 value={`${data.zipcode || ''} - ${data.publicPlaceCode || ''} ${data.publicPlace || ''} ${data.number || ''} ${
                   data.complement || ''
-                } ${data.neighborhood || ''} ${data.cityName || ''} ${data.stateCode}`}
+                } ${data.neighborhood || ''}`}
               />
               {data.naturePerson && <ProtectedInfoBadge __={__} />}
             </Col>
