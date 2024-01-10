@@ -3,17 +3,17 @@ import { createContext, useContext } from 'react';
 import { historyReplace } from '../../../../commons/route';
 import { PartnerList, PersonDataSource } from '../../../../datasources/person';
 import { historyPush } from '../../../../commons/route';
+import { notify } from '../../../../components/Notification';
 import { type ErrorListRecord } from '../../../../commons/types/ErrorListRecord';
 import { exportXLS } from '../../../../commons/tools';
 import { ErrosAsList, getFormExceptionErrosToObject } from '../../../../commons/error';
+import { isCPFSize } from '../../../../commons/validators';
 
 export class PersonPartnerCtrl {
   constructor() {
     // Modifica classe pra ser observável
     makeObservable(this);
   }
-
-  notifyExeption!: Function;
 
   // PersonPartner
   @observable document = '';
@@ -43,6 +43,10 @@ export class PersonPartnerCtrl {
     this.erroMessages = [];
     this.erros = {};
 
+    if (isCPFSize(this.document)) {
+      notify.info(this.__('person.cpf_search'));
+    }
+
     new PersonDataSource()
       .findNaturalByDocument(this.document!)
       .then((response) => {
@@ -63,7 +67,6 @@ export class PersonPartnerCtrl {
   @action
   findDocumentRandom = () => {
     this.document = '';
-
     this.waiting = true;
     this.erroMessages = [];
     this.erros = {};
@@ -83,6 +86,18 @@ export class PersonPartnerCtrl {
 
         this.notifyExeption(ex);
       });
+  };
+
+  __!: Function;
+  notifyExeption = (ex: any) => {
+    const status = ex.response?.status;
+    if ([404].includes(status)) {
+      notify.warn(this.__(`msg.error_${status}`));
+    } else if ([400, 500].includes(status)) {
+      notify.danger(this.__(`msg.error_${status}`));
+    } else {
+      notify.danger(ex.message);
+    }
   };
 
   @action

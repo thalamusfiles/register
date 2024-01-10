@@ -5,6 +5,7 @@ import { PartnerList } from '../../../../datasources/person';
 import { historyPush } from '../../../../commons/route';
 import { EstablishmentDataSource } from '../../../../datasources/establishment';
 import type { ErrorListRecord } from '../../../../commons/types/ErrorListRecord';
+import { notify } from '../../../../components/Notification';
 import { exportXLS } from '../../../../commons/tools';
 import { ErrosAsList, getFormExceptionErrosToObject } from '../../../../commons/error';
 
@@ -13,8 +14,6 @@ export class AddressZipcodeCtrl {
     // Modifica classe pra ser observável
     makeObservable(this);
   }
-
-  notifyExeption!: Function;
 
   // PersonPartner
   @observable zipcode = '';
@@ -103,6 +102,18 @@ export class AddressZipcodeCtrl {
 
         this.notifyExeption(ex);
       });
+  };
+
+  __!: Function;
+  notifyExeption = (ex: any) => {
+    const status = ex.response?.status;
+    if ([404].includes(status)) {
+      notify.warn(this.__(`msg.error_${status}`));
+    } else if ([400, 500].includes(status)) {
+      notify.danger(this.__(`msg.error_${status}`));
+    } else {
+      notify.danger(ex.message);
+    }
   };
 
   @action

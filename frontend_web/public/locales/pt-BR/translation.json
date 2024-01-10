@@ -101,7 +101,8 @@
         "partner.meta":"Encontre qualquer informação dos sócios de todas as empresas brasileiras registradas na Receita Federal. Buscador/Gerador de CPF aleatório.",
         "contact.title": "Busca por contatos",
         "contact.description": "Consulte telefone, e-mail e fax das pessoas jurídica de determinada localidade e tipo de negócio.",
-        "contact.meta": "Consulte telefone, e-mail e fax das pessoas jurídica de determinada localidade e tipo de negócio."
+        "contact.meta": "Consulte telefone, e-mail e fax das pessoas jurídica de determinada localidade e tipo de negócio.",
+        "cpf_search" : "A busca por CPF é aproximada, pois não são informados os números completos dos CPFs ao coletar os dados."
     },
     "address": {
         "zipcode.title": "Busca por código postal",

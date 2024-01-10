@@ -2,6 +2,7 @@ import { action, makeObservable, observable } from 'mobx';
 import { createContext, useContext } from 'react';
 import { ErrosAsList, getFormExceptionErrosToObject } from '../../../../commons/error';
 import type { ErrorListRecord } from '../../../../commons//types/ErrorListRecord';
+import { notify } from '../../../../components/Notification';
 import { historyReplace } from '../../../../commons/route';
 import { thalamusData } from '../../../../config/thalamus.data';
 import { PersonDataSource, PersonFindByDocumentRespDto } from '../../../../datasources/person';
@@ -11,8 +12,6 @@ export class PersonLegalCtrl {
     // Modifica classe pra ser observável
     makeObservable(this);
   }
-
-  notifyExeption!: Function;
 
   // PersonLegal
   @observable document = '';
@@ -88,6 +87,18 @@ export class PersonLegalCtrl {
 
         this.notifyExeption(ex);
       });
+  };
+
+  __!: Function;
+  notifyExeption = (ex: any) => {
+    const status = ex.response?.status;
+    if ([404].includes(status)) {
+      notify.warn(this.__(`msg.error_${status}`));
+    } else if ([400, 500].includes(status)) {
+      notify.danger(this.__(`msg.error_${status}`));
+    } else {
+      notify.danger(ex.message);
+    }
   };
 }
 

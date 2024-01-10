@@ -5,7 +5,6 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { useParams } from 'react-router-dom';
 import { useI18N } from '../../../../commons/i18';
 import { getLinkTo } from '../../../../commons/route';
-import { notify } from '../../../../components/Notification';
 import { PersonLegalCtrl, PersonLegalProvider, usePersonLegalStore } from './ctrl';
 import { Helmet } from 'react-helmet';
 import SpinnerLoader from '../../../../components/Loader';
@@ -14,17 +13,7 @@ const ctrl = new PersonLegalCtrl();
 const PersonLegalPage: React.FC = () => {
   const __ = useI18N();
   const { document } = useParams();
-
-  ctrl.notifyExeption = (ex: any) => {
-    const status = ex.response?.status;
-    if ([404].includes(status)) {
-      notify.warn(__(`msg.error_${status}`));
-    } else if ([400, 500].includes(status)) {
-      notify.danger(__(`msg.error_${status}`));
-    } else {
-      notify.danger(ex.message);
-    }
-  };
+  ctrl.__ = __;
 
   useEffect(() => {
     if (ctrl.document !== document) {

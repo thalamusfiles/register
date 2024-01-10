@@ -5,6 +5,7 @@ import { Knex, PostgreSqlConnection } from '@mikro-orm/postgresql';
 import { Partner } from '../../../model/Partner';
 import { Establishment } from '../../../model/Establishment';
 import { Person } from '../../../model/Person';
+import { establishmentHashIdWhere, formatDocumentToSearch } from 'src/commons/hash-id';
 
 @Injectable()
 export class PersonService {
@@ -34,10 +35,10 @@ export class PersonService {
   async findPartnerByDocument(document: string): Promise<any> {
     this.logger.verbose('findPartnerByDocument');
 
-    let extraKey = document.replace(/[\/.-]*/g, '');
-    if (extraKey.length === 11) {
-      extraKey = `***${extraKey.substring(3, 9)}**`;
-    }
+    document = document.replace(/[\/.-]*/g, '');
+
+    const isCNPJ = document.length !== 11;
+    document = formatDocumentToSearch(isCNPJ ? 'cnpj' : 'cpf', document);
 
     const query = this.knex
       .select('est.extra_key as document')
@@ -49,7 +50,11 @@ export class PersonService {
       .from(`${this.partTableName} as part`)
       .leftJoin(`${this.estTableName} as est`, `est.hash_id`, `part.establishment_hash_id`)
       .leftJoin(`${this.persTableName} as pers`, `pers.hash_id`, `est.person_hash_id`)
-      .where('part.extra_key', extraKey);
+      .where('part.extra_key', document);
+
+    if (isCNPJ) {
+      this.knex.orWhere('part.', this.knex.raw(establishmentHashIdWhere(document)));
+    }
 
     return await query;
   }

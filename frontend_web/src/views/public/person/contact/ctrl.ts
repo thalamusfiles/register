@@ -2,6 +2,7 @@ import { action, makeObservable, observable } from 'mobx';
 import { createContext, useContext } from 'react';
 import { PartnerList } from '../../../../datasources/person';
 import { historyPush } from '../../../../commons/route';
+import { notify } from '../../../../components/Notification';
 import { ContactDataSource } from '../../../../datasources/contact';
 import { exportXLS } from '../../../../commons/tools';
 import { ErrosAsList, getFormExceptionErrosToObject } from '../../../../commons/error';
@@ -12,8 +13,6 @@ export class ContactCtrl {
     // Modifica classe pra ser observável
     makeObservable(this);
   }
-
-  notifyExeption!: Function;
 
   // PersonPartner
   @observable state = null as { code: string; name: string } | null;
@@ -119,6 +118,18 @@ export class ContactCtrl {
 
         this.notifyExeption(ex);
       });
+  };
+
+  __!: Function;
+  notifyExeption = (ex: any) => {
+    const status = ex.response?.status;
+    if ([404].includes(status)) {
+      notify.warn(this.__(`msg.error_${status}`));
+    } else if ([400, 500].includes(status)) {
+      notify.danger(this.__(`msg.error_${status}`));
+    } else {
+      notify.danger(ex.message);
+    }
   };
 
   @action
