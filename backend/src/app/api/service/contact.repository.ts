@@ -57,7 +57,7 @@ export class ContactService {
       .select(`part.partner`)
       .select(`part.representative_name`)
       .from(`${this.estTableName} as est`)
-      .leftJoin(`${this.persTableName} as pers`, `pers.hash_id`, `est.person_hash_id`)
+      .innerJoin(`${this.persTableName} as pers`, `pers.hash_id`, `est.person_hash_id`)
       .leftJoin(`${this.contTableName} as cont`, `cont.person_hash_id`, `est.person_hash_id`)
       .leftJoin(`${this.partTableName} as part`, `part.establishment_hash_id`, `est.hash_id`)
       .where('est.city_hash_id', city.hashId)
