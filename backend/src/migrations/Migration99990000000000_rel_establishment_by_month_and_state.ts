@@ -12,22 +12,22 @@ export class Migration20230509115642 extends Migration {
         count(e.hash_id) filter (where pr.is_mei is true or pr."nature_code" = '2135') total_mei
       from establishment e
       left join person_resource pr on pr.person_hash_id = e.person_hash_id
-      group by begin_date, state_code
+      group by 1, 2
       order by begin_date desc, state_code;`,
     );
 
     // Cria a tabela materializada de estabelecimentos por mes e estado com colunas formatados
     this.addSql(
       `create materialized view if not exists "materialized".rel_establishment_by_month_and_state_crosstab as
-      select * from
-      crosstab($$
-      select begin_date, state_code, total
-      from "materialized".rel_establishment_by_month_and_state
+      select * from crosstab(
+      $$
+        select begin_date, upper(state_code) , total
+        from "materialized".rel_establishment_by_month_and_state
+        order by begin_date ASC, state_code ASC
       $$,
       $$
-      select s.code from address.state s where resource_country_acronym = 'br' order by s.code
-      $$
-      )
+        select s.code from address.state s where resource_country_acronym = 'br' and code <> 'BR' order by s.code ASC
+      $$)
       as rel_establishment_by_month_and_state_crostab(date varchar(6),
         ac int4, al int4, am int4, ap int4, ba int4, ce int4,
         df int4, es int4, ex int4, go int4, ma int4, mg int4,

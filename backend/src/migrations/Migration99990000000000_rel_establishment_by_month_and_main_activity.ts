@@ -12,7 +12,7 @@ export class Migration20230509115642 extends Migration {
         count(e.hash_id) filter (where pr.is_mei is true or pr."nature_code" = '2135') total_mei
       from establishment e
       left join person_resource pr on pr.person_hash_id = e.person_hash_id
-      group by begin_date, main_activity
+      group by 1, 2
       order by begin_date desc, total desc;`,
     );
   }
