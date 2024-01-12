@@ -26,24 +26,25 @@ export class Migration20230509115642 extends Migration {
        'sizeCode', pr."size_code",
        'natureCode', pr."nature_code",
        'nature', nt."value"->>'description',
-       'naturePerson', pr.is_mei is true or pr."nature_code" in ('2135') or not exists(select 1 from partner where partner.establishment_hash_id = e.hash_id limit 1),
-       'status', e.status,
+       'naturePerson', pr.is_mei is true or pr."nature_code" = '2135',
+       'statusCode', e.status,
+       'status', st."value"->>'description',
        'statusDate', e.status_date,
        /*Address*/
-       'zipcode', case when pr.is_mei is true or pr."nature_code" in ('2135') then null else e.zipcode end,
+       'zipcode', case when pr.is_mei is true or pr."nature_code" = '2135' then null else e.zipcode end,
        'countryCode', e.country_code,
        'countryName', country."name",
        'stateCode', e.state_code,
        'cityCode', city.code,
-       'cityName', case when pr.is_mei is true or pr."nature_code" in ('2135') then null else city."name" end,
-       'complement', case when pr.is_mei is true or pr."nature_code" in ('2135') then null else e.complement end,
-       'publicPlaceCode', case when pr.is_mei is true or pr."nature_code" in ('2135') then null else e.public_place_code end,
-       'publicPlace', case when pr.is_mei is true or pr."nature_code" in ('2135') then null else e.public_place end,
-       'neighborhood', case when pr.is_mei is true or pr."nature_code" in ('2135') then null else e.neighborhood end,
-       'number', case when pr.is_mei is true or pr."nature_code" in ('2135') then null else e.number end,
+       'cityName', case when pr.is_mei is true or pr."nature_code" = '2135' then null else city."name" end,
+       'complement', case when pr.is_mei is true or pr."nature_code" = '2135' then null else e.complement end,
+       'publicPlaceCode', case when pr.is_mei is true or pr."nature_code" = '2135' then null else e.public_place_code end,
+       'publicPlace', case when pr.is_mei is true or pr."nature_code" = '2135' then null else e.public_place end,
+       'neighborhood', case when pr.is_mei is true or pr."nature_code" = '2135' then null else e.neighborhood end,
+       'number', case when pr.is_mei is true or pr."nature_code" = '2135' then null else e.number end,
        /*Contact*/
-       'fax', case when pr.is_mei is true or pr."nature_code" in ('2135') then null else c.fax end,
-       'phone', case when pr.is_mei is true or pr."nature_code" in ('2135') then null else c.phone end,
+       'fax', case when pr.is_mei is true or pr."nature_code" = '2135' then null else c.fax end,
+       'phone', case when pr.is_mei is true or pr."nature_code" = '2135' then null else c.phone end,
        'email', c.email,
        /*Partner*/
        'partners', (select
@@ -77,7 +78,8 @@ export class Migration20230509115642 extends Migration {
    left join "address".city city       on city.hash_id = e.city_hash_id
    left join type_key_value activity   on activity.hash_id = hashtextextended( 'br:br_gov_dados:cnae:' || e."main_activity" , 1)
    left join type_key_value reason     on reason.hash_id = hashtextextended( 'br:br_gov_dados:reason:' || (e.reason) , 1)
-   left join type_key_value nt         on nt.hash_id = hashtextextended( 'br:br_gov_dados:nature:' || (pr."nature_code") , 1);`,
+   left join type_key_value nt         on nt.hash_id = hashtextextended( 'br:br_gov_dados:nature:' || (pr."nature_code") , 1)
+   left join type_key_value st         on st.hash_id = hashtextextended( 'br:br_gov_dados:status:' || (e."status") , 1);`,
     );
 
     // Cria o indice da tabela materializada
