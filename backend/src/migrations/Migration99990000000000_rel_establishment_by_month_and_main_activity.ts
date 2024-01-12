@@ -8,8 +8,8 @@ export class Migration20230509115642 extends Migration {
       select
         cast(e.begin_date as varchar(6)) as begin_date, 
         e.main_activity as main_activity,
-        count(e.hash_id) filter (where not (pr.is_mei is true or pr."nature_code" = '2135' limit 1)) total,
-        count(e.hash_id) filter (where pr.is_mei is true or pr."nature_code" = '2135' limit 1) total_mei
+        count(e.hash_id) filter (where not (pr.is_mei is true or pr."nature_code" = '2135')) total,
+        count(e.hash_id) filter (where pr.is_mei is true or pr."nature_code" = '2135') total_mei
       from establishment e
       left join person_resource pr on pr.person_hash_id = e.person_hash_id
       group by begin_date, main_activity

@@ -149,12 +149,11 @@ const PersonPrettyResult: React.FC = observer(() => {
       {ctrl.waiting === false && !ctrl.response && <p>{__('msg.register_not_found')}</p>}
       {ctrl.response && (
         <Form>
-          <Badge>
-            {data.statusCode || ''} - {data.status || ''}
-          </Badge>
+          <Badge>{data.status || ''}</Badge>
+          &nbsp;
           {data.naturePerson && <Badge>{__('label.naturePerson')}</Badge>}
+          &nbsp;
           {data.naturePerson && <ProtectedInfoBadge __={__} />}
-
           <Form.Group as={Row}>
             <Form.Label column sm="4">
               Tipo de documento
@@ -163,7 +162,6 @@ const PersonPrettyResult: React.FC = observer(() => {
               <Form.Control plaintext readOnly value={(data.documentType as string)?.toLocaleUpperCase()} />
             </Col>
           </Form.Group>
-
           <Form.Group as={Row}>
             <Form.Label column sm="4">
               Documento
@@ -172,7 +170,6 @@ const PersonPrettyResult: React.FC = observer(() => {
               <Form.Control plaintext readOnly value={data.document || ''} />
             </Col>
           </Form.Group>
-
           <Form.Group as={Row}>
             <Form.Label column sm="4">
               Nome fantasia
@@ -181,7 +178,6 @@ const PersonPrettyResult: React.FC = observer(() => {
               <Form.Control plaintext readOnly value={data.fantasyName || ''} />
             </Col>
           </Form.Group>
-
           <Form.Group as={Row}>
             <Form.Label column sm="4">
               Razão Social
@@ -190,7 +186,6 @@ const PersonPrettyResult: React.FC = observer(() => {
               <Form.Control plaintext readOnly value={data.name || ''} />
             </Col>
           </Form.Group>
-
           <Form.Group as={Row}>
             <Form.Label column sm="4">
               Natureza jurídica
@@ -199,7 +194,6 @@ const PersonPrettyResult: React.FC = observer(() => {
               <Form.Control plaintext readOnly value={`${data.natureCode || ''} - ${data.nature || ''}`} />
             </Col>
           </Form.Group>
-
           <Form.Group as={Row}>
             <Form.Label column sm="4">
               Situação
@@ -208,7 +202,6 @@ const PersonPrettyResult: React.FC = observer(() => {
               <Form.Control plaintext readOnly value={`${data.statusCode || ''} - ${data.status || ''}`} />
             </Col>
           </Form.Group>
-
           <Form.Group as={Row}>
             <Form.Label column sm="4">
               Motivo:
@@ -217,7 +210,6 @@ const PersonPrettyResult: React.FC = observer(() => {
               <Form.Control plaintext readOnly value={data.reason} />
             </Col>
           </Form.Group>
-
           <h3>Atividade</h3>
           <Form.Group as={Row}>
             <Form.Label column sm="4">
@@ -227,7 +219,6 @@ const PersonPrettyResult: React.FC = observer(() => {
               <Form.Control plaintext readOnly value={`${data.mainActivity || ''} - ${data.mainActivityDescription || ''}`} />
             </Col>
           </Form.Group>
-
           <Form.Group as={Row}>
             <Form.Label column sm="4">
               Secundárias
@@ -236,7 +227,6 @@ const PersonPrettyResult: React.FC = observer(() => {
               <Form.Control plaintext readOnly value={(data.otherActivities as Array<string>)?.join(', ')} />
             </Col>
           </Form.Group>
-
           <Form.Group as={Row}>
             <Form.Label column sm="4">
               MEI:
@@ -245,7 +235,6 @@ const PersonPrettyResult: React.FC = observer(() => {
               <Form.Control plaintext readOnly value={data.MEI.is ? 'Sim' : 'Não'} />
             </Col>
           </Form.Group>
-
           <Form.Group as={Row}>
             <Form.Label column sm="4">
               Simples:
@@ -254,7 +243,6 @@ const PersonPrettyResult: React.FC = observer(() => {
               <Form.Control plaintext readOnly value={data.simples.is ? 'Sim' : 'Não'} />
             </Col>
           </Form.Group>
-
           <h3>Contato</h3>
           <Form.Group as={Row}>
             <Form.Label column sm="4">
@@ -264,7 +252,6 @@ const PersonPrettyResult: React.FC = observer(() => {
               <Form.Control plaintext readOnly value={data.email || ''} />
             </Col>
           </Form.Group>
-
           <Form.Group as={Row}>
             <Form.Label column sm="4">
               Telefone
@@ -273,7 +260,6 @@ const PersonPrettyResult: React.FC = observer(() => {
               <Form.Control plaintext readOnly value={data.phone || ''} />
             </Col>
           </Form.Group>
-
           <h3>Endereço</h3>
           <Form.Group as={Row}>
             <Form.Label column sm="4">
@@ -283,7 +269,6 @@ const PersonPrettyResult: React.FC = observer(() => {
               <Form.Control plaintext readOnly value={data.stateCode || ''} />
             </Col>
           </Form.Group>
-
           <Form.Group as={Row}>
             <Form.Label column sm="4">
               Cidade
@@ -292,7 +277,6 @@ const PersonPrettyResult: React.FC = observer(() => {
               <Form.Control plaintext readOnly value={data.cityName || ''} />
             </Col>
           </Form.Group>
-
           <Form.Group as={Row}>
             <Form.Label column sm="4">
               Endereço
