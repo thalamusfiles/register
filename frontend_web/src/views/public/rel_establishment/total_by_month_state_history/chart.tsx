@@ -38,7 +38,6 @@ const TotalByMonthStateHistoryPrettyChart: React.FC<{ chartType: 'line' | 'bar' 
   const ctrl = useTotalByMonthStateHistoryStore();
 
   const labels = ctrl.response?.map((resp) => `${resp.date.substring(4)}/${resp.date.substring(0, 4)}`) || [];
-  labels.reverse();
 
   const data = {
     labels,

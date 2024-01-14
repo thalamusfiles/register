@@ -4,7 +4,7 @@ import { Bar } from 'react-chartjs-2';
 import { ChartBarOptions } from '../../../../commons/chat.options';
 import { useI18N } from '../../../../commons/i18';
 import { Button, ButtonGroup, Stack } from 'react-bootstrap';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { TotalByMonthStateProvider, TotalByMonthStateCtrl, useTotalByMonthStateStore } from './ctrl';
 import { historyPush } from '../../../../commons/route';
 
@@ -61,27 +61,17 @@ const options: ChartOptions = {
   animations: {
     x: {
       duration: 500,
-      from: 0,
     },
-    y: { duration: 0 },
+    y: { duration: 500 },
   },
 };
 
 const TotalByMonthStatePrettyChart: React.FC = observer(() => {
   const ctrl = useTotalByMonthStateStore();
-  const ref = useRef(null);
-  const [value, setValue] = useState(0);
-
-  const onClick = () => {
-    setValue(value + 1);
-
-    (ref.current as any).update();
-  };
 
   return (
     <div style={{ height: '650px' }}>
-      <Bar ref={ref} options={options} data={ctrl.chartData} />
-      <div onClick={onClick}>Click {value}</div>
+      <Bar options={options} data={ctrl.chartData} />
     </div>
   );
 });

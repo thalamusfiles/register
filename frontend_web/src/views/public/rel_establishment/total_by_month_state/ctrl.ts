@@ -58,6 +58,7 @@ export class TotalByMonthStateCtrl {
       .then((response) => {
         this.wanted = true;
         this.response = response?.data.sort((l, r) => r.total - l.total);
+
         this.formatChartData();
       })
       .catch((ex) => {
@@ -70,20 +71,20 @@ export class TotalByMonthStateCtrl {
 
   @action
   formatChartData() {
-    this.chartData.labels = this.response?.map((resp) => resp.stateCode) || [];
-    this.chartData.datasets = [
-      {
-        label: 'Novos registros',
-        data: this.response?.map((resp) => resp.total),
-        lineTension: 1,
-        backgroundColor: ChartBackgroundColor,
-        borderColor: ChartBorderColor,
-        borderWidth: 1,
-      },
-    ];
+    const labels = this.response?.map((resp) => resp.stateCode) || [];
+
     this.chartData = {
-      labels: this.chartData.labels,
-      datasets: this.chartData.datasets,
+      labels: labels,
+      datasets: [
+        {
+          label: 'Novos registros',
+          data: this.response?.map((resp) => resp.total),
+          lineTension: 1,
+          backgroundColor: ChartBackgroundColor,
+          borderColor: ChartBorderColor,
+          borderWidth: 1,
+        },
+      ],
     };
   }
 
