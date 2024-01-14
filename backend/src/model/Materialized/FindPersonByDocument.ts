@@ -1,6 +1,6 @@
 import { Entity, Filter, Property } from '@mikro-orm/core';
 import { EntityManager } from '@mikro-orm/postgresql';
-import { establishmentHashIdWhere } from 'src/commons/hash-id';
+import { establishmentHashIdWhere } from '../../commons/hash-id';
 
 @Filter({
   name: 'document',

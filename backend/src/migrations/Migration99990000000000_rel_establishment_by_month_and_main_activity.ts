@@ -7,7 +7,7 @@ export class Migration20230509115642 extends Migration {
       `create materialized view if not exists "materialized".rel_establishment_by_month_and_main_activity as
       select
         cast(e.begin_date as varchar(6)) as begin_date, 
-        e.main_activity as main_activity,
+        e.main_activity,
         count(e.hash_id) filter (where not (pr.is_mei is true or pr."nature_code" = '2135')) total,
         count(e.hash_id) filter (where pr.is_mei is true or pr."nature_code" = '2135') total_mei
       from establishment e

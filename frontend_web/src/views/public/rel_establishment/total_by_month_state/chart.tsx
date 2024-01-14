@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartOptions } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { ChartBackgroundColor, ChartBarOptions, ChartBorderColor } from '../../../../commons/chat.options';
+import { ChartBarOptions } from '../../../../commons/chat.options';
 import { useI18N } from '../../../../commons/i18';
 import { Button, ButtonGroup, Stack } from 'react-bootstrap';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { TotalByMonthStateProvider, TotalByMonthStateCtrl, useTotalByMonthStateStore } from './ctrl';
 import { historyPush } from '../../../../commons/route';
 
@@ -69,25 +69,19 @@ const options: ChartOptions = {
 
 const TotalByMonthStatePrettyChart: React.FC = observer(() => {
   const ctrl = useTotalByMonthStateStore();
+  const ref = useRef(null);
+  const [value, setValue] = useState(0);
 
-  const labels = ctrl.response?.map((resp) => resp.stateCode) || [];
-  const data = {
-    labels,
-    datasets: [
-      {
-        label: 'Novos registros',
-        data: ctrl.response?.map((resp) => resp.total),
-        lineTension: 1,
-        backgroundColor: ChartBackgroundColor,
-        borderColor: ChartBorderColor,
-        borderWidth: 1,
-      },
-    ],
+  const onClick = () => {
+    setValue(value + 1);
+
+    (ref.current as any).update();
   };
 
   return (
     <div style={{ height: '650px' }}>
-      <Bar options={options} data={data} />
+      <Bar ref={ref} options={options} data={ctrl.chartData} />
+      <div onClick={onClick}>Click {value}</div>
     </div>
   );
 });

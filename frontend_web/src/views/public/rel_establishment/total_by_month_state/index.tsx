@@ -4,7 +4,6 @@ import { Card, Nav, Table } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { useI18N } from '../../../../commons/i18';
 import { getLinkTo } from '../../../../commons/route';
-import { notify } from '../../../../components/Notification';
 import TotalByMonthStateChartComp from './chart';
 import { TotalByMonthStateProvider, TotalByMonthStateCtrl, useTotalByMonthStateStore } from './ctrl';
 
@@ -12,17 +11,7 @@ const ctrl = new TotalByMonthStateCtrl();
 const TotalByMonthStatePage: React.FC = () => {
   const __ = useI18N();
   const [tab, setTab] = useState('formated' as string | null);
-
-  ctrl.notifyExeption = (ex: any) => {
-    const status = ex.response?.status;
-    if ([404].includes(status)) {
-      notify.warn(__(`msg.error_${status}`));
-    } else if ([400, 500].includes(status)) {
-      notify.danger(__(`msg.error_${status}`));
-    } else {
-      notify.danger(ex.message);
-    }
-  };
+  ctrl.__ = __;
 
   useEffect(() => {
     ctrl.fillMonths();

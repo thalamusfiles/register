@@ -1,6 +1,6 @@
 import { ChartOptions } from 'chart.js';
 
-export const ChartBarOptions: ChartOptions<"bar"> = {
+export const ChartBarOptions: ChartOptions<'bar'> = {
   scales: {
     x: {
       grid: {

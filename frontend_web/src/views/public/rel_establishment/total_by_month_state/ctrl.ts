@@ -2,6 +2,8 @@ import { DateTime } from 'luxon';
 import { action, makeObservable, observable } from 'mobx';
 import { createContext, useContext } from 'react';
 import { RelEstabByMMAndStateList, RelEstablishmentDataSource } from '../../../../datasources/report';
+import { notify } from '../../../../components/Notification';
+import { ChartBackgroundColor, ChartBorderColor } from '../../../../commons/chat.options';
 
 export class TotalByMonthStateCtrl {
   constructor() {
@@ -9,13 +11,15 @@ export class TotalByMonthStateCtrl {
     makeObservable(this);
   }
 
-  notifyExeption!: Function;
-
   // PersonPartner
   @observable month: string = '';
   @observable months: Array<string> = [];
   @observable wanted: boolean = false;
   @observable response: RelEstabByMMAndStateList | null = null;
+  @observable chartData: any = {
+    labels: [],
+    datasets: [],
+  };
 
   @action
   fillMonths = (size: number = 12) => {
@@ -54,6 +58,7 @@ export class TotalByMonthStateCtrl {
       .then((response) => {
         this.wanted = true;
         this.response = response?.data.sort((l, r) => r.total - l.total);
+        this.formatChartData();
       })
       .catch((ex) => {
         this.wanted = true;
@@ -61,6 +66,37 @@ export class TotalByMonthStateCtrl {
 
         if (this.notifyExeption) this.notifyExeption(ex);
       });
+  };
+
+  @action
+  formatChartData() {
+    this.chartData.labels = this.response?.map((resp) => resp.stateCode) || [];
+    this.chartData.datasets = [
+      {
+        label: 'Novos registros',
+        data: this.response?.map((resp) => resp.total),
+        lineTension: 1,
+        backgroundColor: ChartBackgroundColor,
+        borderColor: ChartBorderColor,
+        borderWidth: 1,
+      },
+    ];
+    this.chartData = {
+      labels: this.chartData.labels,
+      datasets: this.chartData.datasets,
+    };
+  }
+
+  __!: Function;
+  notifyExeption = (ex: any) => {
+    const status = ex.response?.status;
+    if ([404].includes(status)) {
+      notify.warn(this.__(`msg.error_${status}`));
+    } else if ([400, 500].includes(status)) {
+      notify.danger(this.__(`msg.error_${status}`));
+    } else {
+      notify.danger(ex.message);
+    }
   };
 }
 
