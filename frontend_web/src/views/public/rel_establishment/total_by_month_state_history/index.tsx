@@ -33,7 +33,6 @@ const TotalByMonthStateHistoryPage: React.FC = () => {
 
   return (
     <TotalByMonthStateHistoryProvider value={ctrl}>
-      <p>{__('report.establishment.total_month_state.description')}</p>
 
       <TotalByMonthStateHistoryChartComp />
       <br />
@@ -72,7 +71,7 @@ const TotalByMonthStateHistoryPrettyResult: React.FC = observer(() => {
     <Table>
       <thead>
         <tr>
-          <td>Data</td>
+          <td>Mês/Ano</td>
           {statesCode.map((code) => (
             <td key={code}>{code.toLocaleUpperCase()}</td>
           ))}

@@ -38,7 +38,7 @@ export class CityPickerPlugin extends Component<CityProps> {
         <Picker
           onSel={this.props.onSel}
           title={'Selecione a Cidade'}
-          subtitle={'Informar o nome da cidade (min 4 dígitos) no campo busca, para liberar a seleção de cidades.'}
+          subtitle={'Informar o nome da cidade (mínimo 4 dígitos) no campo busca, para liberar a seleção de cidades.'}
           header={['Nome']}
           stateCode={this.props.stateCode}
           ref={(ref) => (this.pickerRef = ref)}

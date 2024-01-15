@@ -32,6 +32,8 @@ const TotalByMonthNatureChartComp: React.FC = observer(() => {
   return (
     <>
       <h1>{__('report.type.total_month_nature.chart', { month: `${ctrl.month.substring(4)}/${ctrl.month.substring(0, 4)}` })}</h1>
+      <p>{__('report.type.total_month_nature.description')}</p>
+
       <TotalByMonthNaturePrettyChart />
       <br />
 

@@ -32,8 +32,6 @@ const TotalByMonthActivityPage: React.FC = () => {
 
   return (
     <TotalByMonthActivityProvider value={ctrl}>
-      <p>{__('report.type.total_month_activity.description')}</p>
-
       <TotalByMonthActivityChartComp />
       <br />
 
@@ -71,7 +69,7 @@ const TotalByMonthActivityPrettyResult: React.FC = observer(() => {
     <Table>
       <thead>
         <tr>
-          <td>Data</td>
+          <td>Mês/Ano</td>
           <td>Atividade (CNAE)</td>
           <td>Total</td>
         </tr>

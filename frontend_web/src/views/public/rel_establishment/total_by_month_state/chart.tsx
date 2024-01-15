@@ -32,6 +32,8 @@ const TotalByMonthStateChartComp: React.FC = observer(() => {
   return (
     <>
       <h1>{__('report.establishment.total_month_state.chart', { month: `${ctrl.month.substring(4)}/${ctrl.month.substring(0, 4)}` })}</h1>
+      <p>{__('report.establishment.total_month_state.description')}</p>
+
       <TotalByMonthStatePrettyChart />
       <br />
 

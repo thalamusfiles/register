@@ -29,6 +29,7 @@ const TotalByMonthStateHistoryChartComp: React.FC = observer(() => {
           </Button>
         </ButtonGroup>
       </h1>
+      <p>{__('report.establishment.total_month_state.description')}</p>
       <TotalByMonthStateHistoryPrettyChart chartType={chartType} />
     </>
   );

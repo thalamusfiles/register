@@ -208,7 +208,7 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
         <Modal.Header>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ minHeight: '270px', paddingBottom: '10px' }}>
+        <Modal.Body style={{ paddingBottom: '10px' }}>
           {subtitle && <p>{subtitle}</p>}
           {placeholder !== false && (
             <Form.Group>
@@ -219,7 +219,7 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
           <p>
             <small>Clique no item da lista para selecionar o item.</small>
           </p>
-          <div style={{ minHeight: '300px', maxHeight: '500px', overflow: 'scroll' }}>
+          <div style={{ minHeight: '300px', maxHeight: '320px', overflow: 'scroll' }}>
             <Table responsive>
               {header && (
                 <thead>

@@ -21,16 +21,20 @@ const Home: React.FC = () => {
         </Col>
         <Col>
           <Row>
-            <Col xs={12} lg={5}>
+            <Col xs={12} lg={4}>
               <Person />
+            </Col>
+            <Col lg={4}>
               <ByAddress />
             </Col>
-            <Col lg={3}>
-              <DeveloperGuide />
-            </Col>
-            <Col lg={3}>
+            <Col lg={4}>
               {randomizeShow < 6 && <TotalByMonthNatureChartCompProvided />}
               {randomizeShow > 5 && <TotalByMonthStateChartCompProvided />}
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12} lg={4}>
+              <DeveloperGuide />
             </Col>
           </Row>
         </Col>

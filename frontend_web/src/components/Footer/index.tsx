@@ -1,24 +1,24 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { Dropdown, DropdownButton } from 'react-bootstrap';
+//import { Dropdown, DropdownButton } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import * as json from '../../../package.json';
-import { IconsDef } from '../../commons/consts';
-import { useI18N, useLanguage } from '../../commons/i18';
-import UserCtxInstance from '../../store/userContext';
+//import { IconsDef } from '../../commons/consts';
+//import { useI18N, useLanguage } from '../../commons/i18';
+//import UserCtxInstance from '../../store/userContext';
 
 const { author, since, url, docUrl, version } = json as any;
 
 const Footer: React.FC<{ center?: boolean }> = ({ center }) => {
-  const language = useLanguage();
-  const __ = useI18N();
+  //const language = useLanguage();
+  //const __ = useI18N();
   return (
     <Container className="footer text-center">
       <Row>
         <Col md={{ span: 2, offset: center ? 3 : 6 }}>
-          <DropdownButton
+          {/*<DropdownButton
             title={
               <>
                 <FontAwesomeIcon icon={IconsDef.language} /> {__(`languages.${language}`)}{' '}
@@ -30,7 +30,7 @@ const Footer: React.FC<{ center?: boolean }> = ({ center }) => {
             <Dropdown.Item disabled>{__('menu.language')}</Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item onClick={() => UserCtxInstance.changeLanguage(__('pt-BR'))}>{__('menu.portuguese')}</Dropdown.Item>
-          </DropdownButton>
+          </DropdownButton>*/}
         </Col>
         <Col md={{ span: 2 }}>
           <a href={docUrl} target="_blank" rel="noopener noreferrer" className="text-body" style={{ color: 'red', textDecoration: 'none' }}>

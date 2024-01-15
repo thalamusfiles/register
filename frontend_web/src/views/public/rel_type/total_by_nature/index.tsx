@@ -32,8 +32,6 @@ const TotalByMonthNaturePage: React.FC = () => {
 
   return (
     <TotalByMonthNatureProvider value={ctrl}>
-      <p>{__('report.type.total_month_nature.description')}</p>
-
       <TotalByMonthNatureChartComp />
       <br />
 
@@ -71,7 +69,7 @@ const TotalByMonthNaturePrettyResult: React.FC = observer(() => {
     <Table>
       <thead>
         <tr>
-          <td>Data</td>
+          <td>Mês/Ano</td>
           <td>Natureza</td>
           <td>Total</td>
         </tr>

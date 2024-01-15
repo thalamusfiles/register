@@ -21,8 +21,6 @@ const TotalByMonthStatePage: React.FC = () => {
 
   return (
     <TotalByMonthStateProvider value={ctrl}>
-      <p>{__('report.establishment.total_month_state.description')}</p>
-
       <TotalByMonthStateChartComp />
       <br />
 
@@ -60,7 +58,7 @@ const TotalByMonthStatePrettyResult: React.FC = observer(() => {
     <Table>
       <thead>
         <tr>
-          <td>Data</td>
+          <td>Mês/Ano</td>
           <td>Estado</td>
           <td>Total</td>
         </tr>
