@@ -8,6 +8,7 @@ import { getLinkTo } from '../../../../commons/route';
 import { PersonLegalCtrl, PersonLegalProvider, usePersonLegalStore } from './ctrl';
 import { Helmet } from 'react-helmet';
 import SpinnerLoader from '../../../../components/Loader';
+import { brGovStatusCodeActive } from '../../../../commons/consts';
 
 const ctrl = new PersonLegalCtrl();
 const PersonLegalPage: React.FC = () => {
@@ -149,7 +150,7 @@ const PersonPrettyResult: React.FC = observer(() => {
       {ctrl.waiting === false && !ctrl.response && <p>{__('msg.register_not_found')}</p>}
       {ctrl.response && (
         <Form>
-          <Badge>{data.status || ''}</Badge>
+          <Badge bg={data.stateCode === brGovStatusCodeActive ? 'success' : 'info'}>{data.status || ''}</Badge>
           &nbsp;
           {data.naturePerson && <Badge>{__('label.naturePerson')}</Badge>}
           &nbsp;
@@ -300,7 +301,7 @@ const PersonPrettyResult: React.FC = observer(() => {
 const ProtectedInfoBadge: React.FC<{ __: Function }> = ({ __ }: any) => {
   return (
     <OverlayTrigger trigger="click" placement="right" overlay={ProtectedInfoPopover}>
-      <Badge bg="warning">{__('label.protectedInfo')}</Badge>
+      <Badge bg="secondary">{__('label.protectedInfo')}</Badge>
     </OverlayTrigger>
   );
 };

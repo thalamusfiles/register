@@ -1,9 +1,11 @@
 import { IconName } from '@fortawesome/fontawesome-svg-core';
 
+export const brGovStatusCodeActive = 2;
+
 export const ColorsDef = {
   // Listagem
   defaultBadgeVariant: 'info',
-  // 
+  //
   userVariant: 'info',
   addressVariant: 'outline-danger',
 };
