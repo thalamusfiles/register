@@ -150,7 +150,7 @@ const PersonPrettyResult: React.FC = observer(() => {
       {ctrl.waiting === false && !ctrl.response && <p>{__('msg.register_not_found')}</p>}
       {ctrl.response && (
         <Form>
-          <Badge bg={data.stateCode === brGovStatusCodeActive ? 'success' : 'info'}>{data.status || ''}</Badge>
+          <Badge bg={data.statusCode === brGovStatusCodeActive ? 'success' : 'danger'}>{data.status || ''}</Badge>
           &nbsp;
           {data.naturePerson && <Badge>{__('label.naturePerson')}</Badge>}
           &nbsp;
