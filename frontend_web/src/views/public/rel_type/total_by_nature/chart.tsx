@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartOptions } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { ChartBackgroundColor, ChartBarOptions, ChartBorderColor } from '../../../../commons/chat.options';
+import { ChartBarOptions } from '../../../../commons/chat.options';
 import { useI18N } from '../../../../commons/i18';
 import { Button, ButtonGroup, Stack } from 'react-bootstrap';
 import { useEffect } from 'react';
@@ -37,7 +37,7 @@ const TotalByMonthNatureChartComp: React.FC = observer(() => {
       <TotalByMonthNaturePrettyChart />
       <br />
 
-      <Stack >
+      <Stack>
         <ButtonGroup>
           <Button size="sm" variant="outline-info" onClick={() => historyPush('rel_type_tt_nature')}>
             ...
@@ -63,33 +63,17 @@ const options: ChartOptions = {
   animations: {
     x: {
       duration: 500,
-      from: 0,
     },
-    y: { duration: 0 },
+    y: { duration: 500 },
   },
 };
 
 const TotalByMonthNaturePrettyChart: React.FC = observer(() => {
   const ctrl = useTotalByMonthNatureStore();
 
-  const labels = ctrl.response?.map((resp) => resp.nature) || [];
-  const data = {
-    labels,
-    datasets: [
-      {
-        label: 'Novos registros',
-        data: ctrl.response?.map((resp) => resp.total),
-        lineTension: 1,
-        backgroundColor: ChartBackgroundColor,
-        borderColor: ChartBorderColor,
-        borderWidth: 1,
-      },
-    ],
-  };
-
   return (
     <div style={{ height: '650px' }}>
-      <Bar options={options} data={data} />
+      <Bar options={options} data={ctrl.chartData} />
     </div>
   );
 });

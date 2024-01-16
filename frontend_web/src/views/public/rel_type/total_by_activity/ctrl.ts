@@ -3,6 +3,7 @@ import { action, makeObservable, observable } from 'mobx';
 import { notify } from '../../../../components/Notification';
 import { createContext, useContext } from 'react';
 import { RelEstabByMMAndMainActivityList, RelEstablishmentDataSource } from '../../../../datasources/report';
+import { ChartBackgroundColor, ChartBorderColor } from '../../../../commons/chat.options';
 
 export class TotalByMonthActivityCtrl {
   constructor() {
@@ -15,7 +16,10 @@ export class TotalByMonthActivityCtrl {
   @observable months: Array<string> = [];
   @observable wanted: boolean = false;
   @observable response: RelEstabByMMAndMainActivityList | null = null;
-  @observable responseChart: RelEstabByMMAndMainActivityList | null = null;
+  @observable chartData: any = {
+    labels: [],
+    datasets: [],
+  };
 
   @action
   fillMonths = (size: number = 12) => {
@@ -53,8 +57,9 @@ export class TotalByMonthActivityCtrl {
       .totalByMonthAndMainActivity(months)
       .then((response) => {
         this.wanted = true;
-        this.response = response?.data.filter((resp) => resp.total).sort((l, r) => r.total - l.total);
-        this.responseChart = this.response.filter((_, idx) => idx < 35);
+        this.response = response?.data.filter((resp) => resp.total > 0).sort((l, r) => r.total - l.total);
+
+        this.formatChartData();
       })
       .catch((ex) => {
         this.wanted = true;
@@ -63,6 +68,27 @@ export class TotalByMonthActivityCtrl {
         if (this.notifyExeption) this.notifyExeption(ex);
       });
   };
+
+  @action
+  formatChartData() {
+    const response = this.response?.filter((_, idx) => idx < 35) || [];
+    const labels = response?.map((resp) => resp.mainActivity);
+    const data = response?.map((resp) => resp.total);
+
+    this.chartData = {
+      labels,
+      datasets: [
+        {
+          label: 'Novos registros',
+          data: data,
+          lineTension: 1,
+          backgroundColor: ChartBackgroundColor,
+          borderColor: ChartBorderColor,
+          borderWidth: 1,
+        },
+      ],
+    };
+  }
 
   __!: Function;
   notifyExeption = (ex: any) => {

@@ -3,6 +3,7 @@ import { action, makeObservable, observable } from 'mobx';
 import { notify } from '../../../../components/Notification';
 import { createContext, useContext } from 'react';
 import { RelEstabByMMAndNatureList, RelEstablishmentDataSource } from '../../../../datasources/report';
+import { ChartBackgroundColor, ChartBorderColor } from '../../../../commons/chat.options';
 
 export class TotalByMonthNatureCtrl {
   constructor() {
@@ -15,6 +16,10 @@ export class TotalByMonthNatureCtrl {
   @observable months: Array<string> = [];
   @observable wanted: boolean = false;
   @observable response: RelEstabByMMAndNatureList | null = null;
+  @observable chartData: any = {
+    labels: [],
+    datasets: [],
+  };
 
   @action
   fillMonths = (size: number = 12) => {
@@ -51,7 +56,9 @@ export class TotalByMonthNatureCtrl {
       .totalByMonthAndNature(months)
       .then((response) => {
         this.wanted = true;
-        this.response = response?.data.filter((resp) => resp.total).sort((l, r) => r.total - l.total);
+        this.response = response?.data.filter((resp) => resp.total > 0).sort((l, r) => r.total - l.total);
+
+        this.formatChartData();
       })
       .catch((ex) => {
         this.wanted = true;
@@ -60,6 +67,27 @@ export class TotalByMonthNatureCtrl {
         if (this.notifyExeption) this.notifyExeption(ex);
       });
   };
+
+  @action
+  formatChartData() {
+    const response = this.response || [];
+    const labels = response.map((resp) => resp.nature);
+    const data = response.map((resp) => resp.total);
+
+    this.chartData = {
+      labels,
+      datasets: [
+        {
+          label: 'Novos registros',
+          data: data,
+          lineTension: 1,
+          backgroundColor: ChartBackgroundColor,
+          borderColor: ChartBorderColor,
+          borderWidth: 1,
+        },
+      ],
+    };
+  }
 
   __!: Function;
   notifyExeption = (ex: any) => {

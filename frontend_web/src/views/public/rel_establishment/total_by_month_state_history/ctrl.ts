@@ -3,6 +3,8 @@ import { action, makeObservable, observable } from 'mobx';
 import { notify } from '../../../../components/Notification';
 import { createContext, useContext } from 'react';
 import { RelEstabByMMAndStateCrosstabList, RelEstablishmentDataSource } from '../../../../datasources/report';
+import { ChartBackgroundColor, ChartBorderColor } from '../../../../commons/chat.options';
+import { statesCode } from '../../../../datasources/commons';
 
 export class TotalByMonthStateHistoryCtrl {
   constructor() {
@@ -14,6 +16,10 @@ export class TotalByMonthStateHistoryCtrl {
   @observable months: Array<string> = [];
   @observable wanted: boolean = false;
   @observable response: RelEstabByMMAndStateCrosstabList | null = null;
+  @observable chartData: any = {
+    labels: [],
+    datasets: [],
+  };
 
   @action
   fillMonths = (size: number = 12) => {
@@ -33,6 +39,8 @@ export class TotalByMonthStateHistoryCtrl {
       .then((response) => {
         this.wanted = true;
         this.response = response?.data;
+
+        this.formatChartData();
       })
       .catch((ex) => {
         this.wanted = true;
@@ -41,6 +49,24 @@ export class TotalByMonthStateHistoryCtrl {
         this.notifyExeption(ex);
       });
   };
+
+  @action
+  formatChartData() {
+    const response = this.response|| [];
+    const labels = response?.map((resp) => `${resp.date.substring(4)}/${resp.date.substring(0, 4)}`);
+
+    this.chartData = {
+      labels: labels,
+      datasets: statesCode.map((code, idx) => ({
+        label: code.toLocaleUpperCase(),
+        data: response?.map((resp: any) => resp[code]),
+        lineTension: 1,
+        backgroundColor: ChartBorderColor[idx % (ChartBackgroundColor.length - 1)],
+        borderColor: ChartBackgroundColor[idx % (ChartBackgroundColor.length - 1)],
+        borderWidth: 2,
+      })),
+    };
+  }
 
   __!: Function;
   notifyExeption = (ex: any) => {

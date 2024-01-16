@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon';
 import { action, makeObservable, observable } from 'mobx';
+import { notify } from '../../../../components/Notification';
 import { createContext, useContext } from 'react';
 import { RelEstabByMMAndStateList, RelEstablishmentDataSource } from '../../../../datasources/report';
-import { notify } from '../../../../components/Notification';
 import { ChartBackgroundColor, ChartBorderColor } from '../../../../commons/chat.options';
 
 export class TotalByMonthStateCtrl {
@@ -71,14 +71,16 @@ export class TotalByMonthStateCtrl {
 
   @action
   formatChartData() {
-    const labels = this.response?.map((resp) => resp.stateCode) || [];
+    const response = this.response?.filter((resp) => resp.total) || [];
+    const labels = response.map((resp) => resp.stateCode);
+    const data = response.map((resp) => resp.total);
 
     this.chartData = {
-      labels: labels,
+      labels,
       datasets: [
         {
           label: 'Novos registros',
-          data: this.response?.map((resp) => resp.total),
+          data: data,
           lineTension: 1,
           backgroundColor: ChartBackgroundColor,
           borderColor: ChartBorderColor,
