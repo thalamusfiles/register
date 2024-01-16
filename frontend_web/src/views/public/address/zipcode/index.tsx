@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
-import { Alert, Button, ButtonGroup, Card, Col, Form, InputGroup, Nav, Row, Table } from 'react-bootstrap';
+import { Alert, Button, ButtonGroup, Card, Col, Form, InputGroup, Nav, Pagination, Row, Table } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useI18N } from '../../../../commons/i18';
@@ -87,7 +87,7 @@ const ZipcodeForm: React.FC = observer(() => {
       )}
 
       <Row className="align-items-center">
-        <Col md={4}>
+        <Col xl={4}>
           <Form.Label htmlFor="country" visuallyHidden>
             {__('country.brazil')}
           </Form.Label>
@@ -97,7 +97,7 @@ const ZipcodeForm: React.FC = observer(() => {
             <Form.Control.Feedback type="valid">{__('label.valid')}</Form.Control.Feedback>
           </InputGroup>
         </Col>
-        <Col md={4}>
+        <Col xl={4}>
           <Form.Label htmlFor="document" visuallyHidden>
             {__('label.zipcode')}
           </Form.Label>
@@ -109,7 +109,7 @@ const ZipcodeForm: React.FC = observer(() => {
         </Col>
       </Row>
       <Row>
-        <Col md={5}>
+      <Col md={12} lg={5} xll={3}>
           <Form.Label htmlFor="document" visuallyHidden>
             {__('label.pager.limit')}
           </Form.Label>
@@ -122,15 +122,13 @@ const ZipcodeForm: React.FC = observer(() => {
               isValid={!!ctrl.erroMessages.length && !ctrl.erros?.limit}
               isInvalid={!!ctrl.erros?.limit}
             />
-            <InputGroup.Text>{__('label.pager.offset')}</InputGroup.Text>
-            <Form.Control id="document" value={ctrl.page} onChange={ctrl.handlePage} isValid={!!ctrl.erroMessages.length && !ctrl.erros?.limit} />
             <Form.Control.Feedback type="valid">{__('label.valid')}</Form.Control.Feedback>
             <Form.Control.Feedback type="invalid">{ctrl.erros?.limit?.map(__)}</Form.Control.Feedback>
           </InputGroup>
         </Col>
         <Col>
           <ButtonGroup className="float-end">
-            <Button type="button" className="mb-2" disabled={!!ctrl.waiting} onClick={ctrl.findDocument}>
+            <Button type="button" className="mb-2" disabled={!!ctrl.waiting} onClick={ctrl.handleFindDocument}>
               {__('action.search')}
             </Button>
             <Button type="button" className="mb-2" variant="outline-primary" disabled={!!ctrl.waiting} onClick={ctrl.findDocumentRandom}>
@@ -205,6 +203,12 @@ const ZipcodePrettyResult: React.FC = observer(() => {
             ))}
         </tbody>
       </Table>
+
+      <Pagination className="mr-2" size="sm" style={{ marginBottom: 0 }}>
+        <Pagination.Prev onClick={ctrl!.handlePreviewsPage} disabled={ctrl.page === 1} id="previews_page" />
+        <Pagination.Item>{ctrl!.page}</Pagination.Item>
+        <Pagination.Next onClick={ctrl!.handleNextPage} id="next_page" />
+      </Pagination>
     </>
   );
 });

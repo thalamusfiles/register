@@ -59,13 +59,12 @@
         "country": "País",
         "state": "Estado",
         "city": "Cidade",
-        "business_type": "Tipo de empresa",
+        "business_type": "Tipo",
         "business_doc": "CNPJ",
         "partner_doc": "CPF ou CNPJ",
         "zipcode": "Código postal",
         "pager.limit": "Quantidade por página",
         "pager.offset": "Página",
-        "businesstype": "Tipo de empresa",
         "json_result": "Resultado Json",
         "result": "Resultado",
         "formated": "Formatado",
@@ -112,7 +111,7 @@
     "report": {
         "business_description": "Relatórios e totalizadores dos registros de empresas e estabelecimentos",
         "establishment": {
-            "total_month_state.description":"Gráfico com quantidade total de novas empresas (Matriz e Filial) de todas as naturezas registradas no mês.",
+            "total_month_state.description":"Gráfico com quantidade total de novas empresas (Matriz e Filial) de todas as naturezas, registradas no mês.",
             "total_month_state.chart":"Novas empresas por estado em {{month}}",
             "total_month_state_history.chart": "Histórico de novas empresas por estado e mês"
         },

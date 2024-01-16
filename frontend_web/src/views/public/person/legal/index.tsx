@@ -93,7 +93,7 @@ const PersonLegaForm: React.FC = observer(() => {
       )}
 
       <Row className="align-items-center">
-        <Col md={4}>
+        <Col xl={4}>
           <Form.Label htmlFor="country" visuallyHidden>
             {__('country.brazil')}
           </Form.Label>
@@ -103,7 +103,7 @@ const PersonLegaForm: React.FC = observer(() => {
             <Form.Control.Feedback type="valid">{__('label.valid')}</Form.Control.Feedback>
           </InputGroup>
         </Col>
-        <Col md={4}>
+        <Col xl={4}>
           <Form.Label htmlFor="document" visuallyHidden>
             {__('label.business_doc')}
           </Form.Label>

@@ -47,11 +47,23 @@ export class AddressZipcodeCtrl {
   };
 
   @action
-  handlePage = (e: any) => {
-    this.page = parseInt(e.target.value);
-    if (isNaN(this.page)) {
-      this.page = 0;
+  handlePreviewsPage = () => {
+    if (this.page) {
+      this.page--;
     }
+    this.findDocument();
+  };
+
+  @action
+  handleNextPage = () => {
+    this.page++;
+    this.findDocument();
+  };
+
+  @action
+  handleFindDocument = () => {
+    this.page = 1;
+    this.findDocument();
   };
 
   @action
@@ -81,6 +93,7 @@ export class AddressZipcodeCtrl {
 
   @action
   findDocumentRandom = () => {
+    this.page = 1;
     this.zipcode = '';
 
     this.waiting = true;
