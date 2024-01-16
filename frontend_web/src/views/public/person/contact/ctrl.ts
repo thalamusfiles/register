@@ -136,6 +136,7 @@ export class ContactCtrl {
   __!: Function;
   notifyExeption = (ex: any) => {
     const status = ex.response?.status;
+    if ([400].includes(status)) return;
     if ([404].includes(status)) {
       notify.warn(this.__(`msg.error_${status}`));
     } else if ([400, 500].includes(status)) {

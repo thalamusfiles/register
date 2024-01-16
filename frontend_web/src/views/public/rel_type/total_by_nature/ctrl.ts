@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
 import { action, makeObservable, observable } from 'mobx';
+import { notify } from '../../../../components/Notification';
 import { createContext, useContext } from 'react';
 import { RelEstabByMMAndNatureList, RelEstablishmentDataSource } from '../../../../datasources/report';
 
@@ -8,8 +9,6 @@ export class TotalByMonthNatureCtrl {
     // Modifica classe pra ser observável
     makeObservable(this);
   }
-
-  notifyExeption!: Function;
 
   // PersonPartner
   @observable month: string = '';
@@ -60,6 +59,19 @@ export class TotalByMonthNatureCtrl {
 
         if (this.notifyExeption) this.notifyExeption(ex);
       });
+  };
+
+  __!: Function;
+  notifyExeption = (ex: any) => {
+    const status = ex.response?.status;
+    if ([400].includes(status)) return;
+    if ([404].includes(status)) {
+      notify.warn(this.__(`msg.error_${status}`));
+    } else if ([400, 500].includes(status)) {
+      notify.danger(this.__(`msg.error_${status}`));
+    } else {
+      notify.danger(ex.message);
+    }
   };
 }
 
