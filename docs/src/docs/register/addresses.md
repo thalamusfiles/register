@@ -3,7 +3,7 @@ title: Endereços
 description: Registros relacionados a estabelecimentos.
 ---
 
-O sistema Register disponibiliza uma API para buscas de empresas a partir do código postal.
+O sistema Register disponibiliza uma API, para buscas de empresas a partir do código postal.
 
 ## Endereços
 

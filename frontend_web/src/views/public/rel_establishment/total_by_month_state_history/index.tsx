@@ -68,12 +68,12 @@ const TotalByMonthStateHistoryPrettyResult: React.FC = observer(() => {
   const __ = useI18N();
 
   return (
-    <Table>
+    <Table striped responsive>
       <thead>
         <tr>
-          <td>Mês/Ano</td>
+          <th>Mês/Ano</th>
           {statesCode.map((code) => (
-            <td key={code}>{code.toLocaleUpperCase()}</td>
+            <th key={code}>{code.toLocaleUpperCase()}</th>
           ))}
         </tr>
       </thead>

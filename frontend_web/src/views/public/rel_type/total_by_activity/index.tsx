@@ -66,12 +66,12 @@ const TotalByMonthActivityPrettyResult: React.FC = observer(() => {
   const __ = useI18N();
 
   return (
-    <Table>
+    <Table striped responsive>
       <thead>
         <tr>
-          <td>Mês/Ano</td>
-          <td>Atividade (CNAE)</td>
-          <td>Total</td>
+          <th>Mês/Ano</th>
+          <th>Atividade (CNAE)</th>
+          <th>Total</th>
         </tr>
       </thead>
       <tbody>

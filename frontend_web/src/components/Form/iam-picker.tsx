@@ -217,7 +217,7 @@ export class IamPicker<T = unknown> extends React.Component<T & PickerProps> {
             </Form.Group>
           )}
           <p>
-            <small>Clique no item da lista para selecionar o item.</small>
+            <small>Clique no item da lista para selecionar.</small>
           </p>
           <div style={{ minHeight: '300px', maxHeight: '320px', overflow: 'scroll' }}>
             <Table responsive>

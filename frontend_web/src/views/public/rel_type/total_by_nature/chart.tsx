@@ -37,7 +37,7 @@ const TotalByMonthNatureChartComp: React.FC = observer(() => {
       <TotalByMonthNaturePrettyChart />
       <br />
 
-      <Stack gap={1} className="col-md-8 mx-auto">
+      <Stack >
         <ButtonGroup>
           <Button size="sm" variant="outline-info" onClick={() => historyPush('rel_type_tt_nature')}>
             ...

@@ -22,7 +22,7 @@
         "persons": "Empresas e pessoas",
         "type": "Tipo de empresa",
         "persons_by_address": "Empresas por endereço",
-        "person_legal": "Pessoas jurídica",
+        "person_legal": "Pessoas jurídicas",
         "contact": "Contatos",
         "partners": "Sócios",
         "help": "Ajuda",
@@ -87,7 +87,7 @@
         "persons_description": "Registros relacionados a pessoas físicas e jurídicas",
         "address_description": "Registros relacionados a estabelecimentos",
         "person_legal_description": "Consulte informações sobre a pessoa jurídica por meio de seu documento de registro (CNPJ).",
-        "contact_description": "Consulte contato de empresas, telefone, e-mail e fax das pessoas jurídica de determinada localidade e tipo de negócio (CNAES, Natureza...).",
+        "contact_description": "Consulte contato de empresas, telefone, e-mail e fax das pessoas jurídicas de determinada localidade e tipo de negócio (CNAES, Natureza...).",
         "partner_description": "Consulte informações sobre o sócio da empresa por meio seu documento de registro (CPF/CNPJ).",
         "establishments_description": "Consulte a lista de empresas localizadas em determinado endereço."
     },
@@ -99,8 +99,8 @@
         "partner.description": "Consulte informações sobre o sócio da empresa por meio seu documento de registro (CPF/CNPJ).",
         "partner.meta":"Encontre qualquer informação dos sócios de todas as empresas brasileiras registradas na Receita Federal. Buscador/Gerador de CPF aleatório.",
         "contact.title": "Busca por contatos",
-        "contact.description": "Consulte telefone, e-mail e fax das pessoas jurídica de determinada localidade e tipo de negócio.",
-        "contact.meta": "Consulte telefone, e-mail e fax das pessoas jurídica de determinada localidade e tipo de negócio.",
+        "contact.description": "Consulte telefone, e-mail e fax das pessoas jurídicas de determinada localidade e tipo de negócio.",
+        "contact.meta": "Consulte telefone, e-mail e fax das pessoas jurídicas de determinada localidade e tipo de negócio.",
         "cpf_search" : "A busca por CPF é aproximada, pois não são informados os números completos dos CPFs ao coletar os dados."
     },
     "address": {

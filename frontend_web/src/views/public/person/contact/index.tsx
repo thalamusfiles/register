@@ -195,17 +195,17 @@ const ContactPrettyResult: React.FC = observer(() => {
       <h2>
         {__('label.result')} <SpinnerLoader show={!!ctrl.waiting} />
       </h2>
-      <Table className={classNames({ blur: ctrl.waiting })}>
+      <Table className={classNames({ blur: ctrl.waiting })} striped responsive>
         <thead>
           <tr>
-            <td>Empresa Doc</td>
-            <td>Empresa</td>
-            <td>Sócio</td>
-            <td>Telefone</td>
-            <td>E-mail</td>
-            <td>Fax</td>
-            <td>Cnae</td>
-            <td>Zipcode</td>
+            <th>Empresa Doc</th>
+            <th>Empresa</th>
+            <th>Sócio</th>
+            <th>Telefone</th>
+            <th>E-mail</th>
+            <th>Fax</th>
+            <th>Cnae</th>
+            <th>Zipcode</th>
           </tr>
         </thead>
         <tbody>

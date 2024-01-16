@@ -3,9 +3,9 @@ title: Tipo de empresa
 description: Registros relacionados ao tipo da empresa.
 ---
 
-O sistema Register disponibiliza uma API para buscas de empresas a partir do seu tipo ou atividade.
+O sistema Register disponibiliza uma API, para buscas de empresas a partir do seu tipo ou atividade.
 
-A ferramenta também possuí buscas de registros aleatórios, em cada API, afim de permitir que o usuário colete um registro do sistema e visualize como os dados são retornados formatados.
+A ferramenta também possui buscas de registros aleatórios, em cada API, afim de permitir que o usuário colete um registro do sistema e visualize como os dados são retornados formatados.
 
 ## Busca por tipo de empresa
 

@@ -66,12 +66,12 @@ const TotalByMonthNaturePrettyResult: React.FC = observer(() => {
   const __ = useI18N();
 
   return (
-    <Table>
+    <Table striped responsive>
       <thead>
         <tr>
-          <td>Mês/Ano</td>
-          <td>Natureza</td>
-          <td>Total</td>
+          <th>Mês/Ano</th>
+          <th>Natureza</th>
+          <th>Total</th>
         </tr>
       </thead>
       <tbody>

@@ -55,12 +55,12 @@ const TotalByMonthStatePrettyResult: React.FC = observer(() => {
   const __ = useI18N();
 
   return (
-    <Table>
+    <Table striped responsive>
       <thead>
         <tr>
-          <td>Mês/Ano</td>
-          <td>Estado</td>
-          <td>Total</td>
+          <th>Mês/Ano</th>
+          <th>Estado</th>
+          <th>Total</th>
         </tr>
       </thead>
       <tbody>

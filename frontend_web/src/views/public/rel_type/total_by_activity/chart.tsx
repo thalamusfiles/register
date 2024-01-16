@@ -37,7 +37,7 @@ const TotalByMonthActivityChartComp: React.FC = observer(() => {
       <TotalByMonthActivityPrettyChart />
       <br />
 
-      <Stack gap={1} className="col-md-8 mx-auto">
+      <Stack>
         <ButtonGroup>
           <Button size="sm" variant="outline-info" onClick={() => historyPush('month')}>
             ...

@@ -137,15 +137,15 @@ const PartnerPrettyResult: React.FC = observer(() => {
       <h2>
         {__('label.result')} <SpinnerLoader show={!!ctrl.waiting} />
       </h2>
-      <Table className={classNames({ blur: ctrl.waiting })}>
+      <Table className={classNames({ blur: ctrl.waiting })} striped responsive>
         <thead>
           <tr>
-            <td>Empresa Doc</td>
-            <td>Empresa</td>
-            <td>Sócio Doc</td>
-            <td>Sócio</td>
-            <td>Representante Doc</td>
-            <td>Representante</td>
+            <th>Empresa Doc</th>
+            <th>Empresa</th>
+            <th>Sócio Doc</th>
+            <th>Sócio</th>
+            <th>Representante Doc</th>
+            <th>Representante</th>
           </tr>
         </thead>
         <tbody>
