@@ -17,8 +17,8 @@ export class PersonLegalCtrl {
   // PersonLegal
   @observable document = '';
   @observable waiting: boolean | null = null;
-  //@observable response: PersonFindByDocumentRespDto | null = null;
-  @observable response: PersonFindByDocumentRespDto | null = { key: '', brGovDados: { documentType: 'CNPJ', document: '00.000.000/0001-00' } };
+  @observable response: PersonFindByDocumentRespDto | null = null;
+  //@observable response: PersonFindByDocumentRespDto | null = { key: '', brGovDados: { documentType: 'CNPJ', document: '00.000.000/0001-00' } };
 
   // Erros
   @observable erroMessages: string[] = [];
