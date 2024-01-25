@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
-import { useEffect } from 'react';
-import { Alert, Badge, Button, ButtonGroup, Card, Col, Form, InputGroup, OverlayTrigger, Popover, Row } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Alert, Badge, Button, ButtonGroup, Card, Col, Form, InputGroup, Nav, OverlayTrigger, Popover, Row } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { useParams } from 'react-router-dom';
 import { useI18N } from '../../../../commons/i18';
@@ -14,6 +14,7 @@ const ctrl = new PersonLegalCtrl();
 const PersonLegalPage: React.FC = () => {
   const __ = useI18N();
   const { document } = useParams();
+  const [tab, setTab] = useState('formated' as string | null);
   ctrl.__ = __;
 
   useEffect(() => {
@@ -36,15 +37,18 @@ const PersonLegalPage: React.FC = () => {
 
         <PersonLegaForm />
       </Alert>
+      <Nav variant="tabs" defaultActiveKey="formated" onSelect={setTab}>
+        <Nav.Item>
+          <Nav.Link eventKey="formated">{__('label.formated')}</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="json">{__('label.json')}</Nav.Link>
+        </Nav.Item>
+      </Nav>
+      <br />
 
-      <Row>
-        <Col md={6}>
-          <PersonPrettyResult />
-        </Col>
-        <Col md={6}>
-          <PersonLegalResult />
-        </Col>
-      </Row>
+      {tab === 'formated' && <PersonPrettyResult />}
+      {tab === 'json' && <PersonLegalResult />}
     </PersonLegalProvider>
   );
 };
@@ -145,154 +149,103 @@ const PersonPrettyResult: React.FC = observer(() => {
       <h2>
         {__('label.result')} <SpinnerLoader show={!!ctrl.waiting} />
       </h2>
-
-      {ctrl.waiting === null && <p>{__('msg.enter_filter')}</p>}
-      {ctrl.waiting === false && !ctrl.response && <p>{__('msg.register_not_found')}</p>}
+      {/*ctrl.waiting === null && <p>{__('msg.enter_filter')}</p>}
+      {ctrl.waiting === false && !ctrl.response && <p>{__('msg.register_not_found')}</p>*/}
       {ctrl.response && (
-        <Form>
-          <Badge bg={data.statusCode === brGovStatusCodeActive ? 'success' : 'danger'}>{data.status || ''}</Badge>
-          &nbsp;
-          {data.naturePerson && <Badge>{__('label.naturePerson')}</Badge>}
-          &nbsp;
-          {data.naturePerson && <ProtectedInfoBadge __={__} />}
-          <Form.Group as={Row}>
-            <Form.Label column sm="4">
-              Tipo de documento
-            </Form.Label>
-            <Col sm="8">
-              <Form.Control plaintext readOnly value={(data.documentType as string)?.toLocaleUpperCase()} />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row}>
-            <Form.Label column sm="4">
-              Documento
-            </Form.Label>
-            <Col sm="8">
-              <Form.Control plaintext readOnly value={data.document || ''} />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row}>
-            <Form.Label column sm="4">
-              Nome fantasia
-            </Form.Label>
-            <Col sm="8">
-              <Form.Control plaintext readOnly value={data.fantasyName || ''} />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row}>
-            <Form.Label column sm="4">
-              Razão Social
-            </Form.Label>
-            <Col sm="8">
-              <Form.Control plaintext readOnly value={data.name || ''} />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row}>
-            <Form.Label column sm="4">
-              Natureza jurídica
-            </Form.Label>
-            <Col sm="8">
-              <Form.Control plaintext readOnly value={`${data.natureCode || ''} - ${data.nature || ''}`} />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row}>
-            <Form.Label column sm="4">
-              Situação
-            </Form.Label>
-            <Col sm="8">
-              <Form.Control plaintext readOnly value={`${data.statusCode || ''} - ${data.status || ''}`} />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row}>
-            <Form.Label column sm="4">
-              Motivo:
-            </Form.Label>
-            <Col sm="8">
-              <Form.Control plaintext readOnly value={data.reason} />
-            </Col>
-          </Form.Group>
-          <h3>Atividade</h3>
-          <Form.Group as={Row}>
-            <Form.Label column sm="4">
-              Principal
-            </Form.Label>
-            <Col sm="8">
-              <Form.Control plaintext readOnly value={`${data.mainActivity || ''} - ${data.mainActivityDescription || ''}`} />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row}>
-            <Form.Label column sm="4">
-              Secundárias
-            </Form.Label>
-            <Col sm="8">
-              <Form.Control plaintext readOnly value={(data.otherActivities as Array<string>)?.join(', ')} />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row}>
-            <Form.Label column sm="4">
-              MEI:
-            </Form.Label>
-            <Col sm="8">
-              <Form.Control plaintext readOnly value={data.MEI.is ? 'Sim' : 'Não'} />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row}>
-            <Form.Label column sm="4">
-              Simples:
-            </Form.Label>
-            <Col sm="8">
-              <Form.Control plaintext readOnly value={data.simples.is ? 'Sim' : 'Não'} />
-            </Col>
-          </Form.Group>
-          <h3>Contato</h3>
-          <Form.Group as={Row}>
-            <Form.Label column sm="4">
-              E-mail
-            </Form.Label>
-            <Col sm="8">
-              <Form.Control plaintext readOnly value={data.email || ''} />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row}>
-            <Form.Label column sm="4">
-              Telefone
-            </Form.Label>
-            <Col sm="8">
-              <Form.Control plaintext readOnly value={data.phone || ''} />
-            </Col>
-          </Form.Group>
-          <h3>Endereço</h3>
-          <Form.Group as={Row}>
-            <Form.Label column sm="4">
-              Estado
-            </Form.Label>
-            <Col sm="8">
-              <Form.Control plaintext readOnly value={data.stateCode || ''} />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row}>
-            <Form.Label column sm="4">
-              Cidade
-            </Form.Label>
-            <Col sm="8">
-              <Form.Control plaintext readOnly value={data.cityName || ''} />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row}>
-            <Form.Label column sm="4">
-              Endereço
-            </Form.Label>
-            <Col sm="8">
-              <Form.Control
-                plaintext
-                readOnly
-                value={`${data.zipcode || ''} - ${data.publicPlaceCode || ''} ${data.publicPlace || ''} ${data.number || ''} ${
-                  data.complement || ''
-                } ${data.neighborhood || ''}`}
-              />
-            </Col>
-          </Form.Group>
-        </Form>
+        <Card>
+          <Card.Body className="pt-0">
+            <Form>
+              <Badge bg={data.statusCode === brGovStatusCodeActive ? 'success' : 'danger'}>{data.status || ''}</Badge>
+              &nbsp;
+              {data.naturePerson && <Badge>{__('label.naturePerson')}</Badge>}
+              &nbsp;
+              {data.naturePerson && <ProtectedInfoBadge __={__} />}
+              <Row>
+                <Form.Group className="mb-2" as={Col} md={3}>
+                  <Form.Label>Documento</Form.Label>
+                  <InputGroup className="mb-3">
+                    <InputGroup.Text>{(data.documentType as string)?.toLocaleUpperCase()}</InputGroup.Text>
+                    <Form.Control readOnly value={data.document || ''} />
+                  </InputGroup>
+                </Form.Group>
+                <Form.Group className="mb-2" as={Col}>
+                  <Form.Label>Nome fantasia</Form.Label>
+                  <Form.Control readOnly value={data.fantasyName || ''} />
+                </Form.Group>
+                <Form.Group className="mb-2" as={Col}>
+                  <Form.Label>Razão Social</Form.Label>
+                  <Form.Control readOnly value={data.name || ''} />
+                </Form.Group>
+              </Row>
+              <Row>
+                <Form.Group className="mb-2" as={Col}>
+                  <Form.Label>Natureza jurídica</Form.Label>
+                  <Form.Control readOnly value={`${data.natureCode || ''} - ${data.nature || ''}`} />
+                </Form.Group>
+                <Form.Group className="mb-2" as={Col}>
+                  <Form.Label>Situação</Form.Label>
+                  <Form.Control readOnly value={`${data.statusCode || ''} - ${data.status || ''}`} />
+                </Form.Group>
+                <Form.Group className="mb-2" as={Col}>
+                  <Form.Label>Motivo:</Form.Label>
+                  <Form.Control readOnly value={data.reason} />
+                </Form.Group>
+              </Row>
+              <h5>Atividades</h5>
+              <Row>
+                <Form.Group className="mb-2" as={Col}>
+                  <Form.Label>Principal</Form.Label>
+                  <Form.Control readOnly value={`${data.mainActivity || ''} - ${data.mainActivityDescription || ''}`} />
+                </Form.Group>
+                <Form.Group className="mb-2" as={Col}>
+                  <Form.Label>Secundárias</Form.Label>
+                  <Form.Control readOnly value={(data.otherActivities as Array<string>)?.join(', ')} />
+                </Form.Group>
+              </Row>
+              <Row>
+                <Form.Group className="mb-2" as={Col}>
+                  <Form.Label>MEI:</Form.Label>
+                  <Form.Control readOnly value={data.MEI?.is ? 'Sim' : 'Não'} />
+                </Form.Group>
+                <Form.Group className="mb-2" as={Col}>
+                  <Form.Label>Simples:</Form.Label>
+                  <Form.Control readOnly value={data.simples?.is ? 'Sim' : 'Não'} />
+                </Form.Group>
+              </Row>
+              <h5>Contato</h5>
+              <Row>
+                <Form.Group className="mb-2" as={Col}>
+                  <Form.Label>E-mail</Form.Label>
+                  <Form.Control readOnly value={data.email || ''} />
+                </Form.Group>
+                <Form.Group className="mb-2" as={Col}>
+                  <Form.Label>Telefone</Form.Label>
+                  <Form.Control readOnly value={data.phone || ''} />
+                </Form.Group>
+              </Row>
+              <h5>Endereço</h5>
+              <Row>
+                <Form.Group className="mb-2" as={Col} md={3}>
+                  <Form.Label>Estado</Form.Label>
+                  <Form.Control readOnly value={data.stateCode || ''} />
+                </Form.Group>
+                <Form.Group className="mb-2" as={Col} md={3}>
+                  <Form.Label>Cidade</Form.Label>
+                  <Form.Control readOnly value={data.cityName || ''} />
+                </Form.Group>
+                <Form.Group className="mb-2" as={Col} md={6}>
+                  <Form.Label>Endereço</Form.Label>
+                  <Form.Control
+                    readOnly
+                    value={`${data.zipcode || ''} - ${data.publicPlaceCode || ''} ${data.publicPlace || ''} ${data.number || ''} ${
+                      data.complement || ''
+                    } ${data.neighborhood || ''}`}
+                  />
+                </Form.Group>
+              </Row>
+            </Form>
+          </Card.Body>
+        </Card>
       )}
     </>
   );

@@ -5,7 +5,8 @@ import type { ErrorListRecord } from '../../../../commons//types/ErrorListRecord
 import { notify } from '../../../../components/Notification';
 import { historyReplace } from '../../../../commons/route';
 import { thalamusData } from '../../../../config/thalamus.data';
-import { PersonDataSource, PersonFindByDocumentRespDto } from '../../../../datasources/person';
+import { PersonDataSource } from '../../../../datasources/person';
+import type { PersonFindByDocumentRespDto } from '../../../../datasources/person';
 
 export class PersonLegalCtrl {
   constructor() {
@@ -16,7 +17,8 @@ export class PersonLegalCtrl {
   // PersonLegal
   @observable document = '';
   @observable waiting: boolean | null = null;
-  @observable response: PersonFindByDocumentRespDto | null = null;
+  //@observable response: PersonFindByDocumentRespDto | null = null;
+  @observable response: PersonFindByDocumentRespDto | null = { key: '', brGovDados: { documentType: 'CNPJ', document: '00.000.000/0001-00' } };
 
   // Erros
   @observable erroMessages: string[] = [];
