@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
-import { Alert, Badge, Button, ButtonGroup, Card, Col, Form, InputGroup, Nav, OverlayTrigger, Popover, Row } from 'react-bootstrap';
+import { Alert, Badge, Button, ButtonGroup, Card, Col, Form, InputGroup, Nav, OverlayTrigger, Popover, Row, Table } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { useParams } from 'react-router-dom';
 import { useI18N } from '../../../../commons/i18';
@@ -149,8 +149,8 @@ const PersonPrettyResult: React.FC = observer(() => {
       <h2>
         {__('label.result')} <SpinnerLoader show={!!ctrl.waiting} />
       </h2>
-      {/*ctrl.waiting === null && <p>{__('msg.enter_filter')}</p>}
-      {ctrl.waiting === false && !ctrl.response && <p>{__('msg.register_not_found')}</p>*/}
+      {ctrl.waiting === null && <p>{__('msg.enter_filter')}</p>}
+      {ctrl.waiting === false && !ctrl.response && <p>{__('msg.register_not_found')}</p>}
       {ctrl.response && (
         <Card>
           <Card.Body className="pt-0">
@@ -161,79 +161,85 @@ const PersonPrettyResult: React.FC = observer(() => {
               &nbsp;
               {data.naturePerson && <ProtectedInfoBadge __={__} />}
               <Row>
-                <Form.Group className="mb-2" as={Col} md={3}>
+                <Form.Group as={Col} md={3}>
                   <Form.Label>Documento</Form.Label>
                   <InputGroup className="mb-3">
                     <InputGroup.Text>{(data.documentType as string)?.toLocaleUpperCase()}</InputGroup.Text>
                     <Form.Control readOnly value={data.document || ''} />
                   </InputGroup>
                 </Form.Group>
-                <Form.Group className="mb-2" as={Col}>
+                <Form.Group as={Col} md={3}>
                   <Form.Label>Nome fantasia</Form.Label>
                   <Form.Control readOnly value={data.fantasyName || ''} />
                 </Form.Group>
-                <Form.Group className="mb-2" as={Col}>
+                <Form.Group as={Col} md={6}>
                   <Form.Label>Razão Social</Form.Label>
                   <Form.Control readOnly value={data.name || ''} />
                 </Form.Group>
               </Row>
               <Row>
-                <Form.Group className="mb-2" as={Col}>
+                <Form.Group as={Col} md={3}>
                   <Form.Label>Natureza jurídica</Form.Label>
                   <Form.Control readOnly value={`${data.natureCode || ''} - ${data.nature || ''}`} />
                 </Form.Group>
-                <Form.Group className="mb-2" as={Col}>
+                <Form.Group as={Col} md={3}>
                   <Form.Label>Situação</Form.Label>
                   <Form.Control readOnly value={`${data.statusCode || ''} - ${data.status || ''}`} />
                 </Form.Group>
-                <Form.Group className="mb-2" as={Col}>
+                <Form.Group as={Col} md={6}>
                   <Form.Label>Motivo:</Form.Label>
                   <Form.Control readOnly value={data.reason} />
                 </Form.Group>
               </Row>
-              <h5>Atividades</h5>
+              <h5 className="mt-2">Atividades</h5>
               <Row>
-                <Form.Group className="mb-2" as={Col}>
+                <Form.Group as={Col} md={6}>
                   <Form.Label>Principal</Form.Label>
                   <Form.Control readOnly value={`${data.mainActivity || ''} - ${data.mainActivityDescription || ''}`} />
                 </Form.Group>
-                <Form.Group className="mb-2" as={Col}>
+                <Form.Group as={Col} md={6}>
                   <Form.Label>Secundárias</Form.Label>
-                  <Form.Control readOnly value={(data.otherActivities as Array<string>)?.join(', ')} />
+                  {data.otherActivities.map((activity: string, idx: number) => (
+                    <Form.Control readOnly value={activity} key={idx} />
+                  ))}
                 </Form.Group>
               </Row>
               <Row>
-                <Form.Group className="mb-2" as={Col}>
+                <Form.Group as={Col}>
                   <Form.Label>MEI:</Form.Label>
                   <Form.Control readOnly value={data.MEI?.is ? 'Sim' : 'Não'} />
                 </Form.Group>
-                <Form.Group className="mb-2" as={Col}>
+                <Form.Group as={Col}>
                   <Form.Label>Simples:</Form.Label>
                   <Form.Control readOnly value={data.simples?.is ? 'Sim' : 'Não'} />
                 </Form.Group>
               </Row>
-              <h5>Contato</h5>
+              <h5 className="mt-2">Contato</h5>
               <Row>
-                <Form.Group className="mb-2" as={Col}>
+                <Form.Group as={Col}>
                   <Form.Label>E-mail</Form.Label>
-                  <Form.Control readOnly value={data.email || ''} />
+                  <Form.Control readOnly value={data.email?.join(', ') || ''} />
                 </Form.Group>
-                <Form.Group className="mb-2" as={Col}>
+                <Form.Group as={Col}>
                   <Form.Label>Telefone</Form.Label>
-                  <Form.Control readOnly value={data.phone || ''} />
+                  <Form.Control readOnly value={data.phone?.join(', ') || ''} />
+                </Form.Group>
+                <Form.Group as={Col}>
+                  <Form.Label>Fax</Form.Label>
+                  <Form.Control readOnly value={data.fax?.join(', ') || ''} />
                 </Form.Group>
               </Row>
-              <h5>Endereço</h5>
+              <h5 className="mt-2">Endereço</h5>
               <Row>
-                <Form.Group className="mb-2" as={Col} md={3}>
+                <Form.Group as={Col} xs={6} md={2}>
                   <Form.Label>Estado</Form.Label>
                   <Form.Control readOnly value={data.stateCode || ''} />
                 </Form.Group>
-                <Form.Group className="mb-2" as={Col} md={3}>
+                <Form.Group as={Col} xs={6} md={2}>
                   <Form.Label>Cidade</Form.Label>
                   <Form.Control readOnly value={data.cityName || ''} />
                 </Form.Group>
-                <Form.Group className="mb-2" as={Col} md={6}>
+                <Form.Group as={Col} md={8}>
                   <Form.Label>Endereço</Form.Label>
                   <Form.Control
                     readOnly
@@ -243,6 +249,27 @@ const PersonPrettyResult: React.FC = observer(() => {
                   />
                 </Form.Group>
               </Row>
+              <h5 className="mt-2">Sócios</h5>
+              <Table striped responsive>
+                <thead>
+                  <tr>
+                    <th>Documento</th>
+                    <th>Sócio</th>
+                    <th>Responsável</th>
+                    <th>Responsável Documento</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.partners.map((partner: any, idx: number) => (
+                    <tr>
+                      <td>{partner.partner}</td>
+                      <td>{partner.partnerDoc}</td>
+                      <td>{partner.representativeName}</td>
+                      <td>{partner.representativeDoc}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
             </Form>
           </Card.Body>
         </Card>

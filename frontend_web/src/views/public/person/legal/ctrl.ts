@@ -16,9 +16,26 @@ export class PersonLegalCtrl {
 
   // PersonLegal
   @observable document = '';
-  @observable waiting: boolean | null = null;
-  @observable response: PersonFindByDocumentRespDto | null = null;
-  //@observable response: PersonFindByDocumentRespDto | null = { key: '', brGovDados: { documentType: 'CNPJ', document: '00.000.000/0001-00' } };
+  //@observable waiting: boolean | null = null;
+  //@observable response: PersonFindByDocumentRespDto | null = null;
+  @observable waiting: boolean | null = false;
+  @observable response: PersonFindByDocumentRespDto | null = {
+    key: '',
+    brGovDados: {
+      documentType: 'CNPJ',
+      document: '00.000.000/0001-00',
+      mainActivity: '123456 - Main Activity',
+      otherActivities: ['123456', '456789', '789123'],
+      partners: [
+        {
+          partner: 'Sócio',
+          partnerDoc: 'Documento sócio',
+          representativeName: 'Responsável',
+          representativeDoc: 'Responsável documento',
+        },
+      ],
+    },
+  };
 
   // Erros
   @observable erroMessages: string[] = [];
@@ -38,6 +55,7 @@ export class PersonLegalCtrl {
   @action
   findDocument = () => {
     historyReplace({ document: this.document }, 'person_legal_view');
+    if (this.waiting) return;
 
     this.waiting = true;
     this.erroMessages = [];
@@ -46,8 +64,12 @@ export class PersonLegalCtrl {
     new PersonDataSource()
       .findLegalByDocument(this.document!)
       .then((response) => {
-        this.waiting = false;
         this.response = response?.data;
+
+        setTimeout(() => {
+          (window as any).gtag('event', 'page_view');
+          this.waiting = false;
+        }, 200);
       })
       .catch((ex) => {
         this.waiting = false;
