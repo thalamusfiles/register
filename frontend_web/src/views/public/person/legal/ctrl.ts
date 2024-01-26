@@ -64,12 +64,8 @@ export class PersonLegalCtrl {
     new PersonDataSource()
       .findLegalByDocument(this.document!)
       .then((response) => {
+        this.waiting = false;
         this.response = response?.data;
-
-        setTimeout(() => {
-          (window as any).gtag('event', 'page_view');
-          this.waiting = false;
-        }, 200);
       })
       .catch((ex) => {
         this.waiting = false;
