@@ -148,45 +148,59 @@ const PersonPrettyResult: React.FC = observer(() => {
     <>
       <h2>
         {__('label.result')} <SpinnerLoader show={!!ctrl.waiting} />
+        {ctrl.response && (
+          <small className="float-end">
+            {data.naturePerson && <Badge>{__('label.naturePerson')}</Badge>}
+            &nbsp;
+            {data.naturePerson && <ProtectedInfoBadge __={__} />}
+            &nbsp;
+            <Badge bg={data.statusCode === brGovStatusCodeActive ? 'success' : 'danger'}>{data.status || ''}</Badge>
+          </small>
+        )}
       </h2>
       {ctrl.waiting === null && <p>{__('msg.enter_filter')}</p>}
       {ctrl.waiting === false && !ctrl.response && <p>{__('msg.register_not_found')}</p>}
       {ctrl.response && (
         <Card>
-          <Card.Body className="pt-0">
+          <Card.Body>
             <Form>
-              <Badge bg={data.statusCode === brGovStatusCodeActive ? 'success' : 'danger'}>{data.status || ''}</Badge>
-              &nbsp;
-              {data.naturePerson && <Badge>{__('label.naturePerson')}</Badge>}
-              &nbsp;
-              {data.naturePerson && <ProtectedInfoBadge __={__} />}
               <Row>
                 <Form.Group as={Col} md={3}>
-                  <Form.Label>Documento</Form.Label>
+                  <Form.Label>Documento:</Form.Label>
                   <InputGroup className="mb-3">
                     <InputGroup.Text>{(data.documentType as string)?.toLocaleUpperCase()}</InputGroup.Text>
                     <Form.Control readOnly value={data.document || ''} />
                   </InputGroup>
                 </Form.Group>
                 <Form.Group as={Col} md={3}>
-                  <Form.Label>Nome fantasia</Form.Label>
+                  <Form.Label>Nome fantasia:</Form.Label>
                   <Form.Control readOnly value={data.fantasyName || ''} />
                 </Form.Group>
                 <Form.Group as={Col} md={6}>
-                  <Form.Label>Razão Social</Form.Label>
+                  <Form.Label>Razão social:</Form.Label>
                   <Form.Control readOnly value={data.name || ''} />
                 </Form.Group>
               </Row>
               <Row>
                 <Form.Group as={Col} md={3}>
-                  <Form.Label>Natureza jurídica</Form.Label>
+                  <Form.Label>Criada em:</Form.Label>
+                  <Form.Control
+                    readOnly
+                    value={`${('' + data.beginDate).substring(6, 8)}/${('' + data.beginDate).substring(4, 6)}/${('' + data.beginDate).substring(
+                      0,
+                      4,
+                    )}`}
+                  />
+                </Form.Group>
+                <Form.Group as={Col} md={3}>
+                  <Form.Label>Natureza jurídica:</Form.Label>
                   <Form.Control readOnly value={`${data.natureCode || ''} - ${data.nature || ''}`} />
                 </Form.Group>
                 <Form.Group as={Col} md={3}>
-                  <Form.Label>Situação</Form.Label>
+                  <Form.Label>Situação:</Form.Label>
                   <Form.Control readOnly value={`${data.statusCode || ''} - ${data.status || ''}`} />
                 </Form.Group>
-                <Form.Group as={Col} md={6}>
+                <Form.Group as={Col} md={3}>
                   <Form.Label>Motivo:</Form.Label>
                   <Form.Control readOnly value={data.reason} />
                 </Form.Group>
@@ -194,17 +208,21 @@ const PersonPrettyResult: React.FC = observer(() => {
               <h5 className="mt-2">Atividades</h5>
               <Row>
                 <Form.Group as={Col} md={6}>
-                  <Form.Label>Principal</Form.Label>
+                  <Form.Label>Principal:</Form.Label>
                   <Form.Control readOnly value={`${data.mainActivity || ''} - ${data.mainActivityDescription || ''}`} />
                 </Form.Group>
                 <Form.Group as={Col} md={6}>
-                  <Form.Label>Secundárias</Form.Label>
+                  <Form.Label>Secundárias:</Form.Label>
                   {data.otherActivities?.map((activity: string, idx: number) => (
                     <Form.Control readOnly value={activity} key={idx} />
                   ))}
                 </Form.Group>
               </Row>
               <Row>
+                <Form.Group as={Col}>
+                  <Form.Label>Situação:</Form.Label>
+                  <Form.Control readOnly value={data.status} />
+                </Form.Group>
                 <Form.Group as={Col}>
                   <Form.Label>MEI:</Form.Label>
                   <Form.Control readOnly value={data.MEI?.is ? 'Sim' : 'Não'} />
@@ -217,30 +235,30 @@ const PersonPrettyResult: React.FC = observer(() => {
               <h5 className="mt-2">Contato</h5>
               <Row>
                 <Form.Group as={Col}>
-                  <Form.Label>E-mail</Form.Label>
+                  <Form.Label>E-mail:</Form.Label>
                   <Form.Control readOnly value={data.email?.join(', ') || ''} />
                 </Form.Group>
                 <Form.Group as={Col}>
-                  <Form.Label>Telefone</Form.Label>
+                  <Form.Label>Telefone:</Form.Label>
                   <Form.Control readOnly value={data.phone?.join(', ') || ''} />
                 </Form.Group>
                 <Form.Group as={Col}>
-                  <Form.Label>Fax</Form.Label>
+                  <Form.Label>Fax:</Form.Label>
                   <Form.Control readOnly value={data.fax?.join(', ') || ''} />
                 </Form.Group>
               </Row>
               <h5 className="mt-2">Endereço</h5>
               <Row>
                 <Form.Group as={Col} xs={6} md={2}>
-                  <Form.Label>Estado</Form.Label>
+                  <Form.Label>Estado:</Form.Label>
                   <Form.Control readOnly value={data.stateCode || ''} />
                 </Form.Group>
                 <Form.Group as={Col} xs={6} md={2}>
-                  <Form.Label>Cidade</Form.Label>
+                  <Form.Label>Cidade:</Form.Label>
                   <Form.Control readOnly value={data.cityName || ''} />
                 </Form.Group>
                 <Form.Group as={Col} md={8}>
-                  <Form.Label>Endereço</Form.Label>
+                  <Form.Label>Endereço:</Form.Label>
                   <Form.Control
                     readOnly
                     value={`${data.zipcode || ''} - ${data.publicPlaceCode || ''} ${data.publicPlace || ''} ${data.number || ''} ${
@@ -280,7 +298,7 @@ const PersonPrettyResult: React.FC = observer(() => {
 
 const ProtectedInfoBadge: React.FC<{ __: Function }> = ({ __ }: any) => {
   return (
-    <OverlayTrigger trigger="click" placement="right" overlay={ProtectedInfoPopover}>
+    <OverlayTrigger trigger="click" placement="bottom-end" overlay={ProtectedInfoPopover}>
       <Badge bg="secondary">{__('label.protectedInfo')}</Badge>
     </OverlayTrigger>
   );

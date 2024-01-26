@@ -24,8 +24,12 @@ export class PersonLegalCtrl {
     brGovDados: {
       documentType: 'CNPJ',
       document: '00.000.000/0001-00',
-      mainActivity: '123456 - Main Activity',
+      mainActivity: '123456',
+      mainActivityDescription: 'Main Activity',
       otherActivities: ['123456', '456789', '789123'],
+      beginDate: 20240101,
+      status: 'Inapta',
+      naturePerson: true,
       partners: [
         {
           partner: 'Sócio',

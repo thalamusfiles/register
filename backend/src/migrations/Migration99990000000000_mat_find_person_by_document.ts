@@ -18,6 +18,7 @@ export class Migration20230509115642 extends Migration {
        'name', p."name",
        'fantasyName', e.name,
        'captal', pr."capital",
+       'beginDate', e."begin_date",
        /**/
        'mainActivity', e."main_activity",
        'mainActivityDescription', activity."value"->>'description',
