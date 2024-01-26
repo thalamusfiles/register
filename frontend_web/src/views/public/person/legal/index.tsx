@@ -199,7 +199,7 @@ const PersonPrettyResult: React.FC = observer(() => {
                 </Form.Group>
                 <Form.Group as={Col} md={6}>
                   <Form.Label>Secundárias</Form.Label>
-                  {data.otherActivities.map((activity: string, idx: number) => (
+                  {data.otherActivities?.map((activity: string, idx: number) => (
                     <Form.Control readOnly value={activity} key={idx} />
                   ))}
                 </Form.Group>
@@ -260,7 +260,7 @@ const PersonPrettyResult: React.FC = observer(() => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.partners.map((partner: any, idx: number) => (
+                  {data.partners?.map((partner: any, idx: number) => (
                     <tr>
                       <td>{partner.partner}</td>
                       <td>{partner.partnerDoc}</td>

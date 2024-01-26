@@ -16,9 +16,9 @@ export class PersonLegalCtrl {
 
   // PersonLegal
   @observable document = '';
-  //@observable waiting: boolean | null = null;
-  //@observable response: PersonFindByDocumentRespDto | null = null;
-  @observable waiting: boolean | null = false;
+  @observable waiting: boolean | null = null;
+  @observable response: PersonFindByDocumentRespDto | null = null;
+  /*@observable waiting: boolean | null = false;
   @observable response: PersonFindByDocumentRespDto | null = {
     key: '',
     brGovDados: {
@@ -35,7 +35,7 @@ export class PersonLegalCtrl {
         },
       ],
     },
-  };
+  };*/
 
   // Erros
   @observable erroMessages: string[] = [];
