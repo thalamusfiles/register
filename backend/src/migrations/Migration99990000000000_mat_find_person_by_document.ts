@@ -22,7 +22,10 @@ export class Migration20230509115642 extends Migration {
        /**/
        'mainActivity', e."main_activity",
        'mainActivityDescription', activity."value"->>'description',
-       'otherActivities', e."other_activities",
+       'otherActivities', (
+          select array_agg(oa || ' - ' || (activity."value"->>'description')::varchar)
+          from unnest(e."other_activities") oa
+          left join type_key_value activity   on activity.hash_id = hashtextextended( 'br:br_gov_dados:cnae:' || oa , 1)),
        /*status*/
        'sizeCode', pr."size_code",
        'natureCode', pr."nature_code",

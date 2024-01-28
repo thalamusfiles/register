@@ -280,8 +280,8 @@ const PersonPrettyResult: React.FC = observer(() => {
                 <tbody>
                   {data.partners?.map((partner: any, idx: number) => (
                     <tr>
-                      <td>{partner.partner}</td>
                       <td>{partner.partnerDoc}</td>
+                      <td>{partner.partner}</td>
                       <td>{partner.representativeName}</td>
                       <td>{partner.representativeDoc}</td>
                     </tr>
