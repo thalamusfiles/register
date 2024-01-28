@@ -163,7 +163,7 @@ const PersonPrettyResult: React.FC = observer(() => {
       {ctrl.response && (
         <Card>
           <Card.Body>
-            <Form>
+            <Form className="paper">
               <Row>
                 <Form.Group as={Col} md={3}>
                   <Form.Label>Documento:</Form.Label>
@@ -207,18 +207,6 @@ const PersonPrettyResult: React.FC = observer(() => {
               </Row>
               <h5 className="mt-2">Atividades</h5>
               <Row>
-                <Form.Group as={Col} md={6}>
-                  <Form.Label>Principal:</Form.Label>
-                  <Form.Control readOnly value={`${data.mainActivity || ''} - ${data.mainActivityDescription || ''}`} />
-                </Form.Group>
-                <Form.Group as={Col} md={6}>
-                  <Form.Label>Secundárias:</Form.Label>
-                  {data.otherActivities?.map((activity: string, idx: number) => (
-                    <Form.Control readOnly value={activity} key={idx} />
-                  ))}
-                </Form.Group>
-              </Row>
-              <Row>
                 <Form.Group as={Col}>
                   <Form.Label>Situação:</Form.Label>
                   <Form.Control readOnly value={data.status} />
@@ -230,6 +218,18 @@ const PersonPrettyResult: React.FC = observer(() => {
                 <Form.Group as={Col}>
                   <Form.Label>Simples:</Form.Label>
                   <Form.Control readOnly value={data.simples?.is ? 'Sim' : 'Não'} />
+                </Form.Group>
+              </Row>
+              <Row>
+                <Form.Group as={Col} md={6}>
+                  <Form.Label>Principal:</Form.Label>
+                  <Form.Control readOnly value={`${data.mainActivity || ''} - ${data.mainActivityDescription || ''}`} />
+                </Form.Group>
+                <Form.Group as={Col} md={6}>
+                  <Form.Label>Secundárias:</Form.Label>
+                  {data.otherActivities?.map((activity: string, idx: number) => (
+                    <Form.Control readOnly value={activity} key={idx} />
+                  ))}
                 </Form.Group>
               </Row>
               <h5 className="mt-2">Contato</h5>

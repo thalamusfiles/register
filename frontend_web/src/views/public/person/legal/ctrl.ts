@@ -26,7 +26,7 @@ export class PersonLegalCtrl {
       document: '00.000.000/0001-00',
       mainActivity: '123456',
       mainActivityDescription: 'Main Activity',
-      otherActivities: ['123456', '456789', '789123'],
+      otherActivities: ['123456 - Others Activity', '456789 - Others Activity', '789123 - Others Activity'],
       beginDate: 20240101,
       status: 'Inapta',
       naturePerson: true,
