@@ -2,7 +2,6 @@ import { action, makeObservable, observable } from 'mobx';
 import { createContext, useContext } from 'react';
 import { historyReplace } from '../../../commons/route';
 import { PartnerList, PersonDataSource } from '../../../datasources/person';
-import { historyPush } from '../../../commons/route';
 import { notify } from '../../../components/Notification';
 import { type ErrorListRecord } from '../../../commons/types/ErrorListRecord';
 import { exportXLS } from '../../../commons/tools';

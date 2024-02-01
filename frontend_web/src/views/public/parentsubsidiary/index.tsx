@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { Alert, Button, ButtonGroup, Col, Container, Form, InputGroup, Row, Table } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useI18N } from '../../../commons/i18';
 import { ParentSubsidiaryCtrl, ParentSubsidiaryProvider, usePersonPartnerStore } from './ctrl';
 import { Helmet } from 'react-helmet';
