@@ -7,6 +7,7 @@ export type PersonFindByDocumentRespDto = {
   brGovDados: Record<string, string | number | Array<string> | any>;
 };
 export type PartnerList = Array<any>;
+export type Subsidiary = Array<any>;
 
 interface PersonDataSourceI {
   // Busca o registro da pessoa jurídica pelo identificador do documento
@@ -19,6 +20,9 @@ interface PersonDataSourceI {
 
   // Busca o registro da pessoa física pelo identificador do documento
   findNaturalRandom(): Promise<AxiosResponse<PartnerList>>;
+
+  // Busca filiais a partir do documento da matriz
+  findSubsidiaryByParentDocument(document: string): Promise<AxiosResponse<Subsidiary>>;
 }
 
 export class PersonDataSource implements PersonDataSourceI {
@@ -39,5 +43,11 @@ export class PersonDataSource implements PersonDataSourceI {
 
   async findNaturalRandom(): Promise<AxiosResponse<PartnerList>> {
     return await Apis.ApiPerson.get(`${Endpoints.ePersonNaturalRandom}`);
+  }
+
+  async findSubsidiaryByParentDocument(document: string): Promise<AxiosResponse<PartnerList>> {
+    return await Apis.ApiPerson.get(`${Endpoints.ePersonSubsidiaries}`, {
+      params: { document },
+    });
   }
 }

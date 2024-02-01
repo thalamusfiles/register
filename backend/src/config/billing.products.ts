@@ -10,6 +10,7 @@ const productsNames = {
   PersonFindLegalByDocument: 'register.person.findByZipcode',
   PersonFindLegalByRandom: 'register.person.findLegalByRandom',
   PersonFindNaturalByDocument: 'register.person.findNaturalByDocument',
+  PersonFindSubsidiaryByParentDocument: 'register.person.findSubsidiaryByParentDocument',
   PersonFindNaturalByRandom: 'register.person.findNaturalByRandom',
   TypeKeyValueFindBRCNAES: 'register.typeKeyValue.findBRCNAES',
   RelEstabTotalByMonthAndState: 'register.relEstablishment.totalByMonthAndState',

@@ -9,6 +9,7 @@ import { PersonLegalCtrl, PersonLegalProvider, usePersonLegalStore } from './ctr
 import { Helmet } from 'react-helmet';
 import SpinnerLoader from '../../../../components/Loader';
 import { brGovStatusCodeActive } from '../../../../commons/consts';
+import { Link } from 'react-router-dom';
 
 const ctrl = new PersonLegalCtrl();
 const PersonLegalPage: React.FC = () => {
@@ -18,14 +19,10 @@ const PersonLegalPage: React.FC = () => {
   ctrl.__ = __;
 
   useEffect(() => {
-    if (ctrl.document !== document) {
-      ctrl.handleDocument({ target: { value: document || '' } });
-      if (ctrl.document) {
-        ctrl.findDocument();
-      }
+    if (ctrl.document?.replace(/[^\d]/g,'') !== (document || '')) {
+      ctrl.handleDocumentAndFind(document);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ctrl]);
+  }, [document]);
 
   return (
     <PersonLegalProvider value={ctrl}>
@@ -279,8 +276,10 @@ const PersonPrettyResult: React.FC = observer(() => {
                 </thead>
                 <tbody>
                   {data.partners?.map((partner: any, idx: number) => (
-                    <tr>
-                      <td>{partner.partnerDoc}</td>
+                    <tr key={idx}>
+                      <td>
+                        <PartnerDocLink doc={partner.partnerDoc} />
+                      </td>
                       <td>{partner.partner}</td>
                       <td>{partner.representativeName}</td>
                       <td>{partner.representativeDoc}</td>
@@ -295,6 +294,17 @@ const PersonPrettyResult: React.FC = observer(() => {
     </>
   );
 });
+
+const PartnerDocLink: React.FC<{ doc: string }> = ({ doc }: any) => {
+  if (('' + doc).replace(/[^\d]/g, '').length === 14) {
+    return (
+      <Link to="#" onClick={() => ctrl.handleDocumentAndFind(doc)}>
+        {doc}
+      </Link>
+    );
+  }
+  return doc;
+};
 
 const ProtectedInfoBadge: React.FC<{ __: Function }> = ({ __ }: any) => {
   return (

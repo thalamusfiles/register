@@ -1,12 +1,16 @@
+import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { RoutesDefinition } from '../../commons/route';
 import { InModal } from '../../components/Modal';
-import AddressPage from './address';
 import Home from './home';
-import PersonPage from './person';
-import RelEstablishmentPage from './rel_establishment';
-import RelTypePage from './rel_type';
 import TokenLoad from './token-load';
+
+//Lazy Loading
+const AddressPage = React.lazy(() => import('./address'));
+const PersonPage = React.lazy(() => import('./person'));
+const RelEstablishmentPage = React.lazy(() => import('./rel_establishment'));
+const RelTypePage = React.lazy(() => import('./rel_type'));
+const ParentSubsidiaryPage = React.lazy(() => import('./parentsubsidiary'));
 
 /**
  * Definições das rotas.
@@ -18,6 +22,7 @@ export const routes: RoutesDefinition = {
   // Apis
   person: { path: '/person', component: PersonPage, index: true },
   addresses: { path: '/addresses', component: AddressPage, index: true },
+  parentsubsidiary: { path: '/parentsubsidiary', component: ParentSubsidiaryPage, index: true },
   // Rels
   rel_establishment: { path: '/rel/establishment', component: RelEstablishmentPage, index: true },
   rel_type: { path: '/rel/type', component: RelTypePage, index: true },

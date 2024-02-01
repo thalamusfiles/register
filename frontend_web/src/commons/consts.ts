@@ -37,6 +37,7 @@ export const IconsDef = {
   contact: 'address-book' as IconName,
   personLegal: 'building' as IconName,
   personNatural: 'user' as IconName,
+  parentSubsidiary: 'sitemap' as IconName,
   partner: 'handshake' as IconName,
   zipcode: 'map-location-dot' as IconName,
   swagger: 'code' as IconName,

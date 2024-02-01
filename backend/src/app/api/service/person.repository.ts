@@ -38,7 +38,7 @@ export class PersonService {
     document = document.replace(/[\/.-]*/g, '');
 
     const isCNPJ = document.length !== 11;
-    document = formatDocumentToSearch(isCNPJ ? 'cnpj' : 'cpf', document);
+    const documentFm = formatDocumentToSearch(isCNPJ ? 'cnpj' : 'cpf', document);
 
     const query = this.knex
       .select('est.extra_key as document')
@@ -53,7 +53,7 @@ export class PersonService {
       .where('part.extra_key', document);
 
     if (isCNPJ) {
-      query.orWhere('part.establishment_hash_id', this.knex.raw(establishmentHashIdWhere(document)));
+      query.orWhere('part.establishment_hash_id', this.knex.raw(establishmentHashIdWhere(documentFm)));
     }
 
     return await query;

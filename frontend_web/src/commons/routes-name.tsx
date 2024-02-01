@@ -7,6 +7,7 @@ export type RoutesName =
   | 'person_legal'
   | 'person_legal_view'
   | 'person_partner'
+  | 'parentsubsidiary'
   | 'contact'
   | 'types'
   | 'addresses'

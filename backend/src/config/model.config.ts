@@ -18,6 +18,7 @@ import { TypeKeyValue } from '../model/TypeKeyValue';
 // Carregar neste ordem para não gerar erro de dependência cíclica
 //import { User } from '../model/User';
 import registerConfig from './register.config';
+import FindSubsidiaries from 'src/model/Materialized/FindSubsidiaries';
 
 const defaultModelConfig = {
   host: 'localhost',
@@ -50,6 +51,7 @@ const modelConfig: MikroOrmModuleSyncOptions = {
     TypeKeyValue,
     // Materialized
     FindPersonByDocument,
+    FindSubsidiaries,
     RelEstablishmentByMonthAndState,
     RelEstablishmentByMonthAndStateCrossTab,
     RelEstablishmentByMonthAndMainActivity,

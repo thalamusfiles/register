@@ -3,7 +3,7 @@ import { createContext, useContext } from 'react';
 import { ErrosAsList, getFormExceptionErrosToObject } from '../../../../commons/error';
 import type { ErrorListRecord } from '../../../../commons//types/ErrorListRecord';
 import { notify } from '../../../../components/Notification';
-import { historyReplace } from '../../../../commons/route';
+import { historyPush } from '../../../../commons/route';
 import { thalamusData } from '../../../../config/thalamus.data';
 import { PersonDataSource } from '../../../../datasources/person';
 import type { PersonFindByDocumentRespDto } from '../../../../datasources/person';
@@ -32,8 +32,14 @@ export class PersonLegalCtrl {
       naturePerson: true,
       partners: [
         {
-          partner: 'Sócio',
-          partnerDoc: 'Documento sócio',
+          partner: 'Sócio 01',
+          partnerDoc: '***58003***',
+          representativeName: 'Responsável',
+          representativeDoc: 'Responsável documento',
+        },
+        {
+          partner: 'Sócio 02',
+          partnerDoc: '12345678/0001-01',
           representativeName: 'Responsável',
           representativeDoc: 'Responsável documento',
         },
@@ -57,8 +63,17 @@ export class PersonLegalCtrl {
   };
 
   @action
+  handleDocumentAndFind = (document: string | undefined) => {
+    this.document = document || '';
+    if (document) {
+      // TODO: ;)
+      setTimeout(this.findDocument, 0);
+    }
+  };
+
+  @action
   findDocument = () => {
-    historyReplace({ document: this.document }, 'person_legal_view');
+    historyPush('person_legal_view', { document: this.document });
     if (this.waiting) return;
 
     this.waiting = true;
@@ -103,7 +118,7 @@ export class PersonLegalCtrl {
         this.response = response?.data;
         this.document = response?.data?.brGovDados?.document as string;
 
-        historyReplace({ document: this.document }, 'person_legal_view');
+        historyPush('person_legal_view', { document: this.document });
       })
       .catch((ex) => {
         this.waiting = false;

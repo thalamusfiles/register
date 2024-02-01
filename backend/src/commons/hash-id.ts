@@ -6,6 +6,7 @@ export function formatDocumentToSearch(type: DocumentTypes, document: string): s
     case 'cnpj':
       const mathces = document.replace(/[\.\/-]/g, '').match(cnpjRegex);
       if (mathces) return `${mathces[1]}/${mathces[2]}-${mathces[3]}`;
+      break;
     case 'cpf':
       return `***${document.substring(3, 9)}**`;
     default:
@@ -15,4 +16,8 @@ export function formatDocumentToSearch(type: DocumentTypes, document: string): s
 
 export function establishmentHashIdWhere(document: string) {
   return `hashtextextended('br:br_gov_dados:${document}', 1)`;
+}
+
+export function establishmentHash(document: string) {
+  return `br:br_gov_dados:${document}`;
 }

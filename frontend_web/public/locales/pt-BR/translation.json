@@ -23,6 +23,7 @@
         "type": "Tipo de empresa",
         "persons_by_address": "Empresas por endereço",
         "person_legal": "Pessoas jurídicas",
+        "parentsubsidiary": "Matriz e Filiais",
         "contact": "Contatos",
         "partners": "Sócios",
         "help": "Ajuda",
@@ -73,7 +74,8 @@
         "table": "Tabela",
         "valid": "Válido",
         "naturePerson": "Pessoa Física",
-        "protectedInfo": "Informação protegida"
+        "protectedInfo": "Informação protegida",
+        "hierarchicalrelationship": "Relação Hierarquica"
     },
     "action": {
         "access": "Acessar",
@@ -85,11 +87,17 @@
     "home": {
         "by_adress": "Buscar por endereço",
         "persons_description": "Registros relacionados a pessoas físicas e jurídicas",
+        "parentsubsidiary_description": "Relação hierarquica entre empresa matriz e filiais.",
         "address_description": "Registros relacionados a estabelecimentos",
         "person_legal_description": "Consulte informações sobre a pessoa jurídica por meio de seu documento de registro (CNPJ).",
         "contact_description": "Consulte contato de empresas, telefone, e-mail e fax das pessoas jurídicas de determinada localidade e tipo de negócio (CNAES, Natureza...).",
         "partner_description": "Consulte informações sobre o sócio da empresa por meio seu documento de registro (CPF/CNPJ).",
         "establishments_description": "Consulte a lista de empresas localizadas em determinado endereço."
+    },
+    "parentsubsidiary": {
+        "legal.title": "Busca empresas filiais",
+        "legal.description": "Consulte a relação hierarquica entre empresa matriz e suas filiais por meio de seu documento de registro (CNPJ).",
+        "legal.meta": "Descubra a relação hierarquica entre empresa matriz e suas filiais por meio de seu documento de registro (CNPJ)."
     },
     "person": {
         "legal.title": "Busca por pessoas jurídicas",

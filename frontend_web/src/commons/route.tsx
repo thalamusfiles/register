@@ -69,6 +69,9 @@ export function getLinkTo(owner: RoutesName | string | number, options: any = {}
     case 'rel_type_tt_activity':
       push = '/public/rel/type/total_month_activity';
       break;
+    case 'parentsubsidiary':
+      push = '/public/parentsubsidiary';
+      break;
     default:
       push = owner as string;
       break;

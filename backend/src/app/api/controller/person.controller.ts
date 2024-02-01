@@ -1,5 +1,5 @@
 import { Controller, Get, Logger, Query, Request, UseGuards, UsePipes } from '@nestjs/common';
-import { FindCompanyDto } from './dto/person.dto';
+import { FindCompanyDto, FindSubsidiaryDto } from './dto/person.dto';
 import { RegisterValidationPipe } from '../../../commons/validation.pipe';
 import { ApiOperation } from '@nestjs/swagger';
 import { FindPersonByDocumentService } from '../service/findpersonbydocument.repository';
@@ -8,13 +8,18 @@ import productsNames from '../../../config/billing.products';
 import { BaseController } from './base.controller';
 import { AccessGuard } from 'src/app/auth/passaport/access.guard';
 import { RequestInfo } from 'src/commons/request-info';
+import { FindSubsidiariesService } from '../service/findsubsidiaries.repository';
 
 @UseGuards(AccessGuard)
 @Controller('api/person')
 export class PersonController extends BaseController {
   protected readonly logger = new Logger(PersonController.name);
 
-  constructor(private readonly findPersonByDocumentService: FindPersonByDocumentService, private readonly personService: PersonService) {
+  constructor(
+    private readonly findPersonByDocumentService: FindPersonByDocumentService,
+    private readonly personService: PersonService,
+    private readonly findSubsidiariesService: FindSubsidiariesService,
+  ) {
     super();
 
     this.logger.log('Starting');
@@ -70,5 +75,23 @@ export class PersonController extends BaseController {
     const resp = this.personService.findPartnerRandom();
 
     return this.logBeforeReturn(resp, `Find Natural By Random`, { product: productsNames.PersonFindNaturalByRandom }, user);
+  }
+
+  /**
+   * Busca filiais a partir do documento da matriz
+   */
+  @ApiOperation({ tags: ['Person'], summary: 'Coletar registro de sócio da empresa' })
+  @Get('/matrizsubsidiary/subsidiaries')
+  @UsePipes(new RegisterValidationPipe())
+  async findSubsidiaryByParentDocument(@Query() { document }: FindSubsidiaryDto, @Request() request?: RequestInfo): Promise<any> {
+    const user = request.user?.sub || null;
+    const resp = this.findSubsidiariesService.findSubsidiaryByParentDocument(document);
+
+    return this.logBeforeReturn(
+      resp,
+      `Find Subsidiary By Parent Document`,
+      { product: productsNames.PersonFindSubsidiaryByParentDocument, params: { document } },
+      user,
+    );
   }
 }
