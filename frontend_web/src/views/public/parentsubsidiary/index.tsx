@@ -149,6 +149,7 @@ const PartnerPrettyResult: React.FC = observer(() => {
       <Table className={classNames({ blur: ctrl.waiting })} striped responsive>
         <thead>
           <tr>
+            <th style={{ width: '5%' }}>Nível</th>
             <th>Matriz</th>
             <th>Filial Doc</th>
             <th>Filial</th>
@@ -170,6 +171,7 @@ const PartnerPrettyResult: React.FC = observer(() => {
           {ctrl.response &&
             ctrl.response.map((resp, idx) => (
               <tr key={idx}>
+                <td className="text-nowrap">{resp._pag}</td>
                 <td>{resp.parentDoc}</td>
                 <td>{resp.subsidiaryDoc}</td>
                 <td>{resp.subsidiary}</td>

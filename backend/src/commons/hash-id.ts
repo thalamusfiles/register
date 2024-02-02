@@ -1,7 +1,7 @@
 const cnpjRegex = /(\d{7,8})(\d{4})(\d{2})/;
 
 type DocumentTypes = 'cnpj' | 'cpf';
-export function formatDocumentToSearch(type: DocumentTypes, document: string): string {
+export function formatDocumentToSearch(type: DocumentTypes, document: string): string | null {
   switch (type) {
     case 'cnpj':
       const mathces = document.replace(/[\.\/-]/g, '').match(cnpjRegex);

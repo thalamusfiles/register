@@ -7,6 +7,7 @@ import { type ErrorListRecord } from '../../../commons/types/ErrorListRecord';
 import { exportXLS } from '../../../commons/tools';
 import { ErrosAsList, getFormExceptionErrosToObject } from '../../../commons/error';
 import { isCPFSize } from '../../../commons/validators';
+import { formatDocumentToSearch } from '../../../commons/formatters';
 
 export class ParentSubsidiaryCtrl {
   constructor() {
@@ -50,7 +51,7 @@ export class ParentSubsidiaryCtrl {
       .findSubsidiaryByParentDocument(this.document!)
       .then((response) => {
         this.waiting = false;
-        this.response = response?.data;
+        this.response = this.formatTree(response?.data);
       })
       .catch((ex) => {
         this.waiting = false;
@@ -61,6 +62,50 @@ export class ParentSubsidiaryCtrl {
 
         this.notifyExeption(ex);
       });
+  };
+
+  formatTree = (response: PartnerList) => {
+    const parentGrouped = response.reduce((prev, curr) => {
+      // Formata os documentos
+      curr.parentDoc = formatDocumentToSearch(null, curr.parentDoc);
+
+      // Inicializa o objeto da matriz caso não exista
+      if (!prev[curr.parentDoc]) {
+        prev[curr.parentDoc] = { childs: [] };
+      }
+      // Inicializa o objeto da subsidiaria caso não exista
+      if (!prev[curr.subsidiaryDoc]) {
+        prev[curr.subsidiaryDoc] = curr;
+      }
+
+      curr.childs = prev[curr.subsidiaryDoc].childs || [];
+      prev[curr.subsidiaryDoc] = curr;
+
+      prev[curr.parentDoc].childs.push(curr);
+      return prev;
+    }, {});
+
+    const formated = [] as any[];
+    const ungroup = (itens: any[], level: number = 1) => {
+      for (const item of itens) {
+        //Previne referência cíclica
+        if (item._processed) {
+          item.childs = [];
+          continue;
+        }
+
+        formated.push(item);
+
+        item._level = level;
+        item._pag = ' -'.repeat(level - 1) + '>';
+        item._processed = true;
+
+        ungroup(item.childs, ++level);
+      }
+    };
+
+    ungroup(parentGrouped[''].childs);
+    return formated;
   };
 
   __!: Function;
