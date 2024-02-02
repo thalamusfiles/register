@@ -39,7 +39,7 @@ export const formatCurrency = (number: string | number /*, decimals: number | nu
 type DocumentTypes = 'cnpj' | 'cpf';
 const cnpjRegex = /(\d{7,8})(\d{4})(\d{2})/;
 export function formatDocumentToSearch(type: DocumentTypes | null, document: string): string {
-  document = document.replace(/[\.\/-]/g, '');
+  document = document.replace(/[./-]/g, '');
   if (!type) {
     type = document.length === 14 ? 'cnpj' : null;
   }

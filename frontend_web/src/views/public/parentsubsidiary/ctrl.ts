@@ -1,13 +1,22 @@
 import { action, makeObservable, observable } from 'mobx';
 import { createContext, useContext } from 'react';
 import { historyReplace } from '../../../commons/route';
-import { PartnerList, PersonDataSource } from '../../../datasources/person';
+import { PersonDataSource, Subsidiaries, SubsidiaryByParent } from '../../../datasources/person';
 import { notify } from '../../../components/Notification';
 import { type ErrorListRecord } from '../../../commons/types/ErrorListRecord';
 import { exportXLS } from '../../../commons/tools';
 import { ErrosAsList, getFormExceptionErrosToObject } from '../../../commons/error';
 import { isCPFSize } from '../../../commons/validators';
 import { formatDocumentToSearch } from '../../../commons/formatters';
+import { Node, Edge } from 'reactflow';
+
+type SubsidiaryByParentInfo = SubsidiaryByParent & {
+  _level: number;
+  _itemIdx: number;
+  _pag: string;
+  _processed: boolean;
+  childs: Array<SubsidiaryByParentInfo>;
+};
 
 export class ParentSubsidiaryCtrl {
   constructor() {
@@ -18,7 +27,9 @@ export class ParentSubsidiaryCtrl {
   // PersonPartner
   @observable document = '';
   @observable waiting: boolean | null = null;
-  @observable response: PartnerList | null = null;
+  @observable response: Array<SubsidiaryByParentInfo> | null = null;
+  @observable nodes: Array<Node> = [];
+  @observable edges: Array<Edge> = [];
 
   // Erros
   @observable erroMessages: string[] = [];
@@ -51,7 +62,13 @@ export class ParentSubsidiaryCtrl {
       .findSubsidiaryByParentDocument(this.document!)
       .then((response) => {
         this.waiting = false;
-        this.response = this.formatTree(response?.data);
+
+        const itens = this.formatTree(response?.data);
+        const { nodes, edges } = this.formateNodesAndEdges(itens);
+
+        this.response = itens;
+        this.nodes = nodes;
+        this.edges = edges;
       })
       .catch((ex) => {
         this.waiting = false;
@@ -64,8 +81,8 @@ export class ParentSubsidiaryCtrl {
       });
   };
 
-  formatTree = (response: PartnerList) => {
-    const parentGrouped = response.reduce((prev, curr) => {
+  formatTree = (response: Subsidiaries) => {
+    const parentGrouped = response.reduce((prev: any, curr: any) => {
       // Formata os documentos
       curr.parentDoc = formatDocumentToSearch(null, curr.parentDoc);
 
@@ -85,8 +102,10 @@ export class ParentSubsidiaryCtrl {
       return prev;
     }, {});
 
-    const formated = [] as any[];
-    const ungroup = (itens: any[], level: number = 1) => {
+    const formated: Array<SubsidiaryByParentInfo> = [];
+
+    const ungroup = (itens: SubsidiaryByParentInfo[], level: number = 1) => {
+      let itemIdx = 0;
       for (const item of itens) {
         //Previne referência cíclica
         if (item._processed) {
@@ -96,6 +115,7 @@ export class ParentSubsidiaryCtrl {
 
         formated.push(item);
 
+        item._itemIdx = itemIdx++;
         item._level = level;
         item._pag = ' -'.repeat(level - 1) + '>';
         item._processed = true;
@@ -106,6 +126,39 @@ export class ParentSubsidiaryCtrl {
 
     ungroup(parentGrouped[''].childs);
     return formated;
+  };
+
+  formateNodesAndEdges = (itens: Array<SubsidiaryByParentInfo>) => {
+    const nodes: Array<Node> = [];
+    const edges: Array<Edge> = [];
+
+    for (const item of itens) {
+      const node: Node = {
+        //
+        id: '' + item.subsidiaryHashId,
+        data: { label: `${item.subsidiary || ''}: ${item.subsidiaryDoc}` },
+        position: { x: item._itemIdx * 200, y: (item._level - 1) * 60 },
+      };
+
+      nodes.push(node);
+
+      for (const child of item.childs) {
+        if (item.subsidiaryHashId === child.subsidiaryHashId) {
+          continue;
+        }
+
+        const edge: Edge = {
+          //
+          id: Math.random().toString(32),
+          source: '' + item.subsidiaryHashId,
+          target: '' + child.subsidiaryHashId,
+        };
+
+        edges.push(edge);
+      }
+    }
+
+    return { nodes, edges };
   };
 
   __!: Function;
