@@ -18,6 +18,9 @@ type SubsidiaryByParentInfo = SubsidiaryByParent & {
   childs: Array<SubsidiaryByParentInfo>;
 };
 
+const NODE_X_STEP = 200;
+const NODE_Y_STEP = 120;
+
 export class ParentSubsidiaryCtrl {
   constructor() {
     // Modifica classe pra ser observável
@@ -105,7 +108,11 @@ export class ParentSubsidiaryCtrl {
     const formated: Array<SubsidiaryByParentInfo> = [];
 
     const ungroup = (itens: SubsidiaryByParentInfo[], level: number = 1) => {
+      if (!itens.length) {
+        return;
+      }
       let itemIdx = 0;
+      const childs = [];
       for (const item of itens) {
         //Previne referência cíclica
         if (item._processed) {
@@ -117,14 +124,16 @@ export class ParentSubsidiaryCtrl {
 
         item._itemIdx = itemIdx++;
         item._level = level;
-        item._pag = ' -'.repeat(level - 1) + '>';
         item._processed = true;
 
-        ungroup(item.childs, ++level);
+        childs.push(...item.childs);
       }
+
+      ungroup(childs, ++level);
     };
 
     ungroup(parentGrouped[''].childs);
+
     return formated;
   };
 
@@ -132,12 +141,31 @@ export class ParentSubsidiaryCtrl {
     const nodes: Array<Node> = [];
     const edges: Array<Edge> = [];
 
+    // Quantidade de itens por linha
+    const rowQtdItens = itens.reduce((prev, curr) => {
+      prev[curr._level] = Math.max(curr._itemIdx + 1, prev[curr._level] || 1);
+      return prev;
+    }, [] as number[]);
+
+    // Maior numéro de colunas nas linhas abaixo da linha.
+    let last = 0;
+    const rowQtdItensMax = [...rowQtdItens]
+      .reverse()
+      .map((value) => (last = Math.max(value, last)))
+      .reverse();
+
     for (const item of itens) {
+      const centerIn = rowQtdItensMax[item._level] - rowQtdItens[item._level];
+      const appendLeft = (centerIn * NODE_X_STEP) / 2;
+
+      const x = item._itemIdx * NODE_X_STEP + appendLeft;
+      const y = (item._level - 1) * NODE_Y_STEP;
+
       const node: Node = {
         //
         id: '' + item.subsidiaryHashId,
         data: { label: `${item.subsidiary || ''}: ${item.subsidiaryDoc}` },
-        position: { x: item._itemIdx * 200, y: (item._level - 1) * 60 },
+        position: { x, y },
       };
 
       nodes.push(node);
