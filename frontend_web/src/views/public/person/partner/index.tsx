@@ -17,8 +17,9 @@ const PartnerPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   ctrl.__ = __;
 
+  const document = searchParams.get('document') as string;
+
   useEffect(() => {
-    const document = searchParams.get('document') as string;
     if (ctrl.document?.replace(/[^\d]/g, '') !== (document || '')) {
       ctrl.handleDocumentAndFind(document);
     }
