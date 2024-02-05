@@ -35,6 +35,7 @@ export class ParentSubsidiaryCtrl {
   @observable edges: Array<Edge> = [];
 
   responseData: Array<SubsidiaryByParent> | null = null;
+  nestedSearched: Array<string> = [];
 
   // Erros
   @observable erroMessages: string[] = [];
@@ -56,6 +57,7 @@ export class ParentSubsidiaryCtrl {
     historyReplace({ document: this.document });
 
     this.waiting = true;
+    this.nestedSearched = [];
     this.erroMessages = [];
     this.erros = {};
 
@@ -92,7 +94,7 @@ export class ParentSubsidiaryCtrl {
 
   @action
   findNested = (document: string) => {
-    if (!document) {
+    if (!document || this.nestedSearched.includes(document)) {
       return;
     }
     this.waiting = true;
@@ -101,6 +103,7 @@ export class ParentSubsidiaryCtrl {
 
     new PersonDataSource().findCorporateCompanyByParentDocument(document).then((response) => {
       this.waiting = false;
+      this.nestedSearched.push(document);
 
       // Filtra a própria empresa utilizada na busca
       const responseData = response?.data.filter((line) => line.parentDoc);
@@ -142,12 +145,12 @@ export class ParentSubsidiaryCtrl {
     }, {});
 
     const formated: Array<SubsidiaryByParentInfo> = [];
-    const ungroup = (itens: SubsidiaryByParentInfo[], level: number = 1) => {
+    const ungroup = (itens: SubsidiaryByParentInfo[], level: number = 1, itemIdx: number = 0) => {
       if (!itens.length) {
         return;
       }
-      let itemIdx = 0;
-      const childs = [];
+      //let itemIdx = 0;
+      //const childs = [];
       for (const item of itens) {
         //Previne referência cíclica
         if (item._processed) {
@@ -157,14 +160,15 @@ export class ParentSubsidiaryCtrl {
 
         formated.push(item);
 
-        item._itemIdx = itemIdx++;
+        item._itemIdx = itemIdx;
         item._level = level;
         item._processed = true;
 
-        childs.push(...item.childs);
-      }
+        //childs.push(...item.childs);
+        ungroup([...item.childs], level + 1, itemIdx);
 
-      ungroup(childs, ++level);
+        itemIdx += 1 + (item.childs.length ? item.childs.length - 1 : 0);
+      }
     };
 
     if (parentGrouped['']) {
