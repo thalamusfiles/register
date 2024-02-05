@@ -94,7 +94,7 @@ export class ParentSubsidiaryCtrl {
 
   @action
   findNested = (document: string) => {
-    if (!document || this.nestedSearched.includes(document)) {
+    if (!document || document === this.document || this.nestedSearched.includes(document)) {
       return;
     }
     this.waiting = true;

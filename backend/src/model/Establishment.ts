@@ -1,11 +1,21 @@
-import { ArrayType, Entity, Index, ManyToOne, Property } from '@mikro-orm/core';
+import { ArrayType, Entity, Filter, Index, ManyToOne, Property } from '@mikro-orm/core';
 import { City } from './Address/City';
 import { Country } from './Address/Country';
 import { RegisterBaseEntity } from './Base/RegisterBaseEntity';
 import { Person } from './Person';
 import { Resource } from './Resource';
 import { ResourceCountry } from './ResourceCountry';
+import { establishmentHashIdWhere } from 'src/commons/hash-id';
+import { EntityManager } from '@mikro-orm/postgresql';
 
+@Filter({
+  name: 'document',
+  cond: async (args, type, em: EntityManager) => {
+    return {
+      hashId: em.raw(establishmentHashIdWhere(args.document)),
+    };
+  },
+})
 @Entity({ schema: 'public', readonly: true })
 @Index({ properties: ['person'], expression: 'CREATE INDEX establishment_person_hash_id_idx ON "establishment" USING hash (person_hash_id)' })
 @Index({ properties: ['zipcode'], expression: 'CREATE INDEX establishment_zipcode_idx ON establishment USING hash (zipcode)' })

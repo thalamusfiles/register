@@ -4,6 +4,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Knex, PostgreSqlConnection } from '@mikro-orm/postgresql';
 import FindSubsidiaries from '../../../model/Materialized/FindSubsidiaries';
 import { formatDocumentToSearch } from 'src/commons/hash-id';
+import { Establishment } from 'src/model/Establishment';
 
 @Injectable()
 export class FindSubsidiariesService {
@@ -13,6 +14,8 @@ export class FindSubsidiariesService {
   constructor(
     @InjectRepository(FindSubsidiaries)
     private readonly findSubsidiariesRepo: EntityRepository<FindSubsidiaries>,
+    @InjectRepository(Establishment)
+    private readonly establishmentRepo: EntityRepository<Establishment>,
   ) {
     this.logger.log('Starting');
 
@@ -20,7 +23,7 @@ export class FindSubsidiariesService {
   }
 
   /**
-   * Busca registro de empresas
+   * Busca registro de empresas filiais ou que possui sociadade
    */
   async findSubsidiaryByParentDocument(parentDoc: string): Promise<Array<FindSubsidiaries>> {
     this.logger.verbose(`Find Subsidiary By Parent Document ${parentDoc}`);
@@ -28,6 +31,20 @@ export class FindSubsidiariesService {
     parentDoc = formatDocumentToSearch('cnpj', parentDoc);
     if (!parentDoc) throw new NotFoundError('');
 
-    return await this.findSubsidiariesRepo.find({ parentDoc: parentDoc }, { filters: { levels: { levels: 1 } } });
+    const {
+      hashId,
+      person: { hashId: personHashid },
+    } = await this.establishmentRepo.findOne({}, { fields: ['hashId', 'person'], filters: { document: { document: parentDoc } } });
+
+    return await this.findSubsidiariesRepo.find(
+      {},
+      {
+        filters: {
+          //
+          parent: { hashId, personHashid },
+          levels: { levels: 1 },
+        },
+      },
+    );
   }
 }

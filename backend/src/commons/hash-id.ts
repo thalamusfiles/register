@@ -21,3 +21,7 @@ export function establishmentHashIdWhere(document: string) {
 export function establishmentHash(document: string) {
   return `br:br_gov_dados:${document}`;
 }
+
+export function personHash(document: string) {
+  return `br:legal:cnpj:${document}`;
+}

@@ -31,7 +31,7 @@ import FindSubsidiaries from 'src/model/Materialized/FindSubsidiaries';
   imports: [
     //
     JwtModule.register({ secret: authConfig.CLIENT_SECRET }),
-    MikroOrmModule.forFeature([ResourceCountry, State, City, TypeKeyValue, FindPersonByDocument, FindSubsidiaries, Person, Partner, Establishment, Contact]),
+    MikroOrmModule.forFeature([ResourceCountry, State, City, TypeKeyValue, Person, Partner, Establishment, Contact, FindPersonByDocument, FindSubsidiaries]),
   ],
   providers: [
     AccessStrategy,

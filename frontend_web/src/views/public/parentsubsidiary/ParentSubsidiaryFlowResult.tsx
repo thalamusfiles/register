@@ -11,7 +11,7 @@ export const ParentSubsidiaryFlowResult: React.FC = observer(() => {
   const ctrl = usePersonPartnerStore();
 
   return (
-    <div style={{ height: '500px' }}>
+    <div style={{ height: '640px' }}>
       <ReactFlow nodes={ctrl.nodes} edges={ctrl.edges} nodeTypes={nodeTypes}>
         <Background />
         <Controls />
