@@ -44,8 +44,8 @@ const ParentSubsidiaryPage: React.FC = () => {
               <p>{__('home.parentsubsidiary_description')}</p>
 
               <ParentSubsidiaryProvider value={ctrl}>
-                <Helmet title={__('person.corporate.title')}>
-                  <meta name="description" content={__('person.corporate.meta')} />
+                <Helmet title={__('parentsubsidiary.corporate.title')}>
+                  <meta name="description" content={__('parentsubsidiary.corporate.meta')} />
                 </Helmet>
 
                 <Alert variant="secondary" className="p-4">
