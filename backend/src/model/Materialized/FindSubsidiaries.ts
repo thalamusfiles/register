@@ -75,7 +75,7 @@ select
   est.extra_key as "subsidiaryDoc",
   person."name" as "subsidiary",
   est.state_code as "stateCode",
-  city.name as cityName,
+  city.name as "cityName",
   "type"
 from establishment est 
 inner join parent_subsidiary ps on est.hash_id = ps.subsidiary_hash_id
