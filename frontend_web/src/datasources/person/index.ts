@@ -32,7 +32,7 @@ interface PersonDataSourceI {
   findNaturalRandom(): Promise<AxiosResponse<PartnerList>>;
 
   // Busca filiais a partir do documento da matriz
-  findSubsidiaryByParentDocument(document: string): Promise<AxiosResponse<Subsidiaries>>;
+  findCorporateCompanyByParentDocument(document: string): Promise<AxiosResponse<Subsidiaries>>;
 }
 
 export class PersonDataSource implements PersonDataSourceI {
@@ -55,8 +55,8 @@ export class PersonDataSource implements PersonDataSourceI {
     return await Apis.ApiPerson.get(`${Endpoints.ePersonNaturalRandom}`);
   }
 
-  async findSubsidiaryByParentDocument(document: string): Promise<AxiosResponse<PartnerList>> {
-    return await Apis.ApiPerson.get(`${Endpoints.ePersonSubsidiaries}`, {
+  async findCorporateCompanyByParentDocument(document: string): Promise<AxiosResponse<PartnerList>> {
+    return await Apis.ApiPerson.get(`${Endpoints.ePersonCorporateCompany}`, {
       params: { document },
     });
   }

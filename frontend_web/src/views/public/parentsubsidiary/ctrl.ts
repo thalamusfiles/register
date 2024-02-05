@@ -18,8 +18,8 @@ type SubsidiaryByParentInfo = SubsidiaryByParent & {
   childs: Array<SubsidiaryByParentInfo>;
 };
 
-const NODE_X_STEP = 200;
-const NODE_Y_STEP = 120;
+const NODE_X_STEP = 190;
+const NODE_Y_STEP = 150;
 
 export class ParentSubsidiaryCtrl {
   constructor() {
@@ -33,6 +33,8 @@ export class ParentSubsidiaryCtrl {
   @observable response: Array<SubsidiaryByParentInfo> | null = null;
   @observable nodes: Array<Node> = [];
   @observable edges: Array<Edge> = [];
+
+  responseData: Array<SubsidiaryByParent> | null = null;
 
   // Erros
   @observable erroMessages: string[] = [];
@@ -62,11 +64,15 @@ export class ParentSubsidiaryCtrl {
     }
 
     new PersonDataSource()
-      .findSubsidiaryByParentDocument(this.document!)
+      .findCorporateCompanyByParentDocument(this.document!)
       .then((response) => {
         this.waiting = false;
 
-        const itens = this.formatTree(response?.data);
+        // Salva o retorno para uso posterior
+        this.responseData = response?.data;
+
+        // Identifica relações entre os itens
+        const itens = this.makeRelations(this.responseData);
         const { nodes, edges } = this.formateNodesAndEdges(itens);
 
         this.response = itens;
@@ -84,8 +90,38 @@ export class ParentSubsidiaryCtrl {
       });
   };
 
-  formatTree = (response: Subsidiaries) => {
-    const parentGrouped = response.reduce((prev: any, curr: any) => {
+  @action
+  findNested = (document: string) => {
+    if (!document) {
+      return;
+    }
+    this.waiting = true;
+    this.erroMessages = [];
+    this.erros = {};
+
+    new PersonDataSource().findCorporateCompanyByParentDocument(document).then((response) => {
+      this.waiting = false;
+
+      // Filtra a própria empresa utilizada na busca
+      const responseData = response?.data.filter((line) => line.parentDoc);
+
+      // Concatena com a lista anterior
+      this.responseData = this.responseData!.concat(responseData);
+
+      // Identifica relações entre os itens
+      const itens = this.makeRelations(this.responseData);
+      const { nodes, edges } = this.formateNodesAndEdges(itens);
+
+      this.response = itens;
+      this.nodes = nodes;
+      this.edges = edges;
+    });
+  };
+
+  makeRelations = (responseData: Subsidiaries) => {
+    responseData = JSON.parse(JSON.stringify(responseData));
+
+    const parentGrouped = responseData.reduce((prev: any, curr: any) => {
       // Formata os documentos
       curr.parentDoc = formatDocumentToSearch(null, curr.parentDoc);
 
@@ -106,7 +142,6 @@ export class ParentSubsidiaryCtrl {
     }, {});
 
     const formated: Array<SubsidiaryByParentInfo> = [];
-
     const ungroup = (itens: SubsidiaryByParentInfo[], level: number = 1) => {
       if (!itens.length) {
         return;
@@ -132,7 +167,9 @@ export class ParentSubsidiaryCtrl {
       ungroup(childs, ++level);
     };
 
-    ungroup(parentGrouped[''].childs);
+    if (parentGrouped['']) {
+      ungroup(parentGrouped[''].childs);
+    }
 
     return formated;
   };
@@ -164,7 +201,11 @@ export class ParentSubsidiaryCtrl {
       const node: Node = {
         //
         id: '' + item.subsidiaryHashId,
-        data: { label: `${item.subsidiary || ''}: ${item.subsidiaryDoc}` },
+        type: 'company',
+        data: {
+          ...item,
+          label: `${item.subsidiary || ''}: ${item.subsidiaryDoc}`,
+        },
         position: { x, y },
       };
 

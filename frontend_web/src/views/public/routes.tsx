@@ -22,7 +22,7 @@ export const routes: RoutesDefinition = {
   // Apis
   person: { path: '/person', component: PersonPage, index: true },
   addresses: { path: '/addresses', component: AddressPage, index: true },
-  parentsubsidiary: { path: '/parentsubsidiary', component: ParentSubsidiaryPage, index: true },
+  parentsubsidiary: { path: '/parentsubsidiary/corporatecompany', component: ParentSubsidiaryPage, index: true },
   // Rels
   rel_establishment: { path: '/rel/establishment', component: RelEstablishmentPage, index: true },
   rel_type: { path: '/rel/type', component: RelTypePage, index: true },

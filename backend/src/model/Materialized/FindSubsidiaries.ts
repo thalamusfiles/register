@@ -1,11 +1,17 @@
-import { Entity, Property } from '@mikro-orm/core';
+import { Dictionary, Entity, Filter, Property } from '@mikro-orm/core';
 import { EntityManager } from '@mikro-orm/postgresql';
 import { establishmentHash } from '../../commons/hash-id';
 
 @Entity({
   readonly: true,
   expression: (em: EntityManager, where: any, options) => {
-    return em.execute(em.getKnex().raw(FindSubsidiariesQuery, { parentHash: establishmentHash(where.parentDoc) }));
+    return em.execute(
+      em.getKnex().raw(FindSubsidiariesQuery, {
+        //
+        parentHash: establishmentHash(where.parentDoc),
+        levels: (options.filters as Dictionary).levels.levels,
+      }),
+    );
   },
 })
 export default class FindSubsidiaries {
@@ -31,6 +37,7 @@ export default class FindSubsidiaries {
 const FindSubsidiariesQuery = `
   WITH RECURSIVE parent_subsidiary AS (
     select 
+      1 as level,
       est.hash_id as subsidiary_hash_id,
       est.extra_key as subsidiary_doc, 
       ''::varchar as parent_doc
@@ -38,12 +45,13 @@ const FindSubsidiariesQuery = `
     where est.hash_id = hashtextextended(:parentHash, 1)
   union
     select 
+      ps.level + 1,
       part.establishment_hash_id,
       (select est.extra_key from establishment est where est.hash_id = part.establishment_hash_id limit 1),
       part.partner_doc
-    from partner part
-    cross join parent_subsidiary ps
-    where part.extra_key = regexp_replace(ps.subsidiary_doc,'[^[:digit:]]','','g')
+    from parent_subsidiary ps
+    inner join partner part on part.extra_key = regexp_replace(ps.subsidiary_doc,'[^[:digit:]]','','g')
+    where ps.level = :levels
   )
   select 
     parent_doc as "parentDoc",

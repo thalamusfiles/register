@@ -30,7 +30,7 @@ export class PersonService {
   }
 
   /**
-   * Busca registro de sócios
+   * Busca registro de sócios da empresa ou de quem ela é sócio
    */
   async findPartnerByDocument(document: string): Promise<any> {
     this.logger.verbose('findPartnerByDocument');

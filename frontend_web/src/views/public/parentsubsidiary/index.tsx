@@ -44,13 +44,13 @@ const ParentSubsidiaryPage: React.FC = () => {
               <p>{__('home.parentsubsidiary_description')}</p>
 
               <ParentSubsidiaryProvider value={ctrl}>
-                <Helmet title={__('person.legal.title')}>
-                  <meta name="description" content={__('person.legal.meta')} />
+                <Helmet title={__('person.corporate.title')}>
+                  <meta name="description" content={__('person.corporate.meta')} />
                 </Helmet>
 
                 <Alert variant="secondary" className="p-4">
-                  <h2>{__('parentsubsidiary.legal.title')}</h2>
-                  <p>{__('parentsubsidiary.legal.description')}</p>
+                  <h2>{__('parentsubsidiary.corporate.title')}</h2>
+                  <p>{__('parentsubsidiary.corporate.description')}</p>
 
                   <ParentSubsidiaryForm />
                 </Alert>

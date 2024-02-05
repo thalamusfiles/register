@@ -28,6 +28,6 @@ export class FindSubsidiariesService {
     parentDoc = formatDocumentToSearch('cnpj', parentDoc);
     if (!parentDoc) throw new NotFoundError('');
 
-    return await this.findSubsidiariesRepo.find({ parentDoc: parentDoc });
+    return await this.findSubsidiariesRepo.find({ parentDoc: parentDoc }, { filters: { levels: { levels: 1 } } });
   }
 }

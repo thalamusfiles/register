@@ -8,6 +8,7 @@ import { type ErrorListRecord } from '../../../../commons/types/ErrorListRecord'
 import { exportXLS } from '../../../../commons/tools';
 import { ErrosAsList, getFormExceptionErrosToObject } from '../../../../commons/error';
 import { isCPFSize } from '../../../../commons/validators';
+import { AxiosResponse } from 'axios';
 
 export class PersonPartnerCtrl {
   constructor() {
@@ -19,6 +20,8 @@ export class PersonPartnerCtrl {
   @observable document = '';
   @observable waiting: boolean | null = null;
   @observable response: PartnerList | null = null;
+  @observable partners: PartnerList | null = null;
+  @observable partnersOf: PartnerList | null = null;
 
   // Erros
   @observable erroMessages: string[] = [];
@@ -36,8 +39,17 @@ export class PersonPartnerCtrl {
   };
 
   @action
+  handleDocumentAndFind = (document: string | undefined) => {
+    this.document = document || '';
+    if (document) {
+      // TODO: ;)
+      setTimeout(this.findDocument, 0);
+    }
+  };
+
+  @action
   findDocument = () => {
-    historyReplace({ document: this.document });
+    historyPush('person_partner', { document: this.document });
 
     this.waiting = true;
     this.erroMessages = [];
@@ -51,7 +63,7 @@ export class PersonPartnerCtrl {
       .findNaturalByDocument(this.document!)
       .then((response) => {
         this.waiting = false;
-        this.response = response?.data;
+        this.groupByMemberType(response);
       })
       .catch((ex) => {
         this.waiting = false;
@@ -75,10 +87,10 @@ export class PersonPartnerCtrl {
       .findNaturalRandom()
       .then((response) => {
         this.waiting = false;
-        this.response = response?.data;
+        this.groupByMemberType(response);
         this.document = response?.data[0]?.partner_doc as string;
 
-        historyReplace({ document: this.document });
+        historyPush('person_partner', { document: this.document });
       })
       .catch((ex) => {
         this.waiting = false;
@@ -86,6 +98,20 @@ export class PersonPartnerCtrl {
 
         this.notifyExeption(ex);
       });
+  };
+
+  @action
+  groupByMemberType = (response: AxiosResponse<PartnerList>) => {
+    this.response = response?.data;
+    this.partners = [];
+    this.partnersOf = [];
+    for (const line of response?.data) {
+      if (line.document?.replace(/[./-]/g, '') === this.document?.replace(/[./-]/g, '')) {
+        this.partners.push(line);
+      } else {
+        this.partnersOf.push(line);
+      }
+    }
   };
 
   __!: Function;

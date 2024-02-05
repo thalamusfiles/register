@@ -81,16 +81,16 @@ export class PersonController extends BaseController {
    * Busca filiais a partir do documento da matriz
    */
   @ApiOperation({ tags: ['Person'], summary: 'Coletar registro de sócio da empresa' })
-  @Get('/matrizsubsidiary/subsidiaries')
+  @Get('/matrizsubsidiary/corporatecompany')
   @UsePipes(new RegisterValidationPipe())
-  async findSubsidiaryByParentDocument(@Query() { document }: FindSubsidiaryDto, @Request() request?: RequestInfo): Promise<any> {
+  async findCorporateCompanyByParentDocument(@Query() { document }: FindSubsidiaryDto, @Request() request?: RequestInfo): Promise<any> {
     const user = request.user?.sub || null;
     const resp = this.findSubsidiariesService.findSubsidiaryByParentDocument(document);
 
     return this.logBeforeReturn(
       resp,
       `Find Subsidiary By Parent Document`,
-      { product: productsNames.PersonFindSubsidiaryByParentDocument, params: { document } },
+      { product: productsNames.PersonFindCorporateCompanyByParentDocument, params: { document } },
       user,
     );
   }

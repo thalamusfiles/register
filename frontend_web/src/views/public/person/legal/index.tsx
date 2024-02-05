@@ -19,7 +19,7 @@ const PersonLegalPage: React.FC = () => {
   ctrl.__ = __;
 
   useEffect(() => {
-    if (ctrl.document?.replace(/[^\d]/g,'') !== (document || '')) {
+    if (ctrl.document?.replace(/[^\d]/g, '') !== (document || '')) {
       ctrl.handleDocumentAndFind(document);
     }
   }, [document]);

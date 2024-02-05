@@ -19,14 +19,10 @@ const PartnerPage: React.FC = () => {
 
   useEffect(() => {
     const document = searchParams.get('document') as string;
-    if (ctrl.document !== document) {
-      ctrl.handleDocument({ target: { value: document || '' } });
-      if (ctrl.document) {
-        ctrl.findDocument();
-      }
+    if (ctrl.document?.replace(/[^\d]/g, '') !== (document || '')) {
+      ctrl.handleDocumentAndFind(document);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ctrl]);
+  }, [document]);
 
   return (
     <PersonPartnerProvider value={ctrl}>
@@ -140,6 +136,9 @@ const PartnerPrettyResult: React.FC = observer(() => {
       <Table className={classNames({ blur: ctrl.waiting })} striped responsive>
         <thead>
           <tr>
+            <th colSpan={6}>Sócios desta empresa:</th>
+          </tr>
+          <tr>
             <th>Empresa Doc</th>
             <th>Empresa</th>
             <th>Sócio Doc</th>
@@ -154,13 +153,55 @@ const PartnerPrettyResult: React.FC = observer(() => {
               <td colSpan={6}>{__('msg.enter_filter')}</td>
             </tr>
           )}
-          {ctrl.waiting === false && !ctrl.response && (
+          {ctrl.waiting === false && !ctrl.partners && (
             <tr>
               <td colSpan={6}>{__('msg.register_not_found')}</td>
             </tr>
           )}
-          {ctrl.response &&
-            ctrl.response.map((resp, idx) => (
+          {ctrl.partners &&
+            ctrl.partners.map((resp, idx) => (
+              <tr key={idx}>
+                <td>
+                  <Link to="#" onClick={(e) => ctrl.handleOpenPersonLegal(e, resp.document)} style={{ whiteSpace: 'nowrap' }}>
+                    {resp.document}
+                  </Link>
+                </td>
+                <td>{resp.name}</td>
+                <td>{resp.partner_doc}</td>
+                <td>{resp.partner}</td>
+                <td>{resp.representative_doc}</td>
+                <td>{resp.representative_name}</td>
+              </tr>
+            ))}
+        </tbody>
+      </Table>
+      <Table className={classNames({ blur: ctrl.waiting })} striped responsive>
+        <thead>
+          <tr>
+            <th colSpan={6}>É sócio das empresas:</th>
+          </tr>
+          <tr>
+            <th>Empresa Doc</th>
+            <th>Empresa</th>
+            <th>Sócio Doc</th>
+            <th>Sócio</th>
+            <th>Representante Doc</th>
+            <th>Representante</th>
+          </tr>
+        </thead>
+        <tbody>
+          {ctrl.waiting === null && (
+            <tr>
+              <td colSpan={6}>{__('msg.enter_filter')}</td>
+            </tr>
+          )}
+          {ctrl.waiting === false && !ctrl.partnersOf && (
+            <tr>
+              <td colSpan={6}>{__('msg.register_not_found')}</td>
+            </tr>
+          )}
+          {ctrl.partnersOf &&
+            ctrl.partnersOf.map((resp, idx) => (
               <tr key={idx}>
                 <td>
                   <Link to="#" onClick={(e) => ctrl.handleOpenPersonLegal(e, resp.document)} style={{ whiteSpace: 'nowrap' }}>

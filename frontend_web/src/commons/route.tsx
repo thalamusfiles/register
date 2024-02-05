@@ -70,7 +70,7 @@ export function getLinkTo(owner: RoutesName | string | number, options: any = {}
       push = '/public/rel/type/total_month_activity';
       break;
     case 'parentsubsidiary':
-      push = '/public/parentsubsidiary';
+      push = '/public/parentsubsidiary/corporatecompany';
       break;
     default:
       push = owner as string;

@@ -14,7 +14,7 @@ class EndpointsConfigure {
   ePersonLegalRandom = `/legal/random`;
   ePersonNatural = `/natural`;
   ePersonNaturalRandom = `/natural/random`;
-  ePersonSubsidiaries = `/matrizsubsidiary/subsidiaries`;
+  ePersonCorporateCompany = `/matrizsubsidiary/corporatecompany`;
 
   // API Person
   eEstablishment = null as string | null;
