@@ -134,7 +134,16 @@ export class AddressZipcodeCtrl {
   exportXLS = () => {
     if (this.response) {
       this.waiting = true;
-      exportXLS(this.response, 'thalamus_register_contact');
+      exportXLS(
+        this.response.map((line) => ({
+          ...line,
+          other_activities: line.other_activities?.join(', '),
+          phone: line.phone?.join(', '),
+          email: line.email?.join(', '),
+          fax: line.fax?.join(', '),
+        })),
+        'thalamus_register_contact',
+      );
       this.waiting = false;
     }
   };
