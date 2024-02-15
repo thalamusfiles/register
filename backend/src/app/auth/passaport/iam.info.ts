@@ -4,8 +4,8 @@ export class IdTokenInfo {
   iat: number;
   // Expires In
   exp?: number;
-
-  sub: string; /*sub*/
+  // Identificador usuário
+  sub: string;
 
   name: string;
   //Aplication / ClientId
@@ -14,6 +14,6 @@ export class IdTokenInfo {
 
 export class IAMInfo {
   idToken: string;
-  accessToken: string; /*sub*/
+  accessToken: string;
   userinfo: IdTokenInfo;
 }

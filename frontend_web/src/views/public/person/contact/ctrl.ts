@@ -139,7 +139,7 @@ export class ContactCtrl {
     if ([400].includes(status)) return;
     if ([404].includes(status)) {
       notify.warn(this.__(`msg.error_${status}`));
-    } else if ([400, 500].includes(status)) {
+    } else if ([400, 429, 500].includes(status)) {
       notify.danger(this.__(`msg.error_${status}`));
     } else {
       notify.danger(ex.message);

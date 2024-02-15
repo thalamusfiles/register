@@ -8,7 +8,11 @@ import { LimitOffsetDto } from './dto/limitoffset.dto';
 import { BaseController } from './base.controller';
 import { AccessGuard } from 'src/app/auth/passaport/access.guard';
 import { RequestInfo } from 'src/commons/request-info';
+import { UserThrottlerGuard } from 'src/app/auth/user-throttler.guard';
+import { Throttle } from '@nestjs/throttler';
+import { defaultRateTTL, randomRateLimit } from 'src/config/ratelimits';
 
+@UseGuards(UserThrottlerGuard)
 @UseGuards(AccessGuard)
 @Controller('api/contact')
 export class ContactController extends BaseController {
@@ -37,6 +41,7 @@ export class ContactController extends BaseController {
    * Busca registro de empresas
    */
   @ApiOperation({ tags: ['Contact'], summary: 'Coletar registro aleatório de contatos' })
+  @Throttle({ default: { limit: randomRateLimit, ttl: defaultRateTTL } })
   @Get('/random')
   @UsePipes(new RegisterValidationPipe())
   async findByBusinessTypeRandom(@Query() { limit, offset }: LimitOffsetDto, @Request() request?: RequestInfo): Promise<any> {

@@ -9,6 +9,8 @@ import { BaseController } from './base.controller';
 import { AccessGuard } from 'src/app/auth/passaport/access.guard';
 import { RequestInfo } from 'src/commons/request-info';
 import { FindSubsidiariesService } from '../service/findsubsidiaries.repository';
+import { Throttle } from '@nestjs/throttler';
+import { defaultRateTTL, randomRateLimit } from 'src/config/ratelimits';
 
 @UseGuards(AccessGuard)
 @Controller('api/person')
@@ -42,6 +44,7 @@ export class PersonController extends BaseController {
    * Busca registro aleatório de empresas
    */
   @ApiOperation({ tags: ['Person'], summary: 'Coletar registro aleatório de pessoa jurídica' })
+  @Throttle({ default: { limit: randomRateLimit, ttl: defaultRateTTL } })
   @Get('/legal/random')
   @UsePipes(new RegisterValidationPipe())
   async findLegalByRandom(@Request() request?: RequestInfo): Promise<any> {
@@ -68,6 +71,7 @@ export class PersonController extends BaseController {
    * Busca registro aleatório de sócios
    */
   @ApiOperation({ tags: ['Person'], summary: 'Coletar registro aleatório de sócio de empresa' })
+  @Throttle({ default: { limit: randomRateLimit, ttl: defaultRateTTL } })
   @Get('/natural/random')
   @UsePipes(new RegisterValidationPipe())
   async findNaturalByRandom(@Request() request?: RequestInfo): Promise<any> {

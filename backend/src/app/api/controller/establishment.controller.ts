@@ -8,6 +8,8 @@ import { LimitOffsetDto } from './dto/limitoffset.dto';
 import { BaseController } from './base.controller';
 import { AccessGuard } from 'src/app/auth/passaport/access.guard';
 import { RequestInfo } from 'src/commons/request-info';
+import { Throttle } from '@nestjs/throttler';
+import { defaultRateTTL, randomRateLimit } from 'src/config/ratelimits';
 
 @UseGuards(AccessGuard)
 @Controller('api/establishment')
@@ -37,6 +39,7 @@ export class EstablishmentController extends BaseController {
    * Busca registro aleatório de sócios
    */
   @ApiOperation({ tags: ['Establishment'], summary: 'Coletar registro aleatórios estabelecimentos comerciais de determinado zipcode' })
+  @Throttle({ default: { limit: randomRateLimit, ttl: defaultRateTTL } })
   @Get('/zipcode/random')
   @UsePipes(new RegisterValidationPipe())
   async findByZipcodeRandom(@Query() reqQuery?: LimitOffsetDto, @Request() request?: RequestInfo): Promise<any> {

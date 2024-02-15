@@ -49,6 +49,7 @@
     "msg": {
         "error_400": "Requisição incorreta. Verifique os dados informados e tente novamente.",
         "error_404": "Registro não encontrado. Verifique os filtros informados.",
+        "error_429": "Limite diário desta requisição alcançada. Realize login para continuar.",
         "error_500": "Ocorreu um erro inesperado. Aguarde um instante e tente novamente.",
         "enter_filter": "Informe um filtro e click em procurar.",
         "register_not_found": "Registro não encontrado.",
