@@ -36,6 +36,10 @@ export class FindSubsidiariesService {
       person: { hashId: personHashid },
     } = await this.establishmentRepo.findOne({}, { fields: ['hashId', 'person'], filters: { document: { document: parentDoc } } });
 
+    if (!hashId || !personHashid) {
+      return [];
+    }
+
     return await this.findSubsidiariesRepo.find(
       {},
       {

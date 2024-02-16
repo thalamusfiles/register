@@ -11,7 +11,9 @@ import { RequestInfo } from 'src/commons/request-info';
 import { FindSubsidiariesService } from '../service/findsubsidiaries.repository';
 import { Throttle } from '@nestjs/throttler';
 import { defaultRateTTL, randomRateLimit } from 'src/config/ratelimits';
+import { UserThrottlerGuard } from 'src/app/auth/user-throttler.guard';
 
+@UseGuards(UserThrottlerGuard)
 @UseGuards(AccessGuard)
 @Controller('api/person')
 export class PersonController extends BaseController {

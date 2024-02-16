@@ -10,7 +10,9 @@ import { AccessGuard } from 'src/app/auth/passaport/access.guard';
 import { RequestInfo } from 'src/commons/request-info';
 import { Throttle } from '@nestjs/throttler';
 import { defaultRateTTL, randomRateLimit } from 'src/config/ratelimits';
+import { UserThrottlerGuard } from 'src/app/auth/user-throttler.guard';
 
+@UseGuards(UserThrottlerGuard)
 @UseGuards(AccessGuard)
 @Controller('api/establishment')
 export class EstablishmentController extends BaseController {

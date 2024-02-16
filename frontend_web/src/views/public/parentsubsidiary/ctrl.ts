@@ -68,6 +68,7 @@ export class ParentSubsidiaryCtrl {
     new PersonDataSource()
       .findCorporateCompanyByParentDocument(this.document!)
       .then((response) => {
+        notify.info(this.__(`parentsubsidiary.click.shownested`));
         this.waiting = false;
 
         // Salva o retorno para uso posterior

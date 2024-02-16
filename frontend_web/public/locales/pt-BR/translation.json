@@ -97,7 +97,8 @@
     "parentsubsidiary": {
         "corporate.title": "Busca relações societárias",
         "corporate.description": "Consulte a relação hierarquica entre empresa matriz e suas filiais ou relações societárias por meio de seu documento de registro (CNPJ).",
-        "corporate.meta": "Descubra a relação hierarquica entre empresa matriz e suas filiais ou ou relações societárias por meio de seu documento de registro (CNPJ)."
+        "corporate.meta": "Descubra a relação hierarquica entre empresa matriz e suas filiais ou ou relações societárias por meio de seu documento de registro (CNPJ).",
+        "click.shownested": "Clique na filial para visualizar a próxima relação hierarquica."
     },
     "person": {
         "legal.title": "Busca por pessoas jurídicas",
