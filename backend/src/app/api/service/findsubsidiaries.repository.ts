@@ -31,10 +31,11 @@ export class FindSubsidiariesService {
     parentDoc = formatDocumentToSearch('cnpj', parentDoc);
     if (!parentDoc) throw new NotFoundError('');
 
+    const estab = await this.establishmentRepo.findOne({}, { fields: ['hashId', 'person'], filters: { document: { document: parentDoc } } });
     const {
       hashId,
       person: { hashId: personHashid },
-    } = await this.establishmentRepo.findOne({}, { fields: ['hashId', 'person'], filters: { document: { document: parentDoc } } });
+    } = estab || { person: {} };
 
     if (!hashId || !personHashid) {
       return [];
