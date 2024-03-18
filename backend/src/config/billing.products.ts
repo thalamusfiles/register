@@ -7,7 +7,7 @@ const productsNames = {
   //EstabFindByBusinessTypeRandom: 'register.establishment.findByBusinessTypeRandom', // TODO: Removido
   ContactFind: 'register.contact.find',
   ContactFindRandom: 'register.contact.findRandom',
-  PersonFindLegalByDocument: 'register.person.findByZipcode',
+  PersonFindLegalByDocument: 'register.person.findLegalByDocument',
   PersonFindLegalByRandom: 'register.person.findLegalByRandom',
   PersonFindNaturalByDocument: 'register.person.findNaturalByDocument',
   PersonFindCorporateCompanyByParentDocument: 'register.person.findCorporateCompanyByParentDocument',
