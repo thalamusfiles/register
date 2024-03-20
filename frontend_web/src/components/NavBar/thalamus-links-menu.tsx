@@ -16,16 +16,12 @@ const ThalamusLinksMenu: React.FC = () => {
         </>
       }
     >
-      <ul>
-        {Object.values(thalamusLinks).map((link, idx) => (
-          <li className="text-center" key={idx}>
-            <a className="app_link" href={getLinkTo(link.link)} target="_blank" rel="noreferrer">
-              <span className={'icon ' + link.name.toLocaleLowerCase()}></span>
-              <span>{link.name}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
+      {Object.values(thalamusLinks).map((link, idx) => (
+        <NavDropdown.Item href={getLinkTo(link.link)} key={idx} target="_blank">
+          <span className={'icon ' + link.name.toLocaleLowerCase()}></span>
+          {link.name}
+        </NavDropdown.Item>
+      ))}
     </NavDropdown>
   );
 };
