@@ -60,7 +60,7 @@ export class EstablishmentService {
       .leftJoin(`${this.contTableName} as cont`, `cont.person_hash_id`, `est.person_hash_id`)
       .leftJoin(`${this.partTableName} as part`, `part.establishment_hash_id`, `est.hash_id`)
       .where('est.zipcode', zipcode)
-      .orderBy('pers.name')
+      //.orderBy('pers.name') // Descomentar quando existir index
       .limit(limit)
       .offset(offset);
     return await query;

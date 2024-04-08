@@ -37,6 +37,7 @@ export const ParentSubsidiaryForm: React.FC = observer(() => {
           <InputGroup className="mb-2">
             <InputGroup.Text>{__('label.business_doc')}</InputGroup.Text>
             <Form.Control id="document" value={ctrl.document} onChange={ctrl.handleDocument} isInvalid={!!ctrl.erros?.document} />
+            <Form.Control.Feedback type="valid">{__('label.valid')}</Form.Control.Feedback>
             <Form.Control.Feedback type="invalid">{ctrl.erros?.document?.map(__)}</Form.Control.Feedback>
           </InputGroup>
         </Col>

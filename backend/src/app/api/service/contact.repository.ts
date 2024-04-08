@@ -62,7 +62,7 @@ export class ContactService {
       .leftJoin(`${this.partTableName} as part`, `part.establishment_hash_id`, `est.hash_id`)
       .where('est.city_hash_id', city.hashId)
       .whereIn('est.main_activity', businessType)
-      .orderBy('pers.name')
+      //.orderBy('pers.name') // Descomentar quando existir index
       .limit(limit)
       .offset(offset);
 
