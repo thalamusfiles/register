@@ -2,7 +2,7 @@ class EndpointsConfigure {
   url = null as string | null;
   port = null as string | null;
   base = null as string | null;
-  timeout = 10000;
+  timeout = 20000;
   // Auth
   eAuth = null as string | null;
   eAuthIam = '/iam';
